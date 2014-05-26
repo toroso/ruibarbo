@@ -48,6 +48,7 @@
     <Compile Include="By.cs" />
     <Compile Include="DesktopElement.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="SearchSourceElement.cs" />
     <Compile Include="Mouse.cs" />

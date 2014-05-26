@@ -26,7 +26,9 @@ namespace tungsten.core
 
         public override string ToString()
         {
-            return _predicateExp.ToString();
+            var literalizer = new ExpressionLiteralizer();
+            var sanitized = (Expression<Func<WpfElement, bool>>)literalizer.Visit(_predicateExp);
+            return sanitized.ToString();
         }
     }
 }

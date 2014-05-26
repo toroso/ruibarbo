@@ -11,6 +11,7 @@ namespace tungsten.core
         {
             // TODO: Throw if null
             // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
+            // TODO: Control output verbosity in configuration
             Console.WriteLine("Looking for {0} by <{1}>", parent.GetType().FullName, string.Join("; ", bys.Select(by => by.ToString())));
             return TryFindFirstElement<TElement>(parent, bys);
         }
