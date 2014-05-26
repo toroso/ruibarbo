@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -16,7 +15,7 @@ namespace tungsten.core
             {
                 var windows = GetDispatched(() => _application.Windows.Cast<Window>().ToArray());
                 return windows
-                    .Select(w => new WpfElement(w, Dispatcher)) // TODO: Factory that creates types
+                    .Select(ToBeReplacedByWpfElementFactory)
                     .ToArray();
             }
         }

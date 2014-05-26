@@ -23,5 +23,10 @@ namespace tungsten.core
         {
             return new By(element => element.Name == name);
         }
+
+        public override string ToString()
+        {
+            return _predicateExp.ToString();
+        }
     }
 }

@@ -29,9 +29,9 @@ namespace tungsten.sampletest
             var myApplication = new MyApplication();
             _engine.Start(myApplication);
 
-            var window = _engine.Desktop.FindFirstElement(By.Name("wndMain"));
+            var window = _engine.Desktop.FindFirstElement<WpfWindow>(By.Name("wndMain"));
             Console.WriteLine("Found window, Name: '{0}'", window != null ? window.Name : "<null>");
-            var button = window.FindFirstElement(By.Name("btnClick"));
+            var button = window.FindFirstElement<WpfButton>(By.Name("btnClick"));
             Console.WriteLine("Found button, Name: '{0}'", button != null ? button.Name : "<null>");
             button.Click();
         }

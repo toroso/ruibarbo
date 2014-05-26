@@ -9,9 +9,9 @@ namespace tungsten.core
 {
     public class WpfElement : SearchSourceElement
     {
-        private readonly WeakReference<FrameworkElement> _frameworkElement; // TODO: Weak reference
+        private readonly WeakReference<FrameworkElement> _frameworkElement;
 
-        public WpfElement(FrameworkElement frameworkElement, Dispatcher dispatcher)
+        public WpfElement(Dispatcher dispatcher, FrameworkElement frameworkElement)
             : base(dispatcher)
         {
             _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
@@ -28,7 +28,11 @@ namespace tungsten.core
 
         public Type Class
         {
-            get { return _frameworkElement.GetType(); }
+            get
+            {
+                var strongReference = GetFrameworkElement();
+                return strongReference.GetType();
+            }
         }
 
         public override IEnumerable<WpfElement> Children
@@ -38,7 +42,7 @@ namespace tungsten.core
                 var strongReference = GetFrameworkElement();
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = GetFrameworkElementChildren(strongReference);
-                return frameworkElementChildren.Select(x => new WpfElement(x, Dispatcher)); // TODO: Factory that creates types
+                return frameworkElementChildren.Select(ToBeReplacedByWpfElementFactory);
             }
         }
 
@@ -88,7 +92,7 @@ namespace tungsten.core
 
             // No longer available
             // TODO: Use assertion exception, created by injected factory
-            // TODO: Better message. Perhaps search conditions (By:s).
+            // TODO: Better message. Perhaps search conditions (By:s), including parents' search conditions.
             throw new Exception("Framework element is no longer available");
         }
     }
