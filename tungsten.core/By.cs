@@ -5,16 +5,16 @@ namespace tungsten.core
 {
     public class By
     {
-        private readonly Expression<Func<IWpfElement, bool>> _predicateExp;
-        private readonly Func<IWpfElement, bool> _predicate;
+        private readonly Expression<Func<WpfElement, bool>> _predicateExp;
+        private readonly Func<WpfElement, bool> _predicate;
 
-        private By(Expression<Func<IWpfElement, bool>> predicateExp)
+        private By(Expression<Func<WpfElement, bool>> predicateExp)
         {
             _predicateExp = predicateExp;
             _predicate = predicateExp.Compile();
         }
 
-        public bool Matches(IWpfElement element)
+        public bool Matches(WpfElement element)
         {
             return _predicate(element);
         }

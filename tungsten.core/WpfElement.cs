@@ -7,15 +7,14 @@ using System.Windows.Threading;
 
 namespace tungsten.core
 {
-    public class WpfElement : IWpfElement
+    public class WpfElement : SearchSourceElement
     {
         private readonly FrameworkElement _frameworkElement; // TODO: Weak reference
-        private readonly Dispatcher _dispatcher;
 
         public WpfElement(FrameworkElement frameworkElement, Dispatcher dispatcher)
+            : base(dispatcher)
         {
             _frameworkElement = frameworkElement;
-            _dispatcher = dispatcher;
         }
 
         public string Name
@@ -28,14 +27,13 @@ namespace tungsten.core
             get { return _frameworkElement.GetType(); }
         }
 
-        public IEnumerable<WpfElement> Children
+        public override IEnumerable<WpfElement> Children
         {
             get
             {
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = GetFrameworkElementChildren(_frameworkElement);
-                return frameworkElementChildren.Select(x => new WpfElement(x, _dispatcher));
-                // TODO: Factory that creates types
+                return frameworkElementChildren.Select(x => new WpfElement(x, Dispatcher)); // TODO: Factory that creates types
             }
         }
 
@@ -61,16 +59,6 @@ namespace tungsten.core
             return result;
         }
 
-        public TRet GetDispatched<TRet>(Func<TRet> func)
-        {
-            TRet ret = default(TRet);
-            _dispatcher.Invoke(() =>
-            {
-                ret = func();
-            });
-            return ret;
-        }
-
         public void Click()
         {
             var locationFromWindow = GetDispatched(() => _frameworkElement.TranslatePoint(new Point(0.0, 0.0), null));
@@ -78,14 +66,10 @@ namespace tungsten.core
             var width = GetDispatched(() => _frameworkElement.ActualWidth);
             var height = GetDispatched(() => _frameworkElement.ActualHeight);
 
-            Console.WriteLine("Upper left: [{0}, {1}]", locationFromScreen.X, locationFromScreen.Y);
-            Console.WriteLine("Size: [{0}, {1}]", width, height);
+            int centerX = (int) (locationFromScreen.X + width/2);
+            int centerY = (int) (locationFromScreen.Y + height/2);
 
-            //Move the mouse to the button position
-            int x = (int) (locationFromScreen.X + width/2);
-            int y = (int) (locationFromScreen.Y + height/2);
-
-            Mouse.Click(x, y);
+            Mouse.Click(centerX, centerY);
         }
     }
 }

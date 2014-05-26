@@ -5,35 +5,31 @@ namespace tungsten.core
 {
     public static class WpfElementFindExtensions
     {
-        public static IWpfElement FindFirstElement(this IWpfElement parent, params By[] bys)
+        public static WpfElement FindFirstElement(this SearchSourceElement parent, params By[] bys)
         {
             // TODO: Throw if null
             // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
             return TryFindFirstElement(parent, bys);
         }
 
-        private static IWpfElement TryFindFirstElement(IWpfElement parent, By[] bys)
+        private static WpfElement TryFindFirstElement(SearchSourceElement parent, By[] bys)
         {
             // TODO: Max depth
             // TODO: Make a few attempts
-            // TODO: Enqueue children, not parent -- return WpfElement
-            var breadthFirstQueue = new Queue<IWpfElement>();
-            breadthFirstQueue.Enqueue(parent);
+            var breadthFirstQueue = new Queue<WpfElement>();
+            breadthFirstQueue.EnqueueAll(parent.Children);
 
             while (breadthFirstQueue.Count > 0)
             {
-                IWpfElement current = breadthFirstQueue.Dequeue();
+                WpfElement current = breadthFirstQueue.Dequeue();
                 if (bys.All(by => by.Matches(current)))
                 {
                     return current;
                 }
 
-                var children = current.Children;
-                foreach (WpfElement child in children)
-                {
-                    breadthFirstQueue.Enqueue(child);
-                }
+                breadthFirstQueue.EnqueueAll(current.Children);
             }
+
             return null;
         }
     }
