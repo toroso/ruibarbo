@@ -9,17 +9,21 @@ namespace tungsten.core
 {
     public class WpfElement : SearchSourceElement
     {
-        private readonly FrameworkElement _frameworkElement; // TODO: Weak reference
+        private readonly WeakReference<FrameworkElement> _frameworkElement; // TODO: Weak reference
 
         public WpfElement(FrameworkElement frameworkElement, Dispatcher dispatcher)
             : base(dispatcher)
         {
-            _frameworkElement = frameworkElement;
+            _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
         }
 
         public string Name
         {
-            get { return GetDispatched(() => _frameworkElement.Name); }
+            get
+            {
+                var strongReference = GetFrameworkElement();
+                return GetDispatched(() => strongReference.Name);
+            }
         }
 
         public Type Class
@@ -31,8 +35,9 @@ namespace tungsten.core
         {
             get
             {
+                var strongReference = GetFrameworkElement();
                 // TODO: Retry a few times if none is found
-                var frameworkElementChildren = GetFrameworkElementChildren(_frameworkElement);
+                var frameworkElementChildren = GetFrameworkElementChildren(strongReference);
                 return frameworkElementChildren.Select(x => new WpfElement(x, Dispatcher)); // TODO: Factory that creates types
             }
         }
@@ -61,15 +66,30 @@ namespace tungsten.core
 
         public void Click()
         {
-            var locationFromWindow = GetDispatched(() => _frameworkElement.TranslatePoint(new Point(0.0, 0.0), null));
-            var locationFromScreen = GetDispatched(() => _frameworkElement.PointToScreen(locationFromWindow));
-            var width = GetDispatched(() => _frameworkElement.ActualWidth);
-            var height = GetDispatched(() => _frameworkElement.ActualHeight);
+            var strongReference = GetFrameworkElement();
+            var locationFromWindow = GetDispatched(() => strongReference.TranslatePoint(new Point(0.0, 0.0), null));
+            var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(locationFromWindow));
+            var width = GetDispatched(() => strongReference.ActualWidth);
+            var height = GetDispatched(() => strongReference.ActualHeight);
 
-            int centerX = (int) (locationFromScreen.X + width/2);
-            int centerY = (int) (locationFromScreen.Y + height/2);
+            var centerX = (int) (locationFromScreen.X + width/2);
+            var centerY = (int) (locationFromScreen.Y + height/2);
 
             Mouse.Click(centerX, centerY);
+        }
+
+        private FrameworkElement GetFrameworkElement()
+        {
+            FrameworkElement strongReference;
+            if (_frameworkElement.TryGetTarget(out strongReference))
+            {
+                return strongReference;
+            }
+
+            // No longer available
+            // TODO: Use assertion exception, created by injected factory
+            // TODO: Better message. Perhaps search conditions (By:s).
+            throw new Exception("Framework element is no longer available");
         }
     }
 }
