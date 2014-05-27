@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -16,15 +17,13 @@ namespace tungsten.core.ElementFactory
 
         public WpfElement CreateWpfElement(Dispatcher dispatcher, FrameworkElement element)
         {
-            Type current = element.GetType();
-            while (current != null)
-            {
-                if (_types.ContainsKey(current.FullName))
-                {
-                    return (WpfElement)Activator.CreateInstance(_types[current.FullName], dispatcher, this, element);
-                }
+            var match = element.GetType()
+                .AllTypesInHierarchy()
+                .FirstOrDefault(t => _types.ContainsKey(t.FullName));
 
-                current = current.BaseType;
+            if (match != null)
+            {
+                return (WpfElement)Activator.CreateInstance(_types[match.FullName], dispatcher, this, element);
             }
 
             // TODO: Better error message, display contents of factory

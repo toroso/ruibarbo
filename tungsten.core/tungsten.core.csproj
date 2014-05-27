@@ -60,6 +60,7 @@
     <Compile Include="Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueExtensions.cs" />
+    <Compile Include="TypeExtensions.cs" />
     <Compile Include="WpfButton.cs" />
     <Compile Include="WpfElement.cs" />
     <Compile Include="WpfElementFindExtensions.cs" />
