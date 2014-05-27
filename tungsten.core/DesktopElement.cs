@@ -15,13 +15,13 @@ namespace tungsten.core
             {
                 var windows = GetDispatched(() => _application.Windows.Cast<Window>().ToArray());
                 return windows
-                    .Select(ToBeReplacedByWpfElementFactory)
+                    .Select(CreateWpfElement)
                     .ToArray();
             }
         }
 
-        public DesktopElement(Application application, Dispatcher dispatcher)
-            : base(dispatcher)
+        internal DesktopElement(Dispatcher dispatcher, ElementFactory.ElementFactory elementFactory, Application application)
+            : base(dispatcher, elementFactory)
         {
             _application = application;
         }

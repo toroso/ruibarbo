@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using tungsten.core.ElementFactory;
 
 namespace tungsten.core
 {
@@ -11,8 +12,8 @@ namespace tungsten.core
     {
         private readonly WeakReference<FrameworkElement> _frameworkElement;
 
-        public WpfElement(Dispatcher dispatcher, FrameworkElement frameworkElement)
-            : base(dispatcher)
+        public WpfElement(Dispatcher dispatcher, IElementFactory elementFactory, FrameworkElement frameworkElement)
+            : base(dispatcher, elementFactory)
         {
             _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
         }
@@ -42,7 +43,7 @@ namespace tungsten.core
                 var strongReference = GetFrameworkElement();
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = GetFrameworkElementChildren(strongReference);
-                return frameworkElementChildren.Select(ToBeReplacedByWpfElementFactory);
+                return frameworkElementChildren.Select(CreateWpfElement);
             }
         }
 

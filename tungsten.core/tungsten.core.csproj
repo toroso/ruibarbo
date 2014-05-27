@@ -47,6 +47,12 @@
   <ItemGroup>
     <Compile Include="By.cs" />
     <Compile Include="DesktopElement.cs" />
+    <Compile Include="ElementFactory\ElementFactory.cs" />
+    <Compile Include="ElementFactory\ElementFactoryConfigurator.cs" />
+    <Compile Include="ElementFactory\ElementFactoryForConfigurator.cs" />
+    <Compile Include="ElementFactory\IElementFactory.cs" />
+    <Compile Include="ElementFactory\IElementFactoryConfigurator.cs" />
+    <Compile Include="ElementFactory\IElementFactoryForConfigurator.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Markup;
 using System.Windows.Threading;
+using tungsten.core.ElementFactory;
 
 namespace tungsten.core
 {
     public abstract class SearchSourceElement
     {
         private Dispatcher Dispatcher { get; set; }
+        private IElementFactory ElementFactory { get; set; }
 
-        protected SearchSourceElement(Dispatcher dispatcher)
+        protected SearchSourceElement(Dispatcher dispatcher, IElementFactory elementFactory)
         {
             Dispatcher = dispatcher;
+            ElementFactory = elementFactory;
         }
 
         public abstract IEnumerable<WpfElement> Children { get; }
@@ -27,26 +29,9 @@ namespace tungsten.core
             return ret;
         }
 
-        protected WpfElement ToBeReplacedByWpfElementFactory(FrameworkElement element)
+        protected WpfElement CreateWpfElement(FrameworkElement element)
         {
-            Type current = element.GetType();
-            while (current != null)
-            {
-                switch (current.FullName)
-                {
-                    case "System.Windows.Window":
-                        return new WpfWindow(Dispatcher, element);
-                    case "System.Windows.Controls.Button":
-                        return new WpfButton(Dispatcher, element);
-                    case "System.Windows.FrameworkElement":
-                        return new WpfButton(Dispatcher, element);
-                }
-
-                current = current.BaseType;
-            }
-
-            // TODO: Possibly let the GetFrameworkElementChildren() method return DependencyObjects and select FrameworkElements here. 
-            throw new InvalidOperationException("Factory is broken");
+            return ElementFactory.CreateWpfElement(Dispatcher, element);
         }
     }
 }

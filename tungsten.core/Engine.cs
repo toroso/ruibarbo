@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using tungsten.core.ElementFactory;
 
 namespace tungsten.core
 {
@@ -10,6 +11,7 @@ namespace tungsten.core
     {
         private Thread _uiThread;
         private Dispatcher _dispatcher;
+        private readonly ElementFactory.ElementFactory _elementFactory = new ElementFactory.ElementFactory();
         private readonly List<Exception> _unhandledExceptions = new List<Exception>();
 
         public IEnumerable<Exception> UnhandledExceptions
@@ -25,6 +27,17 @@ namespace tungsten.core
 
         public Engine()
         {
+            ConfigureElementFactory(x =>
+                {
+                    x.For<System.Windows.FrameworkElement>().Create<WpfElement>(); // Fallback
+                    x.For<System.Windows.Window>().Create<WpfWindow>();
+                    x.For<System.Windows.Controls.Button>().Create<WpfButton>();
+                });
+        }
+
+        public void ConfigureElementFactory(Action<IElementFactoryConfigurator> cfgAction)
+        {
+            cfgAction(new ElementFactoryConfigurator(_elementFactory));
         }
 
         public void Start(IApplication application)
@@ -44,7 +57,7 @@ namespace tungsten.core
                         AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
                         SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(_dispatcher));
 
-                        Desktop = new DesktopElement(Application.Current, _dispatcher);
+                        Desktop = new DesktopElement(_dispatcher, _elementFactory, Application.Current);
 
                         //EnsureApplicationResources();
 
