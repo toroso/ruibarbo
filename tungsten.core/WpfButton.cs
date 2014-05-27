@@ -6,8 +6,8 @@ namespace tungsten.core
 {
     public class WpfButton : WpfElement
     {
-        public WpfButton(Dispatcher dispatcher, IElementFactory elementFactory, FrameworkElement frameworkElement)
-            : base(dispatcher, elementFactory, frameworkElement)
+        public WpfButton(Dispatcher dispatcher, IElementFactory elementFactory, SearchSourceElement parent, FrameworkElement frameworkElement)
+            : base(dispatcher, elementFactory, parent, frameworkElement)
         {
         }
     }

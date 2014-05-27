@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using tungsten.core;
 using tungsten.sampleapp;
@@ -30,9 +31,10 @@ namespace tungsten.sampletest
             _engine.Start(myApplication);
 
             var window = _engine.Desktop.FindFirstElement<WpfWindow>(By.Name("wndMain"));
-            Console.WriteLine("Found window, Name: '{0}'", window != null ? window.Name : "<null>");
+            Console.WriteLine("Found window, Element name path: '{0}'; class path: {1}", window.ElementNamePath(), window.ElementClassPath());
             var button = window.FindFirstElement<WpfButton>(By.Name("btnClick"));
-            Console.WriteLine("Found button, Name: '{0}'", button != null ? button.Name : "<null>");
+            Console.WriteLine("Found button, Element name path: '{0}'; class path: {1}", button.ElementNamePath(), button.ElementClassPath());
+            Console.WriteLine("Button, Element name or class path: '{0}'", button.ElementNameOrClassPath());
             button.Click();
         }
     }

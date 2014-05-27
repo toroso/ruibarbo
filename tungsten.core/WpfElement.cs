@@ -12,13 +12,13 @@ namespace tungsten.core
     {
         private readonly WeakReference<FrameworkElement> _frameworkElement;
 
-        public WpfElement(Dispatcher dispatcher, IElementFactory elementFactory, FrameworkElement frameworkElement)
-            : base(dispatcher, elementFactory)
+        public WpfElement(Dispatcher dispatcher, IElementFactory elementFactory, SearchSourceElement parent, FrameworkElement frameworkElement)
+            : base(dispatcher, elementFactory, parent)
         {
             _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
         }
 
-        public string Name
+        public override string Name
         {
             get
             {
@@ -27,7 +27,7 @@ namespace tungsten.core
             }
         }
 
-        public Type Class
+        public override Type Class
         {
             get
             {

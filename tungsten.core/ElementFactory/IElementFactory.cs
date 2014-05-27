@@ -5,6 +5,6 @@ namespace tungsten.core.ElementFactory
 {
     public interface IElementFactory
     {
-        WpfElement CreateWpfElement(Dispatcher dispatcher, FrameworkElement element);
+        WpfElement CreateWpfElement(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement element);
     }
 }

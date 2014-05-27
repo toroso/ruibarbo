@@ -15,7 +15,7 @@ namespace tungsten.core.ElementFactory
             _types.Add(typeof(TFrameworkElement).FullName, typeof(TWpfElement));
         }
 
-        public WpfElement CreateWpfElement(Dispatcher dispatcher, FrameworkElement element)
+        public WpfElement CreateWpfElement(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement element)
         {
             var match = element.GetType()
                 .AllTypesInHierarchy()
@@ -23,7 +23,7 @@ namespace tungsten.core.ElementFactory
 
             if (match != null)
             {
-                return (WpfElement)Activator.CreateInstance(_types[match.FullName], dispatcher, this, element);
+                return (WpfElement)Activator.CreateInstance(_types[match.FullName], dispatcher, this, parent, element);
             }
 
             // TODO: Better error message, display contents of factory

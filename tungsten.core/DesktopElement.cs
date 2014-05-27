@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -8,6 +9,16 @@ namespace tungsten.core
     public class DesktopElement : SearchSourceElement
     {
         private readonly Application _application;
+
+        public override string Name
+        {
+            get { return null; }
+        }
+
+        public override Type Class
+        {
+            get { return null; }
+        }
 
         public override IEnumerable<WpfElement> Children
         {
@@ -21,7 +32,7 @@ namespace tungsten.core
         }
 
         internal DesktopElement(Dispatcher dispatcher, ElementFactory.ElementFactory elementFactory, Application application)
-            : base(dispatcher, elementFactory)
+            : base(dispatcher, elementFactory, null)
         {
             _application = application;
         }
