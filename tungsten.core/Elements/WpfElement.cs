@@ -5,8 +5,10 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using tungsten.core.ElementFactory;
+using tungsten.core.Input;
+using tungsten.core.Search;
 
-namespace tungsten.core
+namespace tungsten.core.Elements
 {
     public class WpfElement : SearchSourceElement
     {
@@ -78,7 +80,7 @@ namespace tungsten.core
 
         internal WpfElement FoundBy(IEnumerable<By> bys)
         {
-            _bys = bys.Concat(new By[]{ By.Class(GetType()) }).ToArray();
+            _bys = bys.Concat(new[]{ By.Class(GetType()) }).ToArray();
 
             // Could use Curiously Recurring Template Pattern, but that makes the code more complex...
             return this;

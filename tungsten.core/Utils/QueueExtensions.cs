@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace tungsten.core
+namespace tungsten.core.Utils
 {
-    public static class QueueExtensions
+    internal static class QueueExtensions
     {
         public static void EnqueueAll<T>(this Queue<T> me, IEnumerable<T> all)
         {

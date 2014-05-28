@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace tungsten.core
+namespace tungsten.core.Input
 {
     public static class Mouse
     {
@@ -26,13 +26,13 @@ namespace tungsten.core
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern uint SendInput(uint nInputs, ref INPUT pInputs, int cbSize);
+        private static extern uint SendInput(uint nInputs, ref INPUT pInputs, int cbSize);
 
         [DllImport("user32.dll")]
-        static extern bool SetCursorPos(int X, int Y);
+        private static extern bool SetCursorPos(int X, int Y);
 
         [Flags]
-        public enum MouseEventFlags
+        private enum MouseEventFlags
         {
             LEFTDOWN = 0x00000002,
             LEFTUP = 0x00000004,
@@ -47,7 +47,7 @@ namespace tungsten.core
         /// <summary>
         /// The event type contained in the union field
         /// </summary>
-        enum SendInputEventType : int
+        private enum SendInputEventType : int
         {
             /// <summary>
             /// Contains Mouse event data
@@ -67,7 +67,7 @@ namespace tungsten.core
         /// The mouse data structure
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        struct MouseInputData
+        private struct MouseInputData
         {
             /// <summary>
             /// The x value, if ABSOLUTE is passed in the flag then this is an actual X and Y value
@@ -98,7 +98,7 @@ namespace tungsten.core
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        struct KEYBDINPUT
+        private struct KEYBDINPUT
         {
             public ushort wVk;
             public ushort wScan;
@@ -108,7 +108,7 @@ namespace tungsten.core
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        struct HARDWAREINPUT
+        private struct HARDWAREINPUT
         {
             public int uMsg;
             public short wParamL;
@@ -119,7 +119,7 @@ namespace tungsten.core
         /// Captures the union of the three three structures.
         /// </summary>
         [StructLayout(LayoutKind.Explicit)]
-        struct MouseKeybdhardwareInputUnion
+        private struct MouseKeybdhardwareInputUnion
         {
             /// <summary>
             /// The Mouse Input Data
@@ -145,7 +145,7 @@ namespace tungsten.core
         /// </summary>
         /// <remarks>Contains a union field type specifies what it contains </remarks>
         [StructLayout(LayoutKind.Sequential)]
-        struct INPUT
+        private struct INPUT
         {
             /// <summary>
             /// The actual data type contained in the union Field

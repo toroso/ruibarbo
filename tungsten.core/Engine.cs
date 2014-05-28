@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using tungsten.core.ElementFactory;
+using tungsten.core.Elements;
 
 namespace tungsten.core
 {

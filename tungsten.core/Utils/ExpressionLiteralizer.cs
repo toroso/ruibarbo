@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace tungsten.core
+namespace tungsten.core.Utils
 {
-    public class ExpressionLiteralizer : ExpressionVisitor
+    internal class ExpressionLiteralizer : ExpressionVisitor
     {
         protected override Expression VisitMember(MemberExpression node)
         {

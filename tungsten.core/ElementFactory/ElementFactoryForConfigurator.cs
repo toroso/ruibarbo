@@ -1,4 +1,5 @@
 using System.Windows;
+using tungsten.core.Elements;
 
 namespace tungsten.core.ElementFactory
 {

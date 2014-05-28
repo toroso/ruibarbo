@@ -1,3 +1,5 @@
+using tungsten.core.Elements;
+
 namespace tungsten.core.ElementFactory
 {
     public interface IElementFactoryForConfigurator

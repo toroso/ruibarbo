@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace tungsten.core
+namespace tungsten.core.Utils
 {
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         public static string JoinExcludeEmpty(this IEnumerable<string> me, string separator)
         {

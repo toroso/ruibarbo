@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using tungsten.core.Elements;
+using tungsten.core.Utils;
 
-namespace tungsten.core
+namespace tungsten.core.Search
 {
     public static class SearchSourceElementFindExtensions
     {

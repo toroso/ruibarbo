@@ -45,8 +45,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="By.cs" />
-    <Compile Include="DesktopElement.cs" />
+    <Compile Include="Search\By.cs" />
+    <Compile Include="Elements\DesktopElement.cs" />
     <Compile Include="ElementFactory\ElementFactory.cs" />
     <Compile Include="ElementFactory\ElementFactoryConfigurator.cs" />
     <Compile Include="ElementFactory\ElementFactoryForConfigurator.cs" />
@@ -54,19 +54,19 @@
     <Compile Include="ElementFactory\IElementFactoryConfigurator.cs" />
     <Compile Include="ElementFactory\IElementFactoryForConfigurator.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="ExpressionLiteralizer.cs" />
+    <Compile Include="Utils\ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />
-    <Compile Include="SearchSourceElement.cs" />
-    <Compile Include="Mouse.cs" />
+    <Compile Include="Elements\SearchSourceElement.cs" />
+    <Compile Include="Input\Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueExtensions.cs" />
-    <Compile Include="StringExtensions.cs" />
-    <Compile Include="TypeExtensions.cs" />
-    <Compile Include="WpfButton.cs" />
-    <Compile Include="WpfElement.cs" />
-    <Compile Include="WpfElementExtensions.cs" />
-    <Compile Include="SearchSourceElementFindExtensions.cs" />
-    <Compile Include="WpfWindow.cs" />
+    <Compile Include="Utils\QueueExtensions.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
+    <Compile Include="Utils\TypeExtensions.cs" />
+    <Compile Include="Elements\WpfButton.cs" />
+    <Compile Include="Elements\WpfElement.cs" />
+    <Compile Include="Utils\WpfElementExtensions.cs" />
+    <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
+    <Compile Include="Elements\WpfWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

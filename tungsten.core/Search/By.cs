@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
+using tungsten.core.Elements;
+using tungsten.core.Utils;
 
-namespace tungsten.core
+namespace tungsten.core.Search
 {
     public class By
     {

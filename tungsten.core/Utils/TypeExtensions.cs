@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace tungsten.core
+namespace tungsten.core.Utils
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         public static IEnumerable<Type> AllTypesInHierarchy(this Type me)
         {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
+using tungsten.core.Search;
 
-namespace tungsten.core
+namespace tungsten.core.Elements
 {
     public class DesktopElement : SearchSourceElement
     {

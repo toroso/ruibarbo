@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using tungsten.core.Elements;
 
-namespace tungsten.core
+namespace tungsten.core.Utils
 {
     public static class WpfElementExtensions
     {
