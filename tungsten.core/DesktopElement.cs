@@ -20,6 +20,11 @@ namespace tungsten.core
             get { return null; }
         }
 
+        public override IEnumerable<By> SearchConditions
+        {
+            get { yield break; }
+        }
+
         public override IEnumerable<WpfElement> Children
         {
             get

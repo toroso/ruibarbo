@@ -21,6 +21,7 @@ namespace tungsten.core
 
         public abstract string Name { get; }
         public abstract Type Class { get; }
+        public abstract IEnumerable<By> SearchConditions { get; }
         public abstract IEnumerable<WpfElement> Children { get; }
 
         public IEnumerable<SearchSourceElement> ElementPath

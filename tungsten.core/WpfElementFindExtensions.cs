@@ -30,7 +30,7 @@ namespace tungsten.core
                 var asTElement = current as TElement;
                 if (asTElement != null && bys.All(by => by.Matches(asTElement)))
                 {
-                    return asTElement;
+                    return (TElement)asTElement.FoundBy(bys);
                 }
 
                 breadthFirstQueue.EnqueueAll(current.Children);

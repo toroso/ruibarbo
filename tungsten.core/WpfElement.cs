@@ -11,11 +11,13 @@ namespace tungsten.core
     public class WpfElement : SearchSourceElement
     {
         private readonly WeakReference<FrameworkElement> _frameworkElement;
+        private By[] _bys;
 
         public WpfElement(Dispatcher dispatcher, IElementFactory elementFactory, SearchSourceElement parent, FrameworkElement frameworkElement)
             : base(dispatcher, elementFactory, parent)
         {
             _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
+            _bys = new By[] { };
         }
 
         public override string Name
@@ -34,6 +36,11 @@ namespace tungsten.core
                 var strongReference = GetFrameworkElement();
                 return strongReference.GetType();
             }
+        }
+
+        public override IEnumerable<By> SearchConditions
+        {
+            get { return _bys; }
         }
 
         public override IEnumerable<WpfElement> Children
@@ -67,6 +74,14 @@ namespace tungsten.core
             }
 
             return result;
+        }
+
+        internal WpfElement FoundBy(IEnumerable<By> bys)
+        {
+            _bys = bys.Concat(new By[]{ By.Class(GetType()) }).ToArray();
+
+            // Could use Curiously Recurring Template Pattern, but that makes the code more complex...
+            return this;
         }
 
         public void Click()

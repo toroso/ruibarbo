@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using NUnit.Framework;
 using tungsten.core;
 using tungsten.sampleapp;
@@ -35,6 +34,7 @@ namespace tungsten.sampletest
             var button = window.FindFirstElement<WpfButton>(By.Name("btnClick"));
             Console.WriteLine("Found button, Element name path: '{0}'; class path: {1}", button.ElementNamePath(), button.ElementClassPath());
             Console.WriteLine("Button, Element name or class path: '{0}'", button.ElementNameOrClassPath());
+            Console.WriteLine("Button, Element search by path: '{0}'", button.ElementSearchPath());
             button.Click();
         }
     }

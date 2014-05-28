@@ -30,5 +30,17 @@ namespace tungsten.core
                         : null)
                 .JoinExcludeEmpty(".");
         }
+
+        public static string ElementSearchPath(this WpfElement me)
+        {
+            return me.ElementPath
+                .Where(e => e.SearchConditions.Any())
+                .Select(e => string.Format("<{0}>",
+                    e.SearchConditions
+                        .Select(by => by.ToString())
+                        .Join(", ")))
+                .Join("; ");
+
+        }
     }
 }
