@@ -65,7 +65,7 @@
     <Compile Include="WpfButton.cs" />
     <Compile Include="WpfElement.cs" />
     <Compile Include="WpfElementExtensions.cs" />
-    <Compile Include="WpfElementFindExtensions.cs" />
+    <Compile Include="SearchSourceElementFindExtensions.cs" />
     <Compile Include="WpfWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace tungsten.core
 {
-    public static class WpfElementFindExtensions
+    public static class SearchSourceElementFindExtensions
     {
         public static TElement FindFirstElement<TElement>(this SearchSourceElement parent, params By[] bys)
             where TElement : WpfElement
