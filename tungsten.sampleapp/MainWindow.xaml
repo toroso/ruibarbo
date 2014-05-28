@@ -3,10 +3,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow"
-        x:Name="wndMain"
+        x:Name="WndMain"
         Height="350" Width="225">
 
     <StackPanel>
-        <Button x:Name="btnClick" Content="Clicking click"/>
+        <Button x:Name="BtnSubmit" Content="Clicking click" />
+        <TextBox x:Name="TxtInput" />
     </StackPanel>
 </Window>

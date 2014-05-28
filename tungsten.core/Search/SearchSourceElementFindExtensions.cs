@@ -11,11 +11,18 @@ namespace tungsten.core.Search
         public static TElement FindFirstElement<TElement>(this SearchSourceElement parent, params By[] bys)
             where TElement : WpfElement
         {
-            // TODO: Throw if null
-            // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
             // TODO: Control output verbosity in configuration
-            Console.WriteLine("Looking for {0} by <{1}>", parent.GetType().FullName, string.Join("; ", bys.Select(by => by.ToString())));
-            return TryFindFirstElement<TElement>(parent, bys);
+            // TODO: Include Class in bys. Try to reuse from WpfElement.FoundBy() and WpfElementExtensions.ElementSearchPath().
+            Console.WriteLine("Search from {0} by <{1}>", parent.GetType().FullName, bys.Select(by => by.ToString()).Join("; "));
+            var found = TryFindFirstElement<TElement>(parent, bys);
+            if (found == null)
+            {
+                // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
+                // TODO: Better error message. Include a lot of information about parent and a tree with information about all children.
+                throw new Exception(string.Format("Search failed, from {0} by <{1}>", parent.Name, bys.Select(by => by.ToString()).Join("; ")));
+            }
+
+            return found;
         }
 
         private static TElement TryFindFirstElement<TElement>(SearchSourceElement parent, By[] bys)

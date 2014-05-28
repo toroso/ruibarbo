@@ -33,6 +33,7 @@ namespace tungsten.core
                     x.For<System.Windows.FrameworkElement>().Create<WpfElement>(); // Fallback
                     x.For<System.Windows.Window>().Create<WpfWindow>();
                     x.For<System.Windows.Controls.Button>().Create<WpfButton>();
+                    x.For<System.Windows.Controls.TextBox>().Create<WpfTextBox>();
                 });
         }
 

@@ -89,8 +89,9 @@ namespace tungsten.core.Elements
         public void Click()
         {
             var strongReference = GetFrameworkElement();
-            var locationFromWindow = GetDispatched(() => strongReference.TranslatePoint(new Point(0.0, 0.0), null));
-            var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(locationFromWindow));
+            ////var locationFromWindow = GetDispatched(() => strongReference.TranslatePoint(new Point(0.0, 0.0), null));
+            ////var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(locationFromWindow));
+            var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(new Point(0.0, 0.0)));
             var width = GetDispatched(() => strongReference.ActualWidth);
             var height = GetDispatched(() => strongReference.ActualHeight);
 
@@ -100,7 +101,7 @@ namespace tungsten.core.Elements
             Mouse.Click(centerX, centerY);
         }
 
-        private FrameworkElement GetFrameworkElement()
+        protected FrameworkElement GetFrameworkElement()
         {
             FrameworkElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))

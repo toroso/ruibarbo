@@ -45,6 +45,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\WpfTextBox.cs" />
+    <Compile Include="Input\InputSimulator.cs" />
+    <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Search\By.cs" />
     <Compile Include="Elements\DesktopElement.cs" />
     <Compile Include="ElementFactory\ElementFactory.cs" />
