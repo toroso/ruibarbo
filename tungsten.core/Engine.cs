@@ -43,6 +43,7 @@ namespace tungsten.core
 
         public void Start(IApplication application)
         {
+            var waitHandle = new AutoResetEvent(false);
             _uiThread = new Thread(() =>
                 {
                     try
@@ -65,6 +66,8 @@ namespace tungsten.core
                         // TODO: try-catch around this one only?
                         application.Start();
 
+                        waitHandle.Set();
+
                         // Makes the thread support message pumping
                         Dispatcher.Run();
                     }
@@ -81,8 +84,7 @@ namespace tungsten.core
 
             _uiThread.Start();
 
-            // TODO: Wait for allication.Start() to finish on other thread
-            Thread.Sleep(1000);
+            waitHandle.WaitOne();
         }
 
         public void ShutDown()
