@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using tungsten.core.ElementFactory;
 using tungsten.core.Input;
 
 namespace tungsten.core.Elements
 {
     public class WpfTextBox : WpfElement
     {
-        public WpfTextBox(Dispatcher dispatcher, IElementFactory elementFactory, SearchSourceElement parent, FrameworkElement frameworkElement)
-            : base(dispatcher, elementFactory, parent, frameworkElement)
+        public WpfTextBox(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement frameworkElement)
+            : base(dispatcher, parent, frameworkElement)
         {
         }
 

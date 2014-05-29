@@ -12,7 +12,6 @@ namespace tungsten.core
     {
         private Thread _uiThread;
         private Dispatcher _dispatcher;
-        private readonly ElementFactory.ElementFactory _elementFactory = new ElementFactory.ElementFactory();
         private readonly List<Exception> _unhandledExceptions = new List<Exception>();
 
         public IEnumerable<Exception> UnhandledExceptions
@@ -39,7 +38,7 @@ namespace tungsten.core
 
         public void ConfigureElementFactory(Action<IElementFactoryConfigurator> cfgAction)
         {
-            cfgAction(new ElementFactoryConfigurator(_elementFactory));
+            cfgAction(new ElementFactoryConfigurator());
         }
 
         public void Start(IApplication application)
@@ -59,7 +58,7 @@ namespace tungsten.core
                         AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
                         SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(_dispatcher));
 
-                        Desktop = new DesktopElement(_dispatcher, _elementFactory, Application.Current);
+                        Desktop = new DesktopElement(_dispatcher, Application.Current);
 
                         //EnsureApplicationResources();
 

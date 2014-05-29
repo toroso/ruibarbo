@@ -37,8 +37,8 @@ namespace tungsten.core.Elements
             }
         }
 
-        internal DesktopElement(Dispatcher dispatcher, ElementFactory.ElementFactory elementFactory, Application application)
-            : base(dispatcher, elementFactory, null)
+        internal DesktopElement(Dispatcher dispatcher, Application application)
+            : base(dispatcher, null)
         {
             _application = application;
         }

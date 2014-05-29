@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
-using tungsten.core.ElementFactory;
 using tungsten.core.Input;
 using tungsten.core.Search;
 
@@ -15,8 +14,8 @@ namespace tungsten.core.Elements
         private readonly WeakReference<FrameworkElement> _frameworkElement;
         private By[] _bys;
 
-        public WpfElement(Dispatcher dispatcher, IElementFactory elementFactory, SearchSourceElement parent, FrameworkElement frameworkElement)
-            : base(dispatcher, elementFactory, parent)
+        public WpfElement(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement frameworkElement)
+            : base(dispatcher, parent)
         {
             _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
             _bys = new By[] { };
