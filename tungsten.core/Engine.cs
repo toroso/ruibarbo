@@ -11,7 +11,6 @@ namespace tungsten.core
     public class Engine
     {
         private Thread _uiThread;
-        private Dispatcher _dispatcher;
         private readonly List<Exception> _unhandledExceptions = new List<Exception>();
 
         public IEnumerable<Exception> UnhandledExceptions
@@ -44,6 +43,7 @@ namespace tungsten.core
         public void Start(IApplication application)
         {
             var waitHandle = new AutoResetEvent(false);
+            Dispatcher dispatcher = null;
             _uiThread = new Thread(() =>
                 {
                     try
@@ -54,12 +54,12 @@ namespace tungsten.core
                             new Application();
                         }
 
-                        _dispatcher = Dispatcher.CurrentDispatcher;
-                        _dispatcher.UnhandledException += OnCurrentDispatcherUnhandledException;
+                        dispatcher = Dispatcher.CurrentDispatcher;
+                        dispatcher.UnhandledException += OnCurrentDispatcherUnhandledException;
                         AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
-                        SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(_dispatcher));
+                        SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(dispatcher));
 
-                        Desktop = new DesktopElement(_dispatcher, Application.Current);
+                        Desktop = new DesktopElement(Application.Current);
 
                         //EnsureApplicationResources();
 
@@ -85,11 +85,12 @@ namespace tungsten.core
             _uiThread.Start();
 
             waitHandle.WaitOne();
+            Invoker.Create(dispatcher);
         }
 
         public void ShutDown()
         {
-            _dispatcher.BeginInvokeShutdown(DispatcherPriority.Send);
+            Invoker.BeginInvokeShutdown();
             _uiThread.Join();
         }
 

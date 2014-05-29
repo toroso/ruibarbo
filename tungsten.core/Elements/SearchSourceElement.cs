@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Threading;
 using tungsten.core.Search;
 
 namespace tungsten.core.Elements
 {
     public abstract class SearchSourceElement
     {
-        private Dispatcher Dispatcher { get; set; }
         private SearchSourceElement Parent { get; set; }
 
-        protected SearchSourceElement(Dispatcher dispatcher, SearchSourceElement parent)
+        protected SearchSourceElement(SearchSourceElement parent)
         {
-            Dispatcher = dispatcher;
             Parent = parent;
         }
 
@@ -37,19 +34,9 @@ namespace tungsten.core.Elements
             }
         }
 
-        public virtual TRet GetDispatched<TRet>(Func<TRet> func)
-        {
-            TRet ret = default(TRet);
-            Dispatcher.Invoke(() =>
-                {
-                    ret = func();
-                });
-            return ret;
-        }
-
         internal WpfElement CreateWpfElement(FrameworkElement element)
         {
-            return ElementFactory.ElementFactory.CreateWpfElement(Dispatcher, this, element);
+            return ElementFactory.ElementFactory.CreateWpfElement(this, element);
         }
     }
 }

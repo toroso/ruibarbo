@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Threading;
 using tungsten.core.Input;
 using tungsten.core.Search;
 
@@ -14,8 +13,8 @@ namespace tungsten.core.Elements
         private readonly WeakReference<FrameworkElement> _frameworkElement;
         private By[] _bys;
 
-        public WpfElement(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement frameworkElement)
-            : base(dispatcher, parent)
+        public WpfElement(SearchSourceElement parent, FrameworkElement frameworkElement)
+            : base(parent)
         {
             _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
             _bys = new By[] { };
@@ -26,7 +25,7 @@ namespace tungsten.core.Elements
             get
             {
                 var strongReference = GetFrameworkElement();
-                return GetDispatched(() => strongReference.Name);
+                return Invoker.Get(() => strongReference.Name);
             }
         }
 
@@ -59,10 +58,10 @@ namespace tungsten.core.Elements
         {
             var result = new List<FrameworkElement>();
 
-            int count = GetDispatched(() => VisualTreeHelper.GetChildrenCount(parent));
+            int count = Invoker.Get(() => VisualTreeHelper.GetChildrenCount(parent));
             for (int i = 0; i < count; i++)
             {
-                var asDependencyObject = GetDispatched(() => VisualTreeHelper.GetChild(parent, i));
+                var asDependencyObject = Invoker.Get(() => VisualTreeHelper.GetChild(parent, i));
                 var asFrameworkElement = asDependencyObject as FrameworkElement;
                 if (asFrameworkElement != null)
                 {
@@ -90,9 +89,9 @@ namespace tungsten.core.Elements
             var strongReference = GetFrameworkElement();
             ////var locationFromWindow = GetDispatched(() => strongReference.TranslatePoint(new Point(0.0, 0.0), null));
             ////var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(locationFromWindow));
-            var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(new Point(0.0, 0.0)));
-            var width = GetDispatched(() => strongReference.ActualWidth);
-            var height = GetDispatched(() => strongReference.ActualHeight);
+            var locationFromScreen = Invoker.Get(() => strongReference.PointToScreen(new Point(0.0, 0.0)));
+            var width = Invoker.Get(() => strongReference.ActualWidth);
+            var height = Invoker.Get(() => strongReference.ActualHeight);
 
             var centerX = (int) (locationFromScreen.X + width/2);
             var centerY = (int) (locationFromScreen.Y + height/2);

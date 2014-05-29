@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
 using tungsten.core.Elements;
 using tungsten.core.Utils;
 
@@ -37,12 +36,12 @@ namespace tungsten.core.ElementFactory
             _types.Add(typeof(TFrameworkElement).FullName, typeof(TWpfElement));
         }
 
-        public static WpfElement CreateWpfElement(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement element)
+        public static WpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)
         {
-            return Instance.CreateWpfElementImpl(dispatcher, parent, element);
+            return Instance.CreateWpfElementImpl(parent, element);
         }
 
-        private WpfElement CreateWpfElementImpl(Dispatcher dispatcher, SearchSourceElement parent, FrameworkElement element)
+        private WpfElement CreateWpfElementImpl(SearchSourceElement parent, FrameworkElement element)
         {
             var match = element.GetType()
                 .AllTypesInHierarchy()
@@ -50,7 +49,7 @@ namespace tungsten.core.ElementFactory
 
             if (match != null)
             {
-                return (WpfElement)Activator.CreateInstance(_types[match.FullName], dispatcher, parent, element);
+                return (WpfElement)Activator.CreateInstance(_types[match.FullName], parent, element);
             }
 
             // TODO: Better error message, display contents of factory

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Threading;
 using tungsten.core.Search;
 
 namespace tungsten.core.Elements
@@ -30,15 +29,15 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var windows = GetDispatched(() => _application.Windows.Cast<Window>().ToArray());
+                var windows = Invoker.Get(() => _application.Windows.Cast<Window>().ToArray());
                 return windows
                     .Select(CreateWpfElement)
                     .ToArray();
             }
         }
 
-        internal DesktopElement(Dispatcher dispatcher, Application application)
-            : base(dispatcher, null)
+        internal DesktopElement(Application application)
+            : base(null)
         {
             _application = application;
         }
