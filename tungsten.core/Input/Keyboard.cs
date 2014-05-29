@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Input;
 
 namespace tungsten.core.Input
 {
@@ -26,8 +24,11 @@ namespace tungsten.core.Input
                 throw new Exception("Some simulated input commands were not sent successfully.");
             }
 
-            System.Threading.Thread.Sleep(10);
-            //System.Threading.Thread.Sleep(1000);
+            var keyboardDelayAfterTyping = HardwareConfiguration.KeyboardDelayAfterTyping;
+            if (keyboardDelayAfterTyping > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(keyboardDelayAfterTyping);
+            }
         }
     }
 }

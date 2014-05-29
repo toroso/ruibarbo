@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\WpfTextBox.cs" />
+    <Compile Include="Input\HardwareConfiguration.cs" />
+    <Compile Include="Input\HardwareConfigurator.cs" />
     <Compile Include="Input\InputSimulator.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Invoker.cs" />

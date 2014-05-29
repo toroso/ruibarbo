@@ -7,12 +7,20 @@ namespace tungsten.core.Input
     {
         public static void Click(int x, int y)
         {
-            // TODO: Using some kind of configuration, insert delays so that it's possible to see the movements
+            // TODO: Use HardwareConfiguration.MouseDurationOfMove
             MoveCursor(x, y);
-            System.Threading.Thread.Sleep(10);
-            //System.Threading.Thread.Sleep(1000);
+            var mouseDelayAfterMove = HardwareConfiguration.MouseDelayAfterMove;
+            if (mouseDelayAfterMove > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(mouseDelayAfterMove);
+            }
+
             ClickLeftButton();
-            System.Threading.Thread.Sleep(10);
+            var mouseDelayAfterClick = HardwareConfiguration.MouseDelayAfterClick;
+            if (mouseDelayAfterClick > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(mouseDelayAfterClick);
+            }
         }
 
         private static void MoveCursor(int x, int y)

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Threading;
 using tungsten.core.ElementFactory;
 using tungsten.core.Elements;
+using tungsten.core.Input;
 
 namespace tungsten.core
 {
@@ -33,11 +34,25 @@ namespace tungsten.core
                     x.For<System.Windows.Controls.Button>().Create<WpfButton>();
                     x.For<System.Windows.Controls.TextBox>().Create<WpfTextBox>();
                 });
+            ConfigureHardware(x =>
+                {
+                    x.KeyboardDelayBetweenKeys = TimeSpan.Zero;
+                    x.KeyboardDelayAfterTyping = TimeSpan.Zero;
+                    x.MouseDelayAfterMove = TimeSpan.Zero;
+                    x.MouseDelayAfterClick = TimeSpan.FromMilliseconds(20);
+                    x.MouseDurationOfMove = TimeSpan.Zero;
+                    x.ScreenshotOnFailedAssertion = true; // TODO: Implement
+                });
         }
 
         public void ConfigureElementFactory(Action<IElementFactoryConfigurator> cfgAction)
         {
             cfgAction(new ElementFactoryConfigurator());
+        }
+
+        public void ConfigureHardware(Action<HardwareConfigurator> cfgAction)
+        {
+            cfgAction(new HardwareConfigurator());
         }
 
         public void Start(IApplication application)
@@ -61,7 +76,8 @@ namespace tungsten.core
 
                         Desktop = new DesktopElement(Application.Current);
 
-                        //EnsureApplicationResources();
+                        // EnsureApplicationResources();
+                        // Check http://stackoverflow.com/questions/15548769/instantiate-resourcedictionary-xaml-from-other-assembly
 
                         // TODO: try-catch around this one only?
                         application.Start();
