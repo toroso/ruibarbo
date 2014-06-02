@@ -5,14 +5,14 @@ namespace tungsten.core.Utils
 {
     public static class WpfElementExtensions
     {
-        public static string ElementNamePath(this WpfElement me)
+        public static string ElementNamePath(this UntypedWpfElement me)
         {
             return me.ElementPath
                 .Select(e => e.Name)
                 .JoinExcludeEmpty(".");
         }
 
-        public static string ElementClassPath(this WpfElement me)
+        public static string ElementClassPath(this UntypedWpfElement me)
         {
             return me.ElementPath
                 .Select(e => e.Class)
@@ -21,7 +21,7 @@ namespace tungsten.core.Utils
                 .Join(".");
         }
 
-        public static string ElementNameOrClassPath(this WpfElement me)
+        public static string ElementNameOrClassPath(this UntypedWpfElement me)
         {
             return me.ElementPath
                 .Select(e => !string.IsNullOrEmpty(e.Name)
@@ -32,7 +32,7 @@ namespace tungsten.core.Utils
                 .JoinExcludeEmpty(".");
         }
 
-        public static string ElementSearchPath(this WpfElement me)
+        public static string ElementSearchPath(this UntypedWpfElement me)
         {
             return me.ElementPath
                 .Where(e => e.SearchConditions.Any())

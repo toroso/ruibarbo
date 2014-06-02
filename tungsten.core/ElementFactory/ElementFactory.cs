@@ -41,12 +41,12 @@ namespace tungsten.core.ElementFactory
             _types.Add(key, typeof(TWpfElement));
         }
 
-        public static WpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)
+        public static UntypedWpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)
         {
             return Instance.CreateWpfElementImpl(parent, element);
         }
 
-        private WpfElement CreateWpfElementImpl(SearchSourceElement parent, FrameworkElement element)
+        private UntypedWpfElement CreateWpfElementImpl(SearchSourceElement parent, FrameworkElement element)
         {
             var match = element.GetType()
                 .AllTypesInHierarchy()
@@ -54,7 +54,7 @@ namespace tungsten.core.ElementFactory
 
             if (match != null)
             {
-                return (WpfElement)Activator.CreateInstance(_types[match.FullName], parent, element);
+                return (UntypedWpfElement)Activator.CreateInstance(_types[match.FullName], parent, element);
             }
 
             // TODO: Better error message, display contents of factory

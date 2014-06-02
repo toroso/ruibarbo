@@ -1,10 +1,9 @@
-using System.Windows;
-
 namespace tungsten.core.Elements
 {
-    public class WpfButton : WpfElement
+    public class WpfButton
+        : WpfElement<System.Windows.Controls.Button>
     {
-        public WpfButton(SearchSourceElement parent, FrameworkElement frameworkElement)
+        public WpfButton(SearchSourceElement parent, System.Windows.Controls.Button frameworkElement)
             : base(parent, frameworkElement)
         {
         }

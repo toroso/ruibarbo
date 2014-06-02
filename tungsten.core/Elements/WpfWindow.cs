@@ -1,13 +1,11 @@
-using System.Windows;
-
 namespace tungsten.core.Elements
 {
-    public class WpfWindow : WpfElement
+    public class WpfWindow : WpfElement<System.Windows.Window>
     {
-        public WpfWindow(SearchSourceElement parent, FrameworkElement frameworkElement)
+        public WpfWindow(SearchSourceElement parent, System.Windows.Window frameworkElement)
             : base(parent, frameworkElement)
         {
-            var strongReference = GetFrameworkElement<System.Windows.Window>();
+            var strongReference = GetFrameworkElement();
             Invoker.Invoke(() => strongReference.Activate());
         }
     }

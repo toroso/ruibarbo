@@ -4,27 +4,25 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using tungsten.core.Input;
-using tungsten.core.Search;
 
 namespace tungsten.core.Elements
 {
-    public class WpfElement : SearchSourceElement
+    public class WpfElement<TFrameworkElement> : UntypedWpfElement
+        where TFrameworkElement : FrameworkElement
     {
-        private readonly WeakReference<FrameworkElement> _frameworkElement;
-        private By[] _bys;
+        private readonly WeakReference<TFrameworkElement> _frameworkElement;
 
-        public WpfElement(SearchSourceElement parent, FrameworkElement frameworkElement)
+        public WpfElement(SearchSourceElement parent, TFrameworkElement frameworkElement)
             : base(parent)
         {
-            _frameworkElement = new WeakReference<FrameworkElement>(frameworkElement);
-            _bys = new By[] { };
+            _frameworkElement = new WeakReference<TFrameworkElement>(frameworkElement);
         }
 
         public override string Name
         {
             get
             {
-                var strongReference = GetFrameworkElement<FrameworkElement>();
+                var strongReference = GetFrameworkElement();
                 return Invoker.Get(() => strongReference.Name);
             }
         }
@@ -33,21 +31,16 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var strongReference = GetFrameworkElement<FrameworkElement>();
+                var strongReference = GetFrameworkElement();
                 return strongReference.GetType();
             }
         }
 
-        public override IEnumerable<By> SearchConditions
-        {
-            get { return _bys; }
-        }
-
-        public override IEnumerable<WpfElement> Children
+        public override IEnumerable<UntypedWpfElement> Children
         {
             get
             {
-                var strongReference = GetFrameworkElement<FrameworkElement>();
+                var strongReference = GetFrameworkElement();
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = GetFrameworkElementChildren(strongReference);
                 return frameworkElementChildren.Select(CreateWpfElement);
@@ -58,7 +51,7 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var strongReference = GetFrameworkElement<FrameworkElement>();
+                var strongReference = GetFrameworkElement();
                 return Invoker.Get(() => strongReference.IsKeyboardFocused);
             }
         }
@@ -85,19 +78,9 @@ namespace tungsten.core.Elements
             return result;
         }
 
-        internal WpfElement FoundBy(IEnumerable<By> bys)
-        {
-            _bys = bys.Concat(new[]{ By.Class(GetType()) }).ToArray();
-
-            // Could use Curiously Recurring Template Pattern, but that makes the code more complex...
-            return this;
-        }
-
         public void Click()
         {
-            var strongReference = GetFrameworkElement<FrameworkElement>();
-            ////var locationFromWindow = GetDispatched(() => strongReference.TranslatePoint(new Point(0.0, 0.0), null));
-            ////var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(locationFromWindow));
+            var strongReference = GetFrameworkElement();
             var locationFromScreen = Invoker.Get(() => strongReference.PointToScreen(new Point(0.0, 0.0)));
             var width = Invoker.Get(() => strongReference.ActualWidth);
             var height = Invoker.Get(() => strongReference.ActualHeight);
@@ -108,13 +91,12 @@ namespace tungsten.core.Elements
             Mouse.Click(centerX, centerY);
         }
 
-        protected TFrameworkElement GetFrameworkElement<TFrameworkElement>()
-            where TFrameworkElement : FrameworkElement
+        protected TFrameworkElement GetFrameworkElement()
         {
-            FrameworkElement strongReference;
+            TFrameworkElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))
             {
-                return (TFrameworkElement)strongReference;
+                return strongReference;
             }
 
             // No longer available

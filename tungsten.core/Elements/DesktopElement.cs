@@ -26,7 +26,7 @@ namespace tungsten.core.Elements
             get { yield break; }
         }
 
-        public override IEnumerable<WpfElement> Children
+        public override IEnumerable<UntypedWpfElement> Children
         {
             get
             {

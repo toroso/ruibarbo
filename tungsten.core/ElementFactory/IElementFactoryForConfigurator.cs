@@ -4,6 +4,6 @@ namespace tungsten.core.ElementFactory
 {
     public interface IElementFactoryForConfigurator
     {
-        void Create<TWpfElement>() where TWpfElement : WpfElement;
+        void Create<TWpfElement>() where TWpfElement : UntypedWpfElement;
     }
 }

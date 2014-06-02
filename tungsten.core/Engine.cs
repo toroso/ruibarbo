@@ -34,7 +34,8 @@ namespace tungsten.core
 
             ConfigureElementFactory(x =>
                 {
-                    x.For<System.Windows.FrameworkElement>().Create<WpfElement>(); // Fallback
+                    // TODO: Iterator through all UntypedWpfElement and register types based on generic type
+                    x.For<System.Windows.FrameworkElement>().Create<WpfElement<FrameworkElement>>(); // Fallback
                     x.For<System.Windows.Window>().Create<WpfWindow>();
                     x.For<System.Windows.Controls.Button>().Create<WpfButton>();
                     x.For<System.Windows.Controls.TextBox>().Create<WpfTextBox>();

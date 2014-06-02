@@ -9,7 +9,7 @@ namespace tungsten.core.Search
     public static class SearchSourceElementFindExtensions
     {
         public static TElement FindFirstElement<TElement>(this SearchSourceElement parent, params By[] bys)
-            where TElement : WpfElement
+            where TElement : UntypedWpfElement
         {
             // TODO: Control output verbosity in configuration
             // TODO: Include Class in bys. Try to reuse from WpfElement.FoundBy() and WpfElementExtensions.ElementSearchPath().
@@ -26,11 +26,11 @@ namespace tungsten.core.Search
         }
 
         private static TElement TryFindFirstElement<TElement>(SearchSourceElement parent, By[] bys)
-            where TElement : WpfElement
+            where TElement : UntypedWpfElement
         {
             // TODO: Max depth
             // TODO: Make a few attempts
-            var breadthFirstQueue = new Queue<WpfElement>();
+            var breadthFirstQueue = new Queue<UntypedWpfElement>();
             breadthFirstQueue.EnqueueAll(parent.Children);
 
             while (breadthFirstQueue.Count > 0)
@@ -39,7 +39,7 @@ namespace tungsten.core.Search
                 var asTElement = current as TElement;
                 if (asTElement != null && bys.All(by => by.Matches(asTElement)))
                 {
-                    return (TElement)asTElement.FoundBy(bys);
+                    return asTElement.FoundBy<TElement>(bys);
                 }
 
                 breadthFirstQueue.EnqueueAll(current.Children);

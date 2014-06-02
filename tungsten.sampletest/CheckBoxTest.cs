@@ -27,7 +27,7 @@ namespace tungsten.sampletest
                 this TWpfElement me,
                 Expression<Func<TWpfElement, object>> actualExp,
                 IResolveConstraint resolveConstraint)
-            where TWpfElement : WpfElement
+            where TWpfElement : UntypedWpfElement
         {
             // TODO: Take default retryTime from config
             me.AssertThat(actualExp, resolveConstraint, TimeSpan.FromSeconds(5));
@@ -38,7 +38,7 @@ namespace tungsten.sampletest
                 Expression<Func<TWpfElement, object>> actualExp,
                 IResolveConstraint resolveConstraint,
                 TimeSpan maxRetryTime)
-            where TWpfElement : WpfElement
+            where TWpfElement : UntypedWpfElement
         {
             Constraint constraint = resolveConstraint.Resolve();
             var extractFunc = actualExp.Compile();

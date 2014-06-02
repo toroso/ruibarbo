@@ -17,7 +17,7 @@ namespace tungsten.core.Elements
         public abstract string Name { get; }
         public abstract Type Class { get; }
         public abstract IEnumerable<By> SearchConditions { get; }
-        public abstract IEnumerable<WpfElement> Children { get; }
+        public abstract IEnumerable<UntypedWpfElement> Children { get; }
 
         public IEnumerable<SearchSourceElement> ElementPath
         {
@@ -34,7 +34,7 @@ namespace tungsten.core.Elements
             }
         }
 
-        internal WpfElement CreateWpfElement(FrameworkElement element)
+        internal UntypedWpfElement CreateWpfElement(FrameworkElement element)
         {
             return ElementFactory.ElementFactory.CreateWpfElement(this, element);
         }
