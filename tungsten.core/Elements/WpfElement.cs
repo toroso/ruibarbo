@@ -24,7 +24,7 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var strongReference = GetFrameworkElement();
+                var strongReference = GetFrameworkElement<FrameworkElement>();
                 return Invoker.Get(() => strongReference.Name);
             }
         }
@@ -33,7 +33,7 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var strongReference = GetFrameworkElement();
+                var strongReference = GetFrameworkElement<FrameworkElement>();
                 return strongReference.GetType();
             }
         }
@@ -47,10 +47,19 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var strongReference = GetFrameworkElement();
+                var strongReference = GetFrameworkElement<FrameworkElement>();
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = GetFrameworkElementChildren(strongReference);
                 return frameworkElementChildren.Select(CreateWpfElement);
+            }
+        }
+
+        public bool IsKeyboardFocused
+        {
+            get
+            {
+                var strongReference = GetFrameworkElement<FrameworkElement>();
+                return Invoker.Get(() => strongReference.IsKeyboardFocused);
             }
         }
 
@@ -86,7 +95,7 @@ namespace tungsten.core.Elements
 
         public void Click()
         {
-            var strongReference = GetFrameworkElement();
+            var strongReference = GetFrameworkElement<FrameworkElement>();
             ////var locationFromWindow = GetDispatched(() => strongReference.TranslatePoint(new Point(0.0, 0.0), null));
             ////var locationFromScreen = GetDispatched(() => strongReference.PointToScreen(locationFromWindow));
             var locationFromScreen = Invoker.Get(() => strongReference.PointToScreen(new Point(0.0, 0.0)));
@@ -99,12 +108,13 @@ namespace tungsten.core.Elements
             Mouse.Click(centerX, centerY);
         }
 
-        protected FrameworkElement GetFrameworkElement()
+        protected TFrameworkElement GetFrameworkElement<TFrameworkElement>()
+            where TFrameworkElement : FrameworkElement
         {
             FrameworkElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))
             {
-                return strongReference;
+                return (TFrameworkElement)strongReference;
             }
 
             // No longer available

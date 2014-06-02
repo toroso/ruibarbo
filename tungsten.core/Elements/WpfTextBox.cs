@@ -6,15 +6,14 @@ namespace tungsten.core.Elements
 {
     public class WpfTextBox : WpfElement
     {
-        public WpfTextBox(SearchSourceElement parent, FrameworkElement frameworkElement)
-            : base(parent, frameworkElement)
+        public WpfTextBox(SearchSourceElement parent, System.Windows.Controls.TextBox textBox)
+            : base(parent, textBox)
         {
         }
 
         public void Type(string value)
         {
-            var strongReference = GetFrameworkElement();
-            if (!Invoker.Get(() => strongReference.IsKeyboardFocused))
+            if (!IsKeyboardFocused)
             {
                 // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
                 // TODO: Better error message. Include a lot of information about the control, including parents.

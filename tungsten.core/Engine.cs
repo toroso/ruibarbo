@@ -11,8 +11,10 @@ namespace tungsten.core
 {
     public class Engine
     {
-        private Thread _uiThread;
         private readonly List<Exception> _unhandledExceptions = new List<Exception>();
+        private Thread _uiThread;
+
+        public DesktopElement Desktop { get; private set; }
 
         public IEnumerable<Exception> UnhandledExceptions
         {
@@ -23,16 +25,20 @@ namespace tungsten.core
             }
         }
 
-        public DesktopElement Desktop { get; private set; }
-
         public Engine()
         {
+            if (Application.Current == null)
+            {
+                new Application(); // Sets Application.Current
+            }
+
             ConfigureElementFactory(x =>
                 {
                     x.For<System.Windows.FrameworkElement>().Create<WpfElement>(); // Fallback
                     x.For<System.Windows.Window>().Create<WpfWindow>();
                     x.For<System.Windows.Controls.Button>().Create<WpfButton>();
                     x.For<System.Windows.Controls.TextBox>().Create<WpfTextBox>();
+                    x.For<System.Windows.Controls.CheckBox>().Create<WpfCheckBox>();
                 });
             ConfigureHardware(x =>
                 {
@@ -58,29 +64,16 @@ namespace tungsten.core
         public void Start(IApplication application)
         {
             var waitHandle = new AutoResetEvent(false);
+
             Dispatcher dispatcher = null;
             _uiThread = new Thread(() =>
                 {
                     try
                     {
-                        if (Application.Current == null)
-                        {
-                            // TODO: Use Application.Current? What if there's another Application running?
-                            new Application();
-                        }
-
                         dispatcher = Dispatcher.CurrentDispatcher;
                         dispatcher.UnhandledException += OnCurrentDispatcherUnhandledException;
                         AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
                         SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(dispatcher));
-
-                        Desktop = new DesktopElement(Application.Current);
-
-                        // EnsureApplicationResources();
-                        // Check http://stackoverflow.com/questions/15548769/instantiate-resourcedictionary-xaml-from-other-assembly
-
-                        // TODO: try-catch around this one only?
-                        application.Start();
 
                         waitHandle.Set();
 
@@ -101,7 +94,14 @@ namespace tungsten.core
             _uiThread.Start();
 
             waitHandle.WaitOne();
+
             Invoker.Create(dispatcher);
+            Desktop = new DesktopElement(Application.Current);
+
+            // EnsureApplicationResources();
+            // Check http://stackoverflow.com/questions/15548769/instantiate-resourcedictionary-xaml-from-other-assembly
+
+            Invoker.Invoke(application.Start);
         }
 
         public void ShutDown()

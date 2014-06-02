@@ -33,7 +33,12 @@ namespace tungsten.core.ElementFactory
 
         private void AddImpl<TFrameworkElement, TWpfElement>()
         {
-            _types.Add(typeof(TFrameworkElement).FullName, typeof(TWpfElement));
+            var key = typeof(TFrameworkElement).FullName;
+            if (_types.ContainsKey(key))
+            {
+                _types.Remove(key);
+            }
+            _types.Add(key, typeof(TWpfElement));
         }
 
         public static WpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)

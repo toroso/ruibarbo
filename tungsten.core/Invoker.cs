@@ -40,6 +40,16 @@ namespace tungsten.core
             return ret;
         }
 
+        public static void Invoke(Action action)
+        {
+            Instance.InvokeImpl(action);
+        }
+
+        private void InvokeImpl(Action action)
+        {
+            _dispatcher.Invoke(action);
+        }
+
         internal static void BeginInvokeShutdown()
         {
             Instance.BeginInvokeShutdownImpl();

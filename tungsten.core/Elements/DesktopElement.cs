@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using tungsten.core.Search;
 
@@ -29,7 +30,13 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var windows = Invoker.Get(() => _application.Windows.Cast<Window>().ToArray());
+                // Application.Windows only returns Windows that are run on the same thread as Application. NonAppWindowsInternal
+                // holds Windows run on other threads (non-documented, as an internal property).
+                var windowsOnOtherThreads = (WindowCollection)_application
+                    .GetType()
+                    .GetProperty("NonAppWindowsInternal", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+                    .GetValue(_application);
+                var windows = windowsOnOtherThreads.Cast<Window>().ToArray();
                 return windows
                     .Select(CreateWpfElement)
                     .ToArray();

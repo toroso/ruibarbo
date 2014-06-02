@@ -45,6 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\WpfCheckBox.cs" />
     <Compile Include="Elements\WpfTextBox.cs" />
     <Compile Include="Input\HardwareConfiguration.cs" />
     <Compile Include="Input\HardwareConfigurator.cs" />
