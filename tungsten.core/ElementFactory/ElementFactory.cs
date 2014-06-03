@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using tungsten.core.Elements;
@@ -26,19 +27,32 @@ namespace tungsten.core.ElementFactory
 
         private readonly IDictionary<string, Type> _types = new Dictionary<string, Type>();
 
-        public static void Add<TFrameworkElement, TWpfElement>()
+        public static void AddAssembly(Assembly assembly)
         {
-            Instance.AddImpl<TFrameworkElement, TWpfElement>();
+            Instance.AddAssemblyImpl(assembly);
         }
 
-        private void AddImpl<TFrameworkElement, TWpfElement>()
+        private void AddAssemblyImpl(Assembly assembly)
         {
-            var key = typeof(TFrameworkElement).FullName;
-            if (_types.ContainsKey(key))
+            Type baseType = typeof(WpfElement<>);
+            var wpfElementTypes = assembly.GetTypes()
+                .Where(t => baseType != t && t.IsSubclassOfGeneric(baseType));
+            foreach (var type in wpfElementTypes)
             {
-                _types.Remove(key);
+                var frameworkElementFullName = type.BaseType.GetGenericArguments()[0].FullName; // Only works if base is WpfElement, that is, no other base classes in between
+                var wpfElementType = type;
+                AddType(frameworkElementFullName, wpfElementType);
             }
-            _types.Add(key, typeof(TWpfElement));
+        }
+
+        private void AddType(string frameworkElementFullName, Type wpfElementType)
+        {
+            if (_types.ContainsKey(frameworkElementFullName))
+            {
+                _types.Remove(frameworkElementFullName);
+            }
+
+            _types.Add(frameworkElementFullName, wpfElementType);
         }
 
         public static UntypedWpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)

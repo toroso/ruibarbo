@@ -32,15 +32,7 @@ namespace tungsten.core
                 new Application(); // Sets Application.Current
             }
 
-            ConfigureElementFactory(x =>
-                {
-                    // TODO: Iterator through all UntypedWpfElement and register types based on generic type
-                    x.For<System.Windows.FrameworkElement>().Create<WpfElement<FrameworkElement>>(); // Fallback
-                    x.For<System.Windows.Window>().Create<WpfWindow>();
-                    x.For<System.Windows.Controls.Button>().Create<WpfButton>();
-                    x.For<System.Windows.Controls.TextBox>().Create<WpfTextBox>();
-                    x.For<System.Windows.Controls.CheckBox>().Create<WpfCheckBox>();
-                });
+            ConfigureElementFactory(x => x.AddElementAssembly(typeof (WpfElement<FrameworkElement>).Assembly));
             ConfigureHardware(x =>
                 {
                     x.KeyboardDelayBetweenKeys = TimeSpan.Zero;

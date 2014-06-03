@@ -7,12 +7,12 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public class WpfElement<TFrameworkElement> : UntypedWpfElement
+    public abstract class WpfElement<TFrameworkElement> : UntypedWpfElement
         where TFrameworkElement : FrameworkElement
     {
         private readonly WeakReference<TFrameworkElement> _frameworkElement;
 
-        public WpfElement(SearchSourceElement parent, TFrameworkElement frameworkElement)
+        protected WpfElement(SearchSourceElement parent, TFrameworkElement frameworkElement)
             : base(parent)
         {
             _frameworkElement = new WeakReference<TFrameworkElement>(frameworkElement);

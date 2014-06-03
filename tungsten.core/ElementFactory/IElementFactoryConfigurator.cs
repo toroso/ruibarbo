@@ -1,9 +1,9 @@
-using System.Windows;
+using System.Reflection;
 
 namespace tungsten.core.ElementFactory
 {
     public interface IElementFactoryConfigurator
     {
-        IElementFactoryForConfigurator For<TFrameworkElement>() where TFrameworkElement : FrameworkElement;
+        void AddElementAssembly(Assembly assembly);
     }
 }

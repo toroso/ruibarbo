@@ -1,12 +1,12 @@
-using System.Windows;
+using System.Reflection;
 
 namespace tungsten.core.ElementFactory
 {
     internal class ElementFactoryConfigurator : IElementFactoryConfigurator
     {
-        public IElementFactoryForConfigurator For<TFrameworkElement>() where TFrameworkElement : FrameworkElement
+        public void AddElementAssembly(Assembly assembly)
         {
-            return new ElementFactoryForConfigurator<TFrameworkElement>();
+            ElementFactory.AddAssembly(assembly);
         }
     }
 }

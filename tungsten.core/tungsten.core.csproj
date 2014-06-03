@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Elements\UntypedWpfElement.cs" />
     <Compile Include="Elements\WpfCheckBox.cs" />
+    <Compile Include="Elements\WpfFrameworkElement.cs" />
     <Compile Include="Elements\WpfTextBox.cs" />
     <Compile Include="Input\HardwareConfiguration.cs" />
     <Compile Include="Input\HardwareConfigurator.cs" />
@@ -57,9 +58,7 @@
     <Compile Include="Elements\DesktopElement.cs" />
     <Compile Include="ElementFactory\ElementFactory.cs" />
     <Compile Include="ElementFactory\ElementFactoryConfigurator.cs" />
-    <Compile Include="ElementFactory\ElementFactoryForConfigurator.cs" />
     <Compile Include="ElementFactory\IElementFactoryConfigurator.cs" />
-    <Compile Include="ElementFactory\IElementFactoryForConfigurator.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\ExpressionLiteralizer.cs" />
