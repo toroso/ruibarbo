@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tungsten.core", "tungsten.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tungsten.sampletest", "tungsten.sampletest\tungsten.sampletest.csproj", "{073C0930-612F-47F4-9A4F-2BB35CEF1444}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tungsten.nunit", "tungsten.nunit\tungsten.nunit.csproj", "{E59B3FF1-A23F-49DC-9CCD-6006481B3A97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{073C0930-612F-47F4-9A4F-2BB35CEF1444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{073C0930-612F-47F4-9A4F-2BB35CEF1444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{073C0930-612F-47F4-9A4F-2BB35CEF1444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59B3FF1-A23F-49DC-9CCD-6006481B3A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59B3FF1-A23F-49DC-9CCD-6006481B3A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59B3FF1-A23F-49DC-9CCD-6006481B3A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59B3FF1-A23F-49DC-9CCD-6006481B3A97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
