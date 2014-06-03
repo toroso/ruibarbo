@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using tungsten.core.Input;
+using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
@@ -20,78 +20,59 @@ namespace tungsten.core.Elements
 
         public override string Name
         {
-            get
-            {
-                var strongReference = GetFrameworkElement();
-                return Invoker.Get(() => strongReference.Name);
-            }
+            get { return Get(frameworkElement => frameworkElement.Name); }
         }
 
         public override Type Class
         {
-            get
-            {
-                var strongReference = GetFrameworkElement();
-                return strongReference.GetType();
-            }
+            get { return typeof (TFrameworkElement); }
         }
 
         public override IEnumerable<UntypedWpfElement> Children
         {
             get
             {
-                var strongReference = GetFrameworkElement();
                 // TODO: Retry a few times if none is found
-                var frameworkElementChildren = GetFrameworkElementChildren(strongReference);
+                var frameworkElementChildren = Get(frameworkElement => frameworkElement.GetFrameworkElementChildren());
                 return frameworkElementChildren.Select(CreateWpfElement);
             }
         }
 
         public bool IsKeyboardFocused
         {
-            get
-            {
-                var strongReference = GetFrameworkElement();
-                return Invoker.Get(() => strongReference.IsKeyboardFocused);
-            }
+            get { return Get(frameworkElement => frameworkElement.IsKeyboardFocused); }
         }
 
-        private IEnumerable<FrameworkElement> GetFrameworkElementChildren(DependencyObject parent)
+        protected void Invoke(Action<TFrameworkElement> action)
         {
-            var result = new List<FrameworkElement>();
+            var strongReference = GetStrongReference();
+            Invoker.Invoke(() => action(strongReference));
+        }
 
-            int count = Invoker.Get(() => VisualTreeHelper.GetChildrenCount(parent));
-            for (int i = 0; i < count; i++)
-            {
-                var asDependencyObject = Invoker.Get(() => VisualTreeHelper.GetChild(parent, i));
-                var asFrameworkElement = asDependencyObject as FrameworkElement;
-                if (asFrameworkElement != null)
-                {
-                    result.Add(asFrameworkElement);
-                }
-                else
-                {
-                    result.AddRange(GetFrameworkElementChildren(asDependencyObject));
-                }
-            }
-
-            return result;
+        protected TRet Get<TRet>(Func<TFrameworkElement, TRet> func)
+        {
+            var strongReference = GetStrongReference();
+            return Invoker.Get(() => func(strongReference));
         }
 
         public void Click()
         {
-            var strongReference = GetFrameworkElement();
-            var locationFromScreen = Invoker.Get(() => strongReference.PointToScreen(new Point(0.0, 0.0)));
-            var width = Invoker.Get(() => strongReference.ActualWidth);
-            var height = Invoker.Get(() => strongReference.ActualHeight);
+            var centerPoint = Get(frameworkElement =>
+                {
+                    var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
+                    var width = frameworkElement.ActualWidth;
+                    var height = frameworkElement.ActualHeight;
 
-            var centerX = (int) (locationFromScreen.X + width/2);
-            var centerY = (int) (locationFromScreen.Y + height/2);
+                    var centerX = (int)(locationFromScreen.X + width / 2);
+                    var centerY = (int)(locationFromScreen.Y + height / 2);
 
-            Mouse.Click(centerX, centerY);
+                    return new Point(centerX, centerY);
+                });
+
+            Mouse.Click((int) centerPoint.X, (int) centerPoint.Y);
         }
 
-        protected TFrameworkElement GetFrameworkElement()
+        private TFrameworkElement GetStrongReference()
         {
             TFrameworkElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))

@@ -9,11 +9,7 @@
 
         public bool? IsChecked
         {
-            get
-            {
-                var strongReference = GetFrameworkElement();
-                return Invoker.Get(() => strongReference.IsChecked);
-            }
+            get { return Get(frameworkElement => frameworkElement.IsChecked); }
         }
     }
 }

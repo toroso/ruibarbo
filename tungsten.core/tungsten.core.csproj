@@ -61,6 +61,7 @@
     <Compile Include="ElementFactory\IElementFactoryConfigurator.cs" />
     <Compile Include="ElementFactory\IElementFactoryForConfigurator.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="Elements\SearchSourceElement.cs" />
