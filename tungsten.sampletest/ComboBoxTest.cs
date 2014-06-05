@@ -22,7 +22,7 @@ namespace tungsten.sampletest
         {
             var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
             var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
-            comboBox.AssertThat(x => x.Items.Select(i => i.Content), Is.EqualTo(new[] { "No error", "Has error" }));
+            comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("No error"));
         }
     }
 }
