@@ -5,6 +5,7 @@ using tungsten.nunit;
 
 namespace tungsten.sampletest
 {
+    [TestFixture]
     public class CheckBoxTest : TestBase
     {
         [Test]

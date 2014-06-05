@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using tungsten.core;
 using tungsten.core.Elements;
 using tungsten.core.Search;
 using tungsten.core.Utils;

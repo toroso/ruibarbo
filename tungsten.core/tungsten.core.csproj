@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="Elements\UntypedWpfElement.cs" />
     <Compile Include="Elements\WpfCheckBox.cs" />
+    <Compile Include="Elements\WpfComboBox.cs" />
+    <Compile Include="Elements\WpfComboBoxItem.cs" />
     <Compile Include="Elements\WpfFrameworkElement.cs" />
     <Compile Include="Elements\WpfTextBox.cs" />
     <Compile Include="Input\HardwareConfiguration.cs" />
