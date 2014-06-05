@@ -43,6 +43,12 @@ namespace tungsten.core.Elements
 
         public void ChangeSelectedItemTo(string itemAsString)
         {
+            bool found = Wait.Until(() => Items.FirstOrDefault(i => i.Content.Equals(itemAsString)) != null, TimeSpan.FromSeconds(5));
+            if (!found)
+            {
+                // TODO: Error message, exception type
+                throw new Exception(string.Format("Not found: '{0}'!", itemAsString));
+            }
             var wrappedItem = Items.First(i => i.Content.Equals(itemAsString));
             ChangeSelectedItemTo(wrappedItem);
         }
@@ -50,7 +56,12 @@ namespace tungsten.core.Elements
         private void ChangeSelectedItemTo(WpfComboBoxItem item)
         {
             Click();
-            Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
+            bool isVisible = Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
+            if (!isVisible)
+            {
+                // TODO: Error message, exception type
+                throw new Exception("Not visible");
+            }
             System.Threading.Thread.Sleep(200); // Takes a while even though it's visible... TODO: Configurable timespan.
             item.Click();
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Threading;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using tungsten.core.Elements;
@@ -40,6 +39,56 @@ namespace tungsten.nunit
                 writer.WriteMessageLine("Control:  {0} {1}", me.GetType().Name, me.ElementSearchPath());
                 throw new AssertionException(writer.ToString());
             }
+        }
+
+        public static void AssertThrows<TWpfElement>(this TWpfElement me, Type expectedExceptionType, Action<TWpfElement> action)
+            where TWpfElement : UntypedWpfElement
+        {
+            me.AssertThrows(expectedExceptionType, null, action);
+        }
+
+        public static void AssertThrows<TWpfElement>(this TWpfElement me, Type expectedExceptionType, string expectedMessage, Action<TWpfElement> action)
+            where TWpfElement : UntypedWpfElement
+        {
+            try
+            {
+                action(me);
+            }
+            catch (Exception actualException)
+            {
+                if (actualException.GetType() != expectedExceptionType)
+                {
+                    FailDueToWrongException(expectedExceptionType, actualException);
+                }
+                if (expectedMessage != null && actualException.Message != expectedMessage)
+                {
+                    FailDueToWrongMessage(expectedMessage, actualException.Message);
+                }
+                return; // Success
+            }
+            FailDueToNoException(expectedExceptionType);
+        }
+
+        private static void FailDueToNoException(Type expectedExceptionType)
+        {
+            FailDueToWrongException(expectedExceptionType, null);
+        }
+
+        private static void FailDueToWrongException(Type expectedExceptionType, Exception actualException)
+        {
+            var actual = actualException != null ? actualException.ToString() : "<null>";
+            Assert.Fail(
+@"Expected exception was not fired.
+  Expected: {0}
+  Actual:   {1}", expectedExceptionType, actual);
+        }
+
+        private static void FailDueToWrongMessage(string expected, string actual)
+        {
+            Assert.Fail(
+@"Exception contained wrong message.
+  Expected: {0}
+  Actual:   {1}", expected, actual);
         }
     }
 }

@@ -33,5 +33,14 @@ namespace tungsten.sampletest
             comboBox.ChangeSelectedItemTo("Has error");
             comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("Has error"));
         }
+
+        [Test]
+        public void CheckBoxChangeSelectedItemToNonExisting()
+        {
+            // Unfortunately a very slow test. Failures are slow.
+            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            comboBox.AssertThrows(typeof(System.Exception), x => x.ChangeSelectedItemTo("Clearly does not exist"));
+        }
     }
 }
