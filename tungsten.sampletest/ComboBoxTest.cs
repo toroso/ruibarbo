@@ -24,5 +24,14 @@ namespace tungsten.sampletest
             var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
             comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("No error"));
         }
+
+        [Test]
+        public void CheckBoxChangeSelectedItemUsingString()
+        {
+            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            comboBox.ChangeSelectedItemTo("Has error");
+            comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("Has error"));
+        }
     }
 }

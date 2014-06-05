@@ -30,7 +30,7 @@ namespace tungsten.nunit
             Constraint constraint = resolveConstraint.Resolve();
             var extractFunc = actualExp.Compile();
 
-            var found = WaitUntil(() => constraint.Matches(extractFunc(me)), maxRetryTime);
+            var found = Wait.Until(() => constraint.Matches(extractFunc(me)), maxRetryTime);
             if (!found)
             {
                 MessageWriter writer = new TextMessageWriter(null, null);
@@ -40,23 +40,6 @@ namespace tungsten.nunit
                 writer.WriteMessageLine("Control:  {0} {1}", me.GetType().Name, me.ElementSearchPath());
                 throw new AssertionException(writer.ToString());
             }
-        }
-
-        private static bool WaitUntil(Func<bool> found, TimeSpan maxRetryTime)
-        {
-            var sleepTime = TimeSpan.FromMilliseconds(10);
-            DateTime retryUntil = DateTime.Now + maxRetryTime;
-            while (DateTime.Now < retryUntil)
-            {
-                if (found())
-                {
-                    return true;
-                }
-
-                Thread.Sleep(sleepTime);
-            }
-
-            return false;
         }
     }
 }

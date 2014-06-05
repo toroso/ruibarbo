@@ -28,6 +28,16 @@ namespace tungsten.core.Elements
             get { return typeof (TFrameworkElement); }
         }
 
+        public bool IsVisible
+        {
+            get { return Get(frameworkElement => frameworkElement.IsVisible); }
+        }
+
+        public bool IsHitTestVisible
+        {
+            get { return Get(frameworkElement => frameworkElement.IsHitTestVisible); }
+        }
+
         public override IEnumerable<UntypedWpfElement> Children
         {
             get
