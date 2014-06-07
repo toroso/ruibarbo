@@ -28,7 +28,7 @@ namespace tungsten.core
         {
         }
 
-        public static ManglaException FindFailed(string soughtRelation, SearchSourceElement sourceElement, IEnumerable<By> bys, string foundAsString)
+        internal static ManglaException FindFailed(string soughtRelation, SearchSourceElement sourceElement, IEnumerable<By> bys, string foundAsString)
         {
             var message = string.Format("Find {0} failed, from {1} by <{2}>. Found:\n{3}",
                 soughtRelation,
