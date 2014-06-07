@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using tungsten.core.Elements;
@@ -52,6 +53,11 @@ namespace tungsten.core
         {
             var message = string.Format("Element is no longer available: {0}", element.ElementSearchPath());
             return new ManglaException(message);
+        }
+
+        public static ManglaException HardwareFailure(int win32Error)
+        {
+            return new ManglaException("Some simulated input commands were not sent successfully.", new Win32Exception(win32Error));
         }
     }
 }

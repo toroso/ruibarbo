@@ -39,9 +39,7 @@ namespace tungsten.core.Input
             var successful = InputSimulator.SendInput((UInt32)inputs.Length, inputs, Marshal.SizeOf(typeof(InputSimulator.INPUT)));
             if (successful != inputs.Length)
             {
-                // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
-                // Can I get LastError?
-                throw new Exception("Some simulated input commands were not sent successfully.");
+                throw ManglaException.HardwareFailure(Marshal.GetLastWin32Error());
             }
         }
     }
