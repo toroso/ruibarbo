@@ -17,7 +17,7 @@ namespace tungsten.core.Search
             var found = TryFindFirstChild<TElement>(parent, bys);
             if (found == null)
             {
-                throw new ElementNotFoundException("child", parent, bys, parent.ControlTreeAsString(6));
+                throw ManglaException.FindFailed("child", parent, bys, parent.ControlTreeAsString(6));
             }
 
             return found;
@@ -52,7 +52,7 @@ namespace tungsten.core.Search
             var found = TryFindFirstAncestor<TElement>(child, bys);
             if (found == null)
             {
-                throw new ElementNotFoundException("ancestor", child, bys, child.ElementNameOrClassPath());
+                throw ManglaException.FindFailed("ancestor", child, bys, child.ElementNameOrClassPath());
             }
 
             return found;

@@ -45,7 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElementNotFoundException.cs" />
+    <Compile Include="ManglaException.cs" />
     <Compile Include="Elements\UntypedWpfElement.cs" />
     <Compile Include="Elements\WpfCheckBox.cs" />
     <Compile Include="Elements\WpfComboBox.cs" />

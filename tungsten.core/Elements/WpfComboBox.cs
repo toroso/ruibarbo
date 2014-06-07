@@ -46,7 +46,7 @@ namespace tungsten.core.Elements
             {
                 var bys = new[] { By.Content(itemAsString) };
                 string foundAsString = Items.Select(i => string.Format("    '{0}'", i.Content)).Join("\n");
-                throw new ElementNotFoundException("item", this, bys, foundAsString);
+                throw ManglaException.FindFailed("item", this, bys, foundAsString);
             }
             var wrappedItem = Items.First(i => i.Content.Equals(itemAsString));
             ChangeSelectedItemTo(wrappedItem);

@@ -49,7 +49,7 @@ namespace tungsten.sampletest
             // Unfortunately a very slow test. Failures are slow.
             var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
             var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
-            comboBox.AssertThrows(typeof(ElementNotFoundException), x => x.ChangeSelectedItemTo("Clearly does not exist"));
+            comboBox.AssertThrows(typeof(ManglaException), x => x.ChangeSelectedItemTo("Clearly does not exist"));
         }
 
         [Test]
