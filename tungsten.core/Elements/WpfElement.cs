@@ -125,10 +125,7 @@ namespace tungsten.core.Elements
                 return strongReference;
             }
 
-            // No longer available
-            // TODO: Use assertion exception, created by injected factory
-            // TODO: Better message. Perhaps search conditions (By:s), including parents' search conditions.
-            throw new Exception("Framework element is no longer available");
+            throw ManglaException.NoLongerAvailable(this);
         }
     }
 }

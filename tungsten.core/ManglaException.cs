@@ -47,5 +47,11 @@ namespace tungsten.core
                 element.ElementSearchPath());
             return new ManglaException(message);
         }
+
+        public static ManglaException NoLongerAvailable(UntypedWpfElement element)
+        {
+            var message = string.Format("Element is no longer available: {0}", element.ElementSearchPath());
+            return new ManglaException(message);
+        }
     }
 }
