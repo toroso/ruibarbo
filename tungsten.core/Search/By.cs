@@ -31,6 +31,12 @@ namespace tungsten.core.Search
             return new By(element => element.Class == type);
         }
 
+        public static By Content(string content)
+        {
+            // TODO: Replace WpfComboBoxItem with WpfContentControl
+            return new By(element => ((WpfComboBoxItem)element).Content.Equals(content));
+        }
+
         public override string ToString()
         {
             var literalizer = new ExpressionLiteralizer();

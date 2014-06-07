@@ -17,12 +17,7 @@ namespace tungsten.core.Search
             var found = TryFindFirstChild<TElement>(parent, bys);
             if (found == null)
             {
-                // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
-                // TODO: Better error message. Include a lot of information about parent and a tree with information about all children.
-                throw new Exception(string.Format("Find child failed, from {0} by <{1}>. Found:\n{2}",
-                    parent.Name,
-                    bys.Select(by => by.ToString()).Join("; "),
-                    parent.ControlTreeAsString(6)));
+                throw new ElementNotFoundException("child", parent, bys, parent.ControlTreeAsString(6));
             }
 
             return found;
@@ -31,7 +26,6 @@ namespace tungsten.core.Search
         private static TElement TryFindFirstChild<TElement>(SearchSourceElement parent, By[] bys)
             where TElement : UntypedWpfElement
         {
-            // TODO: Max depth
             // TODO: Make a few attempts
             var breadthFirstQueue = new Queue<UntypedWpfElement>();
             breadthFirstQueue.EnqueueAll(parent.Children);
@@ -58,12 +52,7 @@ namespace tungsten.core.Search
             var found = TryFindFirstAncestor<TElement>(child, bys);
             if (found == null)
             {
-                // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
-                // TODO: Better error message. Include a lot of information about parent and a tree with information about all children.
-                throw new Exception(string.Format("Find ancestor failed, from {0} by <{1}>. Found:\n{2}",
-                    child.Name,
-                    bys.Select(by => by.ToString()).Join("; "),
-                    child.ElementNameOrClassPath()));
+                throw new ElementNotFoundException("ancestor", child, bys, child.ElementNameOrClassPath());
             }
 
             return found;

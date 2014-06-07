@@ -1,6 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
+using tungsten.core;
 using tungsten.core.Elements;
 using tungsten.core.Search;
 using tungsten.nunit;
@@ -49,7 +49,7 @@ namespace tungsten.sampletest
             // Unfortunately a very slow test. Failures are slow.
             var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
             var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
-            comboBox.AssertThrows(typeof(System.Exception), x => x.ChangeSelectedItemTo("Clearly does not exist"));
+            comboBox.AssertThrows(typeof(ElementNotFoundException), x => x.ChangeSelectedItemTo("Clearly does not exist"));
         }
 
         [Test]

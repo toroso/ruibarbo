@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
@@ -43,8 +44,9 @@ namespace tungsten.core.Elements
             bool found = Wait.Until(() => Items.FirstOrDefault(i => i.Content.Equals(itemAsString)) != null, TimeSpan.FromSeconds(5));
             if (!found)
             {
-                // TODO: Error message, exception type
-                throw new Exception(string.Format("Not found: '{0}'!", itemAsString));
+                var bys = new[] { By.Content(itemAsString) };
+                string foundAsString = Items.Select(i => string.Format("    '{0}'", i.Content)).Join("\n");
+                throw new ElementNotFoundException("item", this, bys, foundAsString);
             }
             var wrappedItem = Items.First(i => i.Content.Equals(itemAsString));
             ChangeSelectedItemTo(wrappedItem);
