@@ -19,7 +19,10 @@ namespace tungsten.core.Search
             {
                 // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
                 // TODO: Better error message. Include a lot of information about parent and a tree with information about all children.
-                throw new Exception(string.Format("Search failed, from {0} by <{1}>", parent.Name, bys.Select(by => by.ToString()).Join("; ")));
+                throw new Exception(string.Format("Search failed, from {0} by <{1}>. Found:\n{2}",
+                    parent.Name,
+                    bys.Select(by => by.ToString()).Join("; "),
+                    parent.ControlTreeAsString(6)));
             }
 
             return found;
@@ -46,6 +49,34 @@ namespace tungsten.core.Search
             }
 
             return null;
+        }
+
+        public static TElement FindFirstAncestor<TElement>(this UntypedWpfElement child, params By[] bys)
+            where TElement : UntypedWpfElement
+        {
+            Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bys.Select(by => by.ToString()).Join("; "));
+            var found = TryFindFirstAncestor<TElement>(child, bys);
+            return found;
+        }
+
+        private static TElement TryFindFirstAncestor<TElement>(UntypedWpfElement child, By[] bys)
+            where TElement : UntypedWpfElement
+        {
+            var current = child;
+            while (true)
+            {
+                current = current.Parent;
+                if (current == null)
+                {
+                    return null;
+                }
+
+                var asTElement = current as TElement;
+                if (asTElement != null && bys.All(by => by.Matches(asTElement)))
+                {
+                    return asTElement.FoundBy<TElement>(bys);
+                }
+            }
         }
     }
 }

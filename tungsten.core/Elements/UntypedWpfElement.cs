@@ -8,8 +8,8 @@ namespace tungsten.core.Elements
     {
         private By[] _bys;
 
-        protected UntypedWpfElement(SearchSourceElement parent)
-            : base(parent)
+        protected UntypedWpfElement(SearchSourceElement searchParent)
+            : base(searchParent)
         {
             _bys = new By[] { };
         }
@@ -18,6 +18,8 @@ namespace tungsten.core.Elements
         {
             get { return _bys; }
         }
+
+        public abstract UntypedWpfElement Parent { get; }
 
         internal TWpfElement FoundBy<TWpfElement>(IEnumerable<By> bys)
             where TWpfElement : UntypedWpfElement

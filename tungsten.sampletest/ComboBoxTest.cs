@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using tungsten.core.Elements;
 using tungsten.core.Search;
@@ -14,7 +15,15 @@ namespace tungsten.sampletest
         {
             var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
             var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
-            comboBox.AssertThat(x => x.Items.Select(i => i.Content), Is.EqualTo(new[] { "No error", "Has error" }));
+            comboBox.AssertThat(x => x.Items.Select(i => i.Content), Is.EqualTo(new[]
+            {
+                "No error",
+                "Has error",
+                "Item 3",
+                "Item 4",
+                "Item 5",
+                "Item 6",
+            }));
         }
 
         [Test]
@@ -41,6 +50,23 @@ namespace tungsten.sampletest
             var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
             var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
             comboBox.AssertThrows(typeof(System.Exception), x => x.ChangeSelectedItemTo("Clearly does not exist"));
+        }
+
+        [Test]
+        public void CheckBoxChangeSelectedItemRequiresScrolling()
+        {
+            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+
+            var lastItem = comboBox.Items.Last();
+            lastItem.AssertThat(x => x.Content, Is.EqualTo("Item 6"));
+            comboBox.ChangeSelectedItemTo(lastItem);
+            comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("Item 6"));
+
+            var firstItem = comboBox.Items.First();
+            firstItem.AssertThat(x => x.Content, Is.EqualTo("No error"));
+            comboBox.ChangeSelectedItemTo(firstItem);
+            comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("No error"));
         }
     }
 }

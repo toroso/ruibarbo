@@ -7,11 +7,11 @@ namespace tungsten.core.Elements
 {
     public abstract class SearchSourceElement
     {
-        private SearchSourceElement Parent { get; set; }
+        private SearchSourceElement SearchParent { get; set; }
 
-        protected SearchSourceElement(SearchSourceElement parent)
+        protected SearchSourceElement(SearchSourceElement searchParent)
         {
-            Parent = parent;
+            SearchParent = searchParent;
         }
 
         public abstract string Name { get; }
@@ -23,9 +23,9 @@ namespace tungsten.core.Elements
         {
             get
             {
-                if (Parent != null)
+                if (SearchParent != null)
                 {
-                    foreach (var ancestor in Parent.ElementPath)
+                    foreach (var ancestor in SearchParent.ElementPath)
                     {
                         yield return ancestor;
                     }
@@ -36,7 +36,12 @@ namespace tungsten.core.Elements
 
         internal UntypedWpfElement CreateWpfElement(FrameworkElement element)
         {
-            return ElementFactory.ElementFactory.CreateWpfElement(this, element);
+            return CreateWpfElement(this, element);
+        }
+
+        internal UntypedWpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)
+        {
+            return ElementFactory.ElementFactory.CreateWpfElement(parent, element);
         }
     }
 }

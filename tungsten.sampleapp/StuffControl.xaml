@@ -18,10 +18,14 @@
         </StackPanel>
         <RadioButton x:Name="Option1" GroupName="Group" Content="Submit disabled" />
         <RadioButton x:Name="Option2" GroupName="Group" Content="Submit enabled" IsChecked="True" />
-        <ComboBox x:Name="CmbShowError">
+        <ComboBox x:Name="CmbShowError" MaxDropDownHeight="82">
             <ComboBox.Items>
                 <ComboBoxItem IsSelected="True" Content="No error"/>
                 <ComboBoxItem x:Name="ItemShowError" Content="Has error"/>
+                <ComboBoxItem Content="Item 3"/>
+                <ComboBoxItem Content="Item 4"/>
+                <ComboBoxItem Content="Item 5"/>
+                <ComboBoxItem Content="Item 6"/>
             </ComboBox.Items>
         </ComboBox>
         <TextBlock Text="Naughty frog!" Visibility="{Binding IsSelected, ElementName=ItemShowError, Converter={StaticResource BooleanToVisibilityConverter}}" />

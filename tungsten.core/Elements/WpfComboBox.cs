@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Windows.Input;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
     public class WpfComboBox : WpfElement<System.Windows.Controls.ComboBox>
     {
-        public WpfComboBox(SearchSourceElement parent, System.Windows.Controls.ComboBox frameworkElement)
-            : base(parent, frameworkElement)
+        public WpfComboBox(SearchSourceElement searchParent, System.Windows.Controls.ComboBox frameworkElement)
+            : base(searchParent, frameworkElement)
         {
         }
 
@@ -53,7 +50,7 @@ namespace tungsten.core.Elements
             ChangeSelectedItemTo(wrappedItem);
         }
 
-        private void ChangeSelectedItemTo(WpfComboBoxItem item)
+        public void ChangeSelectedItemTo(WpfComboBoxItem item)
         {
             Click();
             bool isVisible = Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
@@ -62,7 +59,9 @@ namespace tungsten.core.Elements
                 // TODO: Error message, exception type
                 throw new Exception("Not visible");
             }
-            System.Threading.Thread.Sleep(200); // Takes a while even though it's visible... TODO: Configurable timespan.
+
+            item.BringIntoView();
+            System.Threading.Thread.Sleep(200); // Takes a while to open and scroll... TODO: Configurable timespan.
             item.Click();
         }
     }

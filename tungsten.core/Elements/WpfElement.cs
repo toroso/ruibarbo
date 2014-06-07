@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using tungsten.core.Input;
 using tungsten.core.Utils;
 
@@ -12,8 +13,8 @@ namespace tungsten.core.Elements
     {
         private readonly WeakReference<TFrameworkElement> _frameworkElement;
 
-        protected WpfElement(SearchSourceElement parent, TFrameworkElement frameworkElement)
-            : base(parent)
+        protected WpfElement(SearchSourceElement searchParent, TFrameworkElement frameworkElement)
+            : base(searchParent)
         {
             _frameworkElement = new WeakReference<TFrameworkElement>(frameworkElement);
         }
@@ -25,7 +26,7 @@ namespace tungsten.core.Elements
 
         public override Type Class
         {
-            get { return typeof (TFrameworkElement); }
+            get { return Get(frameworkElement => frameworkElement.GetType()); }
         }
 
         public bool IsVisible
@@ -38,6 +39,20 @@ namespace tungsten.core.Elements
             get { return Get(frameworkElement => frameworkElement.IsHitTestVisible); }
         }
 
+        public Rect BoundsOnScreen
+        {
+            get
+            {
+                return Get(frameworkElement =>
+                {
+                    var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
+                    var width = frameworkElement.ActualWidth;
+                    var height = frameworkElement.ActualHeight;
+                    return new Rect(locationFromScreen.X, locationFromScreen.Y, width, height);
+                });
+            }
+        }
+
         public override IEnumerable<UntypedWpfElement> Children
         {
             get
@@ -45,6 +60,35 @@ namespace tungsten.core.Elements
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = Get(frameworkElement => frameworkElement.GetFrameworkElementChildren());
                 return frameworkElementChildren.Select(CreateWpfElement);
+            }
+        }
+
+        public override UntypedWpfElement Parent
+        {
+            get
+            {
+                var rootFrameworkElement = Get(frameworkElement =>
+                    {
+                        DependencyObject current = frameworkElement;
+                        while (true)
+                        {
+                            current = VisualTreeHelper.GetParent(current);
+                            if (current == null)
+                            {
+                                return null;
+                            }
+
+                            var asFrameworkElement = current as FrameworkElement;
+                            if (asFrameworkElement != null)
+                            {
+                                return asFrameworkElement;
+                            }
+                        }
+                    });
+
+                return rootFrameworkElement != null
+                    ? CreateWpfElement(null, rootFrameworkElement)
+                    : null;
             }
         }
 
@@ -67,19 +111,10 @@ namespace tungsten.core.Elements
 
         public void Click()
         {
-            var centerPoint = Get(frameworkElement =>
-                {
-                    var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
-                    var width = frameworkElement.ActualWidth;
-                    var height = frameworkElement.ActualHeight;
-
-                    var centerX = (int)(locationFromScreen.X + width / 2);
-                    var centerY = (int)(locationFromScreen.Y + height / 2);
-
-                    return new Point(centerX, centerY);
-                });
-
-            Mouse.Click((int) centerPoint.X, (int) centerPoint.Y);
+            var bounds = BoundsOnScreen;
+            var centerX = (int)(bounds.X + bounds.Width / 2);
+            var centerY = (int)(bounds.Y + bounds.Height / 2);
+            Mouse.Click(centerX, centerY);
         }
 
         private TFrameworkElement GetStrongReference()

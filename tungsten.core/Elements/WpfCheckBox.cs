@@ -2,8 +2,8 @@
 {
     public class WpfCheckBox : WpfElement<System.Windows.Controls.CheckBox>
     {
-        public WpfCheckBox(SearchSourceElement parent, System.Windows.Controls.CheckBox checkBox)
-            : base(parent, checkBox)
+        public WpfCheckBox(SearchSourceElement searchParent, System.Windows.Controls.CheckBox checkBox)
+            : base(searchParent, checkBox)
         {
         }
 

@@ -6,8 +6,8 @@ namespace tungsten.core.Elements
 {
     public class WpfTextBox : WpfElement<System.Windows.Controls.TextBox>
     {
-        public WpfTextBox(SearchSourceElement parent, System.Windows.Controls.TextBox textBox)
-            : base(parent, textBox)
+        public WpfTextBox(SearchSourceElement searchParent, System.Windows.Controls.TextBox textBox)
+            : base(searchParent, textBox)
         {
         }
 
