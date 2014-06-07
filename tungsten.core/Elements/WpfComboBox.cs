@@ -58,7 +58,7 @@ namespace tungsten.core.Elements
             bool isVisible = Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
             if (!isVisible)
             {
-                throw ManglaException.NotVisible(item, this);
+                throw ManglaException.NotVisible(item);
             }
 
             item.BringIntoView();

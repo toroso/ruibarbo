@@ -24,7 +24,7 @@ namespace tungsten.core.Elements
         internal TWpfElement FoundBy<TWpfElement>(IEnumerable<By> bys)
             where TWpfElement : UntypedWpfElement
         {
-            _bys = bys.Concat(new[] { By.Class(GetType()) }).ToArray();
+            _bys = bys.Concat(new[] { By.Class(Class) }).ToArray();
             return (TWpfElement)this;
         }
     }

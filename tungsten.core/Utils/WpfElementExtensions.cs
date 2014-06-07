@@ -58,14 +58,10 @@ namespace tungsten.core.Utils
             }
 
             var sb = new StringBuilder();
-            string name = me.Name;
-            string controlIdentifier = string.IsNullOrEmpty(name)
-                ? me.Class.ToString()
-                : string.Format("{0} ({1})", name, me.Class);
             sb.AppendIndentedLine(
                 (3 * currentDepth) + 3,
                 "{0}",
-                controlIdentifier);
+                me.ControlIdentifier());
 
             foreach (var child in me.Children)
             {
@@ -73,6 +69,15 @@ namespace tungsten.core.Utils
             }
 
             return sb.ToString();
+        }
+
+        public static string ControlIdentifier(this SearchSourceElement me)
+        {
+            string name = me.Name;
+            string controlIdentifier = string.IsNullOrEmpty(name)
+                ? me.Class.ToString()
+                : string.Format("{0} ({1})", name, me.Class);
+            return controlIdentifier;
         }
 
         private static void AppendIndentedLine(this StringBuilder me, int indentLevel, string format, params object[] args)
