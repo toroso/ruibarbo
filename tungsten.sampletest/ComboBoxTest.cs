@@ -13,8 +13,8 @@ namespace tungsten.sampletest
         [Test]
         public void CheckBoxContents()
         {
-            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
-            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
             comboBox.AssertThat(x => x.Items.Select(i => i.Content), Is.EqualTo(new[]
             {
                 "No error",
@@ -29,16 +29,16 @@ namespace tungsten.sampletest
         [Test]
         public void CheckBoxSelectedItem()
         {
-            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
-            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
             comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("No error"));
         }
 
         [Test]
         public void CheckBoxChangeSelectedItemUsingString()
         {
-            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
-            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
             comboBox.ChangeSelectedItemTo("Has error");
             comboBox.AssertThat(x => x.SelectedItem.Content, Is.EqualTo("Has error"));
         }
@@ -47,16 +47,16 @@ namespace tungsten.sampletest
         public void CheckBoxChangeSelectedItemToNonExisting()
         {
             // Unfortunately a very slow test. Failures are slow.
-            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
-            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
             comboBox.AssertThrows(typeof(System.Exception), x => x.ChangeSelectedItemTo("Clearly does not exist"));
         }
 
         [Test]
         public void CheckBoxChangeSelectedItemRequiresScrolling()
         {
-            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
-            var comboBox = window.FindFirstElement<WpfComboBox>(By.Name("CmbShowError"));
+            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var comboBox = window.FindFirstChild<WpfComboBox>(By.Name("CmbShowError"));
 
             var lastItem = comboBox.Items.Last();
             lastItem.AssertThat(x => x.Content, Is.EqualTo("Item 6"));

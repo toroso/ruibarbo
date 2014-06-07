@@ -11,8 +11,8 @@ namespace tungsten.sampletest
         [Test]
         public void Hupp()
         {
-            var window = Desktop.FindFirstElement<WpfWindow>(By.Name("WndMain"));
-            var checkBox = window.FindFirstElement<WpfCheckBox>(By.Name("ShowStuff"));
+            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var checkBox = window.FindFirstChild<WpfCheckBox>(By.Name("ShowStuff"));
             checkBox.AssertThat(x => x.IsChecked, Is.True);
 
             checkBox.Click();
