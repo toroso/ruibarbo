@@ -1,9 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
+using tungsten.core;
 using tungsten.core.Elements;
 using tungsten.core.Search;
 using tungsten.core.Utils;
-using tungsten.sampletest.AutomationLayer;
 
 namespace tungsten.sampletest
 {
@@ -11,12 +11,28 @@ namespace tungsten.sampletest
     /// Some basic tests to demonstrate the library foundation.
     /// </summary>
     [TestFixture]
-    public class BasicTest : TestBase
+    public class BasicTest
     {
+        private Engine _engine;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _engine = new Engine();
+            _engine.Start(new SampleApplication());
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _engine.ShutDown();
+            CollectionAssert.IsEmpty(_engine.UnhandledExceptions);
+        }
+
         [Test]
         public void DoDaThing()
         {
-            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+            var window = _engine.Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
             Console.WriteLine("Found window, Element name path: '{0}'; class path: {1}", window.ElementNamePath(), window.ElementClassPath());
             var button = window.FindFirstChild<WpfButton>(By.Name("BtnSubmit"));
             Console.WriteLine("Found button, Element name path: '{0}'; class path: {1}", button.ElementNamePath(), button.ElementClassPath());

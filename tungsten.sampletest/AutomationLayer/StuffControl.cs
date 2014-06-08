@@ -1,4 +1,5 @@
 ﻿using tungsten.core.Elements;
+using tungsten.core.Search;
 
 namespace tungsten.sampletest.AutomationLayer
 {
@@ -7,6 +8,11 @@ namespace tungsten.sampletest.AutomationLayer
         public StuffControl(SearchSourceElement searchParent, System.Windows.Controls.UserControl frameworkElement)
             : base(searchParent, frameworkElement)
         {
+        }
+
+        public WpfComboBox ShowErrorComboBox
+        {
+            get { return this.FindFirstChild<WpfComboBox>(By.Name("CmbShowError")); }
         }
     }
 }

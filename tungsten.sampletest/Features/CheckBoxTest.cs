@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using tungsten.core.Elements;
-using tungsten.core.Search;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 
@@ -12,10 +11,8 @@ namespace tungsten.sampletest.Features
         [Test]
         public void CheckBoxIsChecked()
         {
-            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
-            var checkBox = window.FindFirstChild<WpfCheckBox>(By.Name("ShowStuff"));
+            var checkBox = MainWindow.ShowStuffCheckBox;
             checkBox.AssertThat(x => x.IsChecked(), Is.True);
-
             checkBox.Click();
             checkBox.AssertThat(x => x.IsChecked(), Is.False);
         }
@@ -23,9 +20,7 @@ namespace tungsten.sampletest.Features
         [Test]
         public void CheckBoxChangeIsChecked()
         {
-            var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
-            var checkBox = window.FindFirstChild<WpfCheckBox>(By.Name("ShowStuff"));
-
+            var checkBox = MainWindow.ShowStuffCheckBox;
             checkBox.Click();
             checkBox.AssertThat(x => x.IsChecked(), Is.False);
         }

@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using tungsten.core;
-using tungsten.core.Elements;
+using tungsten.core.Search;
 
 namespace tungsten.sampletest.AutomationLayer
 {
@@ -23,9 +23,9 @@ namespace tungsten.sampletest.AutomationLayer
             CollectionAssert.IsEmpty(Engine.UnhandledExceptions);
         }
 
-        protected DesktopElement Desktop
+        protected MainWindow MainWindow
         {
-            get { return Engine.Desktop; }
+            get { return Engine.Desktop.FindFirstChild<MainWindow>(By.Name("WndMain")); }
         }
     }
 }
