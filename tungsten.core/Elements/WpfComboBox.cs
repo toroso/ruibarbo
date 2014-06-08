@@ -18,25 +18,21 @@ namespace tungsten.core.Elements
     {
         public static IEnumerable<WpfComboBoxItem> Items(this WpfComboBox me)
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.Items
+            return Invoker.Get(me, frameworkElement => frameworkElement.Items)
                 .Cast<System.Windows.Controls.ComboBoxItem>()
-                .Select(item => AsWpfComboBoxItem(item, me))
-                .ToArray());
+                .Select(item => CreateWpfComboBoxItem(item, me))
+                .ToArray();
         }
 
         public static WpfComboBoxItem SelectedItem(this WpfComboBox me)
         {
-            return Invoker.Get(me, frameworkElement => AsWpfComboBoxItem(frameworkElement.SelectedItem, me));
+            var selectedItem = Invoker.Get(me, frameworkElement => (System.Windows.Controls.ComboBoxItem)frameworkElement.SelectedItem);
+            return CreateWpfComboBoxItem(selectedItem, me);
         }
 
         public static bool IsDropDownOpen(this WpfComboBox me)
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
-        }
-
-        private static WpfComboBoxItem AsWpfComboBoxItem(object item, WpfComboBox parent)
-        {
-            return new WpfComboBoxItem(parent, (System.Windows.Controls.ComboBoxItem)item);
         }
 
         public static void ChangeSelectedItemTo(this WpfComboBox me, string itemAsString)
@@ -64,6 +60,11 @@ namespace tungsten.core.Elements
             item.BringIntoView();
             System.Threading.Thread.Sleep(200); // Takes a while to open and scroll... TODO: Configurable timespan.
             item.Click();
+        }
+
+        private static WpfComboBoxItem CreateWpfComboBoxItem(System.Windows.Controls.ComboBoxItem item, WpfComboBox parent)
+        {
+            return (WpfComboBoxItem)ElementFactory.ElementFactory.CreateWpfElement(parent, item);
         }
     }
 }
