@@ -2,7 +2,7 @@ using NUnit.Framework;
 using tungsten.core;
 using tungsten.core.Elements;
 
-namespace tungsten.sampletest
+namespace tungsten.sampletest.AutomationLayer
 {
     public class TestBase
     {

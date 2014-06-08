@@ -4,7 +4,7 @@ using tungsten.core.Search;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 
-namespace tungsten.sampletest
+namespace tungsten.sampletest.Features
 {
     [TestFixture]
     public class UserControlTest : TestBase

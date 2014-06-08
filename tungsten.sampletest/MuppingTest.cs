@@ -3,6 +3,7 @@ using NUnit.Framework;
 using tungsten.core.Elements;
 using tungsten.core.Search;
 using tungsten.core.Utils;
+using tungsten.sampletest.AutomationLayer;
 
 namespace tungsten.sampletest
 {
