@@ -3,8 +3,7 @@ using System.Linq;
 
 namespace tungsten.core.Utils
 {
-    // TODO: Make internal
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         public static string JoinExcludeEmpty(this IEnumerable<string> me, string separator)
         {

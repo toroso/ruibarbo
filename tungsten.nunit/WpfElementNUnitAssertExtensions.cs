@@ -37,7 +37,7 @@ namespace tungsten.nunit
                 writer.WriteMessageLine(string.Empty);
                 constraint.WriteMessageTo(writer);
                 writer.WriteMessageLine("Expr:     {0}", actualExp);
-                writer.WriteMessageLine("Control:  {0} <{1}>", me.GetType().Name, me.SearchConditions.Select(s => s.ToString()).Join(", "));
+                writer.WriteMessageLine("Control:  {0} <{1}>", me.GetType().Name, me.ElementSearchPath());
                 writer.WriteMessageLine("Path:     {0}", me.ElementSearchPath());
                 throw new AssertionException(writer.ToString());
             }
