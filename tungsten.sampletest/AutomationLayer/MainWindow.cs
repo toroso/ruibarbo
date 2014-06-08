@@ -19,5 +19,10 @@ namespace tungsten.sampletest.AutomationLayer
         {
             get { return this.FindFirstChild<StuffControl>(By.Name("CtrlStuff")); }
         }
+
+        public WpfTabControl MainTabControl
+        {
+            get { return this.FindFirstChild<WpfTabControl>(By.Name("MainTabs")); }
+        }
     }
 }

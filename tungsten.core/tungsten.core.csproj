@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\WpfLabel.cs" />
+    <Compile Include="Elements\WpfTabControl.cs" />
+    <Compile Include="Elements\WpfTabItem.cs" />
     <Compile Include="Elements\WpfTextBlock.cs" />
     <Compile Include="Elements\WpfUserControl.cs" />
     <Compile Include="ManglaException.cs" />
