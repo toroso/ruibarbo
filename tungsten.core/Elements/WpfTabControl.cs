@@ -13,6 +13,11 @@ namespace tungsten.core.Elements
 
     public static class WpfTabControlExtensions
     {
+        public static WpfTabItem SelectedItem(this WpfTabControl me)
+        {
+            return Invoker.Get(me, frameworkElement => AsWpfTabItem(frameworkElement.SelectedItem, me));
+        }
+
         public static IEnumerable<WpfTabItem> TabItems(this WpfTabControl me)
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.Items

@@ -7,4 +7,17 @@ namespace tungsten.core.Elements
         {
         }
     }
+
+    public static class WpfTabItemExtensions
+    {
+        public static object Header(this WpfTabItem me)
+        {
+            return Invoker.Get(me, frameworkElement => frameworkElement.Header);
+        }
+
+        public static bool IsSelected(this WpfTabItem me)
+        {
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
+        }
+    }
 }
