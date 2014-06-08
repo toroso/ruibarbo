@@ -23,7 +23,7 @@
             <TabItem Header="Tab 1">
                 <StackPanel>
                     <CheckBox x:Name="ShowStuff" Content="Show stuff" IsChecked="True" />
-                    <sampleapp:StuffControl Visibility="{Binding IsChecked, ElementName=ShowStuff, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <sampleapp:StuffControl x:Name="CtrlStuff" Visibility="{Binding IsChecked, ElementName=ShowStuff, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </TabItem>
             <TabItem Header="Tab 2"></TabItem>

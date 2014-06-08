@@ -39,7 +39,7 @@ namespace tungsten.core.ElementFactory
                 .Where(t => baseType != t && t.IsSubclassOfGeneric(baseType));
             foreach (var type in wpfElementTypes)
             {
-                var frameworkElementFullName = type.BaseType.GetGenericArguments()[0].FullName; // Only works if base is WpfElement, that is, no other base classes in between
+                var frameworkElementFullName = type.GenericTypeArgumentOf(baseType).FullName;
                 var wpfElementType = type;
                 AddType(frameworkElementFullName, wpfElementType);
             }

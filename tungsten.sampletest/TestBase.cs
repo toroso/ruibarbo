@@ -12,6 +12,7 @@ namespace tungsten.sampletest
         public void SetUp()
         {
             Engine = new Engine();
+            Engine.ConfigureElementFactory(x => x.AddElementAssembly(typeof(TestBase).Assembly));
             Engine.Start(new SampleApplication());
         }
 

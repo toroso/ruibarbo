@@ -34,5 +34,25 @@ namespace tungsten.core.Utils
 
             return false;
         }
+
+        public static Type GenericTypeArgumentOf(this Type me, Type generic)
+        {
+            var toCheck = me;
+            while (toCheck != null && toCheck != typeof (object))
+            {
+                var current = toCheck.IsGenericType
+                    ? toCheck.GetGenericTypeDefinition()
+                    : toCheck;
+
+                if (generic == current)
+                {
+                    return toCheck.GetGenericArguments()[0];
+                }
+
+                toCheck = toCheck.BaseType;
+            }
+
+            return null;
+        }
     }
 }
