@@ -9,6 +9,7 @@ namespace tungsten.sampletest.Features
     [TestFixture]
     public class UserControlTest : TestBase
     {
+        [Test]
         public void StuffControlIsVisible()
         {
             var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));

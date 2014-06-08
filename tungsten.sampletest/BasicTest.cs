@@ -7,8 +7,11 @@ using tungsten.sampletest.AutomationLayer;
 
 namespace tungsten.sampletest
 {
+    /// <summary>
+    /// Some basic tests to demonstrate the library foundation.
+    /// </summary>
     [TestFixture]
-    public class MuppingTest : TestBase
+    public class BasicTest : TestBase
     {
         [Test]
         public void DoDaThing()
