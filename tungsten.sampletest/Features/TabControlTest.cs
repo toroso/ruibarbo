@@ -30,5 +30,14 @@ namespace tungsten.sampletest.Features
             var mainTabControl = MainWindow.MainTabControl;
             mainTabControl.AssertThat(x => x.SelectedItem().Header(), Is.EqualTo("Tab 1"));
         }
+
+        [Test]
+        public void ChangeToSecondTabItem()
+        {
+            var mainTabControl = MainWindow.MainTabControl;
+            var tab2 = mainTabControl.TabItems().First(x => x.Header().Equals("Tab 2"));
+            tab2.Click();
+            mainTabControl.AssertThat(x => x.SelectedItem().Header(), Is.EqualTo("Tab 2"));
+        }
     }
 }
