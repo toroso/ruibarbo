@@ -29,30 +29,6 @@ namespace tungsten.core.Elements
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType()); }
         }
 
-        public bool IsVisible
-        {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsVisible); }
-        }
-
-        public bool IsHitTestVisible
-        {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsHitTestVisible); }
-        }
-
-        public Rect BoundsOnScreen
-        {
-            get
-            {
-                return Invoker.Get(this, frameworkElement =>
-                {
-                    var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
-                    var width = frameworkElement.ActualWidth;
-                    var height = frameworkElement.ActualHeight;
-                    return new Rect(locationFromScreen.X, locationFromScreen.Y, width, height);
-                });
-            }
-        }
-
         public override IEnumerable<UntypedWpfElement> Children
         {
             get
@@ -68,41 +44,28 @@ namespace tungsten.core.Elements
             get
             {
                 var rootFrameworkElement = Invoker.Get(this, frameworkElement =>
-                {
-                    DependencyObject current = frameworkElement;
-                    while (true)
                     {
-                        current = VisualTreeHelper.GetParent(current);
-                        if (current == null)
+                        DependencyObject current = frameworkElement;
+                        while (true)
                         {
-                            return null;
-                        }
+                            current = VisualTreeHelper.GetParent(current);
+                            if (current == null)
+                            {
+                                return null;
+                            }
 
-                        var asFrameworkElement = current as FrameworkElement;
-                        if (asFrameworkElement != null)
-                        {
-                            return asFrameworkElement;
+                            var asFrameworkElement = current as FrameworkElement;
+                            if (asFrameworkElement != null)
+                            {
+                                return asFrameworkElement;
+                            }
                         }
-                    }
-                });
+                    });
 
                 return rootFrameworkElement != null
                     ? CreateWpfElement(null, rootFrameworkElement)
                     : null;
             }
-        }
-
-        public bool IsKeyboardFocused
-        {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsKeyboardFocused); }
-        }
-
-        public void Click()
-        {
-            var bounds = BoundsOnScreen;
-            var centerX = (int)(bounds.X + bounds.Width / 2);
-            var centerY = (int)(bounds.Y + bounds.Height / 2);
-            Mouse.Click(centerX, centerY);
         }
 
         internal TFrameworkElement GetStrongReference()
@@ -114,6 +77,48 @@ namespace tungsten.core.Elements
             }
 
             throw ManglaException.NoLongerAvailable(this);
+        }
+    }
+
+    public static class WpfElementExtensions
+    {
+        public static Rect BoundsOnScreen<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+            where TFrameworkElement : FrameworkElement
+        {
+            return Invoker.Get(me, frameworkElement =>
+                {
+                    var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
+                    var width = frameworkElement.ActualWidth;
+                    var height = frameworkElement.ActualHeight;
+                    return new Rect(locationFromScreen.X, locationFromScreen.Y, width, height);
+                });
+        }
+
+        public static bool IsHitTestVisible<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+            where TFrameworkElement : FrameworkElement
+        {
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsHitTestVisible);
+        }
+
+        public static bool IsKeyboardFocused<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+            where TFrameworkElement : FrameworkElement
+        {
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsKeyboardFocused);
+        }
+
+        public static bool IsVisible<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+            where TFrameworkElement : FrameworkElement
+        {
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsVisible);
+        }
+
+        public static void Click<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+            where TFrameworkElement : FrameworkElement
+        {
+            var bounds = me.BoundsOnScreen();
+            var centerX = (int)(bounds.X + bounds.Width / 2);
+            var centerY = (int)(bounds.Y + bounds.Height / 2);
+            Mouse.Click(centerX, centerY);
         }
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Windows;
-
 namespace tungsten.core.Elements
 {
     public class WpfWindow : WpfElement<System.Windows.Window>

@@ -6,7 +6,7 @@ using tungsten.core.Elements;
 
 namespace tungsten.core
 {
-    internal class Invoker
+    public class Invoker
     {
         private static readonly ThreadLocal<Invoker> Instances = new ThreadLocal<Invoker>();
 
@@ -22,7 +22,7 @@ namespace tungsten.core
             _dispatcher = dispatcher;
         }
 
-        public static void Create(Dispatcher dispatcher)
+        internal static void Create(Dispatcher dispatcher)
         {
             Instances.Value = new Invoker(dispatcher);
         }
@@ -84,7 +84,7 @@ namespace tungsten.core
             _dispatcher.Invoke(action);
         }
 
-        public static void BeginInvokeShutdown()
+        internal static void BeginInvokeShutdown()
         {
             Instance.BeginInvokeShutdownImpl();
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
@@ -13,50 +12,50 @@ namespace tungsten.core.Elements
             : base(searchParent, frameworkElement)
         {
         }
+    }
 
-        public IEnumerable<WpfComboBoxItem> Items
+    public static class WpfComboBoxExtensions
+    {
+        public static IEnumerable<WpfComboBoxItem> Items(this WpfComboBox me)
         {
-            get
-            {
-                return Invoker.Get(this, frameworkElement => frameworkElement.Items
-                    .Cast<System.Windows.Controls.ComboBoxItem>()
-                    .Select(AsWpfComboBoxItem)
-                    .ToArray());
-            }
+            return Invoker.Get(me, frameworkElement => frameworkElement.Items
+                .Cast<System.Windows.Controls.ComboBoxItem>()
+                .Select(item => AsWpfComboBoxItem(item, me))
+                .ToArray());
         }
 
-        public WpfComboBoxItem SelectedItem
+        public static WpfComboBoxItem SelectedItem(this WpfComboBox me)
         {
-            get { return Invoker.Get(this, frameworkElement => AsWpfComboBoxItem(frameworkElement.SelectedItem)); }
+            return Invoker.Get(me, frameworkElement => AsWpfComboBoxItem(frameworkElement.SelectedItem, me));
         }
 
-        public bool IsDropDownOpen
+        public static bool IsDropDownOpen(this WpfComboBox me)
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsDropDownOpen); }
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
         }
 
-        private WpfComboBoxItem AsWpfComboBoxItem(object item)
+        private static WpfComboBoxItem AsWpfComboBoxItem(object item, WpfComboBox parent)
         {
-            return new WpfComboBoxItem(this, (System.Windows.Controls.ComboBoxItem)item);
+            return new WpfComboBoxItem(parent, (System.Windows.Controls.ComboBoxItem)item);
         }
 
-        public void ChangeSelectedItemTo(string itemAsString)
+        public static void ChangeSelectedItemTo(this WpfComboBox me, string itemAsString)
         {
-            bool found = Wait.Until(() => Items.FirstOrDefault(i => i.Content.Equals(itemAsString)) != null, TimeSpan.FromSeconds(5));
+            bool found = Wait.Until(() => me.Items().FirstOrDefault(i => i.Content().Equals(itemAsString)) != null, TimeSpan.FromSeconds(5));
             if (!found)
             {
                 var bys = new[] { By.Content(itemAsString) };
-                string foundAsString = Items.Select(i => string.Format("    '{0}'", i.Content)).Join("\n");
-                throw ManglaException.FindFailed("item", this, bys, foundAsString);
+                string foundAsString = me.Items().Select(i => string.Format("    '{0}'", i.Content())).Join("\n");
+                throw ManglaException.FindFailed("item", me, bys, foundAsString);
             }
-            var wrappedItem = Items.First(i => i.Content.Equals(itemAsString));
-            ChangeSelectedItemTo(wrappedItem);
+            var wrappedItem = me.Items().First(i => i.Content().Equals(itemAsString));
+            me.ChangeSelectedItemTo(wrappedItem);
         }
 
-        public void ChangeSelectedItemTo(WpfComboBoxItem item)
+        public static void ChangeSelectedItemTo(this WpfComboBox me, WpfComboBoxItem item)
         {
-            Click();
-            bool isVisible = Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
+            me.Click();
+            bool isVisible = Wait.Until(item.IsVisible, TimeSpan.FromSeconds(5));
             if (!isVisible)
             {
                 throw ManglaException.NotVisible(item);

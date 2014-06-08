@@ -13,10 +13,10 @@ namespace tungsten.sampletest
         {
             var window = Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
             var checkBox = window.FindFirstChild<WpfCheckBox>(By.Name("ShowStuff"));
-            checkBox.AssertThat(x => x.IsChecked, Is.True);
+            checkBox.AssertThat(x => x.IsChecked(), Is.True);
 
             checkBox.Click();
-            checkBox.AssertThat(x => x.IsChecked, Is.False);
+            checkBox.AssertThat(x => x.IsChecked(), Is.False);
         }
     }
 }

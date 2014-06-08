@@ -13,7 +13,7 @@ namespace tungsten.core.Elements
 
         public void Type(string value)
         {
-            if (!IsKeyboardFocused)
+            if (!this.IsKeyboardFocused())
             {
                 // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
                 // TODO: Better error message. Include a lot of information about the control, including parents.

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
-
-namespace tungsten.core.Elements
+﻿namespace tungsten.core.Elements
 {
     public class WpfCheckBox : WpfElement<System.Windows.Controls.CheckBox>
     {
@@ -9,10 +6,13 @@ namespace tungsten.core.Elements
             : base(searchParent, checkBox)
         {
         }
+    }
 
-        public bool? IsChecked
+    public static class WpfCheckBoxExtensions
+    {
+        public static bool? IsChecked(this WpfCheckBox me)
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsChecked); }
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsChecked);
         }
     }
 }

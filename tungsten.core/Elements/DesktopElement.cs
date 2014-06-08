@@ -11,6 +11,12 @@ namespace tungsten.core.Elements
     {
         private readonly Application _application;
 
+        internal DesktopElement(Application application)
+            : base(null)
+        {
+            _application = application;
+        }
+
         public override string Name
         {
             get { return null; }
@@ -41,12 +47,6 @@ namespace tungsten.core.Elements
                     .Select(CreateWpfElement)
                     .ToArray();
             }
-        }
-
-        internal DesktopElement(Application application)
-            : base(null)
-        {
-            _application = application;
         }
     }
 }

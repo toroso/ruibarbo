@@ -1,6 +1,3 @@
-using System;
-using System.Windows.Controls;
-
 namespace tungsten.core.Elements
 {
     public class WpfComboBoxItem : WpfElement<System.Windows.Controls.ComboBoxItem>
@@ -9,15 +6,18 @@ namespace tungsten.core.Elements
             : base(searchParent, frameworkElement)
         {
         }
+    }
 
-        public object Content
+    public static class WpfComboBoxItemExtensions
+    {
+        public static object Content(this WpfComboBoxItem me)
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.Content); }
+            return Invoker.Get(me, frameworkElement => frameworkElement.Content);
         }
 
-        public void BringIntoView()
+        public static void BringIntoView(this WpfComboBoxItem me)
         {
-            Invoker.Invoke(this, frameworkElement => frameworkElement.BringIntoView());
+            Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
         }
     }
 }
