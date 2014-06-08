@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
@@ -17,7 +18,7 @@ namespace tungsten.core.Elements
         {
             get
             {
-                return Get(frameworkElement => frameworkElement.Items
+                return Invoker.Get(this, frameworkElement => frameworkElement.Items
                     .Cast<System.Windows.Controls.ComboBoxItem>()
                     .Select(AsWpfComboBoxItem)
                     .ToArray());
@@ -26,12 +27,12 @@ namespace tungsten.core.Elements
 
         public WpfComboBoxItem SelectedItem
         {
-            get { return Get(frameworkElement => AsWpfComboBoxItem(frameworkElement.SelectedItem)); }
+            get { return Invoker.Get(this, frameworkElement => AsWpfComboBoxItem(frameworkElement.SelectedItem)); }
         }
 
         public bool IsDropDownOpen
         {
-            get { return Get(frameworkElement => frameworkElement.IsDropDownOpen); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsDropDownOpen); }
         }
 
         private WpfComboBoxItem AsWpfComboBoxItem(object item)

@@ -21,29 +21,29 @@ namespace tungsten.core.Elements
 
         public override string Name
         {
-            get { return Get(frameworkElement => frameworkElement.Name); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.Name); }
         }
 
         public override Type Class
         {
-            get { return Get(frameworkElement => frameworkElement.GetType()); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType()); }
         }
 
         public bool IsVisible
         {
-            get { return Get(frameworkElement => frameworkElement.IsVisible); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsVisible); }
         }
 
         public bool IsHitTestVisible
         {
-            get { return Get(frameworkElement => frameworkElement.IsHitTestVisible); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsHitTestVisible); }
         }
 
         public Rect BoundsOnScreen
         {
             get
             {
-                return Get(frameworkElement =>
+                return Invoker.Get(this, frameworkElement =>
                 {
                     var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
                     var width = frameworkElement.ActualWidth;
@@ -58,7 +58,7 @@ namespace tungsten.core.Elements
             get
             {
                 // TODO: Retry a few times if none is found
-                var frameworkElementChildren = Get(frameworkElement => frameworkElement.GetFrameworkElementChildren());
+                var frameworkElementChildren = Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren());
                 return frameworkElementChildren.Select(CreateWpfElement);
             }
         }
@@ -67,24 +67,24 @@ namespace tungsten.core.Elements
         {
             get
             {
-                var rootFrameworkElement = Get(frameworkElement =>
+                var rootFrameworkElement = Invoker.Get(this, frameworkElement =>
+                {
+                    DependencyObject current = frameworkElement;
+                    while (true)
                     {
-                        DependencyObject current = frameworkElement;
-                        while (true)
+                        current = VisualTreeHelper.GetParent(current);
+                        if (current == null)
                         {
-                            current = VisualTreeHelper.GetParent(current);
-                            if (current == null)
-                            {
-                                return null;
-                            }
-
-                            var asFrameworkElement = current as FrameworkElement;
-                            if (asFrameworkElement != null)
-                            {
-                                return asFrameworkElement;
-                            }
+                            return null;
                         }
-                    });
+
+                        var asFrameworkElement = current as FrameworkElement;
+                        if (asFrameworkElement != null)
+                        {
+                            return asFrameworkElement;
+                        }
+                    }
+                });
 
                 return rootFrameworkElement != null
                     ? CreateWpfElement(null, rootFrameworkElement)
@@ -94,19 +94,7 @@ namespace tungsten.core.Elements
 
         public bool IsKeyboardFocused
         {
-            get { return Get(frameworkElement => frameworkElement.IsKeyboardFocused); }
-        }
-
-        protected void Invoke(Action<TFrameworkElement> action)
-        {
-            var strongReference = GetStrongReference();
-            Invoker.Invoke(() => action(strongReference));
-        }
-
-        protected TRet Get<TRet>(Func<TFrameworkElement, TRet> func)
-        {
-            var strongReference = GetStrongReference();
-            return Invoker.Get(() => func(strongReference));
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsKeyboardFocused); }
         }
 
         public void Click()
@@ -117,7 +105,7 @@ namespace tungsten.core.Elements
             Mouse.Click(centerX, centerY);
         }
 
-        private TFrameworkElement GetStrongReference()
+        internal TFrameworkElement GetStrongReference()
         {
             TFrameworkElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))

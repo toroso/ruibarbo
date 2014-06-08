@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading;
+using System.Windows;
 using System.Windows.Threading;
+using tungsten.core.Elements;
 
 namespace tungsten.core
 {
-    public class Invoker
+    internal class Invoker
     {
         private static readonly ThreadLocal<Invoker> Instances = new ThreadLocal<Invoker>();
 
@@ -20,9 +22,25 @@ namespace tungsten.core
             _dispatcher = dispatcher;
         }
 
-        internal static void Create(Dispatcher dispatcher)
+        public static void Create(Dispatcher dispatcher)
         {
             Instances.Value = new Invoker(dispatcher);
+        }
+
+        public static TRet Get<TRet, TE1>(WpfElement<TE1> e1, Func<TE1, TRet> func)
+            where TE1 : FrameworkElement
+        {
+            var frameworkElement1 = e1.GetStrongReference();
+            return Instance.GetImpl(() => func(frameworkElement1));
+        }
+
+        public static TRet Get<TRet, TE1, TE2>(WpfElement<TE1> e1, WpfElement<TE2> e2, Func<TE1, TE2, TRet> func)
+            where TE1 : FrameworkElement
+            where TE2 : FrameworkElement
+        {
+            var frameworkElement1 = e1.GetStrongReference();
+            var frameworkElement2 = e2.GetStrongReference();
+            return Instance.GetImpl(() => func(frameworkElement1, frameworkElement2));
         }
 
         public static TRet Get<TRet>(Func<TRet> func)
@@ -40,6 +58,22 @@ namespace tungsten.core
             return ret;
         }
 
+        public static void Invoke<TE1>(WpfElement<TE1> e1, Action<TE1> action)
+            where TE1 : FrameworkElement
+        {
+            var frameworkElement1 = e1.GetStrongReference();
+            Instance.InvokeImpl(() => action(frameworkElement1));
+        }
+
+        public static void Invoke<TE1, TE2>(WpfElement<TE1> e1, WpfElement<TE2> e2, Action<TE1, TE2> action)
+            where TE1 : FrameworkElement
+            where TE2 : FrameworkElement
+        {
+            var frameworkElement1 = e1.GetStrongReference();
+            var frameworkElement2 = e2.GetStrongReference();
+            Instance.InvokeImpl(() => action(frameworkElement1, frameworkElement2));
+        }
+
         public static void Invoke(Action action)
         {
             Instance.InvokeImpl(action);
@@ -50,7 +84,7 @@ namespace tungsten.core
             _dispatcher.Invoke(action);
         }
 
-        internal static void BeginInvokeShutdown()
+        public static void BeginInvokeShutdown()
         {
             Instance.BeginInvokeShutdownImpl();
         }

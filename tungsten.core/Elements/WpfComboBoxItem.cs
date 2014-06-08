@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Controls;
+
 namespace tungsten.core.Elements
 {
     public class WpfComboBoxItem : WpfElement<System.Windows.Controls.ComboBoxItem>
@@ -9,12 +12,12 @@ namespace tungsten.core.Elements
 
         public object Content
         {
-            get { return Get(frameworkElement => frameworkElement.Content); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.Content); }
         }
 
         public void BringIntoView()
         {
-            Invoke(frameworkElement => frameworkElement.BringIntoView());
+            Invoker.Invoke(this, frameworkElement => frameworkElement.BringIntoView());
         }
     }
 }
