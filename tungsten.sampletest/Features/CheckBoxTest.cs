@@ -13,8 +13,6 @@ namespace tungsten.sampletest.Features
         {
             var checkBox = MainWindow.ShowStuffCheckBox;
             checkBox.AssertThat(x => x.IsChecked(), Is.True);
-            checkBox.Click();
-            checkBox.AssertThat(x => x.IsChecked(), Is.False);
         }
 
         [Test]

@@ -14,5 +14,14 @@ namespace tungsten.sampletest.Features
             var stuffControl = MainWindow.StuffControl;
             stuffControl.AssertThat(x => x.IsVisible(), Is.True);
         }
+
+        [Test]
+        public void StuffControlIsMadeNotVisible()
+        {
+            var checkBox = MainWindow.ShowStuffCheckBox;
+            checkBox.Click();
+            var stuffControl = MainWindow.StuffControl;
+            stuffControl.AssertThat(x => x.IsVisible(), Is.False);
+        }
     }
 }
