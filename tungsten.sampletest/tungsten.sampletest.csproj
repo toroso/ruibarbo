@@ -52,6 +52,7 @@
     <Compile Include="Features\CheckBoxTest.cs" />
     <Compile Include="Features\ComboBoxTest.cs" />
     <Compile Include="BasicTest.cs" />
+    <Compile Include="Features\TextBlockTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleApplication.cs" />
     <Compile Include="AutomationLayer\TestBase.cs" />

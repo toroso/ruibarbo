@@ -14,5 +14,10 @@ namespace tungsten.sampletest.AutomationLayer
         {
             get { return this.FindFirstChild<WpfComboBox>(By.Name("CmbShowError")); }
         }
+
+        public WpfTextBlock ErrorTextBlock
+        {
+            get { return this.FindFirstChild<WpfTextBlock>(By.Name("TxbError")); }
+        }
     }
 }

@@ -28,7 +28,7 @@
                 <ComboBoxItem Content="Item 6"/>
             </ComboBox.Items>
         </ComboBox>
-        <TextBlock Text="Naughty frog!" Visibility="{Binding IsSelected, ElementName=ItemShowError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock x:Name="TxbError" Text="Naughty frog!" Visibility="{Binding IsSelected, ElementName=ItemShowError, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <Button x:Name="BtnSubmit" Content="Clicking click" IsEnabled="{Binding IsChecked, ElementName=Option2}" />
     </StackPanel>
 </UserControl>
