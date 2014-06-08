@@ -19,5 +19,10 @@ namespace tungsten.sampletest.AutomationLayer
         {
             get { return this.FindFirstChild<WpfTextBlock>(By.Name("TxbError")); }
         }
+
+        public WpfLabel InputLabel
+        {
+            get { return this.FindFirstChild<WpfLabel>(By.Name("LblInput")); }
+        }
     }
 }
