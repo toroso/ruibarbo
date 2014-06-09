@@ -47,8 +47,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomationLayer\MainTabControl.cs" />
     <Compile Include="AutomationLayer\MainWindow.cs" />
     <Compile Include="AutomationLayer\StuffControl.cs" />
+    <Compile Include="AutomationLayer\Tab1Control.cs" />
     <Compile Include="Features\CheckBoxTest.cs" />
     <Compile Include="Features\ComboBoxTest.cs" />
     <Compile Include="BasicTest.cs" />

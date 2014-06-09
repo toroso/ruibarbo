@@ -43,7 +43,6 @@ namespace tungsten.core.Elements
         {
             get
             {
-                // TODO: Unused and therefore untested.
                 var rootFrameworkElement = Invoker.Get(this, frameworkElement =>
                     {
                         DependencyObject current = frameworkElement;

@@ -22,10 +22,16 @@ namespace tungsten.core.Elements
 
         public static IEnumerable<WpfTabItem> TabItems(this WpfTabControl me)
         {
+            return me.TabItems<WpfTabItem>();
+        }
+
+        public static IEnumerable<TWpfTabItem> TabItems<TWpfTabItem>(this WpfTabControl me)
+            where TWpfTabItem : WpfTabItem
+        {
             return Invoker.Get(me, frameworkElement => frameworkElement.Items)
                 .Cast<System.Windows.Controls.TabItem>()
                 .SelectMany(item => CreateWpfTabItem(item, me))
-                .ToArray();
+                .OfType<TWpfTabItem>();
         }
 
         private static IEnumerable<WpfTabItem> CreateWpfTabItem(System.Windows.Controls.TabItem item, WpfTabControl parent)

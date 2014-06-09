@@ -20,14 +20,14 @@
             </MenuItem>
         </Menu>
         <TabControl x:Name="MainTabs">
-            <TabItem Header="Tab 1">
+            <TabItem x:Name="Tab1" Header="Tab 1">
                 <StackPanel>
                     <CheckBox x:Name="ShowStuff" Content="Show stuff" IsChecked="True" />
                     <sampleapp:StuffControl x:Name="CtrlStuff" Visibility="{Binding IsChecked, ElementName=ShowStuff, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Tab 2"></TabItem>
-            <TabItem Header="Tab 3"></TabItem>
+            <TabItem x:Name="Tab2" Header="Tab 2"></TabItem>
+            <TabItem x:Name="Tab3" Header="Tab 3"></TabItem>
         </TabControl>
     </DockPanel>
 </Window>

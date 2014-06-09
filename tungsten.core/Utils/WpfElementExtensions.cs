@@ -65,6 +65,7 @@ namespace tungsten.core.Utils
 
             foreach (var child in me.Children)
             {
+                // TODO: Don't show all possible instances of children, just one per FrameworkElement
                 sb.Append(child.ControlTreeAsString(currentDepth + 1, maxDepth));
             }
 

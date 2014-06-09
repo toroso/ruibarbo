@@ -11,7 +11,9 @@ namespace tungsten.sampletest.Features
         [Test]
         public void TextBlockNoVisible()
         {
-            var stuffControl = MainWindow.StuffControl;
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var stuffControl = tab1.StuffControl;
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
             errorTextBlock.AssertThat(x => x.IsVisible(), Is.False);
             errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
@@ -20,7 +22,9 @@ namespace tungsten.sampletest.Features
         [Test]
         public void TextBlockVisible()
         {
-            var stuffControl = MainWindow.StuffControl;
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var stuffControl = tab1.StuffControl;
             stuffControl.ShowErrorComboBox.ChangeSelectedItemTo("Has error");
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
             errorTextBlock.AssertThat(x => x.IsVisible(), Is.True);

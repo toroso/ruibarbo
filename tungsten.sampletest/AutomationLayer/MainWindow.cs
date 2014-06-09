@@ -10,19 +10,9 @@ namespace tungsten.sampletest.AutomationLayer
         {
         }
 
-        public WpfCheckBox ShowStuffCheckBox
+        public MainTabControl MainTabControl
         {
-            get { return this.FindFirstChild<WpfCheckBox>(By.Name("ShowStuff")); }
-        }
-
-        public StuffControl StuffControl
-        {
-            get { return this.FindFirstChild<StuffControl>(By.Name("CtrlStuff")); }
-        }
-
-        public WpfTabControl MainTabControl
-        {
-            get { return this.FindFirstChild<WpfTabControl>(By.Name("MainTabs")); }
+            get { return this.FindFirstChild<MainTabControl>(By.Name("MainTabs")); }
         }
     }
 }

@@ -11,14 +11,18 @@ namespace tungsten.sampletest.Features
         [Test]
         public void CheckBoxIsChecked()
         {
-            var checkBox = MainWindow.ShowStuffCheckBox;
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var checkBox = tab1.ShowStuffCheckBox;
             checkBox.AssertThat(x => x.IsChecked(), Is.True);
         }
 
         [Test]
         public void CheckBoxChangeIsChecked()
         {
-            var checkBox = MainWindow.ShowStuffCheckBox;
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var checkBox = tab1.ShowStuffCheckBox;
             checkBox.Click();
             checkBox.AssertThat(x => x.IsChecked(), Is.False);
         }
