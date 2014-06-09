@@ -20,14 +20,15 @@ namespace tungsten.core.Elements
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.Items)
                 .Cast<System.Windows.Controls.ComboBoxItem>()
-                .Select(item => CreateWpfComboBoxItem(item, me))
+                .SelectMany(item => CreateWpfComboBoxItem(item, me))
                 .ToArray();
         }
 
         public static WpfComboBoxItem SelectedItem(this WpfComboBox me)
         {
+            // TODO: What if selectedItem is null?
             var selectedItem = Invoker.Get(me, frameworkElement => (System.Windows.Controls.ComboBoxItem)frameworkElement.SelectedItem);
-            return CreateWpfComboBoxItem(selectedItem, me);
+            return CreateWpfComboBoxItem(selectedItem, me).First();
         }
 
         public static bool IsDropDownOpen(this WpfComboBox me)
@@ -62,9 +63,9 @@ namespace tungsten.core.Elements
             item.Click();
         }
 
-        private static WpfComboBoxItem CreateWpfComboBoxItem(System.Windows.Controls.ComboBoxItem item, WpfComboBox parent)
+        private static IEnumerable<WpfComboBoxItem> CreateWpfComboBoxItem(System.Windows.Controls.ComboBoxItem item, WpfComboBox parent)
         {
-            return (WpfComboBoxItem)ElementFactory.ElementFactory.CreateWpfElement(parent, item);
+            return ElementFactory.ElementFactory.CreateWpfElements(parent, item).OfType<WpfComboBoxItem>();
         }
     }
 }

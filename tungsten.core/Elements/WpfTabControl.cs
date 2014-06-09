@@ -15,21 +15,22 @@ namespace tungsten.core.Elements
     {
         public static WpfTabItem SelectedItem(this WpfTabControl me)
         {
+            // TODO: What if selectedItem is null?
             var selectedItem = Invoker.Get(me, frameworkElement => (System.Windows.Controls.TabItem)frameworkElement.SelectedItem);
-            return CreateWpfTabItem(selectedItem, me);
+            return CreateWpfTabItem(selectedItem, me).First();
         }
 
         public static IEnumerable<WpfTabItem> TabItems(this WpfTabControl me)
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.Items)
                 .Cast<System.Windows.Controls.TabItem>()
-                .Select(item => CreateWpfTabItem(item, me))
+                .SelectMany(item => CreateWpfTabItem(item, me))
                 .ToArray();
         }
 
-        private static WpfTabItem CreateWpfTabItem(System.Windows.Controls.TabItem item, WpfTabControl parent)
+        private static IEnumerable<WpfTabItem> CreateWpfTabItem(System.Windows.Controls.TabItem item, WpfTabControl parent)
         {
-            return (WpfTabItem)ElementFactory.ElementFactory.CreateWpfElement(parent, item);
+            return ElementFactory.ElementFactory.CreateWpfElements(parent, item).OfType<WpfTabItem>();
         }
     }
 }

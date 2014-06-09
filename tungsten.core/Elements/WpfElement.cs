@@ -35,14 +35,15 @@ namespace tungsten.core.Elements
             {
                 // TODO: Retry a few times if none is found
                 var frameworkElementChildren = Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren());
-                return frameworkElementChildren.Select(CreateWpfElement);
+                return frameworkElementChildren.SelectMany(CreateWpfElements);
             }
         }
 
-        public override UntypedWpfElement Parent
+        public override IEnumerable<UntypedWpfElement> Parents
         {
             get
             {
+                // TODO: Unused and therefore untested.
                 var rootFrameworkElement = Invoker.Get(this, frameworkElement =>
                     {
                         DependencyObject current = frameworkElement;
@@ -63,8 +64,8 @@ namespace tungsten.core.Elements
                     });
 
                 return rootFrameworkElement != null
-                    ? CreateWpfElement(null, rootFrameworkElement)
-                    : null;
+                    ? CreateWpfElements(null, rootFrameworkElement)
+                    : new UntypedWpfElement[] { };
             }
         }
 

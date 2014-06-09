@@ -19,7 +19,11 @@ namespace tungsten.core.Elements
             get { return _bys; }
         }
 
-        public abstract UntypedWpfElement Parent { get; }
+        /// <summary>
+        /// Return a list of possible parents. They all represent the same FrameworkElement, but are encapsulated in different
+        /// WpfElements.
+        /// </summary>
+        public abstract IEnumerable<UntypedWpfElement> Parents { get; }
 
         internal TWpfElement FoundBy<TWpfElement>(IEnumerable<By> bys)
             where TWpfElement : UntypedWpfElement

@@ -55,24 +55,21 @@ namespace tungsten.core.ElementFactory
             _types.Add(frameworkElementFullName, wpfElementType);
         }
 
-        public static UntypedWpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)
+        /// <summary>
+        /// Creates matching elements. More than one element may match the FrameworkElement type, so a list is returned. The
+        /// client must filter out the most interesting one.
+        /// </summary>
+        public static IEnumerable<UntypedWpfElement> CreateWpfElements(SearchSourceElement parent, FrameworkElement element)
         {
-            return Instance.CreateWpfElementImpl(parent, element);
+            return Instance.CreateWpfElementsImpl(parent, element);
         }
 
-        private UntypedWpfElement CreateWpfElementImpl(SearchSourceElement parent, FrameworkElement element)
+        private IEnumerable<UntypedWpfElement> CreateWpfElementsImpl(SearchSourceElement parent, FrameworkElement element)
         {
-            var match = element.GetType()
+            return element.GetType()
                 .AllTypesInHierarchy()
-                .FirstOrDefault(t => _types.ContainsKey(t.FullName));
-
-            if (match != null)
-            {
-                return (UntypedWpfElement)Activator.CreateInstance(_types[match.FullName], parent, element);
-            }
-
-            // TODO: Better error message, display contents of factory
-            throw new InvalidOperationException(string.Format("No type registered for '{0}' or base types.", element.GetType().FullName));
+                .Where(t => _types.ContainsKey(t.FullName))
+                .Select(t => (UntypedWpfElement)Activator.CreateInstance(_types[t.FullName], parent, element));
         }
     }
 }

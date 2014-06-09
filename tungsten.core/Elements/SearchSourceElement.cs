@@ -34,14 +34,14 @@ namespace tungsten.core.Elements
             }
         }
 
-        internal UntypedWpfElement CreateWpfElement(FrameworkElement element)
+        internal IEnumerable<UntypedWpfElement> CreateWpfElements(FrameworkElement element)
         {
-            return CreateWpfElement(this, element);
+            return CreateWpfElements(this, element);
         }
 
-        internal UntypedWpfElement CreateWpfElement(SearchSourceElement parent, FrameworkElement element)
+        internal IEnumerable<UntypedWpfElement> CreateWpfElements(SearchSourceElement parent, FrameworkElement element)
         {
-            return ElementFactory.ElementFactory.CreateWpfElement(parent, element);
+            return ElementFactory.ElementFactory.CreateWpfElements(parent, element);
         }
     }
 }

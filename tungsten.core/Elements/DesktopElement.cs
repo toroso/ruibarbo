@@ -44,7 +44,7 @@ namespace tungsten.core.Elements
                     .GetValue(_application);
                 var windows = windowsOnOtherThreads.Cast<Window>().ToArray();
                 return windows
-                    .Select(CreateWpfElement)
+                    .SelectMany(CreateWpfElements)
                     .ToArray();
             }
         }

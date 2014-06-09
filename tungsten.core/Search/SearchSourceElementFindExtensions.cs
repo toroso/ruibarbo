@@ -64,17 +64,19 @@ namespace tungsten.core.Search
             var current = child;
             while (true)
             {
-                current = current.Parent;
-                if (current == null)
+                var parents = current.Parents.ToArray();
+                if (!parents.Any())
                 {
                     return null;
                 }
 
-                var asTElement = current as TElement;
-                if (asTElement != null && bys.All(by => by.Matches(asTElement)))
+                var matching = parents.OfType<TElement>().Where(e => bys.All(by => by.Matches(e))).ToArray();
+                if (matching.Any())
                 {
-                    return asTElement.FoundBy<TElement>(bys);
+                    return matching.First().FoundBy<TElement>(bys);
                 }
+
+                current = parents.First(); // All have the same underlying FrameworkElement
             }
         }
     }
