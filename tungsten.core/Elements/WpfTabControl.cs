@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using tungsten.core.Search;
 
 namespace tungsten.core.Elements
 {
@@ -25,13 +26,14 @@ namespace tungsten.core.Elements
             return me.TabItems<WpfTabItem>();
         }
 
-        public static IEnumerable<TWpfTabItem> TabItems<TWpfTabItem>(this WpfTabControl me)
+        public static IEnumerable<TWpfTabItem> TabItems<TWpfTabItem>(this WpfTabControl me, params By[] bys)
             where TWpfTabItem : WpfTabItem
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.Items)
                 .Cast<System.Windows.Controls.TabItem>()
                 .SelectMany(item => CreateWpfTabItem(item, me))
-                .OfType<TWpfTabItem>();
+                .OfType<TWpfTabItem>()
+                .Where(item => bys.All(by => by.Matches(item)));
         }
 
         private static IEnumerable<WpfTabItem> CreateWpfTabItem(System.Windows.Controls.TabItem item, WpfTabControl parent)
