@@ -32,9 +32,10 @@ namespace tungsten.core
         internal static ManglaException FindFailed(string soughtRelation, SearchSourceElement sourceElement, IEnumerable<By> bys, string foundAsString)
         {
             // TODO: What if sourceElement does not have a name? What to show?
-            var message = string.Format("Find {0} failed, from {1} by <{2}>. Found:\n{3}",
+            var message = string.Format("Find {0} failed, from {1} ({2}) by <{3}>. Found:\n{4}",
                 soughtRelation,
                 sourceElement.ControlIdentifier(),
+                sourceElement.GetType().Name,
                 bys.Select(by => by.ToString()).Join("; "),
                 foundAsString);
             return new ManglaException(message);

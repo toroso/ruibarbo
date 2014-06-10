@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using tungsten.core.Elements;
 
@@ -42,15 +43,27 @@ namespace tungsten.core.Utils
                         .Select(by => by.ToString())
                         .Join(", ")))
                 .Join("; ");
+        }
 
+        public static string ControlIdentifierPath(this UntypedWpfElement me)
+        {
+            var sb = new StringBuilder();
+            int currentDepth = 0;
+            foreach (var ancestor in me.ElementPath)
+            {
+                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} ({1})", ancestor.ControlIdentifier(), me.GetType().Name);
+                currentDepth++;
+            }
+
+            return sb.ToString();
         }
 
         public static string ControlTreeAsString(this SearchSourceElement me, int maxDepth)
         {
-            return me.ControlTreeAsString(0, maxDepth);
+            return ControlTreeAsString(me, 0, maxDepth);
         }
 
-        private static string ControlTreeAsString(this SearchSourceElement me, int currentDepth, int maxDepth)
+        private static string ControlTreeAsString(this SearchSourceElement parent, int currentDepth, int maxDepth)
         {
             if (currentDepth > maxDepth)
             {
@@ -58,15 +71,16 @@ namespace tungsten.core.Utils
             }
 
             var sb = new StringBuilder();
-            sb.AppendIndentedLine(
-                (3 * currentDepth) + 3,
-                "{0}",
-                me.ControlIdentifier());
-
-            foreach (var child in me.Children)
+            foreach (var frameworkElement in parent.FrameworkElementChildren)
             {
-                // TODO: Don't show all possible instances of children, just one per FrameworkElement
-                sb.Append(child.ControlTreeAsString(currentDepth + 1, maxDepth));
+                IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
+                var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
+                var wpfElement = wpfElements.FirstOrDefault(); // Any will do
+                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes);
+                if (wpfElement != null)
+                {
+                    sb.Append(wpfElement.ControlTreeAsString(currentDepth + 1, maxDepth));
+                }
             }
 
             return sb.ToString();
@@ -74,10 +88,16 @@ namespace tungsten.core.Utils
 
         public static string ControlIdentifier(this SearchSourceElement me)
         {
+            if (me == null)
+            {
+                return "-";
+            }
+
             string name = me.Name;
+            var clazz = me.Class;
             string controlIdentifier = string.IsNullOrEmpty(name)
-                ? me.Class.ToString()
-                : string.Format("{0} ({1})", name, me.Class);
+                ? clazz != null ? clazz.ToString() : "Desktop"
+                : string.Format("{0} ({1})", name, clazz);
             return controlIdentifier;
         }
 

@@ -59,17 +59,17 @@ namespace tungsten.core.ElementFactory
         /// Creates matching elements. More than one element may match the FrameworkElement type, so a list is returned. The
         /// client must filter out the most interesting one.
         /// </summary>
-        public static IEnumerable<UntypedWpfElement> CreateWpfElements(SearchSourceElement parent, FrameworkElement element)
+        public static IEnumerable<UntypedWpfElement> CreateWpfElements(SearchSourceElement parent, FrameworkElement frameworkElement)
         {
-            return Instance.CreateWpfElementsImpl(parent, element);
+            return Instance.CreateWpfElementsImpl(parent, frameworkElement);
         }
 
-        private IEnumerable<UntypedWpfElement> CreateWpfElementsImpl(SearchSourceElement parent, FrameworkElement element)
+        private IEnumerable<UntypedWpfElement> CreateWpfElementsImpl(SearchSourceElement parent, FrameworkElement frameworkElement)
         {
-            return element.GetType()
+            return frameworkElement.GetType()
                 .AllTypesInHierarchy()
                 .Where(t => _types.ContainsKey(t.FullName))
-                .Select(t => (UntypedWpfElement)Activator.CreateInstance(_types[t.FullName], parent, element));
+                .Select(t => (UntypedWpfElement)Activator.CreateInstance(_types[t.FullName], parent, frameworkElement));
         }
     }
 }

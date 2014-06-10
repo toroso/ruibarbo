@@ -31,12 +31,12 @@ namespace tungsten.core.Elements
 
         public override IEnumerable<UntypedWpfElement> Children
         {
-            get
-            {
-                // TODO: Retry a few times if none is found
-                var frameworkElementChildren = Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren());
-                return frameworkElementChildren.SelectMany(CreateWpfElements);
-            }
+            get { return FrameworkElementChildren.SelectMany(CreateWpfElements); }
+        }
+
+        public override IEnumerable<FrameworkElement> FrameworkElementChildren
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
         }
 
         public override IEnumerable<UntypedWpfElement> Parents

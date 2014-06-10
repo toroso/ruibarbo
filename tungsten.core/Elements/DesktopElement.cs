@@ -36,6 +36,16 @@ namespace tungsten.core.Elements
         {
             get
             {
+                return FrameworkElementChildren
+                    .SelectMany(CreateWpfElements)
+                    .ToArray();
+            }
+        }
+
+        public override IEnumerable<FrameworkElement> FrameworkElementChildren
+        {
+            get
+            {
                 // Application.Windows only returns Windows that are run on the same thread as Application. NonAppWindowsInternal
                 // holds Windows run on other threads (non-documented, as an internal property).
                 var windowsOnOtherThreads = (WindowCollection)_application
@@ -43,9 +53,7 @@ namespace tungsten.core.Elements
                     .GetProperty("NonAppWindowsInternal", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                     .GetValue(_application);
                 var windows = windowsOnOtherThreads.Cast<Window>().ToArray();
-                return windows
-                    .SelectMany(CreateWpfElements)
-                    .ToArray();
+                return windows;
             }
         }
     }
