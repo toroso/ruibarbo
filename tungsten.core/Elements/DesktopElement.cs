@@ -17,7 +17,7 @@ namespace tungsten.core.Elements
             _application = application;
         }
 
-        public override int ReferenceId
+        public override int InstanceId
         {
             get { return _application.GetHashCode(); }
         }
