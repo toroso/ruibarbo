@@ -19,6 +19,11 @@ namespace tungsten.core.Elements
             _frameworkElement = new WeakReference<TFrameworkElement>(frameworkElement);
         }
 
+        public override int ReferenceId
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
+        }
+
         public override string Name
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.Name); }

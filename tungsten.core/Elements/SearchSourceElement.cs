@@ -14,6 +14,7 @@ namespace tungsten.core.Elements
             SearchParent = searchParent;
         }
 
+        public abstract int ReferenceId { get; }
         public abstract string Name { get; }
         public abstract Type Class { get; }
         public abstract IEnumerable<By> SearchConditions { get; }

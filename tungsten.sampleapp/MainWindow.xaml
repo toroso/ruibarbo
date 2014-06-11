@@ -26,8 +26,12 @@
                     <sampleapp:StuffControl x:Name="CtrlStuff" Visibility="{Binding IsChecked, ElementName=ShowStuff, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </TabItem>
-            <TabItem x:Name="Tab2" Header="Tab 2"></TabItem>
-            <TabItem x:Name="Tab3" Header="Tab 3"></TabItem>
+            <TabItem x:Name="Tab2" Header="Tab 2">
+                <sampleapp:VirtualTabControl />
+            </TabItem>
+            <TabItem x:Name="Tab3" Header="Tab 3">
+                <sampleapp:VirtualTabControl />
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

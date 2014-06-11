@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using tungsten.core.Elements;
@@ -94,10 +95,12 @@ namespace tungsten.core.Utils
             }
 
             string name = me.Name;
-            var clazz = me.Class;
+            Type type = me.Class;
+            string typeAsString = type != null ? type.ToString() : "Desktop";
+            int instanceId = me.InstanceId;
             string controlIdentifier = string.IsNullOrEmpty(name)
-                ? clazz != null ? clazz.ToString() : "Desktop"
-                : string.Format("{0} ({1})", name, clazz);
+                ? string.Format("{0} #{1}", typeAsString, instanceId)
+                : string.Format("{0} ({1}) #{2}", name, typeAsString, instanceId);
             return controlIdentifier;
         }
 

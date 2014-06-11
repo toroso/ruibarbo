@@ -25,7 +25,7 @@ namespace tungsten.core.ElementFactory
             }
         }
 
-        private readonly IDictionary<string, Type> _types = new Dictionary<string, Type>();
+        private readonly IDictionary<string, List<Type>> _types = new Dictionary<string, List<Type>>();
 
         public static void AddAssembly(Assembly assembly)
         {
@@ -47,12 +47,16 @@ namespace tungsten.core.ElementFactory
 
         private void AddType(string frameworkElementFullName, Type wpfElementType)
         {
-            if (_types.ContainsKey(frameworkElementFullName))
+            if (!_types.ContainsKey(frameworkElementFullName))
             {
-                _types.Remove(frameworkElementFullName);
+                _types[frameworkElementFullName] = new List<Type>();
             }
 
-            _types.Add(frameworkElementFullName, wpfElementType);
+            var types = _types[frameworkElementFullName];
+            if (!types.Contains(wpfElementType))
+            {
+                types.Add(wpfElementType);
+            }
         }
 
         /// <summary>
@@ -68,8 +72,9 @@ namespace tungsten.core.ElementFactory
         {
             return frameworkElement.GetType()
                 .AllTypesInHierarchy()
-                .Where(t => _types.ContainsKey(t.FullName))
-                .Select(t => (UntypedWpfElement)Activator.CreateInstance(_types[t.FullName], parent, frameworkElement));
+                .Where(frameworkElementType => _types.ContainsKey(frameworkElementType.FullName))
+                .SelectMany(frameworkElementType => _types[frameworkElementType.FullName]
+                    .Select(wpfElementType => (UntypedWpfElement)Activator.CreateInstance(wpfElementType, parent, frameworkElement)));
         }
     }
 }
