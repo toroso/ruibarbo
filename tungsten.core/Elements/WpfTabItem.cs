@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using tungsten.core.Input;
 using tungsten.core.Search;
+using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
@@ -41,6 +44,16 @@ namespace tungsten.core.Elements
         public static bool IsSelected(this WpfTabItem me)
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
+        }
+
+        public static void Click(this WpfTabItem me)
+        {
+            // Complicated because Click() is an extension method. Had Click() been a member I could've used normal overload.
+            var baseType = (WpfElement<System.Windows.Controls.TabItem>) me;
+            baseType.Click();
+
+            // It takes a while for a TabItem to be selected
+            Wait.Until(me.IsSelected, TimeSpan.FromSeconds(5));
         }
     }
 }

@@ -51,23 +51,18 @@ namespace tungsten.sampletest.Features
 
             var tab2 = mainTabControl.Tab2;
             tab2.Click();
-            // TODO: Let TabItem wait until it is selected
-            System.Threading.Thread.Sleep(20);
             var wpfTextBox2 = tab2.TextBox;
             wpfTextBox2.AssertThat(x => x.IsVisible(), Is.True);
 
             var tab3 = mainTabControl.Tab3;
             tab3.Click();
-            System.Threading.Thread.Sleep(20);
             wpfTextBox2.AssertThat(x => x.IsVisible(), Is.False);
 
             tab2.Click();
-            System.Threading.Thread.Sleep(20);
             wpfTextBox2.AssertThat(x => x.IsVisible(), Is.True);
 
             var tab1 = mainTabControl.Tab1;
             tab1.Click();
-            System.Threading.Thread.Sleep(20);
             wpfTextBox2.AssertThat(x => x.IsVisible(), Is.False);
         }
     }
