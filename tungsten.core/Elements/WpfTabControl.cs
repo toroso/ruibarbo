@@ -6,7 +6,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public class WpfTabControl : WpfElement<System.Windows.Controls.TabControl>, IRegisteredElement<System.Windows.Controls.TabControl>
+    public class WpfTabControl : WpfFrameworkElementBase<System.Windows.Controls.TabControl>, IRegisteredElement<System.Windows.Controls.TabControl>
     {
         public WpfTabControl(SearchSourceElement searchParent, System.Windows.Controls.TabControl frameworkElement)
             : base(searchParent, frameworkElement)
@@ -24,7 +24,7 @@ namespace tungsten.core.Elements
         }
 
         /// <summary>
-        /// Get all TabItems. Note that this method returns all possible WpfElement representations of a TabItem so there might
+        /// Get all TabItems. Note that this method returns all possible WpfFrameworkElementBase representations of a TabItem so there might
         /// be more items returned than there are actual tabs.
         /// TODO: Is this really useful? Perhaps a FindAllTabItems() of type and by condition. Must only return one instance per TabItem though.
         /// </summary>

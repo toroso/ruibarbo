@@ -12,7 +12,7 @@ namespace tungsten.core.Search
             where TElement : UntypedWpfElement
         {
             // TODO: Control output verbosity in configuration
-            // TODO: Include Class in bys. Try to reuse from WpfElement.FoundBy() and WpfElementExtensions.ElementSearchPath().
+            // TODO: Include Class in bys. Try to reuse from WpfFrameworkElementBase.FoundBy() and WpfElementExtensions.ElementSearchPath().
             Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bys.Select(by => by.ToString()).Join("; "));
             var found = TryFindFirstChild<TElement>(parent, bys);
             if (found == null)

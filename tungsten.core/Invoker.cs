@@ -27,14 +27,14 @@ namespace tungsten.core
             Instances.Value = new Invoker(dispatcher);
         }
 
-        public static TRet Get<TRet, TE1>(WpfElement<TE1> e1, Func<TE1, TRet> func)
+        public static TRet Get<TRet, TE1>(WpfFrameworkElementBase<TE1> e1, Func<TE1, TRet> func)
             where TE1 : FrameworkElement
         {
             var frameworkElement1 = e1.GetStrongReference();
             return Instance.GetImpl(() => func(frameworkElement1));
         }
 
-        public static TRet Get<TRet, TE1, TE2>(WpfElement<TE1> e1, WpfElement<TE2> e2, Func<TE1, TE2, TRet> func)
+        public static TRet Get<TRet, TE1, TE2>(WpfFrameworkElementBase<TE1> e1, WpfFrameworkElementBase<TE2> e2, Func<TE1, TE2, TRet> func)
             where TE1 : FrameworkElement
             where TE2 : FrameworkElement
         {
@@ -58,14 +58,14 @@ namespace tungsten.core
             return ret;
         }
 
-        public static void Invoke<TE1>(WpfElement<TE1> e1, Action<TE1> action)
+        public static void Invoke<TE1>(WpfFrameworkElementBase<TE1> e1, Action<TE1> action)
             where TE1 : FrameworkElement
         {
             var frameworkElement1 = e1.GetStrongReference();
             Instance.InvokeImpl(() => action(frameworkElement1));
         }
 
-        public static void Invoke<TE1, TE2>(WpfElement<TE1> e1, WpfElement<TE2> e2, Action<TE1, TE2> action)
+        public static void Invoke<TE1, TE2>(WpfFrameworkElementBase<TE1> e1, WpfFrameworkElementBase<TE2> e2, Action<TE1, TE2> action)
             where TE1 : FrameworkElement
             where TE2 : FrameworkElement
         {

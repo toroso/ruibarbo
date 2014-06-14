@@ -79,7 +79,7 @@
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="Utils\TypeExtensions.cs" />
     <Compile Include="Elements\WpfButton.cs" />
-    <Compile Include="Elements\WpfElement.cs" />
+    <Compile Include="Elements\WpfFrameworkElementBase.cs" />
     <Compile Include="Utils\Wait.cs" />
     <Compile Include="Utils\WpfElementExtensions.cs" />
     <Compile Include="Search\SearchSourceElementFindExtensions.cs" />

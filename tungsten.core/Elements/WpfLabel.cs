@@ -1,6 +1,6 @@
 ﻿namespace tungsten.core.Elements
 {
-    public class WpfLabel : WpfElement<System.Windows.Controls.Label>, IRegisteredElement<System.Windows.Controls.Label>
+    public class WpfLabel : WpfFrameworkElementBase<System.Windows.Controls.Label>, IRegisteredElement<System.Windows.Controls.Label>
     {
         public WpfLabel(SearchSourceElement searchParent, System.Windows.Controls.Label frameworkElement)
             : base(searchParent, frameworkElement)

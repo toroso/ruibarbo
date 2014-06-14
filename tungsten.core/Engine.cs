@@ -32,7 +32,7 @@ namespace tungsten.core
                 new Application(); // Sets Application.Current
             }
 
-            ConfigureElementFactory(x => x.AddElementAssembly(typeof (WpfElement<FrameworkElement>).Assembly));
+            ConfigureElementFactory(x => x.AddElementAssembly(typeof (WpfFrameworkElementBase<FrameworkElement>).Assembly));
             ConfigureHardware(x =>
                 {
                     x.KeyboardDelayBetweenKeys = TimeSpan.Zero;

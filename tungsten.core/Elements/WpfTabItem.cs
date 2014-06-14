@@ -6,7 +6,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public class WpfTabItem : WpfElement<System.Windows.Controls.TabItem>, IRegisteredElement<System.Windows.Controls.TabItem>
+    public class WpfTabItem : WpfFrameworkElementBase<System.Windows.Controls.TabItem>, IRegisteredElement<System.Windows.Controls.TabItem>
     {
         public WpfTabItem(SearchSourceElement searchParent, System.Windows.Controls.TabItem frameworkElement)
             : base(searchParent, frameworkElement)
@@ -49,7 +49,7 @@ namespace tungsten.core.Elements
         public static void Click(this WpfTabItem me)
         {
             // Complicated because Click() is an extension method. Had Click() been a member I could've used normal overload.
-            var baseType = (WpfElement<System.Windows.Controls.TabItem>) me;
+            var baseType = (WpfFrameworkElementBase<System.Windows.Controls.TabItem>) me;
             baseType.Click();
 
             // It takes a while for a TabItem to be selected

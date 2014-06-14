@@ -15,7 +15,7 @@ namespace tungsten.sampletest.Features
         public void TabItemCount()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            // Tricky test. TabItems() will return all possible WpfElement<> representations of a TabItem, hence the type filter.
+            // Tricky test. TabItems() will return all possible WpfFrameworkElementBase<> representations of a TabItem, hence the type filter.
             mainTabControl.AssertThat(x => x.TabItems().Count(t => t.GetType() == typeof(WpfTabItem)), Is.EqualTo(3));
         }
 

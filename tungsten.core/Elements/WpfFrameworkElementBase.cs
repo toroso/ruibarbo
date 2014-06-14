@@ -8,12 +8,12 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public abstract class WpfElement<TFrameworkElement> : UntypedWpfElement
+    public abstract class WpfFrameworkElementBase<TFrameworkElement> : UntypedWpfElement
         where TFrameworkElement : FrameworkElement
     {
         private readonly WeakReference<TFrameworkElement> _frameworkElement;
 
-        protected WpfElement(SearchSourceElement searchParent, TFrameworkElement frameworkElement)
+        protected WpfFrameworkElementBase(SearchSourceElement searchParent, TFrameworkElement frameworkElement)
             : base(searchParent)
         {
             _frameworkElement = new WeakReference<TFrameworkElement>(frameworkElement);
@@ -87,7 +87,7 @@ namespace tungsten.core.Elements
 
     public static class WpfElementExtensions
     {
-        public static Rect BoundsOnScreen<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+        public static Rect BoundsOnScreen<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : FrameworkElement
         {
             return Invoker.Get(me, frameworkElement =>
@@ -99,25 +99,25 @@ namespace tungsten.core.Elements
                 });
         }
 
-        public static bool IsHitTestVisible<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+        public static bool IsHitTestVisible<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : FrameworkElement
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsHitTestVisible);
         }
 
-        public static bool IsKeyboardFocused<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+        public static bool IsKeyboardFocused<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : FrameworkElement
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsKeyboardFocused);
         }
 
-        public static bool IsVisible<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+        public static bool IsVisible<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : FrameworkElement
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsVisible);
         }
 
-        public static void Click<TFrameworkElement>(this WpfElement<TFrameworkElement> me)
+        public static void Click<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : FrameworkElement
         {
             var bounds = me.BoundsOnScreen();
