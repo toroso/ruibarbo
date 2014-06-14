@@ -34,9 +34,9 @@ namespace tungsten.core.ElementFactory
 
         private void AddAssemblyImpl(Assembly assembly)
         {
-            Type baseType = typeof(WpfElement<>);
+            Type baseType = typeof(IRegisteredElement<>);
             var wpfElementTypes = assembly.GetTypes()
-                .Where(t => baseType != t && t.IsSubclassOfGeneric(baseType));
+                .Where(t => baseType != t && t.IsSubclassOfGenericInterface(baseType));
             foreach (var type in wpfElementTypes)
             {
                 var frameworkElementFullName = type.GenericTypeArgumentOf(baseType).FullName;

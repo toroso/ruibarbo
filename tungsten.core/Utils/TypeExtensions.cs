@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace tungsten.core.Utils
 {
@@ -15,44 +16,19 @@ namespace tungsten.core.Utils
             }
         }
 
-        public static bool IsSubclassOfGeneric(this Type me, Type generic)
+        public static bool IsSubclassOfGenericInterface(this Type me, Type generic)
         {
-            var toCheck = me;
-            while (toCheck != null && toCheck != typeof(object))
-            {
-                var current = toCheck.IsGenericType
-                    ? toCheck.GetGenericTypeDefinition()
-                    : toCheck;
-
-                if (generic == current)
-                {
-                    return true;
-                }
-
-                toCheck = toCheck.BaseType;
-            }
-
-            return false;
+            return me.MatchingGenericInterfaces(generic).Any();
         }
 
         public static Type GenericTypeArgumentOf(this Type me, Type generic)
         {
-            var toCheck = me;
-            while (toCheck != null && toCheck != typeof (object))
-            {
-                var current = toCheck.IsGenericType
-                    ? toCheck.GetGenericTypeDefinition()
-                    : toCheck;
+            return me.MatchingGenericInterfaces(generic).First().GetGenericArguments()[0];
+        }
 
-                if (generic == current)
-                {
-                    return toCheck.GetGenericArguments()[0];
-                }
-
-                toCheck = toCheck.BaseType;
-            }
-
-            return null;
+        private static IEnumerable<Type> MatchingGenericInterfaces(this Type me, Type generic)
+        {
+            return me.GetInterfaces().Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == generic);
         }
     }
 }

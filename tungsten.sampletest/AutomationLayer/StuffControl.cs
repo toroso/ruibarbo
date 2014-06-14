@@ -3,7 +3,7 @@ using tungsten.core.Search;
 
 namespace tungsten.sampletest.AutomationLayer
 {
-    public class StuffControl : WpfUserControl
+    public class StuffControl : WpfUserControl, IRegisteredElement<System.Windows.Controls.UserControl>
     {
         public StuffControl(SearchSourceElement searchParent, System.Windows.Controls.UserControl frameworkElement)
             : base(searchParent, frameworkElement)
