@@ -6,7 +6,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public class WpfComboBoxBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
+    public class WpfComboBoxBase<TNativeElement> : WpfItemsControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.ComboBox
     {
         public WpfComboBoxBase(SearchSourceElement searchParent, TNativeElement frameworkElement)

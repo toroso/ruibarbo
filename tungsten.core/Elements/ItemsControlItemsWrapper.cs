@@ -3,11 +3,11 @@ using tungsten.core.Search;
 namespace tungsten.core.Elements
 {
     public class ItemsControlItemsWrapper<TNativeElement>
-        where TNativeElement : System.Windows.Controls.TabControl
+        where TNativeElement : System.Windows.Controls.ItemsControl
     {
-        private readonly WpfTabControlBase<TNativeElement> _element;
+        private readonly WpfItemsControlBase<TNativeElement> _element;
 
-        public ItemsControlItemsWrapper(WpfTabControlBase<TNativeElement> element)
+        public ItemsControlItemsWrapper(WpfItemsControlBase<TNativeElement> element)
         {
             _element = element;
         }
@@ -15,7 +15,7 @@ namespace tungsten.core.Elements
         public TWpfTabItem FindFirst<TWpfTabItem>(params By[] bys)
             where TWpfTabItem : UntypedWpfElement
         {
-            return _element.FindFirstTabItem<TNativeElement, TWpfTabItem>(bys);
+            return _element.FindFirstItem<TNativeElement, TWpfTabItem>(bys);
         }
     }
 }

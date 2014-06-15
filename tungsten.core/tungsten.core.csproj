@@ -51,6 +51,7 @@
     <Compile Include="Elements\WpfCheckBoxBase.cs" />
     <Compile Include="Elements\WpfComboBoxBase.cs" />
     <Compile Include="Elements\WpfComboBoxItemBase.cs" />
+    <Compile Include="Elements\WpfItemsControlBase.cs" />
     <Compile Include="Elements\WpfLabel.cs" />
     <Compile Include="Elements\WpfLabelBase.cs" />
     <Compile Include="Elements\WpfTabControl.cs" />
