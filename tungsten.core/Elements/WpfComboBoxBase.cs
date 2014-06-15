@@ -34,22 +34,11 @@ namespace tungsten.core.Elements
             return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
         }
 
-        public static void ChangeSelectedItemTo<TNativeElement>(this WpfComboBoxBase<TNativeElement> me, string itemAsString)
-            where TNativeElement : System.Windows.Controls.ComboBox
-        {
-            bool found = Wait.Until(() => me.Items().TryFindFirst<WpfComboBoxItem>(By.Content(itemAsString)) != null, TimeSpan.FromSeconds(5));
-            if (!found)
-            {
-                var bys = new[] { By.Content(itemAsString) };
-                string foundAsString = me.Items().All<WpfComboBoxItem>().Select(i => string.Format("    '{0}'", i.Content())).Join("\n");
-                throw ManglaException.FindFailed("item", me, bys, foundAsString);
-            }
-            var wrappedItem = me.Items().FindFirst<WpfComboBoxItem>(By.Content(itemAsString));
-            me.ChangeSelectedItemTo(wrappedItem);
-        }
+        // TODO: Would be a nice with a ChangeSelectedItemTo<TNativeElement, TNativeItem>(me, params By[] bys), although messy to use
 
-        public static void ChangeSelectedItemTo<TNativeElement>(this WpfComboBoxBase<TNativeElement> me, WpfComboBoxItem item)
+        public static void ChangeSelectedItemTo<TNativeElement, TNativeItem>(this WpfComboBoxBase<TNativeElement> me, WpfComboBoxItemBase<TNativeItem> item)
             where TNativeElement : System.Windows.Controls.ComboBox
+            where TNativeItem : System.Windows.Controls.ComboBoxItem
         {
             me.Click();
             bool isVisible = Wait.Until(item.IsVisible, TimeSpan.FromSeconds(5));

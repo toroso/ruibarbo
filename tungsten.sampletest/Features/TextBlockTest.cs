@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using tungsten.core.Elements;
+using tungsten.core.Search;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 
@@ -25,7 +26,9 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var stuffControl = tab1.StuffControl;
-            stuffControl.ShowErrorComboBox.ChangeSelectedItemTo("Has error");
+            var comboBox = stuffControl.ShowErrorComboBox;
+            var item = comboBox.Items().FindFirst<WpfComboBoxItem>(By.Content("Has error"));
+            comboBox.ChangeSelectedItemTo(item);
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
             errorTextBlock.AssertThat(x => x.IsVisible(), Is.True);
             errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
