@@ -23,11 +23,12 @@ namespace tungsten.core.Elements
     public static class WpfTabControlBaseExtensions
     {
         // TODO: Return IWpfItem? Or UntypedElement And also, a type safe version in ItemsControlItemsWrapper.
+        // TODO (Updated): Remove. Only support IsSelected on WpfTabItemBase.
         public static WpfTabItem SelectedItem<TNativeElement>(this WpfTabControlBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.TabControl
         {
             // TODO: What if selectedItem is null?
-            var selectedItem = Invoker.Get(me, frameworkElement => (System.Windows.Controls.TabItem)frameworkElement.SelectedItem);
+            var selectedItem = Invoker.Get(me, frameworkElement => frameworkElement.SelectedItem);
             return CreateWpfTabItem(selectedItem, me)
                 .OfType<WpfTabItem>()
                 .First();
@@ -42,7 +43,7 @@ namespace tungsten.core.Elements
             where TNativeElement : System.Windows.Controls.TabControl
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.Items)
-                .Cast<System.Windows.Controls.TabItem>()
+                .Cast<object>()
                 .SelectMany(item => CreateWpfTabItem(item, me))
                 .OfType<WpfTabItem>();
         }
@@ -55,13 +56,10 @@ namespace tungsten.core.Elements
             if (found == null)
             {
                 var sb = new StringBuilder();
-                var allTabItems = Invoker.Get(me, frameworkElement => frameworkElement.Items)
-                    .Cast<System.Windows.Controls.TabItem>();
+                var allTabItems = Invoker.Get(me, frameworkElement => frameworkElement.Items).Cast<object>();
                 foreach (var tabItem in allTabItems)
                 {
-                    IEnumerable<WpfTabItem> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(me, tabItem)
-                        .OfType<WpfTabItem>()
-                        .ToArray();
+                    IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(me, tabItem).ToArray();
                     var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
                     var wpfElement = wpfElements.FirstOrDefault(); // Any will do
                     sb.AppendLine(string.Format("   {0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes));
@@ -77,17 +75,14 @@ namespace tungsten.core.Elements
             where TNativeElement : System.Windows.Controls.TabControl
             where TWpfTabItem : UntypedWpfElement
         {
-            var tabItems = Invoker.Get(me, frameworkElement => frameworkElement.Items)
-                .Cast<System.Windows.Controls.TabItem>().ToArray();
-            var wpfTabItems = tabItems
-                .SelectMany(item => CreateWpfTabItem(item, me)).ToArray();
-            return wpfTabItems
+            return Invoker.Get(me, frameworkElement => frameworkElement.Items)
+                .Cast<object>()
+                .SelectMany(item => CreateWpfTabItem(item, me))
                 .OfType<TWpfTabItem>() // OfType? Or OfExcactType? TODO: Preferrably the latter (although practically it doesn't matter).
                 .FirstOrDefault(item => bys.All(by => by.Matches(item)));
         }
 
-        private static IEnumerable<UntypedWpfElement> CreateWpfTabItem<TNativeItem, TNativeParent>(TNativeItem item, WpfTabControlBase<TNativeParent> parent)
-            where TNativeItem : System.Windows.Controls.TabItem
+        private static IEnumerable<UntypedWpfElement> CreateWpfTabItem<TNativeParent>(object item, WpfTabControlBase<TNativeParent> parent)
             where TNativeParent : System.Windows.Controls.TabControl
         {
             return ElementFactory.ElementFactory.CreateWpfElements(parent, item); // .OfType<UntypedWpfElement>();

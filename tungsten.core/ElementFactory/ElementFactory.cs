@@ -39,9 +39,9 @@ namespace tungsten.core.ElementFactory
                 .Where(t => baseType != t && t.IsSubclassOfGenericInterface(baseType));
             foreach (var type in wpfElementTypes)
             {
-                var frameworkElementFullName = type.GenericTypeArgumentOf(baseType).FullName;
+                var nativeElementFullName = type.GenericTypeArgumentOf(baseType).FullName;
                 var wpfElementType = type;
-                AddType(frameworkElementFullName, wpfElementType);
+                AddType(nativeElementFullName, wpfElementType);
             }
         }
 
@@ -63,18 +63,18 @@ namespace tungsten.core.ElementFactory
         /// Creates matching elements. More than one element may match the FrameworkElement type, so a list is returned. The
         /// client must filter out the most interesting one.
         /// </summary>
-        public static IEnumerable<UntypedWpfElement> CreateWpfElements(SearchSourceElement parent, FrameworkElement frameworkElement)
+        public static IEnumerable<UntypedWpfElement> CreateWpfElements(SearchSourceElement parent, object nativeElement)
         {
-            return Instance.CreateWpfElementsImpl(parent, frameworkElement);
+            return Instance.CreateWpfElementsImpl(parent, nativeElement);
         }
 
-        private IEnumerable<UntypedWpfElement> CreateWpfElementsImpl(SearchSourceElement parent, FrameworkElement frameworkElement)
+        private IEnumerable<UntypedWpfElement> CreateWpfElementsImpl(SearchSourceElement parent, object nativeElement)
         {
-            return frameworkElement.GetType()
+            return nativeElement.GetType()
                 .AllTypesInHierarchy()
-                .Where(frameworkElementType => _types.ContainsKey(frameworkElementType.FullName))
-                .SelectMany(frameworkElementType => _types[frameworkElementType.FullName]
-                    .Select(wpfElementType => (UntypedWpfElement)Activator.CreateInstance(wpfElementType, parent, frameworkElement)));
+                .Where(nativeType => _types.ContainsKey(nativeType.FullName))
+                .SelectMany(nativeType => _types[nativeType.FullName]
+                    .Select(wpfElementType => (UntypedWpfElement)Activator.CreateInstance(wpfElementType, parent, nativeElement)));
         }
     }
 }
