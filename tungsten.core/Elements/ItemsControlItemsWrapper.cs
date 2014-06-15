@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using tungsten.core.Search;
 
 namespace tungsten.core.Elements
@@ -12,10 +13,22 @@ namespace tungsten.core.Elements
             _element = element;
         }
 
-        public TWpfTabItem FindFirst<TWpfTabItem>(params By[] bys)
-            where TWpfTabItem : UntypedWpfElement
+        public IEnumerable<TWpfItem> All<TWpfItem>(params By[] bys)
+            where TWpfItem : UntypedWpfElement
         {
-            return _element.FindFirstItem<TNativeElement, TWpfTabItem>(bys);
+            return _element.AllItems<TNativeElement, TWpfItem>(bys);
+        }
+
+        public TWpfItem FindFirst<TWpfItem>(params By[] bys)
+            where TWpfItem : UntypedWpfElement
+        {
+            return _element.FindFirstItem<TNativeElement, TWpfItem>(bys);
+        }
+
+        public TWpfItem TryFindFirst<TWpfItem>(params By[] bys)
+            where TWpfItem : UntypedWpfElement
+        {
+            return _element.TryFindFirstItem<TNativeElement, TWpfItem>(bys);
         }
     }
 }

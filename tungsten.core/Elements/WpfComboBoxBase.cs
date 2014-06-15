@@ -19,15 +19,7 @@ namespace tungsten.core.Elements
 
     public static class WpfComboBoxBaseExtensions
     {
-        public static IEnumerable<WpfComboBoxItem> Items<TNativeElement>(this WpfComboBoxBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.ComboBox
-        {
-            return Invoker.Get(me, frameworkElement => frameworkElement.Items)
-                .Cast<System.Windows.Controls.ComboBoxItem>()
-                .SelectMany(item => CreateWpfComboBoxItem(item, me))
-                .ToArray();
-        }
-
+        // TODO: Remove. Only support IsSelected on WpfItemBase.
         public static WpfComboBoxItem SelectedItem<TNativeElement>(this WpfComboBoxBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ComboBox
         {
@@ -45,14 +37,14 @@ namespace tungsten.core.Elements
         public static void ChangeSelectedItemTo<TNativeElement>(this WpfComboBoxBase<TNativeElement> me, string itemAsString)
             where TNativeElement : System.Windows.Controls.ComboBox
         {
-            bool found = Wait.Until(() => me.Items().FirstOrDefault(i => i.Content().Equals(itemAsString)) != null, TimeSpan.FromSeconds(5));
+            bool found = Wait.Until(() => me.Items().TryFindFirst<WpfComboBoxItem>(By.Content(itemAsString)) != null, TimeSpan.FromSeconds(5));
             if (!found)
             {
                 var bys = new[] { By.Content(itemAsString) };
-                string foundAsString = me.Items().Select(i => string.Format("    '{0}'", i.Content())).Join("\n");
+                string foundAsString = me.Items().All<WpfComboBoxItem>().Select(i => string.Format("    '{0}'", i.Content())).Join("\n");
                 throw ManglaException.FindFailed("item", me, bys, foundAsString);
             }
-            var wrappedItem = me.Items().First(i => i.Content().Equals(itemAsString));
+            var wrappedItem = me.Items().FindFirst<WpfComboBoxItem>(By.Content(itemAsString));
             me.ChangeSelectedItemTo(wrappedItem);
         }
 

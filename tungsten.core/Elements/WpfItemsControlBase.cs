@@ -13,21 +13,37 @@ namespace tungsten.core.Elements
             : base(searchParent, frameworkElement)
         {
         }
+
+        public ItemsControlItemsWrapper<TNativeElement> Items()
+        {
+            return new ItemsControlItemsWrapper<TNativeElement>(this);
+        }
     }
+
     public static class WpfItemsControlBaseExtensions
     {
-        public static TWpfTabItem FindFirstItem<TNativeElement, TWpfTabItem>(this WpfItemsControlBase<TNativeElement> me, params By[] bys)
+        public static IEnumerable<TWpfItem> AllItems<TNativeElement, TWpfItem>(this WpfItemsControlBase<TNativeElement> me, params By[] bys)
             where TNativeElement : System.Windows.Controls.ItemsControl
-            where TWpfTabItem : UntypedWpfElement
+            where TWpfItem : UntypedWpfElement
         {
-            var found = me.TryFindFirstItem<TNativeElement, TWpfTabItem>(bys);
+            return Invoker.Get(me, frameworkElement => frameworkElement.Items)
+                .Cast<object>()
+                .SelectMany(item => CreateWpfItem(item, me))
+                .OfType<TWpfItem>();
+        }
+
+        public static TWpfItem FindFirstItem<TNativeElement, TWpfItem>(this WpfItemsControlBase<TNativeElement> me, params By[] bys)
+            where TNativeElement : System.Windows.Controls.ItemsControl
+            where TWpfItem : UntypedWpfElement
+        {
+            var found = me.TryFindFirstItem<TNativeElement, TWpfItem>(bys);
             if (found == null)
             {
                 var sb = new StringBuilder();
-                var allTabItems = Invoker.Get(me, frameworkElement => frameworkElement.Items).Cast<object>();
-                foreach (var tabItem in allTabItems)
+                var allItems = Invoker.Get(me, frameworkElement => frameworkElement.Items).Cast<object>();
+                foreach (var item in allItems)
                 {
-                    IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(me, tabItem).ToArray();
+                    IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(me, item).ToArray();
                     var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
                     var wpfElement = wpfElements.FirstOrDefault(); // Any will do
                     sb.AppendLine(string.Format("   {0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes));
@@ -39,21 +55,17 @@ namespace tungsten.core.Elements
             return found;
         }
 
-        public static TWpfTabItem TryFindFirstItem<TNativeElement, TWpfTabItem>(this WpfItemsControlBase<TNativeElement> me, params By[] bys)
+        public static TWpfItem TryFindFirstItem<TNativeElement, TWpfItem>(this WpfItemsControlBase<TNativeElement> me, params By[] bys)
             where TNativeElement : System.Windows.Controls.ItemsControl
-            where TWpfTabItem : UntypedWpfElement
+            where TWpfItem : UntypedWpfElement
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.Items)
-                .Cast<object>()
-                .SelectMany(item => CreateWpfTabItem(item, me))
-                .OfType<TWpfTabItem>() // OfType? Or OfExcactType? TODO: Preferrably the latter (although practically it doesn't matter).
-                .FirstOrDefault(item => bys.All(by => by.Matches(item)));
+            return me.AllItems<TNativeElement, TWpfItem>(bys).FirstOrDefault(item => bys.All(by => by.Matches(item)));
         }
 
-        private static IEnumerable<UntypedWpfElement> CreateWpfTabItem<TNativeParent>(object item, WpfItemsControlBase<TNativeParent> parent)
+        private static IEnumerable<UntypedWpfElement> CreateWpfItem<TNativeParent>(object item, WpfItemsControlBase<TNativeParent> parent)
             where TNativeParent : System.Windows.Controls.ItemsControl
         {
-            return ElementFactory.ElementFactory.CreateWpfElements(parent, item); // .OfType<UntypedWpfElement>();
+            return ElementFactory.ElementFactory.CreateWpfElements(parent, item);
         }
     }
 }

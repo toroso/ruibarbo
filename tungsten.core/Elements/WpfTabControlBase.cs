@@ -10,11 +10,6 @@ namespace tungsten.core.Elements
             : base(searchParent, frameworkElement)
         {
         }
-
-        public ItemsControlItemsWrapper<TNativeElement> Items()
-        {
-            return new ItemsControlItemsWrapper<TNativeElement>(this);
-        }
     }
 
     public static class WpfTabControlBaseExtensions
