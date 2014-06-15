@@ -46,11 +46,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\IRegisteredElement.cs" />
+    <Compile Include="Elements\ItemsControlItemsWrapper.cs" />
+    <Compile Include="Elements\WpfButtonBase.cs" />
+    <Compile Include="Elements\WpfCheckBoxBase.cs" />
+    <Compile Include="Elements\WpfComboBoxBase.cs" />
+    <Compile Include="Elements\WpfComboBoxItemBase.cs" />
     <Compile Include="Elements\WpfLabel.cs" />
+    <Compile Include="Elements\WpfLabelBase.cs" />
     <Compile Include="Elements\WpfTabControl.cs" />
+    <Compile Include="Elements\WpfTabControlBase.cs" />
     <Compile Include="Elements\WpfTabItem.cs" />
+    <Compile Include="Elements\WpfTabItemBase.cs" />
     <Compile Include="Elements\WpfTextBlock.cs" />
-    <Compile Include="Elements\WpfUserControl.cs" />
+    <Compile Include="Elements\WpfTextBlockBase.cs" />
+    <Compile Include="Elements\WpfTextBoxBase.cs" />
+    <Compile Include="Elements\WpfUserControlBase.cs" />
+    <Compile Include="Elements\WpfWindowBase.cs" />
     <Compile Include="ManglaException.cs" />
     <Compile Include="Elements\UntypedWpfElement.cs" />
     <Compile Include="Elements\WpfCheckBox.cs" />

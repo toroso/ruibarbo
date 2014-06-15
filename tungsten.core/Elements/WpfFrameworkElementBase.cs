@@ -8,15 +8,15 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public abstract class WpfFrameworkElementBase<TFrameworkElement> : UntypedWpfElement
-        where TFrameworkElement : FrameworkElement
+    public abstract class WpfFrameworkElementBase<TNativeElement> : UntypedWpfElement
+        where TNativeElement : FrameworkElement
     {
-        private readonly WeakReference<TFrameworkElement> _frameworkElement;
+        private readonly WeakReference<TNativeElement> _frameworkElement;
 
-        protected WpfFrameworkElementBase(SearchSourceElement searchParent, TFrameworkElement frameworkElement)
+        protected WpfFrameworkElementBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent)
         {
-            _frameworkElement = new WeakReference<TFrameworkElement>(frameworkElement);
+            _frameworkElement = new WeakReference<TNativeElement>(frameworkElement);
         }
 
         public override int InstanceId
@@ -73,9 +73,9 @@ namespace tungsten.core.Elements
             }
         }
 
-        internal TFrameworkElement GetStrongReference()
+        internal TNativeElement GetStrongReference()
         {
-            TFrameworkElement strongReference;
+            TNativeElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))
             {
                 return strongReference;
