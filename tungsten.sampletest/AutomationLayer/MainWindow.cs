@@ -5,7 +5,7 @@ namespace tungsten.sampletest.AutomationLayer
 {
     public class MainWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement<System.Windows.Window>
     {
-        public MainWindow(SearchSourceElement searchParent, System.Windows.Window frameworkElement)
+        public MainWindow(ISearchSourceElement searchParent, System.Windows.Window frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

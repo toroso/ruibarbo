@@ -3,7 +3,7 @@ namespace tungsten.core.Elements
     public class WpfComboBoxItemBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.ComboBoxItem
     {
-        public WpfComboBoxItemBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
+        public WpfComboBoxItemBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

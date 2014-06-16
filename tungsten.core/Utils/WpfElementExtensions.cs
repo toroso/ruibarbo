@@ -10,14 +10,14 @@ namespace tungsten.core.Utils
     {
         public static string ElementNamePath(this UntypedWpfElement me)
         {
-            return me.ElementPath
+            return me.ElementPath()
                 .Select(e => e.Name)
                 .JoinExcludeEmpty(".");
         }
 
         public static string ElementClassPath(this UntypedWpfElement me)
         {
-            return me.ElementPath
+            return me.ElementPath()
                 .Select(e => e.Class)
                 .Where(t => t != null)
                 .Select(t => t.Name)
@@ -26,7 +26,7 @@ namespace tungsten.core.Utils
 
         public static string ElementNameOrClassPath(this UntypedWpfElement me)
         {
-            return me.ElementPath
+            return me.ElementPath()
                 .Select(e => !string.IsNullOrEmpty(e.Name)
                     ? e.Name
                     : e.Class != null
@@ -37,7 +37,7 @@ namespace tungsten.core.Utils
 
         public static string ElementSearchPath(this UntypedWpfElement me)
         {
-            return me.ElementPath
+            return me.ElementPath()
                 .Where(e => e.SearchConditions.Any())
                 .Select(e => string.Format("<{0}>",
                     e.SearchConditions
@@ -50,7 +50,7 @@ namespace tungsten.core.Utils
         {
             var sb = new StringBuilder();
             int currentDepth = 0;
-            foreach (var ancestor in me.ElementPath)
+            foreach (var ancestor in me.ElementPath())
             {
                 sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} ({1})", ancestor.ControlIdentifier(), me.GetType().Name);
                 currentDepth++;
@@ -59,12 +59,12 @@ namespace tungsten.core.Utils
             return sb.ToString();
         }
 
-        public static string ControlTreeAsString(this SearchSourceElement me, int maxDepth)
+        public static string ControlTreeAsString(this ISearchSourceElement me, int maxDepth)
         {
             return ControlTreeAsString(me, 0, maxDepth);
         }
 
-        private static string ControlTreeAsString(this SearchSourceElement parent, int currentDepth, int maxDepth)
+        private static string ControlTreeAsString(this ISearchSourceElement parent, int currentDepth, int maxDepth)
         {
             if (currentDepth > maxDepth)
             {
@@ -72,7 +72,7 @@ namespace tungsten.core.Utils
             }
 
             var sb = new StringBuilder();
-            foreach (var frameworkElement in parent.FrameworkElementChildren)
+            foreach (var frameworkElement in parent.NativeChildren)
             {
                 IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
                 var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
@@ -87,7 +87,7 @@ namespace tungsten.core.Utils
             return sb.ToString();
         }
 
-        public static string ControlIdentifier(this SearchSourceElement me)
+        public static string ControlIdentifier(this ISearchSourceElement me)
         {
             if (me == null)
             {

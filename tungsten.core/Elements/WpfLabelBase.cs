@@ -3,7 +3,7 @@
     public class WpfLabelBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.Label
     {
-        public WpfLabelBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
+        public WpfLabelBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

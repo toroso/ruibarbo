@@ -8,7 +8,7 @@ namespace tungsten.core.Search
 {
     public static class SearchSourceElementFindExtensions
     {
-        public static TElement FindFirstChild<TElement>(this SearchSourceElement parent, params By[] bys)
+        public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)
             where TElement : UntypedWpfElement
         {
             // TODO: Control output verbosity in configuration
@@ -23,7 +23,7 @@ namespace tungsten.core.Search
             return found;
         }
 
-        private static TElement TryFindFirstChild<TElement>(SearchSourceElement parent, By[] bys)
+        private static TElement TryFindFirstChild<TElement>(ISearchSourceElement parent, By[] bys)
             where TElement : UntypedWpfElement
         {
             // TODO: Make a few attempts

@@ -6,7 +6,7 @@ namespace tungsten.core.Elements
     public class WpfTabControlBase<TNativeElement> : WpfItemsControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TabControl
     {
-        public WpfTabControlBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
+        public WpfTabControlBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

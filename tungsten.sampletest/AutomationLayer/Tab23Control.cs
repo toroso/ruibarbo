@@ -5,7 +5,7 @@ namespace tungsten.sampletest.AutomationLayer
 {
     public class Tab23Control : WpfTabItemBase<System.Windows.Controls.TabItem>, IRegisteredElement<System.Windows.Controls.TabItem>
     {
-        public Tab23Control(SearchSourceElement searchParent, System.Windows.Controls.TabItem frameworkElement)
+        public Tab23Control(ISearchSourceElement searchParent, System.Windows.Controls.TabItem frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

@@ -13,15 +13,10 @@ namespace tungsten.core.Elements
     {
         private readonly WeakReference<TNativeElement> _frameworkElement;
 
-        protected WpfFrameworkElementBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
+        protected WpfFrameworkElementBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent)
         {
             _frameworkElement = new WeakReference<TNativeElement>(frameworkElement);
-        }
-
-        public override int InstanceId
-        {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
         }
 
         public override string Name
@@ -34,14 +29,14 @@ namespace tungsten.core.Elements
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType()); }
         }
 
-        public override IEnumerable<UntypedWpfElement> Children
-        {
-            get { return FrameworkElementChildren.SelectMany(CreateWpfElements); }
-        }
-
-        public override IEnumerable<FrameworkElement> FrameworkElementChildren
+        public override IEnumerable<FrameworkElement> NativeChildren
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
+        }
+
+        public override IEnumerable<UntypedWpfElement> Children
+        {
+            get { return NativeChildren.SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(this, element)); }
         }
 
         public override IEnumerable<UntypedWpfElement> Parents
@@ -68,9 +63,14 @@ namespace tungsten.core.Elements
                     });
 
                 return rootFrameworkElement != null
-                    ? CreateWpfElements(null, rootFrameworkElement)
+                    ? ElementFactory.ElementFactory.CreateWpfElements(null, rootFrameworkElement)
                     : new UntypedWpfElement[] { };
             }
+        }
+
+        public override int InstanceId
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
         }
 
         internal TNativeElement GetStrongReference()

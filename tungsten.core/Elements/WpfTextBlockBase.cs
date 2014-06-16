@@ -3,7 +3,7 @@
     public class WpfTextBlockBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TextBlock
     {
-        public WpfTextBlockBase(SearchSourceElement searchParent, TNativeElement textBlock)
+        public WpfTextBlockBase(ISearchSourceElement searchParent, TNativeElement textBlock)
             : base(searchParent, textBlock)
         {
         }

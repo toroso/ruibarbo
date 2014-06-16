@@ -3,7 +3,7 @@ namespace tungsten.core.Elements
     public class WpfCheckBoxBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.CheckBox
     {
-        public WpfCheckBoxBase(SearchSourceElement searchParent, TNativeElement checkBox)
+        public WpfCheckBoxBase(ISearchSourceElement searchParent, TNativeElement checkBox)
             : base(searchParent, checkBox)
         {
         }

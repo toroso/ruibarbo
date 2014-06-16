@@ -7,7 +7,7 @@ namespace tungsten.core.Elements
     public class WpfTextBoxBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TextBox
     {
-        public WpfTextBoxBase(SearchSourceElement searchParent, TNativeElement textBox)
+        public WpfTextBoxBase(ISearchSourceElement searchParent, TNativeElement textBox)
             : base(searchParent, textBox)
         {
         }

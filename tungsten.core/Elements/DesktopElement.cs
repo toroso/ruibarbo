@@ -7,47 +7,26 @@ using tungsten.core.Search;
 
 namespace tungsten.core.Elements
 {
-    public class DesktopElement : SearchSourceElement
+    public class DesktopElement : ISearchSourceElement
     {
         private readonly Application _application;
 
         internal DesktopElement(Application application)
-            : base(null)
         {
             _application = application;
         }
 
-        public override int InstanceId
-        {
-            get { return _application.GetHashCode(); }
-        }
-
-        public override string Name
+        public virtual string Name
         {
             get { return null; }
         }
 
-        public override Type Class
+        public virtual Type Class
         {
             get { return null; }
         }
 
-        public override IEnumerable<By> SearchConditions
-        {
-            get { yield break; }
-        }
-
-        public override IEnumerable<UntypedWpfElement> Children
-        {
-            get
-            {
-                return FrameworkElementChildren
-                    .SelectMany(CreateWpfElements)
-                    .ToArray();
-            }
-        }
-
-        public override IEnumerable<FrameworkElement> FrameworkElementChildren
+        public virtual IEnumerable<FrameworkElement> NativeChildren
         {
             get
             {
@@ -60,6 +39,31 @@ namespace tungsten.core.Elements
                 var windows = windowsOnOtherThreads.Cast<Window>().ToArray();
                 return windows;
             }
+        }
+
+        public virtual IEnumerable<UntypedWpfElement> Children
+        {
+            get
+            {
+                return NativeChildren
+                    .SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(this, element))
+                    .ToArray();
+            }
+        }
+
+        public virtual IEnumerable<By> SearchConditions
+        {
+            get { yield break; }
+        }
+
+        public virtual ISearchSourceElement SearchParent
+        {
+            get { return null; }
+        }
+
+        public virtual int InstanceId
+        {
+            get { return _application.GetHashCode(); }
         }
     }
 }

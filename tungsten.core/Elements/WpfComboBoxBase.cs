@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
@@ -9,7 +8,7 @@ namespace tungsten.core.Elements
     public class WpfComboBoxBase<TNativeElement> : WpfItemsControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.ComboBox
     {
-        public WpfComboBoxBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
+        public WpfComboBoxBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

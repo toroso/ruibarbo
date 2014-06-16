@@ -5,7 +5,7 @@ namespace tungsten.sampletest.AutomationLayer
 {
     public class StuffControl : WpfUserControlBase<System.Windows.Controls.UserControl>, IRegisteredElement<System.Windows.Controls.UserControl>
     {
-        public StuffControl(SearchSourceElement searchParent, System.Windows.Controls.UserControl frameworkElement)
+        public StuffControl(ISearchSourceElement searchParent, System.Windows.Controls.UserControl frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

@@ -9,7 +9,7 @@ namespace tungsten.core.Elements
     public class WpfItemsControlBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.ItemsControl
     {
-        public WpfItemsControlBase(SearchSourceElement searchParent, TNativeElement frameworkElement)
+        public WpfItemsControlBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

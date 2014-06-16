@@ -5,7 +5,7 @@ namespace tungsten.sampletest.AutomationLayer
 {
     public class MainTabControl : WpfTabControlBase<System.Windows.Controls.TabControl>, IRegisteredElement<System.Windows.Controls.TabControl>
     {
-        public MainTabControl(SearchSourceElement searchParent, System.Windows.Controls.TabControl frameworkElement)
+        public MainTabControl(ISearchSourceElement searchParent, System.Windows.Controls.TabControl frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }
