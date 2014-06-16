@@ -6,7 +6,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public class WpfTabItemBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
+    public class WpfTabItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TabItem
     {
         public WpfTabItemBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
@@ -37,6 +37,7 @@ namespace tungsten.core.Elements
 
     public static class WpfTabItemBaseExtensions
     {
+        // TODO: Move to WpfHeaderedContentControl?
         public static object Header<TNativeElement>(this WpfTabItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.TabItem
         {
