@@ -11,8 +11,8 @@ namespace tungsten.core.Elements
         string Name { get; }
         Type Class { get; }
 
-        IEnumerable<FrameworkElement> NativeChildren { get; }
-        // TODO: Add NativeParent: object
+        IEnumerable<FrameworkElement> NativeChildren { get; } // TODO: Return IEnumerable<object>
+        FrameworkElement NativeParent { get; } // TODO: Return object
         
         IEnumerable<By> SearchConditions { get; }
         ISearchSourceElement SearchParent { get; }
@@ -34,9 +34,25 @@ namespace tungsten.core.Elements
             yield return me;
         }
 
+        /// <summary>
+        /// Return a list of possible children. The same FrameworkElement might appear several time but wrapped in different WpfElements.
+        /// TODO: Make into extension method
+        /// </summary>
         public static IEnumerable<UntypedWpfElement> Children(this ISearchSourceElement me)
         {
             return me.NativeChildren.SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(me, element));
+        }
+
+        /// <summary>
+        /// Return a list of possible parents. They all represent the same FrameworkElement, but are wrapped in different
+        /// WpfElements.
+        /// </summary>
+        public static IEnumerable<UntypedWpfElement> Parents(this ISearchSourceElement me)
+        {
+            var nativeParent = me.NativeParent;
+            return nativeParent != null
+                ? ElementFactory.ElementFactory.CreateWpfElements(null, nativeParent)
+                : new UntypedWpfElement[] { };
         }
     }
 }

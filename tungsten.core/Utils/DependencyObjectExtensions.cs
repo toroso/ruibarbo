@@ -27,5 +27,24 @@ namespace tungsten.core.Utils
 
             return result;
         }
+
+        internal static FrameworkElement GetFrameworkElementParent(this DependencyObject child)
+        {
+            DependencyObject current = child;
+            while (true)
+            {
+                current = VisualTreeHelper.GetParent(current);
+                if (current == null)
+                {
+                    return null;
+                }
+
+                var asFrameworkElement = current as FrameworkElement;
+                if (asFrameworkElement != null)
+                {
+                    return asFrameworkElement;
+                }
+            }
+        }
     }
 }

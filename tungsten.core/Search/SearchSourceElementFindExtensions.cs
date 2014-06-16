@@ -64,7 +64,7 @@ namespace tungsten.core.Search
             var current = child;
             while (true)
             {
-                var parents = current.Parents.ToArray();
+                var parents = current.Parents().ToArray();
                 if (!parents.Any())
                 {
                     return null;

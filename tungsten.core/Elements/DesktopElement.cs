@@ -41,6 +41,11 @@ namespace tungsten.core.Elements
             }
         }
 
+        public FrameworkElement NativeParent
+        {
+            get { return null; }
+        }
+
         public virtual IEnumerable<By> SearchConditions
         {
             get { yield break; }

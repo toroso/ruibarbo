@@ -33,33 +33,9 @@ namespace tungsten.core.Elements
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
         }
 
-        public override IEnumerable<UntypedWpfElement> Parents
+        public override FrameworkElement NativeParent
         {
-            get
-            {
-                var rootFrameworkElement = Invoker.Get(this, frameworkElement =>
-                    {
-                        DependencyObject current = frameworkElement;
-                        while (true)
-                        {
-                            current = VisualTreeHelper.GetParent(current);
-                            if (current == null)
-                            {
-                                return null;
-                            }
-
-                            var asFrameworkElement = current as FrameworkElement;
-                            if (asFrameworkElement != null)
-                            {
-                                return asFrameworkElement;
-                            }
-                        }
-                    });
-
-                return rootFrameworkElement != null
-                    ? ElementFactory.ElementFactory.CreateWpfElements(null, rootFrameworkElement)
-                    : new UntypedWpfElement[] { };
-            }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementParent()); }
         }
 
         public override int InstanceId

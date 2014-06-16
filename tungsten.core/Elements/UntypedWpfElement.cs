@@ -21,6 +21,7 @@ namespace tungsten.core.Elements
         public abstract Type Class { get; }
 
         public abstract IEnumerable<FrameworkElement> NativeChildren { get; }
+        public abstract FrameworkElement NativeParent { get; }
 
         public virtual IEnumerable<By> SearchConditions
         {
@@ -31,13 +32,6 @@ namespace tungsten.core.Elements
         {
             get { return _searchParent; }
         }
-
-        /// <summary>
-        /// Return a list of possible parents. They all represent the same FrameworkElement, but are encapsulated in different
-        /// WpfElements.
-        /// TODO: Make into extension method
-        /// </summary>
-        public abstract IEnumerable<UntypedWpfElement> Parents { get; }
 
         public abstract int InstanceId { get; }
 
