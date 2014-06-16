@@ -87,9 +87,17 @@ namespace tungsten.core.Elements
             return Invoker.Get(me, frameworkElement => frameworkElement.IsVisible);
         }
 
+        public static void BringIntoView<TNativeElement>(this WpfFrameworkElementBase<TNativeElement> me)
+            where TNativeElement : FrameworkElement
+        {
+            Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
+        }
+
         public static void Click<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : FrameworkElement
         {
+            me.BringIntoView();
+
             var bounds = me.BoundsOnScreen();
             var centerX = (int)(bounds.X + bounds.Width / 2);
             var centerY = (int)(bounds.Y + bounds.Height / 2);

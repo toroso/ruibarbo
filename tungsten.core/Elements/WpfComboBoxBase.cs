@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls.Primitives;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
@@ -11,6 +12,16 @@ namespace tungsten.core.Elements
         public WpfComboBoxBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
+            DisableTimeConsumingAnimations();
+        }
+
+        private void DisableTimeConsumingAnimations()
+        {
+            Invoker.Invoke(this, fe =>
+                {
+                    var popup = (Popup) fe.Template.FindName("PART_Popup", fe);
+                    popup.PopupAnimation = PopupAnimation.None;
+                });
         }
 
         // TODO: Override Children
@@ -46,8 +57,6 @@ namespace tungsten.core.Elements
                 throw ManglaException.NotVisible(item);
             }
 
-            item.BringIntoView();
-            System.Threading.Thread.Sleep(200); // Takes a while to open and scroll... TODO: Configurable timespan.
             item.Click();
         }
 
