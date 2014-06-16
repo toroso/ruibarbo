@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
@@ -13,7 +14,7 @@ namespace tungsten.core.Elements
         {
         }
 
-        public override IEnumerable<UntypedWpfElement> Children
+        public override IEnumerable<FrameworkElement> NativeChildren
         {
             get
             {
@@ -23,10 +24,10 @@ namespace tungsten.core.Elements
                 {
                     var owner = this.FindFirstAncestor<WpfTabControl>();
                     var contentPanel = owner.FindFirstChild<WpfFrameworkElement>(By.Name("PART_SelectedContentHost"));
-                    yield return contentPanel;
+                    yield return Invoker.Get(contentPanel, frameworkElement => frameworkElement);
                 }
 
-                foreach (var headerChild in base.Children)
+                foreach (var headerChild in base.NativeChildren)
                 {
                     yield return headerChild;
                 }

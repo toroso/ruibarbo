@@ -41,16 +41,6 @@ namespace tungsten.core.Elements
             }
         }
 
-        public virtual IEnumerable<UntypedWpfElement> Children
-        {
-            get
-            {
-                return NativeChildren
-                    .SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(this, element))
-                    .ToArray();
-            }
-        }
-
         public virtual IEnumerable<By> SearchConditions
         {
             get { yield break; }

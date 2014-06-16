@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using tungsten.core.Search;
 
@@ -11,7 +12,6 @@ namespace tungsten.core.Elements
         Type Class { get; }
 
         IEnumerable<FrameworkElement> NativeChildren { get; }
-        IEnumerable<UntypedWpfElement> Children { get; } // TODO: Extension method
         // TODO: Add NativeParent: object
         
         IEnumerable<By> SearchConditions { get; }
@@ -32,6 +32,11 @@ namespace tungsten.core.Elements
                 }
             }
             yield return me;
+        }
+
+        public static IEnumerable<UntypedWpfElement> Children(this ISearchSourceElement me)
+        {
+            return me.NativeChildren.SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(me, element));
         }
     }
 }

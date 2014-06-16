@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using tungsten.core.Input;
@@ -32,11 +31,6 @@ namespace tungsten.core.Elements
         public override IEnumerable<FrameworkElement> NativeChildren
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
-        }
-
-        public override IEnumerable<UntypedWpfElement> Children
-        {
-            get { return NativeChildren.SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(this, element)); }
         }
 
         public override IEnumerable<UntypedWpfElement> Parents

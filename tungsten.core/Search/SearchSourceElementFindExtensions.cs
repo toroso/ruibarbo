@@ -28,7 +28,7 @@ namespace tungsten.core.Search
         {
             // TODO: Make a few attempts
             var breadthFirstQueue = new Queue<UntypedWpfElement>();
-            breadthFirstQueue.EnqueueAll(parent.Children);
+            breadthFirstQueue.EnqueueAll(parent.Children());
 
             while (breadthFirstQueue.Count > 0)
             {
@@ -39,7 +39,7 @@ namespace tungsten.core.Search
                     return asTElement.FoundBy<TElement>(bys);
                 }
 
-                breadthFirstQueue.EnqueueAll(current.Children);
+                breadthFirstQueue.EnqueueAll(current.Children());
             }
 
             return null;

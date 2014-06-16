@@ -21,7 +21,6 @@ namespace tungsten.core.Elements
         public abstract Type Class { get; }
 
         public abstract IEnumerable<FrameworkElement> NativeChildren { get; }
-        public abstract IEnumerable<UntypedWpfElement> Children { get; }
 
         public virtual IEnumerable<By> SearchConditions
         {
