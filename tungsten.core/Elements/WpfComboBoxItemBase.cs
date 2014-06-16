@@ -17,7 +17,7 @@ namespace tungsten.core.Elements
             where TFrameworkElement : System.Windows.Controls.ComboBoxItem
         {
             me.BringIntoView();
-            System.Threading.Thread.Sleep(10); // Takes a while for ComboBoxes to open and scroll... TODO: Configurable timespan.
+            System.Threading.Thread.Sleep(20); // Takes a while for ComboBoxes to open and scroll... TODO: Configurable timespan.
             // Better TODO: Wait until it is in view. How?
 
             var bounds = me.BoundsOnScreen();
