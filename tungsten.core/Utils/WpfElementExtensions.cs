@@ -38,9 +38,9 @@ namespace tungsten.core.Utils
         public static string ElementSearchPath(this UntypedWpfElement me)
         {
             return me.ElementPath()
-                .Where(e => e.SearchConditions.Any())
+                .Where(e => e.FoundBys.Any())
                 .Select(e => string.Format("<{0}>",
-                    e.SearchConditions
+                    e.FoundBys
                         .Select(by => by.ToString())
                         .Join(", ")))
                 .Join("; ");

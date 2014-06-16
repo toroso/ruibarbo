@@ -23,7 +23,7 @@ namespace tungsten.core.Elements
         public abstract IEnumerable<FrameworkElement> NativeChildren { get; }
         public abstract FrameworkElement NativeParent { get; }
 
-        public virtual IEnumerable<By> SearchConditions
+        public virtual IEnumerable<By> FoundBys
         {
             get { return _bys; }
         }

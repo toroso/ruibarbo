@@ -46,7 +46,7 @@ namespace tungsten.core.Elements
             get { return null; }
         }
 
-        public virtual IEnumerable<By> SearchConditions
+        public virtual IEnumerable<By> FoundBys
         {
             get { yield break; }
         }

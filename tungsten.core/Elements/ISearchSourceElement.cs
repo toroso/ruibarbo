@@ -8,15 +8,43 @@ namespace tungsten.core.Elements
 {
     public interface ISearchSourceElement
     {
+        /// <summary>
+        /// Returns the name of this element. In WPF, it is the x:Name and in WinForms it is the Name property.
+        /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Returns the type that represents this element. In WPF it is a decendant of FrameworkElement and in WinForms it is a
+        /// decendand of Control.
+        /// </summary>
         Type Class { get; }
 
-        IEnumerable<FrameworkElement> NativeChildren { get; } // TODO: Return IEnumerable<object>
-        FrameworkElement NativeParent { get; } // TODO: Return object
-        
-        IEnumerable<By> SearchConditions { get; }
+        /// <summary>
+        /// Returns all elements that this element contains.
+        /// TODO: Return IEnumerable of object to support WinForms
+        /// </summary>
+        IEnumerable<FrameworkElement> NativeChildren { get; }
+
+        /// <summary>
+        /// Returns the parent of this element.
+        /// TODO: Return object to support WinForms
+        /// </summary>
+        FrameworkElement NativeParent { get; }
+
+        /// <summary>
+        /// Returns the condition that this element was found by.
+        /// </summary>
+        IEnumerable<By> FoundBys { get; }
+
+        /// <summary>
+        /// Return the element that was used as source when finding this element.
+        /// </summary>
         ISearchSourceElement SearchParent { get; }
 
+        /// <summary>
+        /// A (sort of) unique identifier of this element. Can be used to differentiate two instances of the same element, for instance
+        /// in ItemsControls / ListControls.
+        /// </summary>
         int InstanceId { get; }
     }
 
