@@ -12,17 +12,17 @@ namespace tungsten.sampletest.AutomationLayer
 
         public Tab1Control Tab1
         {
-            get { return Items().FindFirst<Tab1Control>(By.Name("Tab1")); }
+            get { return FindFirstItem<Tab1Control>(By.Name("Tab1")); }
         }
 
         public Tab23Control Tab2
         {
-            get { return Items().FindFirst<Tab23Control>(By.Name("Tab2")); }
+            get { return FindFirstItem<Tab23Control>(By.Name("Tab2")); }
         }
 
         public Tab23Control Tab3
         {
-            get { return Items().FindFirst<Tab23Control>(By.Name("Tab3")); }
+            get { return FindFirstItem<Tab23Control>(By.Name("Tab3")); }
         }
     }
 }

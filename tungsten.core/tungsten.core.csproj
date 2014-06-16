@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Elements\IContentControl.cs" />
     <Compile Include="Elements\IRegisteredElement.cs" />
-    <Compile Include="Elements\ItemsControlItemsWrapper.cs" />
     <Compile Include="Elements\WpfButtonBase.cs" />
     <Compile Include="Elements\WpfCheckBoxBase.cs" />
     <Compile Include="Elements\WpfComboBoxBase.cs" />

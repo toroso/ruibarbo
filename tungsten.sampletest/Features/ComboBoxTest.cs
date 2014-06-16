@@ -19,7 +19,7 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            comboBox.AssertThat(x => x.Items().All<WpfComboBoxItem>().Select(i => i.Content()), Is.EqualTo(new[]
+            comboBox.AssertThat(x => x.AllItems<WpfComboBoxItem>().Select(i => i.Content()), Is.EqualTo(new[]
                 {
                     "No error",
                     "Has error",
@@ -45,7 +45,7 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            var item = comboBox.Items().FindFirst<WpfComboBoxItem>(By.Content("Has error"));
+            var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("Has error"));
             comboBox.ChangeSelectedItemTo(item);
             comboBox.AssertThat(x => x.SelectedItem().Content(), Is.EqualTo("Has error"));
         }
@@ -68,12 +68,12 @@ namespace tungsten.sampletest.Features
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
 
-            var lastItem = comboBox.Items().All<WpfComboBoxItem>().Last();
+            var lastItem = comboBox.AllItems<WpfComboBoxItem>().Last();
             lastItem.AssertThat(x => x.Content(), Is.EqualTo("Item 6"));
             comboBox.ChangeSelectedItemTo(lastItem);
             comboBox.AssertThat(x => x.SelectedItem().Content(), Is.EqualTo("Item 6"));
 
-            var firstItem = comboBox.Items().All<WpfComboBoxItem>().First();
+            var firstItem = comboBox.AllItems<WpfComboBoxItem>().First();
             firstItem.AssertThat(x => x.Content(), Is.EqualTo("No error"));
             comboBox.ChangeSelectedItemTo(firstItem);
             comboBox.AssertThat(x => x.SelectedItem().Content(), Is.EqualTo("No error"));
