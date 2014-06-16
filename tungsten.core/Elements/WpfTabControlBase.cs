@@ -26,24 +26,10 @@ namespace tungsten.core.Elements
                 .First();
         }
 
-        /// <summary>
-        /// Get all TabItems. Note that this method returns all possible WpfFrameworkElementBase representations of a TabItem so there might
-        /// be more items returned than there are actual tabs.
-        /// TODO: Is this really useful? Perhaps a FindAllTabItems() of type and by condition. Must only return one instance per TabItem though.
-        /// </summary>
-        public static IEnumerable<WpfTabItem> TabItems<TNativeElement>(this WpfTabControlBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.TabControl
-        {
-            return Invoker.Get(me, frameworkElement => frameworkElement.Items)
-                .Cast<object>()
-                .SelectMany(item => CreateWpfTabItem(item, me))
-                .OfType<WpfTabItem>();
-        }
-
         private static IEnumerable<UntypedWpfElement> CreateWpfTabItem<TNativeParent>(object item, WpfTabControlBase<TNativeParent> parent)
             where TNativeParent : System.Windows.Controls.TabControl
         {
-            return ElementFactory.ElementFactory.CreateWpfElements(parent, item); // .OfType<UntypedWpfElement>();
+            return ElementFactory.ElementFactory.CreateWpfElements(parent, item);
         }
     }
 }

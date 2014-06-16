@@ -15,15 +15,14 @@ namespace tungsten.sampletest.Features
         public void TabItemCount()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            // Tricky test. TabItems() will return all possible WpfFrameworkElementBase<> representations of a TabItem, hence the type filter.
-            mainTabControl.AssertThat(x => x.TabItems().Count(t => t.GetType() == typeof(WpfTabItem)), Is.EqualTo(3));
+            mainTabControl.AssertThat(x => x.AllItems<WpfTabItem>().Count(), Is.EqualTo(3));
         }
 
         [Test]
         public void FirstTabItemIsSelected()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            var tab1 = mainTabControl.TabItems().First();
+            var tab1 = mainTabControl.AllItems<WpfTabItem>().First();
             tab1.AssertThat(x => x.IsSelected(), Is.True);
         }
 
@@ -38,7 +37,7 @@ namespace tungsten.sampletest.Features
         public void ChangeToSecondTabItem()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            var tab2 = mainTabControl.TabItems().First(x => x.Header().Equals("Tab 2"));
+            var tab2 = mainTabControl.AllItems<WpfTabItem>().First(x => x.Header().Equals("Tab 2"));
             tab2.Click();
             mainTabControl.AssertThat(x => x.SelectedItem().Header(), Is.EqualTo("Tab 2"));
         }
