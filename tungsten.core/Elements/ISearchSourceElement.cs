@@ -46,8 +46,6 @@ namespace tungsten.core.Elements
         /// in ItemsControls / ListControls.
         /// </summary>
         int InstanceId { get; }
-
-        void FoundBy(IEnumerable<By> bys);
     }
 
     public static class SearchSourceElementExtensions

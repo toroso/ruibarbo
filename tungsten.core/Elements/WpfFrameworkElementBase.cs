@@ -8,7 +8,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement
+    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable
         where TNativeElement : FrameworkElement
     {
         private readonly ISearchSourceElement _searchParent;

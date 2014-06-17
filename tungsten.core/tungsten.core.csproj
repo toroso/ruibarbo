@@ -81,6 +81,7 @@
     <Compile Include="ElementFactory\ElementFactoryConfigurator.cs" />
     <Compile Include="ElementFactory\IElementFactoryConfigurator.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Search\IAmFoundByUpdatable.cs" />
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />

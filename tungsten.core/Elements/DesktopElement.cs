@@ -60,9 +60,5 @@ namespace tungsten.core.Elements
         {
             get { return _application.GetHashCode(); }
         }
-
-        public void FoundBy(IEnumerable<By> bys)
-        {
-        }
     }
 }

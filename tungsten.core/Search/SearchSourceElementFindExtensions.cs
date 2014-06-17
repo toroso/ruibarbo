@@ -36,7 +36,7 @@ namespace tungsten.core.Search
                 var asTElement = current as TElement;
                 if (asTElement != null && bys.All(by => by.Matches(asTElement)))
                 {
-                    asTElement.FoundBy(bys);
+                    asTElement.UpdateFoundBy(bys);
                     return asTElement;
                 }
 
@@ -75,11 +75,21 @@ namespace tungsten.core.Search
                 if (matching.Any())
                 {
                     var element = matching.First();
-                    element.FoundBy(bys);
+                    element.UpdateFoundBy(bys);
                     return element;
                 }
 
                 current = parents.First(); // All have the same underlying FrameworkElement
+            }
+        }
+
+        private static void UpdateFoundBy<TElement>(this TElement element, By[] bys)
+            where TElement : class, ISearchSourceElement
+        {
+            var asUpdateable = element as IAmFoundByUpdatable;
+            if (asUpdateable != null)
+            {
+                asUpdateable.FoundBy(bys);
             }
         }
     }
