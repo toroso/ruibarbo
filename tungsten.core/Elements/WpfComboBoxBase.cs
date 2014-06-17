@@ -50,13 +50,5 @@ namespace tungsten.core.Elements
 
             item.Click();
         }
-
-        // TODO: Return WpfComboBoxItemBase... in some way.
-        private static IEnumerable<WpfComboBoxItem> CreateWpfComboBoxItem<TNativeItem, TNativeParent>(TNativeItem item, WpfComboBoxBase<TNativeParent> parent)
-            where TNativeItem : System.Windows.Controls.ComboBoxItem
-            where TNativeParent : System.Windows.Controls.ComboBox
-        {
-            return ElementFactory.ElementFactory.CreateWpfElements(parent, item).OfType<WpfComboBoxItem>();
-        }
     }
 }
