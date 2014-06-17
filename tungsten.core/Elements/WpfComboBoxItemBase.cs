@@ -13,8 +13,14 @@ namespace tungsten.core.Elements
 
     public static class WpfComboBoxItemBaseExtensions
     {
-        public static void Click<TFrameworkElement>(this WpfComboBoxItemBase<TFrameworkElement> me)
-            where TFrameworkElement : System.Windows.Controls.ComboBoxItem
+        public static bool IsSelected<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
+            where TNativeElement : System.Windows.Controls.ComboBoxItem
+        {
+            return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
+        }
+
+        public static void Click<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
+            where TNativeElement : System.Windows.Controls.ComboBoxItem
         {
             me.BringIntoView();
             System.Threading.Thread.Sleep(20); // Takes a while for ComboBoxes to open and scroll... TODO: Configurable timespan.

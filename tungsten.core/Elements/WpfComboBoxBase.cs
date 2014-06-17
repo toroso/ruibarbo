@@ -29,15 +29,6 @@ namespace tungsten.core.Elements
 
     public static class WpfComboBoxBaseExtensions
     {
-        // TODO: Remove. Only support IsSelected on WpfItemBase.
-        public static WpfComboBoxItem SelectedItem<TNativeElement>(this WpfComboBoxBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.ComboBox
-        {
-            // TODO: What if selectedItem is null?
-            var selectedItem = Invoker.Get(me, frameworkElement => (System.Windows.Controls.ComboBoxItem)frameworkElement.SelectedItem);
-            return CreateWpfComboBoxItem(selectedItem, me).First();
-        }
-
         public static bool IsDropDownOpen<TNativeElement>(this WpfComboBoxBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ComboBox
         {
