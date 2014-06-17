@@ -46,6 +46,9 @@ namespace tungsten.core.Elements
         /// in ItemsControls / ListControls.
         /// </summary>
         int InstanceId { get; }
+
+        bool IsVisible { get; }
+        void Click();
     }
 
     public static class SearchSourceElementExtensions

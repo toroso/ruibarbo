@@ -57,6 +57,21 @@ namespace tungsten.core.Elements
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
         }
 
+        public bool IsVisible
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsVisible); }
+        }
+
+        public virtual void Click()
+        {
+            this.BringIntoView();
+
+            var bounds = this.BoundsOnScreen();
+            var centerX = (int)(bounds.X + bounds.Width / 2);
+            var centerY = (int)(bounds.Y + bounds.Height / 2);
+            Mouse.Click(centerX, centerY);
+        }
+
         public void FoundBy(IEnumerable<By> bys)
         {
             _bys = bys.Concat(new[] { By.Class(Class) }).ToArray();
@@ -100,27 +115,10 @@ namespace tungsten.core.Elements
             return Invoker.Get(me, frameworkElement => frameworkElement.IsKeyboardFocused);
         }
 
-        public static bool IsVisible<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
-            where TFrameworkElement : FrameworkElement
-        {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsVisible);
-        }
-
         public static void BringIntoView<TNativeElement>(this WpfFrameworkElementBase<TNativeElement> me)
             where TNativeElement : FrameworkElement
         {
             Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
-        }
-
-        public static void Click<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
-            where TFrameworkElement : FrameworkElement
-        {
-            me.BringIntoView();
-
-            var bounds = me.BoundsOnScreen();
-            var centerX = (int)(bounds.X + bounds.Width / 2);
-            var centerY = (int)(bounds.Y + bounds.Height / 2);
-            Mouse.Click(centerX, centerY);
         }
     }
 }

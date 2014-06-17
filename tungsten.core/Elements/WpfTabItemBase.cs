@@ -33,6 +33,14 @@ namespace tungsten.core.Elements
                 }
             }
         }
+
+        public override void Click()
+        {
+            base.Click();
+
+            // It takes a while for a TabItem to be selected
+            Wait.Until(this.IsSelected, TimeSpan.FromSeconds(5));
+        }
     }
 
     public static class WpfTabItemBaseExtensions
@@ -48,17 +56,6 @@ namespace tungsten.core.Elements
             where TNativeElement : System.Windows.Controls.TabItem
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
-        }
-
-        public static void Click<TNativeElement>(this WpfTabItemBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.TabItem
-        {
-            // Complicated because Click() is an extension method. Had Click() been a member I could've used normal overload.
-            var baseType = (WpfFrameworkElementBase<TNativeElement>)me;
-            baseType.Click();
-
-            // It takes a while for a TabItem to be selected
-            Wait.Until(me.IsSelected, TimeSpan.FromSeconds(5));
         }
     }
 }

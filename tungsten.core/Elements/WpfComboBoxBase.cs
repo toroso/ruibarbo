@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls.Primitives;
+using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
@@ -24,6 +25,13 @@ namespace tungsten.core.Elements
                 });
         }
 
+        public void ChangeSelectedItemToFirst<TItem>(params By[] bys)
+            where TItem : ISearchSourceElement
+        {
+            var item = FindFirstItem<TItem>(bys);
+            this.ChangeSelectedItemTo(item);
+        }
+
         // TODO: Override Children
     }
 
@@ -35,14 +43,12 @@ namespace tungsten.core.Elements
             return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
         }
 
-        // TODO: Would be a nice with a ChangeSelectedItemTo<TNativeElement, TNativeItem>(me, params By[] bys), although messy to use
-
-        public static void ChangeSelectedItemTo<TNativeElement, TNativeItem>(this WpfComboBoxBase<TNativeElement> me, WpfComboBoxItemBase<TNativeItem> item)
+        public static void ChangeSelectedItemTo<TNativeElement, TItem>(this WpfComboBoxBase<TNativeElement> me, TItem item)
             where TNativeElement : System.Windows.Controls.ComboBox
-            where TNativeItem : System.Windows.Controls.ComboBoxItem
+            where TItem : ISearchSourceElement
         {
             me.Click();
-            bool isVisible = Wait.Until(item.IsVisible, TimeSpan.FromSeconds(5));
+            bool isVisible = Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
             if (!isVisible)
             {
                 throw ManglaException.NotVisible(item);

@@ -60,5 +60,14 @@ namespace tungsten.core.Elements
         {
             get { return _application.GetHashCode(); }
         }
+
+        public bool IsVisible
+        {
+            get { return true; }
+        }
+
+        public void Click()
+        {
+        }
     }
 }

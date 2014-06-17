@@ -16,7 +16,7 @@ namespace tungsten.sampletest.Features
             tab1.Click();
             var stuffControl = tab1.StuffControl;
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
-            errorTextBlock.AssertThat(x => x.IsVisible(), Is.False);
+            errorTextBlock.AssertThat(x => x.IsVisible, Is.False);
             errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
         }
 
@@ -30,7 +30,7 @@ namespace tungsten.sampletest.Features
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("Has error"));
             comboBox.ChangeSelectedItemTo(item);
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
-            errorTextBlock.AssertThat(x => x.IsVisible(), Is.True);
+            errorTextBlock.AssertThat(x => x.IsVisible, Is.True);
             errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
         }
     }

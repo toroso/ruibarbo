@@ -52,18 +52,18 @@ namespace tungsten.sampletest.Features
             var tab2 = mainTabControl.Tab2;
             tab2.Click();
             var wpfTextBox2 = tab2.TextBox;
-            wpfTextBox2.AssertThat(x => x.IsVisible(), Is.True);
+            wpfTextBox2.AssertThat(x => x.IsVisible, Is.True);
 
             var tab3 = mainTabControl.Tab3;
             tab3.Click();
-            wpfTextBox2.AssertThat(x => x.IsVisible(), Is.False);
+            wpfTextBox2.AssertThat(x => x.IsVisible, Is.False);
 
             tab2.Click();
-            wpfTextBox2.AssertThat(x => x.IsVisible(), Is.True);
+            wpfTextBox2.AssertThat(x => x.IsVisible, Is.True);
 
             var tab1 = mainTabControl.Tab1;
             tab1.Click();
-            wpfTextBox2.AssertThat(x => x.IsVisible(), Is.False);
+            wpfTextBox2.AssertThat(x => x.IsVisible, Is.False);
         }
     }
 }
