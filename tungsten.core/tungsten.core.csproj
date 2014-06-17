@@ -65,7 +65,6 @@
     <Compile Include="Elements\WpfUserControlBase.cs" />
     <Compile Include="Elements\WpfWindowBase.cs" />
     <Compile Include="ManglaException.cs" />
-    <Compile Include="Elements\UntypedWpfElement.cs" />
     <Compile Include="Elements\WpfCheckBox.cs" />
     <Compile Include="Elements\WpfComboBox.cs" />
     <Compile Include="Elements\WpfComboBoxItem.cs" />

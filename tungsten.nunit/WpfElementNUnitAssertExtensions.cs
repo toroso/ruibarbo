@@ -14,7 +14,7 @@ namespace tungsten.nunit
                 this TWpfElement me,
                 Expression<Func<TWpfElement, object>> actualExp,
                 IResolveConstraint resolveConstraint)
-            where TWpfElement : UntypedWpfElement
+            where TWpfElement : ISearchSourceElement
         {
             // TODO: Take default retryTime from config. Share with Core or its own?
             me.AssertThat(actualExp, resolveConstraint, TimeSpan.FromSeconds(5));
@@ -25,7 +25,7 @@ namespace tungsten.nunit
                 Expression<Func<TWpfElement, object>> actualExp,
                 IResolveConstraint resolveConstraint,
                 TimeSpan maxRetryTime)
-            where TWpfElement : UntypedWpfElement
+            where TWpfElement : ISearchSourceElement
         {
             Constraint constraint = resolveConstraint.Resolve();
             var extractFunc = actualExp.Compile();
@@ -44,13 +44,13 @@ namespace tungsten.nunit
         }
 
         public static void AssertThrows<TWpfElement>(this TWpfElement me, Type expectedExceptionType, Action<TWpfElement> action)
-            where TWpfElement : UntypedWpfElement
+            where TWpfElement : ISearchSourceElement
         {
             me.AssertThrows(expectedExceptionType, null, action);
         }
 
         public static void AssertThrows<TWpfElement>(this TWpfElement me, Type expectedExceptionType, string expectedMessage, Action<TWpfElement> action)
-            where TWpfElement : UntypedWpfElement
+            where TWpfElement : ISearchSourceElement
         {
             try
             {

@@ -1,46 +1,65 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using tungsten.core.Input;
+using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
-    public abstract class WpfFrameworkElementBase<TNativeElement> : UntypedWpfElement
+    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement
         where TNativeElement : FrameworkElement
     {
+        private readonly ISearchSourceElement _searchParent;
         private readonly WeakReference<TNativeElement> _frameworkElement;
+        private By[] _bys;
 
         protected WpfFrameworkElementBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
-            : base(searchParent)
         {
+            _searchParent = searchParent;
             _frameworkElement = new WeakReference<TNativeElement>(frameworkElement);
+            _bys = new By[] { };
         }
 
-        public override string Name
+        public virtual string Name
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.Name); }
         }
 
-        public override Type Class
+        public virtual Type Class
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType()); }
         }
 
-        public override IEnumerable<FrameworkElement> NativeChildren
+        public virtual IEnumerable<FrameworkElement> NativeChildren
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
         }
 
-        public override FrameworkElement NativeParent
+        public virtual FrameworkElement NativeParent
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementParent()); }
         }
 
-        public override int InstanceId
+        public virtual IEnumerable<By> FoundBys
+        {
+            get { return _bys; }
+        }
+
+        public virtual ISearchSourceElement SearchParent
+        {
+            get { return _searchParent; }
+        }
+
+        public virtual int InstanceId
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
+        }
+
+        public void FoundBy(IEnumerable<By> bys)
+        {
+            _bys = bys.Concat(new[] { By.Class(Class) }).ToArray();
         }
 
         internal TNativeElement GetStrongReference()

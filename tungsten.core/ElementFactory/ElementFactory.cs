@@ -63,18 +63,18 @@ namespace tungsten.core.ElementFactory
         /// Creates matching elements. More than one element may match the FrameworkElement type, so a list is returned. The
         /// client must filter out the most interesting one.
         /// </summary>
-        public static IEnumerable<UntypedWpfElement> CreateWpfElements(ISearchSourceElement parent, object nativeElement)
+        public static IEnumerable<ISearchSourceElement> CreateWpfElements(ISearchSourceElement parent, object nativeElement)
         {
             return Instance.CreateWpfElementsImpl(parent, nativeElement);
         }
 
-        private IEnumerable<UntypedWpfElement> CreateWpfElementsImpl(ISearchSourceElement parent, object nativeElement)
+        private IEnumerable<ISearchSourceElement> CreateWpfElementsImpl(ISearchSourceElement parent, object nativeElement)
         {
             return nativeElement.GetType()
                 .AllTypesInHierarchy()
                 .Where(nativeType => _types.ContainsKey(nativeType.FullName))
                 .SelectMany(nativeType => _types[nativeType.FullName]
-                    .Select(wpfElementType => (UntypedWpfElement)Activator.CreateInstance(wpfElementType, parent, nativeElement)));
+                    .Select(wpfElementType => (ISearchSourceElement)Activator.CreateInstance(wpfElementType, parent, nativeElement)));
         }
     }
 }

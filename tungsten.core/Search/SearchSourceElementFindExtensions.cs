@@ -9,7 +9,7 @@ namespace tungsten.core.Search
     public static class SearchSourceElementFindExtensions
     {
         public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)
-            where TElement : UntypedWpfElement
+            where TElement : class, ISearchSourceElement
         {
             // TODO: Control output verbosity in configuration
             // TODO: Include Class in bys. Try to reuse from WpfFrameworkElementBase.FoundBy() and WpfElementExtensions.ElementSearchPath().
@@ -24,10 +24,10 @@ namespace tungsten.core.Search
         }
 
         private static TElement TryFindFirstChild<TElement>(ISearchSourceElement parent, By[] bys)
-            where TElement : UntypedWpfElement
+            where TElement : class, ISearchSourceElement
         {
             // TODO: Make a few attempts
-            var breadthFirstQueue = new Queue<UntypedWpfElement>();
+            var breadthFirstQueue = new Queue<ISearchSourceElement>();
             breadthFirstQueue.EnqueueAll(parent.Children());
 
             while (breadthFirstQueue.Count > 0)
@@ -36,7 +36,8 @@ namespace tungsten.core.Search
                 var asTElement = current as TElement;
                 if (asTElement != null && bys.All(by => by.Matches(asTElement)))
                 {
-                    return asTElement.FoundBy<TElement>(bys);
+                    asTElement.FoundBy(bys);
+                    return asTElement;
                 }
 
                 breadthFirstQueue.EnqueueAll(current.Children());
@@ -45,8 +46,8 @@ namespace tungsten.core.Search
             return null;
         }
 
-        public static TElement FindFirstAncestor<TElement>(this UntypedWpfElement child, params By[] bys)
-            where TElement : UntypedWpfElement
+        public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params By[] bys)
+            where TElement : class, ISearchSourceElement
         {
             Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bys.Select(by => by.ToString()).Join("; "));
             var found = TryFindFirstAncestor<TElement>(child, bys);
@@ -58,8 +59,8 @@ namespace tungsten.core.Search
             return found;
         }
 
-        private static TElement TryFindFirstAncestor<TElement>(UntypedWpfElement child, By[] bys)
-            where TElement : UntypedWpfElement
+        private static TElement TryFindFirstAncestor<TElement>(ISearchSourceElement child, By[] bys)
+            where TElement : class, ISearchSourceElement
         {
             var current = child;
             while (true)
@@ -73,7 +74,9 @@ namespace tungsten.core.Search
                 var matching = parents.OfType<TElement>().Where(e => bys.All(by => by.Matches(e))).ToArray();
                 if (matching.Any())
                 {
-                    return matching.First().FoundBy<TElement>(bys);
+                    var element = matching.First();
+                    element.FoundBy(bys);
+                    return element;
                 }
 
                 current = parents.First(); // All have the same underlying FrameworkElement

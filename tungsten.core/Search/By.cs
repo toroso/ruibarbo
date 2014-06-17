@@ -7,16 +7,16 @@ namespace tungsten.core.Search
 {
     public class By
     {
-        private readonly Expression<Func<UntypedWpfElement, bool>> _predicateExp;
-        private readonly Func<UntypedWpfElement, bool> _predicate;
+        private readonly Expression<Func<ISearchSourceElement, bool>> _predicateExp;
+        private readonly Func<ISearchSourceElement, bool> _predicate;
 
-        private By(Expression<Func<UntypedWpfElement, bool>> predicateExp)
+        private By(Expression<Func<ISearchSourceElement, bool>> predicateExp)
         {
             _predicateExp = predicateExp;
             _predicate = predicateExp.Compile();
         }
 
-        public bool Matches(UntypedWpfElement element)
+        public bool Matches(ISearchSourceElement element)
         {
             return _predicate(element);
         }
@@ -36,7 +36,7 @@ namespace tungsten.core.Search
             return new By(element => CompareContent(content, element));
         }
 
-        private static bool CompareContent(string content, UntypedWpfElement element)
+        private static bool CompareContent(string content, ISearchSourceElement element)
         {
             var contentControl = element as IContentControl;
             return contentControl != null && contentControl.Content().Equals(content);
@@ -45,7 +45,7 @@ namespace tungsten.core.Search
         public override string ToString()
         {
             var literalizer = new ExpressionLiteralizer();
-            var sanitized = (Expression<Func<UntypedWpfElement, bool>>)literalizer.Visit(_predicateExp);
+            var sanitized = (Expression<Func<ISearchSourceElement, bool>>)literalizer.Visit(_predicateExp);
             string asString = sanitized.Body.ToString();
             return asString.StartsWith("(") && asString.EndsWith(")")
                 ? asString.Substring(1, asString.Length - 2)

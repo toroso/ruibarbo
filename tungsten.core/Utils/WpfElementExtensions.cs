@@ -8,14 +8,14 @@ namespace tungsten.core.Utils
 {
     public static class WpfElementExtensions
     {
-        public static string ElementNamePath(this UntypedWpfElement me)
+        public static string ElementNamePath(this ISearchSourceElement me)
         {
             return me.ElementPath()
                 .Select(e => e.Name)
                 .JoinExcludeEmpty(".");
         }
 
-        public static string ElementClassPath(this UntypedWpfElement me)
+        public static string ElementClassPath(this ISearchSourceElement me)
         {
             return me.ElementPath()
                 .Select(e => e.Class)
@@ -24,7 +24,7 @@ namespace tungsten.core.Utils
                 .Join(".");
         }
 
-        public static string ElementNameOrClassPath(this UntypedWpfElement me)
+        public static string ElementNameOrClassPath(this ISearchSourceElement me)
         {
             return me.ElementPath()
                 .Select(e => !string.IsNullOrEmpty(e.Name)
@@ -35,7 +35,7 @@ namespace tungsten.core.Utils
                 .JoinExcludeEmpty(".");
         }
 
-        public static string ElementSearchPath(this UntypedWpfElement me)
+        public static string ElementSearchPath(this ISearchSourceElement me)
         {
             return me.ElementPath()
                 .Where(e => e.FoundBys.Any())
@@ -46,7 +46,7 @@ namespace tungsten.core.Utils
                 .Join("; ");
         }
 
-        public static string ControlIdentifierPath(this UntypedWpfElement me)
+        public static string ControlIdentifierPath(this ISearchSourceElement me)
         {
             var sb = new StringBuilder();
             int currentDepth = 0;
@@ -74,7 +74,7 @@ namespace tungsten.core.Utils
             var sb = new StringBuilder();
             foreach (var frameworkElement in parent.NativeChildren)
             {
-                IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
+                IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
                 var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
                 var wpfElement = wpfElements.FirstOrDefault(); // Any will do
                 sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes);

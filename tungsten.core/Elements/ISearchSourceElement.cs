@@ -46,6 +46,8 @@ namespace tungsten.core.Elements
         /// in ItemsControls / ListControls.
         /// </summary>
         int InstanceId { get; }
+
+        void FoundBy(IEnumerable<By> bys);
     }
 
     public static class SearchSourceElementExtensions
@@ -66,7 +68,7 @@ namespace tungsten.core.Elements
         /// Return a list of possible children. The same FrameworkElement might appear several time but wrapped in different WpfElements.
         /// TODO: Make into extension method
         /// </summary>
-        public static IEnumerable<UntypedWpfElement> Children(this ISearchSourceElement me)
+        public static IEnumerable<ISearchSourceElement> Children(this ISearchSourceElement me)
         {
             return me.NativeChildren.SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(me, element));
         }
@@ -75,12 +77,12 @@ namespace tungsten.core.Elements
         /// Return a list of possible parents. They all represent the same FrameworkElement, but are wrapped in different
         /// WpfElements.
         /// </summary>
-        public static IEnumerable<UntypedWpfElement> Parents(this ISearchSourceElement me)
+        public static IEnumerable<ISearchSourceElement> Parents(this ISearchSourceElement me)
         {
             var nativeParent = me.NativeParent;
             return nativeParent != null
                 ? ElementFactory.ElementFactory.CreateWpfElements(null, nativeParent)
-                : new UntypedWpfElement[] { };
+                : new ISearchSourceElement[] { };
         }
     }
 }

@@ -41,7 +41,7 @@ namespace tungsten.core
             return new ManglaException(message);
         }
 
-        internal static ManglaException NotVisible(UntypedWpfElement element)
+        internal static ManglaException NotVisible(ISearchSourceElement element)
         {
             // TODO: What if element does not have a name? What to show?
             var message = string.Format("Element is not visible: {0}; path {1}",
@@ -50,7 +50,7 @@ namespace tungsten.core
             return new ManglaException(message);
         }
 
-        public static ManglaException NoLongerAvailable(UntypedWpfElement element)
+        public static ManglaException NoLongerAvailable(ISearchSourceElement element)
         {
             var message = string.Format("Element is no longer available: {0}", element.ElementSearchPath());
             return new ManglaException(message);

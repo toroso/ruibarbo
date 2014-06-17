@@ -15,7 +15,7 @@ namespace tungsten.core.Elements
         }
 
         public TWpfItem FindFirstItem<TWpfItem>(params By[] bys)
-            where TWpfItem : UntypedWpfElement
+            where TWpfItem : ISearchSourceElement
         {
             var found = TryFindFirstItem<TWpfItem>(bys);
             if (found == null)
@@ -24,7 +24,7 @@ namespace tungsten.core.Elements
                 var allItems = Invoker.Get(this, frameworkElement => frameworkElement.Items).Cast<object>();
                 foreach (var item in allItems)
                 {
-                    IEnumerable<UntypedWpfElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(this, item).ToArray();
+                    IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(this, item).ToArray();
                     var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
                     var wpfElement = wpfElements.FirstOrDefault(); // Any will do
                     sb.AppendLine(string.Format("   {0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes));
@@ -37,13 +37,13 @@ namespace tungsten.core.Elements
         }
 
         public TWpfItem TryFindFirstItem<TWpfItem>(params By[] bys)
-            where TWpfItem : UntypedWpfElement
+            where TWpfItem : ISearchSourceElement
         {
             return AllItems<TWpfItem>(bys).FirstOrDefault(item => bys.All(by => by.Matches(item)));
         }
 
         public IEnumerable<TWpfItem> AllItems<TWpfItem>(params By[] bys)
-            where TWpfItem : UntypedWpfElement
+            where TWpfItem : ISearchSourceElement
         {
             return Invoker.Get(this, frameworkElement => frameworkElement.Items)
                 .Cast<object>()
