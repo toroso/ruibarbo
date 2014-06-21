@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Windows;
 using tungsten.core.Elements;
 using tungsten.core.Utils;
 

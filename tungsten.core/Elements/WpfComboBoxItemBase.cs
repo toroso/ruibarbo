@@ -34,7 +34,7 @@ namespace tungsten.core.Elements
 
     public static class WpfComboBoxItemBaseExtensions
     {
-        public static void Select<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
+        public static void OpenAndClick<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ComboBoxItem
         {
             var itemsContainer = me.FindFirstAncestor<WpfComboBox>();

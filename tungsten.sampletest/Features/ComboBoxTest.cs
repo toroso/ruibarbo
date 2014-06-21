@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Controls;
 using NUnit.Framework;
 using tungsten.core;
@@ -47,7 +46,7 @@ namespace tungsten.sampletest.Features
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("Has error"));
-            item.Select();
+            item.OpenAndClick();
             item.AssertThat(x => x.IsSelected(), Is.True);
         }
 
@@ -58,7 +57,7 @@ namespace tungsten.sampletest.Features
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var doesNotExist = new WpfComboBoxItem(comboBox, Invoker.Get(() => new ComboBoxItem()));
-            doesNotExist.AssertThrows(typeof (ManglaException), x => x.Select()); // Throws because it has no ComboBox ancestor
+            doesNotExist.AssertThrows(typeof (ManglaException), x => x.OpenAndClick()); // Throws because it has no ComboBox ancestor
         }
 
         [Test]
@@ -70,12 +69,12 @@ namespace tungsten.sampletest.Features
 
             var lastItem = comboBox.AllItems<WpfComboBoxItem>().Last();
             lastItem.AssertThat(x => x.Content(), Is.EqualTo("Item 6"));
-            lastItem.Select();
+            lastItem.OpenAndClick();
             lastItem.AssertThat(x => x.IsSelected(), Is.True);
 
             var firstItem = comboBox.AllItems<WpfComboBoxItem>().First();
             firstItem.AssertThat(x => x.Content(), Is.EqualTo("No error"));
-            firstItem.Select();
+            firstItem.OpenAndClick();
             firstItem.AssertThat(x => x.IsSelected(), Is.True);
             lastItem.AssertThat(x => x.IsSelected(), Is.False);
         }

@@ -32,7 +32,7 @@ namespace tungsten.core.Elements
             where TItem : class, ISearchSourceElement
         {
             var item = FindFirstItem<TItem>(bys);
-            // TODO: Use item.Select(). How? Interface IComboBoxItem perhaps?
+            // TODO: Use item.OpenAndClick(). How? Interface IComboBoxItem perhaps?
             this.ChangeSelectedItemTo(item);
         }
 
@@ -60,7 +60,7 @@ namespace tungsten.core.Elements
             return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
         }
 
-        // TODO? Remove. Use WpfComboBoxItemBase.Select()
+        // TODO? Remove. Use WpfComboBoxItemBase.OpenAndClick()
         public static void ChangeSelectedItemTo<TNativeElement, TItem>(this WpfComboBoxBase<TNativeElement> me, TItem item)
             where TNativeElement : System.Windows.Controls.ComboBox
             where TItem : ISearchSourceElement

@@ -28,7 +28,7 @@ namespace tungsten.sampletest.Features
             var stuffControl = tab1.StuffControl;
             var comboBox = stuffControl.ShowErrorComboBox;
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("Has error"));
-            item.Select();
+            item.OpenAndClick();
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
             errorTextBlock.AssertThat(x => x.IsVisible, Is.True);
             errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
