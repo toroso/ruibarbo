@@ -74,7 +74,7 @@ namespace tungsten.core.Elements
 
         public void FoundBy(IEnumerable<By> bys)
         {
-            _bys = bys.Concat(new[] { By.Class(Class) }).ToArray();
+            _bys = bys.AppendByClass(Class).ToArray();
         }
 
         internal TNativeElement GetStrongReference()

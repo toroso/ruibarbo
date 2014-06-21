@@ -49,11 +49,12 @@ namespace tungsten.core.Search
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
-            Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bys.Select(by => by.ToString()).Join("; "));
+            var bysWithClass = bys.AppendByClass<TElement>().ToArray();
+            Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bysWithClass.Select(by => by.ToString()).Join("; "));
             var found = TryFindFirstAncestor<TElement>(child, bys);
             if (found == null)
             {
-                throw ManglaException.FindFailed("ancestor", child, bys, child.ControlIdentifierPath());
+                throw ManglaException.FindFailed("ancestor", child, bysWithClass, child.ControlAncestorsAsString());
             }
 
             return found;

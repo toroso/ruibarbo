@@ -60,5 +60,12 @@ namespace tungsten.core
         {
             return new ManglaException("Some simulated input commands were not sent successfully.", new Win32Exception(win32Error));
         }
+
+        public static ManglaException NotOpen<TNativeElement>(WpfComboBoxBase<TNativeElement> comboBox)
+            where TNativeElement : System.Windows.Controls.ComboBox
+        {
+            var message = string.Format("ComboBox is not open: {0}", comboBox.ControlIdentifier());
+            return new ManglaException(message);
+        }
     }
 }

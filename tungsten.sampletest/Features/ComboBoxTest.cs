@@ -47,19 +47,18 @@ namespace tungsten.sampletest.Features
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("Has error"));
-            comboBox.ChangeSelectedItemTo(item);
+            item.Select();
             item.AssertThat(x => x.IsSelected(), Is.True);
         }
 
         [Test]
         public void CheckBoxChangeSelectedItemToNonExisting()
         {
-            // Unfortunately a very slow test. Failures are slow.
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var doesNotExist = new WpfComboBoxItem(comboBox, Invoker.Get(() => new ComboBoxItem()));
-            comboBox.AssertThrows(typeof(ManglaException), x => x.ChangeSelectedItemTo(doesNotExist));
+            doesNotExist.AssertThrows(typeof (ManglaException), x => x.Select()); // Throws because it has no ComboBox ancestor
         }
 
         [Test]
@@ -71,12 +70,12 @@ namespace tungsten.sampletest.Features
 
             var lastItem = comboBox.AllItems<WpfComboBoxItem>().Last();
             lastItem.AssertThat(x => x.Content(), Is.EqualTo("Item 6"));
-            comboBox.ChangeSelectedItemTo(lastItem);
+            lastItem.Select();
             lastItem.AssertThat(x => x.IsSelected(), Is.True);
 
             var firstItem = comboBox.AllItems<WpfComboBoxItem>().First();
             firstItem.AssertThat(x => x.Content(), Is.EqualTo("No error"));
-            comboBox.ChangeSelectedItemTo(firstItem);
+            firstItem.Select();
             firstItem.AssertThat(x => x.IsSelected(), Is.True);
             lastItem.AssertThat(x => x.IsSelected(), Is.False);
         }

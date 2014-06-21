@@ -1,4 +1,8 @@
+using System;
+using System.Windows;
 using tungsten.core.Input;
+using tungsten.core.Search;
+using tungsten.core.Utils;
 
 namespace tungsten.core.Elements
 {
@@ -8,6 +12,11 @@ namespace tungsten.core.Elements
         public WpfComboBoxItemBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
+        }
+
+        public override FrameworkElement NativeParent
+        {
+            get { return Invoker.Get(this, System.Windows.Controls.ItemsControl.ItemsControlFromItemContainer); }
         }
 
         public override void Click()
@@ -25,6 +34,21 @@ namespace tungsten.core.Elements
 
     public static class WpfComboBoxItemBaseExtensions
     {
+        public static void Select<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
+            where TNativeElement : System.Windows.Controls.ComboBoxItem
+        {
+            var itemsContainer = me.FindFirstAncestor<WpfComboBox>();
+            itemsContainer.Open();
+
+            bool isVisible = Wait.Until(() => me.IsVisible, TimeSpan.FromSeconds(5));
+            if (!isVisible)
+            {
+                throw ManglaException.NotVisible(me);
+            }
+
+            me.Click();
+        }
+
         public static bool IsSelected<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ComboBoxItem
         {

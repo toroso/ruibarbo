@@ -15,7 +15,7 @@ namespace tungsten.core.Elements
         }
 
         public TWpfItem FindFirstItem<TWpfItem>(params By[] bys)
-            where TWpfItem : ISearchSourceElement
+            where TWpfItem : class, ISearchSourceElement
         {
             var found = TryFindFirstItem<TWpfItem>(bys);
             if (found == null)

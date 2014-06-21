@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls.Primitives;
 using tungsten.core.Search;
 using tungsten.core.Utils;
@@ -25,14 +23,33 @@ namespace tungsten.core.Elements
                 });
         }
 
+        public bool IsDropDownOpen
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsDropDownOpen); }
+        }
+
         public void ChangeSelectedItemToFirst<TItem>(params By[] bys)
-            where TItem : ISearchSourceElement
+            where TItem : class, ISearchSourceElement
         {
             var item = FindFirstItem<TItem>(bys);
+            // TODO: Use item.Select(). How? Interface IComboBoxItem perhaps?
             this.ChangeSelectedItemTo(item);
         }
 
         // TODO: Override Children
+
+        public void Open()
+        {
+            if (!IsDropDownOpen)
+            {
+                Click();
+                bool isOpen = Wait.Until(() => IsDropDownOpen, TimeSpan.FromSeconds(5));
+                if (!isOpen)
+                {
+                    throw ManglaException.NotOpen(this);
+                }
+            }
+        }
     }
 
     public static class WpfComboBoxBaseExtensions
@@ -43,6 +60,7 @@ namespace tungsten.core.Elements
             return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
         }
 
+        // TODO? Remove. Use WpfComboBoxItemBase.Select()
         public static void ChangeSelectedItemTo<TNativeElement, TItem>(this WpfComboBoxBase<TNativeElement> me, TItem item)
             where TNativeElement : System.Windows.Controls.ComboBox
             where TItem : ISearchSourceElement

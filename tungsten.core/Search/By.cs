@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using tungsten.core.Elements;
 using tungsten.core.Utils;
@@ -50,6 +53,19 @@ namespace tungsten.core.Search
             return asString.StartsWith("(") && asString.EndsWith(")")
                 ? asString.Substring(1, asString.Length - 2)
                 : asString;
+        }
+    }
+
+    public static class ByExtensions
+    {
+        public static IEnumerable<By> AppendByClass<T>(this IEnumerable<By> bys)
+        {
+            return bys.AppendByClass(typeof(T));
+        }
+
+        public static IEnumerable<By> AppendByClass(this IEnumerable<By> bys, Type type)
+        {
+            return bys.Concat(new[] { By.Class(type) });
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using tungsten.core.Elements;
 
 namespace tungsten.core.Utils
@@ -52,7 +53,7 @@ namespace tungsten.core.Utils
             int currentDepth = 0;
             foreach (var ancestor in me.ElementPath())
             {
-                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} ({1})", ancestor.ControlIdentifier(), me.GetType().Name);
+                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} ({1})", ancestor.ControlIdentifier(), ancestor.GetType().Name);
                 currentDepth++;
             }
 
@@ -85,6 +86,46 @@ namespace tungsten.core.Utils
             }
 
             return sb.ToString();
+        }
+
+        public static string ControlAncestorsAsString(this ISearchSourceElement child)
+        {
+            var ancestors = child.ControlAncestorsAsStrings().ToArray();
+            if (ancestors.Length == 0)
+            {
+                return string.Format("   No parents of element {0}", child.ControlIdentifier());
+            }
+
+            var sb = new StringBuilder();
+            int currentDepth = 0;
+            foreach (var ancestor in ancestors)
+            {
+                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0}", ancestor);
+                currentDepth++;
+            }
+
+            sb.AppendIndentedLine((3 * currentDepth) + 3, "{0}", child.ControlIdentifier());
+            return sb.ToString();
+        }
+
+        private static IEnumerable<string> ControlAncestorsAsStrings(this ISearchSourceElement child)
+        {
+            FrameworkElement frameworkElement = child.NativeParent;
+            if (frameworkElement == null)
+            {
+                yield break;
+            }
+
+            IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(null, frameworkElement).ToArray();
+            var wpfElement = wpfElements.First(); // Any will do
+
+            foreach (var each in wpfElement.ControlAncestorsAsStrings())
+            {
+                yield return each;
+            }
+
+            var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
+            yield return string.Format("{0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes);
         }
 
         public static string ControlIdentifier(this ISearchSourceElement me)
