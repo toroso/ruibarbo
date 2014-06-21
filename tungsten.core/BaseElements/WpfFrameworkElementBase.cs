@@ -6,7 +6,7 @@ using tungsten.core.Input;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable
         where TNativeElement : FrameworkElement

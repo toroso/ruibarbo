@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using NUnit.Framework;
 using tungsten.core;
+using tungsten.core.BaseElements;
 using tungsten.core.Elements;
 using tungsten.core.Search;
 using tungsten.nunit;

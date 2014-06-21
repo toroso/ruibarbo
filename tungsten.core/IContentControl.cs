@@ -1,4 +1,4 @@
-namespace tungsten.core.Elements
+namespace tungsten.core
 {
     public interface IContentControl
     {

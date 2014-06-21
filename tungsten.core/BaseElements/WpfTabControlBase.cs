@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public class WpfTabControlBase<TNativeElement> : WpfItemsControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TabControl

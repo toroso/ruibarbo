@@ -1,3 +1,5 @@
+using tungsten.core.BaseElements;
+
 namespace tungsten.core.Elements
 {
     public class WpfTabItem : WpfTabItemBase<System.Windows.Controls.TabItem>, IRegisteredElement<System.Windows.Controls.TabItem>

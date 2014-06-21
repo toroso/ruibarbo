@@ -1,4 +1,6 @@
-﻿namespace tungsten.core.Elements
+﻿using tungsten.core.BaseElements;
+
+namespace tungsten.core.Elements
 {
     public class WpfComboBox : WpfComboBoxBase<System.Windows.Controls.ComboBox>, IRegisteredElement<System.Windows.Controls.ComboBox>
     {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using tungsten.core.BaseElements;
 using tungsten.core.ElementFactory;
-using tungsten.core.Elements;
 using tungsten.core.Input;
 
 namespace tungsten.core

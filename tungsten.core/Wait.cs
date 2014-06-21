@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace tungsten.core.Utils
+namespace tungsten.core
 {
     public static class Wait
     {

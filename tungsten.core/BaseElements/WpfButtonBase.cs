@@ -1,4 +1,4 @@
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public class WpfButtonBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.Button

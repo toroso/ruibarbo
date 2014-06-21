@@ -3,7 +3,7 @@ using System.Windows.Controls.Primitives;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public class WpfComboBoxBase<TNativeElement> : WpfItemsControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.ComboBox

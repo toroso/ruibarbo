@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using tungsten.core.Elements;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Search
@@ -12,8 +11,8 @@ namespace tungsten.core.Search
             where TElement : class, ISearchSourceElement
         {
             // TODO: Control output verbosity in configuration
-            // TODO: Include Class in bys. Try to reuse from WpfFrameworkElementBase.FoundBy() and WpfElementExtensions.ElementSearchPath().
-            Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bys.Select(by => by.ToString()).Join("; "));
+            var bysWithClass = bys.AppendByClass<TElement>();
+            Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
             var found = TryFindFirstChild<TElement>(parent, bys);
             if (found == null)
             {

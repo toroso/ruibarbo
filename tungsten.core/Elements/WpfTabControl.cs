@@ -1,4 +1,6 @@
-﻿namespace tungsten.core.Elements
+﻿using tungsten.core.BaseElements;
+
+namespace tungsten.core.Elements
 {
     public class WpfTabControl : WpfTabControlBase<System.Windows.Controls.TabControl>, IRegisteredElement<System.Windows.Controls.TabControl>
     {

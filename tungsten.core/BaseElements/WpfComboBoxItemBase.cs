@@ -1,10 +1,11 @@
 using System;
 using System.Windows;
+using tungsten.core.Elements;
 using tungsten.core.Input;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public class WpfComboBoxItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.ComboBoxItem

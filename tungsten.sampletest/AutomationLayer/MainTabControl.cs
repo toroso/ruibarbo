@@ -1,4 +1,5 @@
-﻿using tungsten.core.Elements;
+﻿using tungsten.core;
+using tungsten.core.BaseElements;
 using tungsten.core.Search;
 
 namespace tungsten.sampletest.AutomationLayer

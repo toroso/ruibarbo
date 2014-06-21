@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using tungsten.core.Elements;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public class WpfTabItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TabItem

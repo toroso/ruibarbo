@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using tungsten.core.Elements;
+using tungsten.core.Utils;
 
-namespace tungsten.core.Utils
+namespace tungsten.core
 {
-    public static class WpfElementExtensions
+    public static class DebugExtensions
     {
         public static string ElementNamePath(this ISearchSourceElement me)
         {
@@ -75,13 +75,13 @@ namespace tungsten.core.Utils
             var sb = new StringBuilder();
             foreach (var frameworkElement in parent.NativeChildren)
             {
-                IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
-                var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
-                var wpfElement = wpfElements.FirstOrDefault(); // Any will do
-                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes);
-                if (wpfElement != null)
+                IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
+                var matchingTypes = elements.Select(t => t.GetType().Name).Join(", ");
+                var element = elements.FirstOrDefault(); // Any will do
+                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} <{1}>", element.ControlIdentifier(), matchingTypes);
+                if (element != null)
                 {
-                    sb.Append(wpfElement.ControlTreeAsString(currentDepth + 1, maxDepth));
+                    sb.Append(element.ControlTreeAsString(currentDepth + 1, maxDepth));
                 }
             }
 
@@ -116,16 +116,16 @@ namespace tungsten.core.Utils
                 yield break;
             }
 
-            IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(null, frameworkElement).ToArray();
-            var wpfElement = wpfElements.First(); // Any will do
+            IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateWpfElements(null, frameworkElement).ToArray();
+            var element = elements.First(); // Any will do
 
-            foreach (var each in wpfElement.ControlAncestorsAsStrings())
+            foreach (var each in element.ControlAncestorsAsStrings())
             {
                 yield return each;
             }
 
-            var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
-            yield return string.Format("{0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes);
+            var matchingTypes = elements.Select(t => t.GetType().Name).Join(", ");
+            yield return string.Format("{0} <{1}>", element.ControlIdentifier(), matchingTypes);
         }
 
         public static string ControlIdentifier(this ISearchSourceElement me)

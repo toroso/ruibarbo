@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows;
 using tungsten.core.Search;
 
-namespace tungsten.core.Elements
+namespace tungsten.core
 {
     public class DesktopElement : ISearchSourceElement
     {

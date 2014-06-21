@@ -1,4 +1,4 @@
-namespace tungsten.core.Elements
+namespace tungsten.core.BaseElements
 {
     public class WpfWindowBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Window

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using tungsten.core.Elements;
+using tungsten.core.BaseElements;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 
