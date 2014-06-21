@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace tungsten.sampleapp
 {
@@ -10,6 +11,11 @@ namespace tungsten.sampleapp
         public StuffControl()
         {
             InitializeComponent();
+        }
+
+        private void BtnSubmit_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Submit submitted", "Title", MessageBoxButton.OK);
         }
     }
 }
