@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using tungsten.core;
+using tungsten.core.ElementFactory;
 using tungsten.core.Search;
 
 namespace tungsten.sampletest.AutomationLayer
@@ -12,7 +13,13 @@ namespace tungsten.sampletest.AutomationLayer
         public void SetUp()
         {
             Engine = new Engine();
-            Engine.ConfigureElementFactory(x => x.AddElementAssembly(typeof(TestBase).Assembly));
+            Engine.ConfigureElementFactory(x =>
+                {
+                    x.AddFactory(new FrameworkElementFactory(q =>
+                        {
+                            q.AddRegisteredElementsInAssembly(typeof(TestBase).Assembly);
+                        }));
+                });
             Engine.Start(new SampleApplication());
         }
 

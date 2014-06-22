@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using tungsten.core.ElementFactory;
 using tungsten.core.Input;
 using tungsten.core.Wpf.Base;
+using FrameworkElementFactory = tungsten.core.ElementFactory.FrameworkElementFactory;
 
 namespace tungsten.core
 {
@@ -32,7 +33,14 @@ namespace tungsten.core
                 new Application(); // Sets Application.Current
             }
 
-            ConfigureElementFactory(x => x.AddElementAssembly(typeof (WpfFrameworkElementBase<FrameworkElement>).Assembly));
+            ConfigureElementFactory(x =>
+                {
+                    x.RemoveAllFactories();
+                    x.AddFactory(new FrameworkElementFactory(q =>
+                        {
+                            q.AddRegisteredElementsInAssembly(typeof (WpfFrameworkElementBase<FrameworkElement>).Assembly);
+                        }));
+                });
             ConfigureHardware(x =>
                 {
                     x.KeyboardDelayBetweenKeys = TimeSpan.Zero;

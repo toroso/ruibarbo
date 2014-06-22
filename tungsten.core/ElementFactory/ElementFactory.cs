@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
-using tungsten.core.Utils;
 
 namespace tungsten.core.ElementFactory
 {
@@ -23,56 +20,40 @@ namespace tungsten.core.ElementFactory
             }
         }
 
-        private readonly IDictionary<string, List<Type>> _types = new Dictionary<string, List<Type>>();
+        private readonly List<IElementFactory> _factories = new List<IElementFactory>();
 
-        public static void AddAssembly(Assembly assembly)
+        public static void AddFactory(IElementFactory factory)
         {
-            Instance.AddAssemblyImpl(assembly);
+            Instance.AddFactoryImpl(factory);
         }
 
-        private void AddAssemblyImpl(Assembly assembly)
+        private void AddFactoryImpl(IElementFactory factory)
         {
-            Type baseType = typeof(IRegisteredElement<>);
-            var wpfElementTypes = assembly.GetTypes()
-                .Where(t => baseType != t && t.IsSubclassOfGenericInterface(baseType));
-            foreach (var type in wpfElementTypes)
-            {
-                var nativeElementFullName = type.GenericTypeArgumentOf(baseType).FullName;
-                var wpfElementType = type;
-                AddType(nativeElementFullName, wpfElementType);
-            }
+            _factories.Add(factory);
         }
 
-        private void AddType(string frameworkElementFullName, Type wpfElementType)
+        public static void RemoveAllFactories()
         {
-            if (!_types.ContainsKey(frameworkElementFullName))
-            {
-                _types[frameworkElementFullName] = new List<Type>();
-            }
+            Instance.RemoveAllFactoriesImpl();
+        }
 
-            var types = _types[frameworkElementFullName];
-            if (!types.Contains(wpfElementType))
-            {
-                types.Add(wpfElementType);
-            }
+        private void RemoveAllFactoriesImpl()
+        {
+            _factories.Clear();
         }
 
         /// <summary>
-        /// Creates matching elements. More than one element may match the FrameworkElement type, so a list is returned. The
+        /// Creates matching elements. More than one element may match the native type, so a list is returned. The
         /// client must filter out the most interesting one.
         /// </summary>
-        public static IEnumerable<ISearchSourceElement> CreateWpfElements(ISearchSourceElement parent, object nativeElement)
+        public static IEnumerable<ISearchSourceElement> CreateElements(ISearchSourceElement parent, object nativeObject)
         {
-            return Instance.CreateWpfElementsImpl(parent, nativeElement);
+            return Instance.CreateElementsImpl(parent, nativeObject);
         }
 
-        private IEnumerable<ISearchSourceElement> CreateWpfElementsImpl(ISearchSourceElement parent, object nativeElement)
+        private IEnumerable<ISearchSourceElement> CreateElementsImpl(ISearchSourceElement parent, object nativeObject)
         {
-            return nativeElement.GetType()
-                .AllTypesInHierarchy()
-                .Where(nativeType => _types.ContainsKey(nativeType.FullName))
-                .SelectMany(nativeType => _types[nativeType.FullName]
-                    .Select(wpfElementType => (ISearchSourceElement)Activator.CreateInstance(wpfElementType, parent, nativeElement)));
+            return _factories.SelectMany(f => f.CreateElements(parent, nativeObject));
         }
     }
 }

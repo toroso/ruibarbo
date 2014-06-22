@@ -24,7 +24,7 @@ namespace tungsten.core.Wpf.Base
                 var allItems = Invoker.Get(this, frameworkElement => frameworkElement.Items).Cast<object>();
                 foreach (var item in allItems)
                 {
-                    IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateWpfElements(this, item).ToArray();
+                    IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateElements(this, item).ToArray();
                     var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
                     var wpfElement = wpfElements.FirstOrDefault(); // Any will do
                     sb.AppendLine(string.Format("   {0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes));
@@ -47,7 +47,7 @@ namespace tungsten.core.Wpf.Base
         {
             return Invoker.Get(this, frameworkElement => frameworkElement.Items)
                 .Cast<object>()
-                .SelectMany(item => ElementFactory.ElementFactory.CreateWpfElements(this, item))
+                .SelectMany(item => ElementFactory.ElementFactory.CreateElements(this, item))
                 .OfType<TWpfItem>();
         }
     }

@@ -69,7 +69,7 @@ namespace tungsten.core
         /// </summary>
         public static IEnumerable<ISearchSourceElement> Children(this ISearchSourceElement me)
         {
-            return me.NativeChildren.SelectMany(element => ElementFactory.ElementFactory.CreateWpfElements(me, element));
+            return me.NativeChildren.SelectMany(nativeObject => ElementFactory.ElementFactory.CreateElements(me, nativeObject));
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace tungsten.core
         {
             var nativeParent = me.NativeParent;
             return nativeParent != null
-                ? ElementFactory.ElementFactory.CreateWpfElements(null, nativeParent)
+                ? ElementFactory.ElementFactory.CreateElements(null, nativeParent)
                 : new ISearchSourceElement[] { };
         }
     }

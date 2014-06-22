@@ -1,12 +1,15 @@
-using System.Reflection;
-
 namespace tungsten.core.ElementFactory
 {
     internal class ElementFactoryConfigurator : IElementFactoryConfigurator
     {
-        public void AddElementAssembly(Assembly assembly)
+        public void AddFactory(IElementFactory factory)
         {
-            ElementFactory.AddAssembly(assembly);
+            ElementFactory.AddFactory(factory);
+        }
+
+        public void RemoveAllFactories()
+        {
+            ElementFactory.RemoveAllFactories();
         }
     }
 }
