@@ -18,12 +18,12 @@ namespace tungsten.core
 
         public virtual string Name
         {
-            get { return null; }
+            get { return "Desktop"; }
         }
 
-        public virtual Type Class
+        public virtual string Class
         {
-            get { return null; }
+            get { return "Desktop"; }
         }
 
         public virtual IEnumerable<FrameworkElement> NativeChildren

@@ -27,9 +27,9 @@ namespace tungsten.core.BaseElements
             get { return Invoker.Get(this, frameworkElement => frameworkElement.Name); }
         }
 
-        public virtual Type Class
+        public virtual string Class
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType()); }
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType().FullName); }
         }
 
         public virtual IEnumerable<FrameworkElement> NativeChildren

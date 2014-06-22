@@ -14,10 +14,10 @@ namespace tungsten.core
         string Name { get; }
 
         /// <summary>
-        /// Returns the type that represents this element. In WPF it is a decendant of FrameworkElement and in WinForms it is a
-        /// decendand of Control.
+        /// Returns a string representation of the type of this element. In WPF it is the class FullName of FrameworkElement and in Win32
+        /// it is the Window Class name.
         /// </summary>
-        Type Class { get; }
+        string Class { get; }
 
         /// <summary>
         /// Returns all elements that this element contains.

@@ -28,7 +28,7 @@ namespace tungsten.core.Search
             return new By(element => element.Name == name);
         }
 
-        internal static By Class(Type type)
+        internal static By Class(string type)
         {
             return new By(element => element.Class == type);
         }
@@ -59,10 +59,10 @@ namespace tungsten.core.Search
     {
         public static IEnumerable<By> AppendByClass<T>(this IEnumerable<By> bys)
         {
-            return bys.AppendByClass(typeof(T));
+            return bys.AppendByClass(typeof(T).FullName);
         }
 
-        public static IEnumerable<By> AppendByClass(this IEnumerable<By> bys, Type type)
+        public static IEnumerable<By> AppendByClass(this IEnumerable<By> bys, string type)
         {
             return bys.Concat(new[] { By.Class(type) });
         }

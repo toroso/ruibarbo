@@ -19,10 +19,22 @@ namespace tungsten.core
         public static string ElementClassPath(this ISearchSourceElement me)
         {
             return me.ElementPath()
-                .Select(e => e.Class)
-                .Where(t => t != null)
-                .Select(t => t.Name)
+                .Select(e => e.ClassShort())
                 .Join(".");
+        }
+
+        private static string ClassShort(this ISearchSourceElement me)
+        {
+            if (me == null)
+            {
+                return string.Empty;
+            }
+
+            var type = me.Class;
+            var index = type.LastIndexOf(".", StringComparison.Ordinal);
+            return index == -1 || type.Last() == '.'
+                ? type
+                : type.Substring(index + 1);
         }
 
         public static string ElementNameOrClassPath(this ISearchSourceElement me)
@@ -30,9 +42,7 @@ namespace tungsten.core
             return me.ElementPath()
                 .Select(e => !string.IsNullOrEmpty(e.Name)
                     ? e.Name
-                    : e.Class != null
-                        ? e.Class.Name
-                        : null)
+                    : e.ClassShort())
                 .JoinExcludeEmpty(".");
         }
 
@@ -136,12 +146,11 @@ namespace tungsten.core
             }
 
             string name = me.Name;
-            Type type = me.Class;
-            string typeAsString = type != null ? type.ToString() : "Desktop";
+            string type = me.Class;
             int instanceId = me.InstanceId;
             string controlIdentifier = string.IsNullOrEmpty(name)
-                ? string.Format("{0} #{1}", typeAsString, instanceId)
-                : string.Format("{0} ({1}) #{2}", name, typeAsString, instanceId);
+                ? string.Format("{0} #{1}", type, instanceId)
+                : string.Format("{0} ({1}) #{2}", name, type, instanceId);
             return controlIdentifier;
         }
 
