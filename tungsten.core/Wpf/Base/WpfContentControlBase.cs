@@ -1,4 +1,4 @@
-namespace tungsten.core.BaseElements
+namespace tungsten.core.Wpf.Base
 {
     public class WpfContentControlBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>, IContentControl
         where TNativeElement : System.Windows.Controls.ContentControl

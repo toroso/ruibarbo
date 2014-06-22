@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using NUnit.Framework;
 using tungsten.core;
-using tungsten.core.BaseElements;
-using tungsten.core.Elements;
 using tungsten.core.Search;
+using tungsten.core.Wpf;
+using tungsten.core.Wpf.Base;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 

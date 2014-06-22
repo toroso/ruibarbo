@@ -1,6 +1,6 @@
-﻿using tungsten.core.BaseElements;
+﻿using tungsten.core.Wpf.Base;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.Wpf
 {
     public class WpfLabel : WpfLabelBase<System.Windows.Controls.Label>, IRegisteredElement<System.Windows.Controls.Label>
     {

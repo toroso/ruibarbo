@@ -1,4 +1,4 @@
-﻿namespace tungsten.core.BaseElements
+﻿namespace tungsten.core.Wpf.Base
 {
     public class WpfLabelBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.Label

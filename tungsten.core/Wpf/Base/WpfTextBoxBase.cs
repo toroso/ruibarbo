@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using tungsten.core.Input;
 
-namespace tungsten.core.BaseElements
+namespace tungsten.core.Wpf.Base
 {
     public class WpfTextBoxBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TextBox

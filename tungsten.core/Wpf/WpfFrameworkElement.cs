@@ -1,6 +1,6 @@
-﻿using tungsten.core.BaseElements;
+﻿using tungsten.core.Wpf.Base;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.Wpf
 {
     public class WpfFrameworkElement
         : WpfFrameworkElementBase<System.Windows.FrameworkElement>, IRegisteredElement<System.Windows.FrameworkElement>

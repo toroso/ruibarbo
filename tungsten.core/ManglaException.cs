@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
-using tungsten.core.BaseElements;
 using tungsten.core.Search;
 using tungsten.core.Utils;
+using tungsten.core.Wpf.Base;
 
 namespace tungsten.core
 {

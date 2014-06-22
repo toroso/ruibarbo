@@ -1,6 +1,6 @@
-using tungsten.core.BaseElements;
+using tungsten.core.Wpf.Base;
 
-namespace tungsten.core.Elements
+namespace tungsten.core.Wpf
 {
     public class WpfButton : WpfButtonBase<System.Windows.Controls.Button>, IRegisteredElement<System.Windows.Controls.Button>
     {
