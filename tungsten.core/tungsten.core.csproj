@@ -45,6 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="IContentControl.cs" />
     <Compile Include="IRegisteredElement.cs" />
     <Compile Include="Wpf\Base\WpfButtonBase.cs" />
@@ -53,6 +54,9 @@
     <Compile Include="Wpf\Base\WpfComboBoxItemBase.cs" />
     <Compile Include="Wpf\Base\WpfContentControlBase.cs" />
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
+    <Compile Include="Wpf\Factory\FrameworkElementFactory.cs" />
+    <Compile Include="Wpf\Factory\FrameworkElementFactoryConfigurator.cs" />
+    <Compile Include="Wpf\Factory\IFrameworkElementFactoryConfigurator.cs" />
     <Compile Include="Wpf\WpfLabel.cs" />
     <Compile Include="Wpf\Base\WpfLabelBase.cs" />
     <Compile Include="Wpf\WpfTabControl.cs" />

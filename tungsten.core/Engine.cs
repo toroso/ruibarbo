@@ -6,7 +6,7 @@ using System.Windows.Threading;
 using tungsten.core.ElementFactory;
 using tungsten.core.Input;
 using tungsten.core.Wpf.Base;
-using FrameworkElementFactory = tungsten.core.ElementFactory.FrameworkElementFactory;
+using FrameworkElementFactory = tungsten.core.Wpf.Factory.FrameworkElementFactory;
 
 namespace tungsten.core
 {
