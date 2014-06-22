@@ -32,12 +32,12 @@ namespace tungsten.core.BaseElements
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType().FullName); }
         }
 
-        public virtual IEnumerable<FrameworkElement> NativeChildren
+        public virtual IEnumerable<object> NativeChildren
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
         }
 
-        public virtual FrameworkElement NativeParent
+        public virtual object NativeParent
         {
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementParent()); }
         }

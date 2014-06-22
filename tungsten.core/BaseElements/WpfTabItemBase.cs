@@ -15,7 +15,7 @@ namespace tungsten.core.BaseElements
         {
         }
 
-        public override IEnumerable<FrameworkElement> NativeChildren
+        public override IEnumerable<object> NativeChildren
         {
             get
             {

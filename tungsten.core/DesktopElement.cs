@@ -26,7 +26,7 @@ namespace tungsten.core
             get { return "Desktop"; }
         }
 
-        public virtual IEnumerable<FrameworkElement> NativeChildren
+        public virtual IEnumerable<object> NativeChildren
         {
             get
             {
@@ -41,7 +41,7 @@ namespace tungsten.core
             }
         }
 
-        public FrameworkElement NativeParent
+        public object NativeParent
         {
             get { return null; }
         }

@@ -21,15 +21,13 @@ namespace tungsten.core
 
         /// <summary>
         /// Returns all elements that this element contains.
-        /// TODO: Return IEnumerable of object to support WinForms
         /// </summary>
-        IEnumerable<FrameworkElement> NativeChildren { get; }
+        IEnumerable<object> NativeChildren { get; }
 
         /// <summary>
         /// Returns the parent of this element.
-        /// TODO: Return object to support WinForms
         /// </summary>
-        FrameworkElement NativeParent { get; }
+        object NativeParent { get; }
 
         /// <summary>
         /// Returns the condition that this element was found by.

@@ -15,7 +15,7 @@ namespace tungsten.core.BaseElements
         {
         }
 
-        public override FrameworkElement NativeParent
+        public override object NativeParent
         {
             get { return Invoker.Get(this, System.Windows.Controls.ItemsControl.ItemsControlFromItemContainer); }
         }

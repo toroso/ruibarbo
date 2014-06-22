@@ -83,9 +83,9 @@ namespace tungsten.core
             }
 
             var sb = new StringBuilder();
-            foreach (var frameworkElement in parent.NativeChildren)
+            foreach (var child in parent.NativeChildren)
             {
-                IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateWpfElements(parent, frameworkElement).ToArray();
+                IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateWpfElements(parent, child).ToArray();
                 var matchingTypes = elements.Select(t => t.GetType().Name).Join(", ");
                 var element = elements.FirstOrDefault(); // Any will do
                 sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} <{1}>", element.ControlIdentifier(), matchingTypes);
@@ -120,13 +120,13 @@ namespace tungsten.core
 
         private static IEnumerable<string> ControlAncestorsAsStrings(this ISearchSourceElement child)
         {
-            FrameworkElement frameworkElement = child.NativeParent;
-            if (frameworkElement == null)
+            var parent = child.NativeParent;
+            if (parent == null)
             {
                 yield break;
             }
 
-            IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateWpfElements(null, frameworkElement).ToArray();
+            IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateWpfElements(null, parent).ToArray();
             var element = elements.First(); // Any will do
 
             foreach (var each in element.ControlAncestorsAsStrings())
