@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using tungsten.core;
 using tungsten.core.Search;
+using tungsten.core.Win32;
 using tungsten.core.Wpf;
 
 namespace tungsten.sampletest
@@ -37,7 +38,11 @@ namespace tungsten.sampletest
             Console.WriteLine("Found button, Element name path: '{0}'; class path: {1}", button.ElementNamePath(), button.ElementClassPath());
             Console.WriteLine("Button, Element name or class path: '{0}'", button.ElementNameOrClassPath());
             Console.WriteLine("Button, Element search by path: '{0}'", button.ElementSearchPath());
-            //button.Click();
+            button.Click();
+            System.Threading.Thread.Sleep(100); // TODO: Let FindFirstChild() retry instead!
+            var messageBox = _engine.Desktop.FindFirstChild<Win32Control>(By.Class("#32770"));
+            var okButton = messageBox.FindFirstChild<Win32Control>(By.Class("Button"));
+            okButton.Click();
             // TODO: button.Trigger() to click it programmatically
             var textbox = window.FindFirstChild<WpfTextBox>(By.Name("TxtInput"));
             Console.WriteLine("Found textbox, Element name path: '{0}'; class path: {1}", textbox.ElementNamePath(), textbox.ElementClassPath());

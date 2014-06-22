@@ -1,19 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
 using tungsten.core.Search;
 
 namespace tungsten.core
 {
     public class DesktopElement : ISearchSourceElement
     {
-        private readonly Application _application;
-
-        internal DesktopElement(Application application)
+        internal DesktopElement()
         {
-            _application = application;
         }
 
         public virtual string Name
@@ -28,17 +21,7 @@ namespace tungsten.core
 
         public virtual IEnumerable<object> NativeChildren
         {
-            get
-            {
-                // Application.Windows only returns Windows that are run on the same thread as Application. NonAppWindowsInternal
-                // holds Windows run on other threads (non-documented, as an internal property).
-                var windowsOnOtherThreads = (WindowCollection)_application
-                    .GetType()
-                    .GetProperty("NonAppWindowsInternal", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                    .GetValue(_application);
-                var windows = windowsOnOtherThreads.Cast<Window>().ToArray();
-                return windows;
-            }
+            get { return ElementFactory.ElementFactory.GetRootElements(); }
         }
 
         public object NativeParent
@@ -58,7 +41,7 @@ namespace tungsten.core
 
         public virtual int InstanceId
         {
-            get { return _application.GetHashCode(); }
+            get { return GetHashCode(); }
         }
 
         public bool IsVisible

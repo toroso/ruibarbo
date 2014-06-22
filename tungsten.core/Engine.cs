@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Threading;
 using tungsten.core.ElementFactory;
 using tungsten.core.Input;
+using tungsten.core.Win32;
+using tungsten.core.Win32.Factory;
 using tungsten.core.Wpf.Base;
 using FrameworkElementFactory = tungsten.core.Wpf.Factory.FrameworkElementFactory;
 
@@ -39,6 +41,10 @@ namespace tungsten.core
                     x.AddFactory(new FrameworkElementFactory(q =>
                         {
                             q.AddRegisteredElementsInAssembly(typeof (WpfFrameworkElementBase<FrameworkElement>).Assembly);
+                        }));
+                    x.AddFactory(new Win32ControlFactory(q =>
+                        {
+                            q.AddControl<Win32Control>();
                         }));
                 });
             ConfigureHardware(x =>
@@ -97,7 +103,7 @@ namespace tungsten.core
             waitHandle.WaitOne();
 
             Invoker.Create(dispatcher);
-            Desktop = new DesktopElement(Application.Current);
+            Desktop = new DesktopElement();
 
             // EnsureApplicationResources();
             // Check http://stackoverflow.com/questions/15548769/instantiate-resourcedictionary-xaml-from-other-assembly

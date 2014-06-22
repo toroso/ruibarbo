@@ -27,7 +27,7 @@ namespace tungsten.core.Search
             return new By(element => element.Name == name);
         }
 
-        internal static By Class(string type)
+        public static By Class(string type)
         {
             return new By(element => element.Class == type);
         }

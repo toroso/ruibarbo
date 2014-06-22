@@ -48,6 +48,12 @@
     <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="IContentControl.cs" />
     <Compile Include="IRegisteredElement.cs" />
+    <Compile Include="Win32\Factory\HwndWrapper.cs" />
+    <Compile Include="Win32\Factory\IWin32FactoryConfigurator.cs" />
+    <Compile Include="Win32\Factory\Win32ControlFactory.cs" />
+    <Compile Include="Win32\Factory\Win32FactoryConfigurator.cs" />
+    <Compile Include="Win32\Win32Api.cs" />
+    <Compile Include="Win32\Win32Control.cs" />
     <Compile Include="Wpf\Base\WpfButtonBase.cs" />
     <Compile Include="Wpf\Base\WpfCheckBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfComboBoxBase.cs" />

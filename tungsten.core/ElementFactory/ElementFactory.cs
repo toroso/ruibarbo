@@ -55,5 +55,15 @@ namespace tungsten.core.ElementFactory
         {
             return _factories.SelectMany(f => f.CreateElements(parent, nativeObject));
         }
+
+        public static IEnumerable<object> GetRootElements()
+        {
+            return Instance.GetRootElementsImpl();
+        }
+
+        private IEnumerable<object> GetRootElementsImpl()
+        {
+            return _factories.SelectMany(f => f.GetRootElements());
+        }
     }
 }
