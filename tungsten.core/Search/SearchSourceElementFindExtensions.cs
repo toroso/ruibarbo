@@ -13,7 +13,7 @@ namespace tungsten.core.Search
             // TODO: Control output verbosity in configuration
             var bysWithClass = bys.AppendByClass<TElement>();
             Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
-            var found = TryFindFirstChild<TElement>(parent, bys);
+            var found = TryRepeatedlyToFindFirstChild<TElement>(parent, TimeSpan.FromSeconds(5), bys);
             if (found == null)
             {
                 throw ManglaException.FindFailed("child", parent, bys, parent.ControlTreeAsString(6));
@@ -22,10 +22,24 @@ namespace tungsten.core.Search
             return found;
         }
 
-        private static TElement TryFindFirstChild<TElement>(ISearchSourceElement parent, By[] bys)
+        public static TElement TryRepeatedlyToFindFirstChild<TElement>(ISearchSourceElement parent, TimeSpan maxRetryTime, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
-            // TODO: Make a few attempts
+            TElement found = null;
+            Wait.Until(
+                () =>
+                    {
+                        found = TryOnceToFindFirstChild<TElement>(parent, bys);
+                        return found != null;
+                    },
+                maxRetryTime);
+
+            return found;
+        }
+
+        public static TElement TryOnceToFindFirstChild<TElement>(ISearchSourceElement parent, params By[] bys)
+            where TElement : class, ISearchSourceElement
+        {
             var breadthFirstQueue = new Queue<ISearchSourceElement>();
             breadthFirstQueue.EnqueueAll(parent.Children());
 

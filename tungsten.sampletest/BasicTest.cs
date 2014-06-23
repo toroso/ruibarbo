@@ -39,7 +39,6 @@ namespace tungsten.sampletest
             Console.WriteLine("Button, Element name or class path: '{0}'", button.ElementNameOrClassPath());
             Console.WriteLine("Button, Element search by path: '{0}'", button.ElementSearchPath());
             button.Click();
-            System.Threading.Thread.Sleep(100); // TODO: Let FindFirstChild() retry instead!
             var messageBox = _engine.Desktop.FindFirstChild<Win32Control>(By.Class("#32770"));
             var okButton = messageBox.FindFirstChild<Win32Control>(By.Class("Button"));
             okButton.Click();
