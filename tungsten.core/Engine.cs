@@ -14,6 +14,7 @@ namespace tungsten.core
 {
     public class Engine
     {
+        private readonly object _unhandledExceptionsLock = new object();
         private readonly List<Exception> _unhandledExceptions = new List<Exception>();
         private Thread _uiThread;
 
@@ -23,8 +24,10 @@ namespace tungsten.core
         {
             get
             {
-                // TODO: thread safety!
-                return new List<Exception>(_unhandledExceptions);
+                lock (_unhandledExceptionsLock)
+                {
+                    return new List<Exception>(_unhandledExceptions);
+                }
             }
         }
 
@@ -130,7 +133,10 @@ namespace tungsten.core
 
         private void HandleException(Exception exception)
         {
-            _unhandledExceptions.Add(exception);
+            lock (_unhandledExceptionsLock)
+            {
+                _unhandledExceptions.Add(exception);
+            }
         }
     }
 }
