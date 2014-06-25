@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="AutomationLayer\MainTabControl.cs" />
     <Compile Include="AutomationLayer\MainWindow.cs" />
+    <Compile Include="AutomationLayer\MessageBox.cs" />
     <Compile Include="AutomationLayer\StuffControl.cs" />
     <Compile Include="AutomationLayer\Tab1Control.cs" />
     <Compile Include="AutomationLayer\Tab23Control.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Features\ComboBoxTest.cs" />
     <Compile Include="BasicTest.cs" />
     <Compile Include="Features\LabelTest.cs" />
+    <Compile Include="Features\MessageBoxTest.cs" />
     <Compile Include="Features\TabControlTest.cs" />
     <Compile Include="Features\TextBlockTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

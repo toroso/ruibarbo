@@ -26,5 +26,10 @@ namespace tungsten.sampletest.AutomationLayer
         {
             get { return this.FindFirstChild<WpfLabel>(By.Name("LblInput")); }
         }
+
+        public WpfButton SubmitButton
+        {
+            get { return this.FindFirstChild<WpfButton>(By.Name("BtnSubmit")); }
+        }
     }
 }

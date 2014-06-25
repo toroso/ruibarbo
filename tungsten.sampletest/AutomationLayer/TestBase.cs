@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using tungsten.core;
 using tungsten.core.Search;
+using tungsten.core.Win32;
+using tungsten.core.Win32.Factory;
 using tungsten.core.Wpf.Factory;
 
 namespace tungsten.sampletest.AutomationLayer
@@ -19,6 +21,10 @@ namespace tungsten.sampletest.AutomationLayer
                         {
                             q.AddRegisteredElementsInAssembly(typeof(TestBase).Assembly);
                         }));
+                    x.AddFactory(new Win32ControlFactory(q =>
+                        {
+                            q.AddControl<MessageBox>();
+                        }));
                 });
             Engine.Start(new SampleApplication());
         }
@@ -33,6 +39,11 @@ namespace tungsten.sampletest.AutomationLayer
         protected MainWindow MainWindow
         {
             get { return Engine.Desktop.FindFirstChild<MainWindow>(By.Name("WndMain")); }
+        }
+
+        protected MessageBox MessageBox
+        {
+            get { return Engine.Desktop.FindFirstChild<MessageBox>(By.Class("#32770")); }
         }
     }
 }
