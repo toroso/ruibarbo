@@ -2,6 +2,7 @@ using System;
 
 namespace tungsten.core.Win32.Factory
 {
+    // Not to be confused with the Microsoft.VisualStudio.PlatformUI.HwndWrapper class
     internal class HwndWrapper
     {
         public IntPtr Hwnd { get; private set; }

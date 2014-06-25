@@ -39,32 +39,46 @@ namespace tungsten.core.Win32
             public int Bottom;
         }
 
+        [DllImport("user32", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(int hWnd, int wMsg, int wParam, int lParam);
+
+        public const int WM_CLOSE = 0x0010;
+
+        public static void CloseAllWindows()
+        {
+            foreach (var hwnd in GetProcessWindows())
+            {
+                SendMessage(hwnd.ToInt32(), WM_CLOSE, 0, 0);
+            }
+        }
+
         public static IEnumerable<IntPtr> GetChildWindows(IntPtr hwnd)
         {
             var handles = new List<IntPtr>();
             EnumChildWindows(
                 hwnd,
                 (h, lParam) =>
-                {
-                    handles.Add(h);
-                    return true;
-                },
+                    {
+                        handles.Add(h);
+                        return true;
+                    },
                 IntPtr.Zero);
             return handles;
         }
 
-        public static IEnumerable<IntPtr> GetProcessWindows(int processId)
+        public static IEnumerable<IntPtr> GetProcessWindows()
         {
             var handles = new List<IntPtr>();
+            int processId = Process.GetCurrentProcess().Id;
             foreach (ProcessThread thread in Process.GetProcessById(processId).Threads)
             {
                 EnumThreadWindows(
                     thread.Id,
                     (h, lParam) =>
-                    {
-                        handles.Add(h);
-                        return true;
-                    },
+                        {
+                            handles.Add(h);
+                            return true;
+                        },
                     IntPtr.Zero);
             }
             return handles;

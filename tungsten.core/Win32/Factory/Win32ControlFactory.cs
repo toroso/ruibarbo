@@ -28,8 +28,8 @@ namespace tungsten.core.Win32.Factory
 
         public IEnumerable<object> GetRootElements()
         {
-            int processId = Process.GetCurrentProcess().Id;
-            return Win32Api.GetProcessWindows(processId)
+            return Win32Api.GetProcessWindows()
+                .Where(hwnd => !Win32Api.GetClassName(hwnd).StartsWith("HwndWrapper"))
                 .Select(hwnd => new HwndWrapper(hwnd));
         }
 

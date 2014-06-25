@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using tungsten.core.Win32;
 using tungsten.core.Wpf.Base;
 
 namespace tungsten.core
@@ -91,6 +92,7 @@ namespace tungsten.core
 
         private void BeginInvokeShutdownImpl()
         {
+            Win32Api.CloseAllWindows();
             _dispatcher.BeginInvokeShutdown(DispatcherPriority.Send);
         }
     }
