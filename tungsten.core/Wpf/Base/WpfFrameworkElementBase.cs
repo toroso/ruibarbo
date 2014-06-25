@@ -62,6 +62,11 @@ namespace tungsten.core.Wpf.Base
             get { return Invoker.Get(this, frameworkElement => frameworkElement.IsVisible); }
         }
 
+        public bool IsEnabled
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsEnabled); }
+        }
+
         public virtual void Click()
         {
             this.BringIntoView();

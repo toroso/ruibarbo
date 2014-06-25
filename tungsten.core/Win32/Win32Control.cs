@@ -65,6 +65,11 @@ namespace tungsten.core.Win32
             get { throw new NotImplementedException(); }
         }
 
+        public bool IsEnabled
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public void Click()
         {
             var bounds = this.GetBoundsOnScreen();

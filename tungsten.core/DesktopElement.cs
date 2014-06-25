@@ -49,6 +49,11 @@ namespace tungsten.core
             get { return true; }
         }
 
+        public bool IsEnabled
+        {
+            get { return true; }
+        }
+
         public void Click()
         {
         }

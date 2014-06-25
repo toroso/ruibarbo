@@ -11,12 +11,12 @@ namespace tungsten.core.Search
             where TElement : class, ISearchSourceElement
         {
             // TODO: Control output verbosity in configuration
-            var bysWithClass = bys.AppendByClass<TElement>();
+            var bysWithClass = bys.AppendByClass<TElement>().ToArray();
             Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
             var found = TryRepeatedlyToFindFirstChild<TElement>(parent, TimeSpan.FromSeconds(5), bys);
             if (found == null)
             {
-                throw ManglaException.FindFailed("child", parent, bys, parent.ControlTreeAsString(6));
+                throw ManglaException.FindFailed("child", parent, bysWithClass, parent.ControlTreeAsString(6));
             }
 
             return found;

@@ -44,6 +44,7 @@ namespace tungsten.core
         int InstanceId { get; }
 
         bool IsVisible { get; }
+        bool IsEnabled { get; }
         void Click();
     }
 

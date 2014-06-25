@@ -31,5 +31,10 @@ namespace tungsten.sampletest.AutomationLayer
         {
             get { return this.FindFirstChild<WpfButton>(By.Name("BtnSubmit")); }
         }
+
+        public WpfRadioButton DisabledSubmitRadioButton
+        {
+            get { return this.FindFirstChild<WpfRadioButton>(By.Name("Option1")); }
+        }
     }
 }

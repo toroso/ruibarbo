@@ -61,6 +61,8 @@
     <Compile Include="Wpf\Base\WpfComboBoxItemBase.cs" />
     <Compile Include="Wpf\Base\WpfContentControlBase.cs" />
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
+    <Compile Include="Wpf\Base\WpfRadioButton.cs" />
+    <Compile Include="Wpf\Base\WpfRadioButtonBase.cs" />
     <Compile Include="Wpf\Factory\FrameworkElementFactory.cs" />
     <Compile Include="Wpf\Factory\FrameworkElementFactoryConfigurator.cs" />
     <Compile Include="Wpf\Factory\IFrameworkElementFactoryConfigurator.cs" />

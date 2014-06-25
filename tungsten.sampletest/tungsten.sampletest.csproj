@@ -56,6 +56,7 @@
     <Compile Include="Features\CheckBoxTest.cs" />
     <Compile Include="Features\ComboBoxTest.cs" />
     <Compile Include="BasicTest.cs" />
+    <Compile Include="Features\IsEnabledTest.cs" />
     <Compile Include="Features\LabelTest.cs" />
     <Compile Include="Features\MessageBoxTest.cs" />
     <Compile Include="Features\TabControlTest.cs" />
