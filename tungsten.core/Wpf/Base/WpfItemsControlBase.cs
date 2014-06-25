@@ -39,10 +39,10 @@ namespace tungsten.core.Wpf.Base
         public TWpfItem TryFindFirstItem<TWpfItem>(params By[] bys)
             where TWpfItem : ISearchSourceElement
         {
-            return AllItems<TWpfItem>(bys).FirstOrDefault(item => bys.All(by => by.Matches(item)));
+            return AllItems<TWpfItem>().FirstOrDefault(item => bys.All(by => by.Matches(item)));
         }
 
-        public IEnumerable<TWpfItem> AllItems<TWpfItem>(params By[] bys)
+        public IEnumerable<TWpfItem> AllItems<TWpfItem>()
             where TWpfItem : ISearchSourceElement
         {
             return Invoker.Get(this, frameworkElement => frameworkElement.Items)

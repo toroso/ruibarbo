@@ -61,7 +61,8 @@
     <Compile Include="Wpf\Base\WpfComboBoxItemBase.cs" />
     <Compile Include="Wpf\Base\WpfContentControlBase.cs" />
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
-    <Compile Include="Wpf\Base\WpfRadioButton.cs" />
+    <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
+    <Compile Include="Wpf\WpfRadioButton.cs" />
     <Compile Include="Wpf\Base\WpfRadioButtonBase.cs" />
     <Compile Include="Wpf\Factory\FrameworkElementFactory.cs" />
     <Compile Include="Wpf\Factory\FrameworkElementFactoryConfigurator.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Wait.cs" />
     <Compile Include="DebugExtensions.cs" />
     <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
+    <Compile Include="Wpf\WpfTooltip.cs" />
     <Compile Include="Wpf\WpfWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

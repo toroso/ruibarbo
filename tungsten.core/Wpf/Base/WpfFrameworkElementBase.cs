@@ -82,6 +82,26 @@ namespace tungsten.core.Wpf.Base
             _bys = bys.AppendByClass(Class).ToArray();
         }
 
+        public TTooltipElement TryFindTooltip<TTooltipElement>(params By[] bys)
+            where TTooltipElement : class, ISearchSourceElement
+        {
+            return AllTooltips<TTooltipElement>().FirstOrDefault(item => bys.All(by => by.Matches(item)));
+        }
+
+        private IEnumerable<TTooltipElement> AllTooltips<TTooltipElement>()
+            where TTooltipElement : class, ISearchSourceElement
+        {
+            var tooltip = Invoker.Get(this, frameworkElement => frameworkElement.ToolTip);
+            if (tooltip == null)
+            {
+                return new TTooltipElement[] { };
+            }
+
+            return ElementFactory.ElementFactory.CreateElements(this, tooltip)
+                .OfType<TTooltipElement>();
+        }
+
+
         internal TNativeElement GetStrongReference()
         {
             TNativeElement strongReference;

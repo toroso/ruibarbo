@@ -28,7 +28,11 @@
                 <ComboBoxItem Content="Item 6"/>
             </ComboBox.Items>
         </ComboBox>
-        <TextBlock x:Name="TxbError" Text="Naughty frog!" Visibility="{Binding IsSelected, ElementName=ItemShowError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock x:Name="TxbError" Text="Naughty frog!" Visibility="{Binding IsSelected, ElementName=ItemShowError, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock.ToolTip>
+                <ToolTip Content="It's sad that something bad went very wrong."/>
+            </TextBlock.ToolTip>
+        </TextBlock>
         <Button x:Name="BtnSubmit" Content="Clicking click" IsEnabled="{Binding IsChecked, ElementName=Option2}" Click="BtnSubmit_OnClick" />
     </StackPanel>
 </UserControl>

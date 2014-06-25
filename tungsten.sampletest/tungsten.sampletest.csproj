@@ -61,6 +61,7 @@
     <Compile Include="Features\MessageBoxTest.cs" />
     <Compile Include="Features\TabControlTest.cs" />
     <Compile Include="Features\TextBlockTest.cs" />
+    <Compile Include="Features\TooltipTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleApplication.cs" />
     <Compile Include="AutomationLayer\TestBase.cs" />
