@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -108,10 +109,19 @@ namespace tungsten.core
             Invoker.Create(dispatcher);
             Desktop = new DesktopElement();
 
-            // EnsureApplicationResources();
-            // Check http://stackoverflow.com/questions/15548769/instantiate-resourcedictionary-xaml-from-other-assembly
+            // Ensure resources are working
+            Application.ResourceAssembly = Invoker.Get(() => application.MainAssembly);
+            MergeResources(Invoker.Get(application.Resources.ToArray));
 
             Invoker.Invoke(application.Start);
+        }
+
+        private static void MergeResources(IEnumerable<Uri> resources)
+        {
+            foreach (var uri in resources)
+            {
+                Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Application.LoadComponent(uri));
+            }
         }
 
         public void ShutDown()

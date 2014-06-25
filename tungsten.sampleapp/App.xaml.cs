@@ -7,9 +7,8 @@ namespace tungsten.sampleapp
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
-            base.OnStartup(e);
             new MainWindow().Show();
         }
     }

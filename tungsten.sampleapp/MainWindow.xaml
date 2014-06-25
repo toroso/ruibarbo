@@ -5,6 +5,7 @@
         xmlns:sampleapp="clr-namespace:tungsten.sampleapp"
         Title="MainWindow"
         x:Name="WndMain"
+        Style="{DynamicResource AppResourcesDefinedStyle}"
         Height="350" Width="225">
 
     <Window.Resources>
@@ -23,7 +24,7 @@
             <TabItem x:Name="Tab1" Header="Tab 1">
                 <StackPanel>
                     <CheckBox x:Name="ShowStuff" Content="Show stuff" IsChecked="True" />
-                    <sampleapp:StuffControl x:Name="CtrlStuff" Visibility="{Binding IsChecked, ElementName=ShowStuff, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <sampleapp:StuffControl x:Name="CtrlStuff" Visibility="{Binding IsChecked, ElementName=ShowStuff, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </StackPanel>
             </TabItem>
             <TabItem x:Name="Tab2" Header="Tab 2">
