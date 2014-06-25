@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using tungsten.core.Wpf;
 using tungsten.sampletest.AutomationLayer;
 
 namespace tungsten.sampletest.Features
@@ -11,9 +12,17 @@ namespace tungsten.sampletest.Features
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
-            var submitButton = tab1.StuffControl.SubmitButton;
-            submitButton.Click();
+            tab1.StuffControl.SubmitButton.Click();
             MessageBox.OkButton.Click();
+        }
+
+        [Test]
+        public void CloseMessageBoxWithCancelButton()
+        {
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            tab1.StuffControl.SubmitButton.Click();
+            MessageBox.CancelButton.Click();
         }
     }
 }

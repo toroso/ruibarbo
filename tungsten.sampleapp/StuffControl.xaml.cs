@@ -15,7 +15,7 @@ namespace tungsten.sampleapp
 
         private void BtnSubmit_OnClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Submit submitted", "Title", MessageBoxButton.OK);
+            MessageBox.Show("Submit submitted", "Title", MessageBoxButton.OKCancel);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace tungsten.core.Search
             {
                 var current = breadthFirstQueue.Dequeue();
                 var asTElement = current as TElement;
-                if (asTElement != null && bys.All(by => by.Matches(asTElement)))
+                if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
                 {
                     asTElement.UpdateFoundBy(bys);
                     return asTElement;
@@ -57,6 +57,26 @@ namespace tungsten.core.Search
             }
 
             return null;
+        }
+
+        public static IEnumerable<TElement> FindAllChildren<TElement>(this ISearchSourceElement parent, params By[] bys)
+            where TElement : class, ISearchSourceElement
+        {
+            var breadthFirstQueue = new Queue<ISearchSourceElement>();
+            breadthFirstQueue.EnqueueAll(parent.Children());
+
+            while (breadthFirstQueue.Count > 0)
+            {
+                var current = breadthFirstQueue.Dequeue();
+                var asTElement = current as TElement;
+                if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
+                {
+                    asTElement.UpdateFoundBy(bys);
+                    yield return asTElement;
+                }
+
+                breadthFirstQueue.EnqueueAll(current.Children());
+            }
         }
 
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params By[] bys)
@@ -85,7 +105,11 @@ namespace tungsten.core.Search
                     return null;
                 }
 
-                var matching = parents.OfType<TElement>().Where(e => bys.All(by => by.Matches(e))).ToArray();
+                var matching = parents
+                    .OfType<TElement>()
+                    .Where(e => e.GetType() == typeof(TElement))
+                    .Where(e => bys.All(by => by.Matches(e)))
+                    .ToArray();
                 if (matching.Any())
                 {
                     var element = matching.First();
