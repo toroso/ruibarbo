@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using tungsten.core.Wpf;
 using tungsten.sampletest.AutomationLayer;
 
 namespace tungsten.sampletest.Features

@@ -5,7 +5,7 @@ using tungsten.sampletest.AutomationLayer;
 namespace tungsten.sampletest.Features
 {
     [TestFixture]
-    public class UserControlTest : TestBase
+    public class IsVisibleTest : TestBase
     {
         [Test]
         public void StuffControlIsVisible()
