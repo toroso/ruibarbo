@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using System.Windows.Input;
 
 namespace tungsten.core.Input
 {
@@ -162,19 +161,48 @@ namespace tungsten.core.Input
             ScanCode = 0x0008,
         }
 
-        public static INPUT KeyDown(char ch)
+        public static INPUT CharDown(char ch)
         {
-            return Key(ch, KeyboardFlag.Unicode);
+            return Char(ch, KeyboardFlag.Unicode);
         }
 
-        public static INPUT KeyUp(char ch)
+        public static INPUT CharUp(char ch)
         {
-            return Key(ch, KeyboardFlag.Unicode | KeyboardFlag.KeyUp);
+            return Char(ch, KeyboardFlag.Unicode | KeyboardFlag.KeyUp);
         }
 
-        private static INPUT Key(char ch, KeyboardFlag flags)
+        private static INPUT Char(char ch, KeyboardFlag flags)
         {
-            var allFlags = (ch & 0xFF00) == 0xE000
+            return new INPUT
+                {
+                    type = SendInputEventType.InputKeyboard,
+                    mkhi = new MouseKeybdhardwareInputUnion
+                        {
+                            ki = new KEYBDINPUT
+                                {
+                                    wVk = 0,
+                                    wScan = ch,
+                                    dwFlags = (uint)flags,
+                                    time = 0,
+                                    dwExtraInfo = IntPtr.Zero,
+                                }
+                        }
+                };
+        }
+
+        public static INPUT KeyDown(int virtualKey)
+        {
+            return Key(virtualKey, 0);
+        }
+
+        public static INPUT KeyUp(int virtualKey)
+        {
+            return Key(virtualKey, KeyboardFlag.KeyUp);
+        }
+
+        private static INPUT Key(int virtualKey, KeyboardFlag flags)
+        {
+            var allFlags = (virtualKey & 0xFF00) == 0xE000
                 ? flags | KeyboardFlag.ExtendedKey
                 : flags;
 
@@ -185,8 +213,8 @@ namespace tungsten.core.Input
                         {
                             ki = new KEYBDINPUT
                                 {
-                                    wVk = 0,
-                                    wScan = ch,
+                                    wVk = (ushort)virtualKey,
+                                    wScan = 0,
                                     dwFlags = (uint)allFlags,
                                     time = 0,
                                     dwExtraInfo = IntPtr.Zero,

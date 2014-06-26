@@ -1,7 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace tungsten.core.Input
 {
@@ -13,20 +13,33 @@ namespace tungsten.core.Input
             var inputs = value
                 .SelectMany(ch => new[]
                     {
-                        InputSimulator.KeyDown(ch),
-                        InputSimulator.KeyUp(ch),
+                        InputSimulator.CharDown(ch),
+                        InputSimulator.CharUp(ch),
                     })
                 .ToArray();
-            var successful = InputSimulator.SendInput((UInt32)inputs.Length, inputs, Marshal.SizeOf(typeof(InputSimulator.INPUT)));
-            if (successful != inputs.Length)
-            {
-                throw ManglaException.HardwareFailure(Marshal.GetLastWin32Error());
-            }
+            SendInput(inputs);
 
             var keyboardDelayAfterTyping = HardwareConfiguration.KeyboardDelayAfterTyping;
             if (keyboardDelayAfterTyping > TimeSpan.Zero)
             {
                 System.Threading.Thread.Sleep(keyboardDelayAfterTyping);
+            }
+        }
+
+        public static void TypeShortcut(params Key[] keys)
+        {
+            var downs = keys.Select(key => InputSimulator.KeyDown(KeyInterop.VirtualKeyFromKey(key)));
+            var ups = keys.Reverse().Select(key => InputSimulator.KeyUp(KeyInterop.VirtualKeyFromKey(key)));
+            var inputs = downs.Concat(ups).ToArray();
+            SendInput(inputs);
+        }
+
+        private static void SendInput(InputSimulator.INPUT[] inputs)
+        {
+            var successful = InputSimulator.SendInput((UInt32) inputs.Length, inputs, Marshal.SizeOf(typeof (InputSimulator.INPUT)));
+            if (successful != inputs.Length)
+            {
+                throw ManglaException.HardwareFailure(Marshal.GetLastWin32Error());
             }
         }
     }

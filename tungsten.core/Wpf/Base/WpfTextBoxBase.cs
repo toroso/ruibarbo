@@ -1,6 +1,5 @@
 using System;
-using System.Windows;
-using tungsten.core.Input;
+using System.Windows.Input;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -12,6 +11,17 @@ namespace tungsten.core.Wpf.Base
         {
         }
 
+        public void ClickAndSelectAll()
+        {
+            Click();
+            Input.Keyboard.TypeShortcut(Key.LeftCtrl, Key.A);
+        }
+
+        public string Text
+        {
+            get { return Invoker.Get(this, frameworkElement => frameworkElement.Text); }
+        }
+
         public void Type(string value)
         {
             if (!this.IsKeyboardFocused())
@@ -19,11 +29,11 @@ namespace tungsten.core.Wpf.Base
                 // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
                 // TODO: Better error message. Include a lot of information about the control, including parents.
                 // TODO: Better identification of FocusedElement (IInputElement)
-                IInputElement focusedElement = Invoker.Get(() => System.Windows.Input.Keyboard.FocusedElement);
-                throw new Exception("Can't type into TextBox since it does not have keyboard focus. Focus is in " + focusedElement);
+                var focusedElementAsString = Invoker.Get(() => Keyboard.FocusedElement.ToString());
+                throw new Exception("Can't type into TextBox since it does not have keyboard focus. Focus is in " + focusedElementAsString);
             }
 
-            Keyboard.Type(value);
+            Input.Keyboard.Type(value);
         }
     }
 }
