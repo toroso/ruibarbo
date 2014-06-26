@@ -1,4 +1,6 @@
-﻿namespace tungsten.core.Wpf.Base
+﻿using tungsten.core.Wpf.Base;
+
+namespace tungsten.core.Wpf
 {
     public class WpfRadioButton : WpfRadioButtonBase<System.Windows.Controls.RadioButton>, IRegisteredElement
     {
