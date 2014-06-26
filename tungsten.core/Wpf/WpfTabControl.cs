@@ -2,7 +2,7 @@
 
 namespace tungsten.core.Wpf
 {
-    public class WpfTabControl : WpfTabControlBase<System.Windows.Controls.TabControl>, IRegisteredElement<System.Windows.Controls.TabControl>
+    public class WpfTabControl : WpfTabControlBase<System.Windows.Controls.TabControl>, IRegisteredElement
     {
         public WpfTabControl(ISearchSourceElement searchParent, System.Windows.Controls.TabControl frameworkElement)
             : base(searchParent, frameworkElement)

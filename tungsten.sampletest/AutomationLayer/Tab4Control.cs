@@ -5,7 +5,7 @@ using tungsten.core.Wpf.Base;
 
 namespace tungsten.sampletest.AutomationLayer
 {
-    public class Tab4Control : WpfTabItemBase<System.Windows.Controls.TabItem>, IRegisteredElement<System.Windows.Controls.TabItem>
+    public class Tab4Control : WpfTabItemBase<System.Windows.Controls.TabItem>, IRegisteredElement
     {
         public Tab4Control(ISearchSourceElement searchParent, System.Windows.Controls.TabItem frameworkElement)
             : base(searchParent, frameworkElement)

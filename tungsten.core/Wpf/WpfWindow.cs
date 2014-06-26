@@ -2,7 +2,7 @@ using tungsten.core.Wpf.Base;
 
 namespace tungsten.core.Wpf
 {
-    public class WpfWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement<System.Windows.Window>
+    public class WpfWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement
     {
         public WpfWindow(ISearchSourceElement searchParent, System.Windows.Window frameworkElement)
             : base(searchParent, frameworkElement)

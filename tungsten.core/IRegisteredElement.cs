@@ -1,6 +1,6 @@
 ﻿namespace tungsten.core
 {
-    public interface IRegisteredElement<TNativeElement>
+    public interface IRegisteredElement
     {
     }
 }

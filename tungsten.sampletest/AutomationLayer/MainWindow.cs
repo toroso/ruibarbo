@@ -4,7 +4,7 @@ using tungsten.core.Wpf.Base;
 
 namespace tungsten.sampletest.AutomationLayer
 {
-    public class MainWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement<System.Windows.Window>
+    public class MainWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement
     {
         public MainWindow(ISearchSourceElement searchParent, System.Windows.Window frameworkElement)
             : base(searchParent, frameworkElement)

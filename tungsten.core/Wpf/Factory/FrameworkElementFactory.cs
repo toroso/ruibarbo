@@ -19,14 +19,13 @@ namespace tungsten.core.Wpf.Factory
 
         internal void AddRegisteredElementsInAssembly(Assembly assembly)
         {
-            Type baseType = typeof(IRegisteredElement<>);
-            var wpfElementTypes = assembly.GetTypes()
-                .Where(t => baseType != t && t.IsSubclassOfGenericInterface(baseType));
-            foreach (var type in wpfElementTypes)
+            var registeredElementTypes = assembly.GetTypes()
+                .Where(t => t.GetInterfaces().Contains(typeof(IRegisteredElement)));
+            foreach (var elementType in registeredElementTypes)
             {
-                var nativeElementFullName = type.GenericTypeArgumentOf(baseType).FullName;
-                var wpfElementType = type;
-                AddType(nativeElementFullName, wpfElementType);
+                var baseType = elementType.BaseType;
+                var nativeElement = baseType.GenericTypeArguments[0];
+                AddType(nativeElement.FullName, elementType);
             }
         }
 
