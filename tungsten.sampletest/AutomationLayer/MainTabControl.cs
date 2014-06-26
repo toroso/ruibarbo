@@ -25,5 +25,10 @@ namespace tungsten.sampletest.AutomationLayer
         {
             get { return FindFirstItem<Tab23Control>(By.Name("Tab3")); }
         }
+
+        public Tab4Control Tab4
+        {
+            get { return FindFirstItem<Tab4Control>(By.Name("Tab4")); }
+        }
     }
 }

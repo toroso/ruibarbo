@@ -60,8 +60,10 @@
     <Compile Include="Wpf\Base\WpfComboBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfComboBoxItemBase.cs" />
     <Compile Include="Wpf\Base\WpfContentControlBase.cs" />
+    <Compile Include="Wpf\Base\WpfContentPresenterBase.cs" />
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
     <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
+    <Compile Include="Wpf\WpfItemsControl.cs" />
     <Compile Include="Wpf\WpfRadioButton.cs" />
     <Compile Include="Wpf\Base\WpfRadioButtonBase.cs" />
     <Compile Include="Wpf\Factory\FrameworkElementFactory.cs" />

@@ -21,8 +21,7 @@ namespace tungsten.core.Wpf.Base
             if (found == null)
             {
                 var sb = new StringBuilder();
-                var allItems = Invoker.Get(this, frameworkElement => frameworkElement.Items).Cast<object>();
-                foreach (var item in allItems)
+                foreach (var item in NativeItems)
                 {
                     IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateElements(this, item).ToArray();
                     var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
@@ -45,10 +44,23 @@ namespace tungsten.core.Wpf.Base
         public IEnumerable<TWpfItem> AllItems<TWpfItem>()
             where TWpfItem : ISearchSourceElement
         {
-            return Invoker.Get(this, frameworkElement => frameworkElement.Items)
-                .Cast<object>()
+            return NativeItems
                 .SelectMany(item => ElementFactory.ElementFactory.CreateElements(this, item))
                 .OfType<TWpfItem>();
+        }
+
+        private IEnumerable<object> NativeItems
+        {
+            get
+            {
+                return Invoker.Get(this, frameworkElement =>
+                    frameworkElement.Items
+                        .Cast<object>()
+                        .Select(item => item is System.Windows.FrameworkElement
+                            ? item
+                            : frameworkElement.ItemContainerGenerator.ContainerFromItem(item))
+                        .ToArray());
+            }
         }
     }
 }

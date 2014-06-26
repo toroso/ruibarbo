@@ -38,7 +38,7 @@
                 <sampleapp:VirtualTabControl />
             </TabItem>
             <TabItem x:Name="Tab4" Header="Tab 4">
-                <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl x:Name="Muppets" ItemsSource="{Binding Items}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="sampleapp:ItemViewModel">
                             <Grid>
