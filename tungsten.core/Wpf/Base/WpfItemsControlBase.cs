@@ -44,7 +44,8 @@ namespace tungsten.core.Wpf.Base
         public IEnumerable<TWpfItem> AllItems<TWpfItem>()
             where TWpfItem : ISearchSourceElement
         {
-            return NativeItems
+            IEnumerable<object> nativeItems = NativeItems;
+            return nativeItems
                 .SelectMany(item => ElementFactory.ElementFactory.CreateElements(this, item))
                 .OfType<TWpfItem>();
         }

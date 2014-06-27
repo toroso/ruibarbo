@@ -55,12 +55,14 @@
     <Compile Include="AutomationLayer\Tab1Control.cs" />
     <Compile Include="AutomationLayer\Tab23Control.cs" />
     <Compile Include="AutomationLayer\Tab4Control.cs" />
+    <Compile Include="AutomationLayer\Tab5Control.cs" />
     <Compile Include="Features\CheckBoxTest.cs" />
     <Compile Include="Features\ComboBoxTest.cs" />
     <Compile Include="BasicTest.cs" />
     <Compile Include="Features\IsEnabledTest.cs" />
     <Compile Include="Features\ItemsControlTest.cs" />
     <Compile Include="Features\LabelTest.cs" />
+    <Compile Include="Features\ListBoxTest.cs" />
     <Compile Include="Features\MessageBoxTest.cs" />
     <Compile Include="Features\TabControlTest.cs" />
     <Compile Include="Features\TextBlockTest.cs" />
