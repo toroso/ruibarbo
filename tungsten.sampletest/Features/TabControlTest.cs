@@ -14,7 +14,7 @@ namespace tungsten.sampletest.Features
         public void TabItemCount()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            mainTabControl.AssertThat(x => x.AllItems<WpfTabItem>().Count(), Is.EqualTo(4));
+            mainTabControl.AssertThat(x => x.AllItems<WpfTabItem>().Count(), Is.EqualTo(5));
         }
 
         [Test]
