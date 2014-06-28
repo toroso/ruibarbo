@@ -50,7 +50,8 @@
     <Compile Include="AutomationLayer\MainTabControl.cs" />
     <Compile Include="AutomationLayer\MainWindow.cs" />
     <Compile Include="AutomationLayer\MessageBox.cs" />
-    <Compile Include="AutomationLayer\MuppetItem.cs" />
+    <Compile Include="AutomationLayer\MuppetItemsControlItem.cs" />
+    <Compile Include="AutomationLayer\MuppetListBoxItem.cs" />
     <Compile Include="AutomationLayer\StuffControl.cs" />
     <Compile Include="AutomationLayer\Tab1Control.cs" />
     <Compile Include="AutomationLayer\Tab23Control.cs" />

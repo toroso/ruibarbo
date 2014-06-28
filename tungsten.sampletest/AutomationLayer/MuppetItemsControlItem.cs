@@ -5,9 +5,9 @@ using tungsten.core.Wpf.Base;
 
 namespace tungsten.sampletest.AutomationLayer
 {
-    public class MuppetItem : WpfContentPresenterBase<System.Windows.Controls.ContentPresenter>, IRegisteredElement
+    public class MuppetItemsControlItem : WpfContentPresenterBase<System.Windows.Controls.ContentPresenter>, IRegisteredElement
     {
-        public MuppetItem(ISearchSourceElement searchParent, System.Windows.Controls.ContentPresenter frameworkElement)
+        public MuppetItemsControlItem(ISearchSourceElement searchParent, System.Windows.Controls.ContentPresenter frameworkElement)
             : base(searchParent, frameworkElement)
         {
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace tungsten.sampleapp
@@ -17,6 +18,12 @@ namespace tungsten.sampleapp
 
     public class MainViewModel
     {
+        public IEnumerable<ItemViewModel> ShortItems
+        {
+            // Shortened list so that items are not lazy-created (null)
+            get { return Items.Take(12); }
+        }
+
         public IEnumerable<ItemViewModel> Items
         {
             get

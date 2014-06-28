@@ -15,7 +15,7 @@ namespace tungsten.sampletest.Features
             tab5.Click();
             var muppets = tab5.MuppetsListBox;
             // TODO: The following line throws because Visuals are not created for non-visible items
-            //muppets.AssertThat(x => x.AllItems<MuppetItem>().Count(), Is.EqualTo(18));
+            muppets.AssertThat(x => x.AllItems<MuppetListBoxItem>().Count(), Is.EqualTo(12));
         }
     }
 }

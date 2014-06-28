@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using tungsten.core;
-using tungsten.core.Utils;
 
 namespace tungsten.nunit
 {
