@@ -19,7 +19,7 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            comboBox.AssertThat(x => x.AllItems<WpfComboBoxItem>().Select(i => i.Content()), Is.EqualTo(new[]
+            comboBox.AssertThat(x => x.AllItems<WpfComboBoxItem>().Select(i => i.FindFirstChild<WpfTextBlock>().Text()), Is.EqualTo(new[]
                 {
                     "No error",
                     "Has error",
@@ -36,7 +36,7 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            var noErrorItem = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("No error"));
+            var noErrorItem = comboBox.FindFirstItem<WpfComboBoxItem>(By.FirstChild<WpfTextBlock>(txb => txb.Text() == "No error"));
             noErrorItem.AssertThat(x => x.IsSelected(), Is.True);
         }
 
@@ -46,7 +46,7 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Content("Has error"));
+            var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.FirstChild<WpfTextBlock>(txb => txb.Text() == "Has error"));
             item.OpenAndClick();
             item.AssertThat(x => x.IsSelected(), Is.True);
         }
@@ -69,12 +69,12 @@ namespace tungsten.sampletest.Features
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
 
             var lastItem = comboBox.AllItems<WpfComboBoxItem>().Last();
-            lastItem.AssertThat(x => x.Content(), Is.EqualTo("Item 6"));
+            lastItem.AssertThat(x => x.FindFirstChild<WpfTextBlock>().Text(), Is.EqualTo("Item 6"));
             lastItem.OpenAndClick();
             lastItem.AssertThat(x => x.IsSelected(), Is.True);
 
             var firstItem = comboBox.AllItems<WpfComboBoxItem>().First();
-            firstItem.AssertThat(x => x.Content(), Is.EqualTo("No error"));
+            firstItem.AssertThat(x => x.FindFirstChild<WpfTextBlock>().Text(), Is.EqualTo("No error"));
             firstItem.OpenAndClick();
             firstItem.AssertThat(x => x.IsSelected(), Is.True);
             lastItem.AssertThat(x => x.IsSelected(), Is.False);

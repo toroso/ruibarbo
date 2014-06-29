@@ -41,7 +41,7 @@ namespace tungsten.core.Wpf.Base
             return AllItems<TWpfItem>().FirstOrDefault(item => bys.All(by => by.Matches(item)));
         }
 
-        public IEnumerable<TWpfItem> AllItems<TWpfItem>()
+        public virtual IEnumerable<TWpfItem> AllItems<TWpfItem>()
             where TWpfItem : ISearchSourceElement
         {
             IEnumerable<object> nativeItems = NativeItems;

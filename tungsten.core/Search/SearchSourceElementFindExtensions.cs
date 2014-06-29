@@ -12,7 +12,7 @@ namespace tungsten.core.Search
         {
             // TODO: Control output verbosity in configuration
             var bysWithClass = bys.AppendByClass<TElement>().ToArray();
-            Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
+            //Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
             var found = TryRepeatedlyToFindFirstChild<TElement>(parent, TimeSpan.FromSeconds(5), bys);
             if (found == null)
             {
@@ -83,7 +83,7 @@ namespace tungsten.core.Search
             where TElement : class, ISearchSourceElement
         {
             var bysWithClass = bys.AppendByClass<TElement>().ToArray();
-            Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bysWithClass.Select(by => by.ToString()).Join("; "));
+            //Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bysWithClass.Select(by => by.ToString()).Join("; "));
             var found = TryFindFirstAncestor<TElement>(child, bys);
             if (found == null)
             {

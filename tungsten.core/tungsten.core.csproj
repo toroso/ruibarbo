@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElementFactory\IElementFactory.cs" />
-    <Compile Include="IContentControl.cs" />
     <Compile Include="IRegisteredElement.cs" />
     <Compile Include="Win32\Factory\HwndWrapper.cs" />
     <Compile Include="Win32\Factory\IWin32FactoryConfigurator.cs" />

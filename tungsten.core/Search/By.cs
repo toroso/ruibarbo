@@ -32,15 +32,10 @@ namespace tungsten.core.Search
             return new By(element => element.Class == type);
         }
 
-        public static By Content(string content)
+        public static By FirstChild<TElement>(Func<TElement, bool> predicate)
+            where TElement : class, ISearchSourceElement
         {
-            return new By(element => CompareContent(content, element));
-        }
-
-        private static bool CompareContent(string content, ISearchSourceElement element)
-        {
-            var contentControl = element as IContentControl;
-            return contentControl != null && contentControl.Content().Equals(content);
+            return new By(element => predicate(element.FindFirstChild<TElement>()));
         }
 
         public override string ToString()

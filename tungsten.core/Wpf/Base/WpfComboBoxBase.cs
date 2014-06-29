@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
 using tungsten.core.Search;
 
@@ -27,6 +28,18 @@ namespace tungsten.core.Wpf.Base
             get { return Invoker.Get(this, frameworkElement => frameworkElement.IsDropDownOpen); }
         }
 
+        public override IEnumerable<TWpfItem> AllItems<TWpfItem>()
+        {
+            var wasOpen = IsDropDownOpen;
+            Open();
+            var x = base.AllItems<TWpfItem>();
+            if (!wasOpen)
+            {
+                Close();
+            }
+            return x;
+        }
+
         public void ChangeSelectedItemToFirst<TItem>(params By[] bys)
             where TItem : class, ISearchSourceElement
         {
@@ -45,6 +58,20 @@ namespace tungsten.core.Wpf.Base
                 bool isOpen = Wait.Until(() => IsDropDownOpen, TimeSpan.FromSeconds(5));
                 if (!isOpen)
                 {
+                    throw ManglaException.NotOpen(this);
+                }
+            }
+        }
+
+        public void Close()
+        {
+            if (IsDropDownOpen)
+            {
+                Click();
+                bool isClosed = Wait.Until(() => !IsDropDownOpen, TimeSpan.FromSeconds(5));
+                if (!isClosed)
+                {
+                    // TODO: Make some kind of state failed exception instead.
                     throw ManglaException.NotOpen(this);
                 }
             }
