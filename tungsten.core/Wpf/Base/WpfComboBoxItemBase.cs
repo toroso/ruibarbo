@@ -52,5 +52,11 @@ namespace tungsten.core.Wpf.Base
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
         }
+
+        public static string TextBlockText<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
+            where TNativeElement : System.Windows.Controls.ComboBoxItem
+        {
+            return me.FindFirstChild<WpfTextBlock>().Text();
+        }
     }
 }

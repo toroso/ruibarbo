@@ -64,6 +64,7 @@
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
     <Compile Include="Wpf\Base\WpfListBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
+    <Compile Include="Wpf\Search\ByWpf.cs" />
     <Compile Include="Wpf\WpfItemsControl.cs" />
     <Compile Include="Wpf\WpfListBox.cs" />
     <Compile Include="Wpf\WpfRadioButton.cs" />
