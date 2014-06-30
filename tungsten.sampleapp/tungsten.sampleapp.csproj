@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="ItemViewModel.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="PropertyChangedExtensions.cs" />
     <Compile Include="StuffControl.xaml.cs">
       <DependentUpon>StuffControl.xaml</DependentUpon>
     </Compile>

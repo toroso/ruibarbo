@@ -28,6 +28,29 @@ namespace tungsten.sampletest.Features
                     "Item 4",
                     "Item 5",
                     "Item 6",
+                    "Item 7",
+                    "Item 8",
+                    "Item 9",
+                    "Item 10",
+                    "Item 11",
+                    "Item 12",
+                    "Item 13",
+                    "Item 14",
+                    "Item 15",
+                    "Item 16",
+                    "Item 17",
+                    "Item 18",
+                    "Item 19",
+                    "Item 20",
+                    "Item 21",
+                    "Item 22",
+                    "Item 23",
+                    "Item 24",
+                    "Item 25",
+                    "Item 26",
+                    "Item 27",
+                    "Item 28",
+                    "Item 29",
                 }));
         }
 
@@ -70,7 +93,7 @@ namespace tungsten.sampletest.Features
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
 
             var lastItem = comboBox.AllItems<WpfComboBoxItem>().Last();
-            lastItem.AssertThat(x => x.TextBlockText(), Is.EqualTo("Item 6"));
+            lastItem.AssertThat(x => x.TextBlockText(), Is.EqualTo("Item 29"));
             lastItem.OpenAndClick();
             lastItem.AssertThat(x => x.IsSelected(), Is.True);
 
