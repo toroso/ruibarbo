@@ -12,9 +12,9 @@ namespace tungsten.sampletest.AutomationLayer
         {
         }
 
-        public WpfTextBox MuppetTextBox
+        public WpfTextBlock MuppetTextBlock
         {
-            get { return this.FindFirstChild<WpfTextBox>(By.Name("TxtMuppet")); }
+            get { return this.FindFirstChild<WpfTextBlock>(By.Name("TxbMuppet")); }
         }
     }
 }
