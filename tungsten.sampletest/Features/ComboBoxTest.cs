@@ -15,6 +15,15 @@ namespace tungsten.sampletest.Features
     public class ComboBoxTest : TestBase
     {
         [Test]
+        public void ItemsCount()
+        {
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var comboBox = tab1.StuffControl.ShowErrorComboBox;
+            comboBox.AssertThat(x => x.AllItems<WpfComboBoxItem>().Count(), Is.EqualTo(29));
+        }
+
+        [Test]
         public void CheckBoxContents()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
