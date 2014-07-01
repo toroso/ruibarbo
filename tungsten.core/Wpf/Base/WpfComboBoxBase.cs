@@ -40,12 +40,11 @@ namespace tungsten.core.Wpf.Base
             return x;
         }
 
-        public void ChangeSelectedItemToFirst<TItem>(params By[] bys)
-            where TItem : class, ISearchSourceElement
+        public void OpenAndClickFirst<TItem>(params By[] bys)
+            where TItem : class, IComboBoxItem
         {
             var item = FindFirstItem<TItem>(bys);
-            // TODO: Use item.OpenAndClick(). How? Interface IComboBoxItem perhaps?
-            this.ChangeSelectedItemTo(item);
+            item.OpenAndClick();
         }
 
         // TODO: Override Children
@@ -84,21 +83,6 @@ namespace tungsten.core.Wpf.Base
             where TNativeElement : System.Windows.Controls.ComboBox
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
-        }
-
-        // TODO? Remove. Use WpfComboBoxItemBase.OpenAndClick()
-        public static void ChangeSelectedItemTo<TNativeElement, TItem>(this WpfComboBoxBase<TNativeElement> me, TItem item)
-            where TNativeElement : System.Windows.Controls.ComboBox
-            where TItem : ISearchSourceElement
-        {
-            me.Click();
-            bool isVisible = Wait.Until(() => item.IsVisible, TimeSpan.FromSeconds(5));
-            if (!isVisible)
-            {
-                throw ManglaException.NotVisible(item);
-            }
-
-            item.Click();
         }
     }
 }

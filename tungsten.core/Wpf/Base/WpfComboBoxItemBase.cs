@@ -4,7 +4,7 @@ using tungsten.core.Search;
 
 namespace tungsten.core.Wpf.Base
 {
-    public class WpfComboBoxItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>
+    public class WpfComboBoxItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>, IComboBoxItem
         where TNativeElement : System.Windows.Controls.ComboBoxItem
     {
         public WpfComboBoxItemBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
@@ -30,10 +30,13 @@ namespace tungsten.core.Wpf.Base
         }
     }
 
+    public interface IComboBoxItem : ISearchSourceElement
+    {
+    }
+
     public static class WpfComboBoxItemBaseExtensions
     {
-        public static void OpenAndClick<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.ComboBoxItem
+        public static void OpenAndClick(this IComboBoxItem me)
         {
             var itemsContainer = me.FindFirstAncestor<WpfComboBox>();
             itemsContainer.Open();
@@ -53,8 +56,7 @@ namespace tungsten.core.Wpf.Base
             return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
         }
 
-        public static string TextBlockText<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.ComboBoxItem
+        public static string TextBlockText(this IComboBoxItem me)
         {
             return me.FindFirstChild<WpfTextBlock>().Text();
         }

@@ -79,8 +79,8 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
+            comboBox.OpenAndClickFirst<WpfComboBoxItem>(By.Custom<WpfComboBoxItem>(i => i.TextBlockText(), "Has error"));
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(By.Custom<WpfComboBoxItem>(i => i.TextBlockText(), "Has error"));
-            item.OpenAndClick();
             item.AssertThat(x => x.IsSelected(), Is.True);
         }
 
