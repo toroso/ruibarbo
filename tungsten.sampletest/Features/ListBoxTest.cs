@@ -27,5 +27,14 @@ namespace tungsten.sampletest.Features
             var muppetItem = muppets.AllItems<MuppetListBoxItem>().ToArray()[14];
             muppetItem.MuppetTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Statler"));
         }
+
+        [Test]
+        public void NoSelectedItem()
+        {
+            var tab5 = MainWindow.MainTabControl.Tab5;
+            tab5.Click();
+            var muppets = tab5.MuppetsListBox;
+            muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Null);
+        }
     }
 }

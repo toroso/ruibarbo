@@ -35,17 +35,16 @@ namespace tungsten.core.Wpf.Base
         }
 
         public TWpfItem SelectedItem<TWpfItem>()
-            where TWpfItem : class, ISearchSourceElement
+            where TWpfItem : class, IComboBoxItem
         {
             return WithOpenComboBoxDo(() =>
                 {
                     var nativeElement = Invoker.Get(this, frameworkElement =>
                         {
                             var selectedItem = frameworkElement.SelectedItem;
-                            var q = selectedItem is System.Windows.FrameworkElement
+                            return selectedItem is System.Windows.FrameworkElement
                                 ? selectedItem
                                 : frameworkElement.ItemContainerGenerator.ContainerFromItem(selectedItem);
-                            return q;
                         });
                     return nativeElement != null
                         ? ElementFactory.ElementFactory.CreateElements(this, nativeElement).OfType<TWpfItem>().First()
