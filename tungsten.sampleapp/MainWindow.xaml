@@ -73,7 +73,7 @@
                 </ItemsControl>
             </TabItem>
             <TabItem x:Name="Tab5" Header="Tab 5">
-                <ListBox x:Name="LstMuppets" ItemsSource="{Binding ShortItems}">
+                <ListBox x:Name="LstMuppets" ItemsSource="{Binding Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="sampleapp:ItemViewModel">
                             <Grid>

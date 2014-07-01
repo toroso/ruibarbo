@@ -6,6 +6,11 @@ namespace tungsten.core.Wpf.Base
         public WpfWindowBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
+            MakeSureWindowIsTopmost();
+        }
+
+        private void MakeSureWindowIsTopmost()
+        {
             Invoker.Invoke(this, fe => fe.Activate());
         }
     }
