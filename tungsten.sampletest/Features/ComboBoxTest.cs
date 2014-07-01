@@ -24,7 +24,7 @@ namespace tungsten.sampletest.Features
         }
 
         [Test]
-        public void CheckBoxContents()
+        public void Contents()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
@@ -64,7 +64,7 @@ namespace tungsten.sampletest.Features
         }
 
         [Test]
-        public void CheckBoxSelectedItem()
+        public void SelectedItemThroughItem()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
@@ -74,7 +74,18 @@ namespace tungsten.sampletest.Features
         }
 
         [Test]
-        public void CheckBoxChangeSelectedItemUsingString()
+        public void SelectedItemThroughComboBox()
+        {
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var comboBox = tab1.StuffControl.ShowErrorComboBox;
+            var selectedItem = comboBox.SelectedItem<WpfComboBoxItem>();
+            selectedItem.AssertThat(x => x.TextBlockText(), Is.EqualTo("No error"));
+            selectedItem.AssertThat(x => x.IsSelected(), Is.True);
+        }
+
+        [Test]
+        public void ChangeSelectedItemUsingString()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
@@ -85,7 +96,7 @@ namespace tungsten.sampletest.Features
         }
 
         [Test]
-        public void CheckBoxChangeSelectedItemToNonExisting()
+        public void ChangeSelectedItemToNonExisting()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
@@ -95,7 +106,7 @@ namespace tungsten.sampletest.Features
         }
 
         [Test]
-        public void CheckBoxChangeSelectedItemRequiresScrolling()
+        public void ChangeSelectedItemRequiresScrolling()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();

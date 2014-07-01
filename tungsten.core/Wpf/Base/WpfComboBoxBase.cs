@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls.Primitives;
 using tungsten.core.Search;
 
@@ -30,14 +31,44 @@ namespace tungsten.core.Wpf.Base
 
         public override IEnumerable<TWpfItem> AllItems<TWpfItem>()
         {
+            return WithOpenComboBoxDo(() => base.AllItems<TWpfItem>());
+        }
+
+        public TWpfItem SelectedItem<TWpfItem>()
+            where TWpfItem : class, ISearchSourceElement
+        {
+            return WithOpenComboBoxDo(() =>
+                {
+                    var nativeElement = Invoker.Get(this, frameworkElement =>
+                        {
+                            var selectedItem = frameworkElement.SelectedItem;
+                            var q = selectedItem is System.Windows.FrameworkElement
+                                ? selectedItem
+                                : frameworkElement.ItemContainerGenerator.ContainerFromItem(selectedItem);
+                            return q;
+                        });
+                    return nativeElement != null
+                        ? ElementFactory.ElementFactory.CreateElements(this, nativeElement).OfType<TWpfItem>().First()
+                        : null;
+                });
+        }
+
+        private TRet WithOpenComboBoxDo<TRet>(Func<TRet> func)
+        {
             var wasOpen = IsDropDownOpen;
             Open();
-            var x = base.AllItems<TWpfItem>();
-            if (!wasOpen)
+
+            try
             {
-                Close();
+                return func();
             }
-            return x;
+            finally
+            {
+                if (!wasOpen)
+                {
+                    Close();
+                }
+            }
         }
 
         public void OpenAndClickFirst<TItem>(params By[] bys)
