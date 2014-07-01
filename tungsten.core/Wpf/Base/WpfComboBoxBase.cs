@@ -47,8 +47,6 @@ namespace tungsten.core.Wpf.Base
             item.OpenAndClick();
         }
 
-        // TODO: Override Children
-
         public void Open()
         {
             if (!IsDropDownOpen)
