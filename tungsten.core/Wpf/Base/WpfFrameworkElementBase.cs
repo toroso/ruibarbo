@@ -82,6 +82,12 @@ namespace tungsten.core.Wpf.Base
             _bys = bys.AppendByClass(Class).ToArray();
         }
 
+        public TTooltipElement TryFindTooltip<TTooltipElement>(params Func<IByBuilder<TTooltipElement>, By>[] byBuilders)
+            where TTooltipElement : class, ISearchSourceElement
+        {
+            return TryFindTooltip<TTooltipElement>(byBuilders.Build());
+        }
+
         public TTooltipElement TryFindTooltip<TTooltipElement>(params By[] bys)
             where TTooltipElement : class, ISearchSourceElement
         {

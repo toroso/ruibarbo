@@ -70,6 +70,12 @@ namespace tungsten.core.Wpf.Base
             }
         }
 
+        public void OpenAndClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
+            where TItem : class, IComboBoxItem
+        {
+            OpenAndClickFirst<TItem>(byBuilders.Build());
+        }
+
         public void OpenAndClickFirst<TItem>(params By[] bys)
             where TItem : class, IComboBoxItem
         {

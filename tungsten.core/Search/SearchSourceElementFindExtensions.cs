@@ -7,13 +7,19 @@ namespace tungsten.core.Search
 {
     public static class SearchSourceElementFindExtensions
     {
+        public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.FindFirstChild<TElement>(byBuilders.Build());
+        }
+
         public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
             // TODO: Control output verbosity in configuration
             var bysWithClass = bys.AppendByClass<TElement>().ToArray();
             //Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
-            var found = TryRepeatedlyToFindFirstChild<TElement>(parent, TimeSpan.FromSeconds(5), bys);
+            var found = parent.TryRepeatedlyToFindFirstChild<TElement>(TimeSpan.FromSeconds(5), bys);
             if (found == null)
             {
                 throw ManglaException.FindFailed("child", parent, bysWithClass, parent.ControlTreeAsString(6));
@@ -22,14 +28,20 @@ namespace tungsten.core.Search
             return found;
         }
 
-        public static TElement TryRepeatedlyToFindFirstChild<TElement>(ISearchSourceElement parent, TimeSpan maxRetryTime, params By[] bys)
+        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime, params Func<IByBuilder<TElement>, By>[] byBuilders)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.TryRepeatedlyToFindFirstChild<TElement>(maxRetryTime, byBuilders.Build());
+        }
+
+        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
             TElement found = null;
             Wait.Until(
                 () =>
                     {
-                        found = TryOnceToFindFirstChild<TElement>(parent, bys);
+                        found = parent.TryOnceToFindFirstChild<TElement>(bys);
                         return found != null;
                     },
                 maxRetryTime);
@@ -37,7 +49,13 @@ namespace tungsten.core.Search
             return found;
         }
 
-        public static TElement TryOnceToFindFirstChild<TElement>(ISearchSourceElement parent, params By[] bys)
+        public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.TryOnceToFindFirstChild<TElement>(byBuilders.Build());
+        }
+
+        public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
             var breadthFirstQueue = new Queue<ISearchSourceElement>();
@@ -57,6 +75,12 @@ namespace tungsten.core.Search
             }
 
             return null;
+        }
+
+        public static IEnumerable<TElement> FindAllChildren<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.FindAllChildren<TElement>(byBuilders.Build());
         }
 
         public static IEnumerable<TElement> FindAllChildren<TElement>(this ISearchSourceElement parent, params By[] bys)
@@ -79,12 +103,18 @@ namespace tungsten.core.Search
             }
         }
 
+        public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params Func<IByBuilder<TElement>, By>[] byBuilders)
+            where TElement : class, ISearchSourceElement
+        {
+            return child.FindFirstAncestor<TElement>(byBuilders.Build());
+        }
+
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
             var bysWithClass = bys.AppendByClass<TElement>().ToArray();
             //Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bysWithClass.Select(by => by.ToString()).Join("; "));
-            var found = TryFindFirstAncestor<TElement>(child, bys);
+            var found = child.TryOnceToFindFirstAncestor<TElement>(bys);
             if (found == null)
             {
                 throw ManglaException.FindFailed("ancestor", child, bysWithClass, child.ControlAncestorsAsString());
@@ -93,7 +123,13 @@ namespace tungsten.core.Search
             return found;
         }
 
-        private static TElement TryFindFirstAncestor<TElement>(ISearchSourceElement child, By[] bys)
+        public static TElement TryOnceToFindFirstAncestor<TElement>(this ISearchSourceElement child, params Func<IByBuilder<TElement>, By>[] byBuilders)
+            where TElement : class, ISearchSourceElement
+        {
+            return child.TryOnceToFindFirstAncestor<TElement>(byBuilders.Build());
+        }
+
+        public static TElement TryOnceToFindFirstAncestor<TElement>(this ISearchSourceElement child, By[] bys)
             where TElement : class, ISearchSourceElement
         {
             var current = child;

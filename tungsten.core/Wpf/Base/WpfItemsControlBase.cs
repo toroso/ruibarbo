@@ -18,8 +18,7 @@ namespace tungsten.core.Wpf.Base
         public TWpfItem FindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
             where TWpfItem : class, ISearchSourceElement
         {
-            var bys = byBuilders.Select(builder => builder(new ByBuilder<TWpfItem>())).ToArray();
-            return FindFirstItem<TWpfItem>(bys);
+            return FindFirstItem<TWpfItem>((By[]) byBuilders.Build());
         }
 
         public TWpfItem FindFirstItem<TWpfItem>(params By[] bys)
@@ -43,8 +42,14 @@ namespace tungsten.core.Wpf.Base
             return found;
         }
 
+        public TWpfItem TryFindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
+            where TWpfItem : class, ISearchSourceElement
+        {
+            return TryFindFirstItem<TWpfItem>(byBuilders.Build());
+        }
+
         public TWpfItem TryFindFirstItem<TWpfItem>(params By[] bys)
-            where TWpfItem : ISearchSourceElement
+            where TWpfItem : class, ISearchSourceElement
         {
             return AllItems<TWpfItem>().FirstOrDefault(item => bys.All(by => by.Matches(item)));
         }
