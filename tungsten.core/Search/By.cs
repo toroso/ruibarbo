@@ -48,6 +48,7 @@ namespace tungsten.core.Search
                 : asString;
         }
 
+        // TODO: Make internal and let clicks use ByBuilder.
         public static By Custom<TElement>(Func<TElement, object> extractFunc, object searchFor)
             where TElement : class, ISearchSourceElement
         {

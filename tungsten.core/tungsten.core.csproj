@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="IRegisteredElement.cs" />
+    <Compile Include="Search\ByBuilder.cs" />
+    <Compile Include="Search\IByBuilder.cs" />
     <Compile Include="Win32\Factory\HwndWrapper.cs" />
     <Compile Include="Win32\Factory\IWin32FactoryConfigurator.cs" />
     <Compile Include="Win32\Factory\Win32ControlFactory.cs" />

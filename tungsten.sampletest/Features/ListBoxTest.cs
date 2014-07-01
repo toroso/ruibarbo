@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
 using tungsten.core.Search;
 using tungsten.core.Wpf.Base;
@@ -44,7 +45,7 @@ namespace tungsten.sampletest.Features
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
             var muppets = tab5.MuppetsListBox;
-            var yolanda = muppets.FindFirstItem<MuppetListBoxItem>(By.Custom<MuppetListBoxItem>(x => x.MuppetTextBlock.Text(), "Yolanda the Rat"));
+            var yolanda = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
             yolanda.AssertThat(x => x.IsSelected(), Is.False);
             yolanda.Click();
             yolanda.AssertThat(x => x.IsSelected(), Is.True);

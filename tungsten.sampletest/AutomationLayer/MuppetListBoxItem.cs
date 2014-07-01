@@ -17,4 +17,12 @@ namespace tungsten.sampletest.AutomationLayer
             get { return this.FindFirstChild<WpfTextBlock>(By.Name("TxbMuppet")); }
         }
     }
+
+    public static class MuppetListBoxByExtensions
+    {
+        public static By Muppet(this IByBuilder<MuppetListBoxItem> me, string text)
+        {
+            return me.ByExpression(x => x.MuppetTextBlock.Text(), text);
+        }
+    }
 }

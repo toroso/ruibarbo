@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,13 @@ namespace tungsten.core.Wpf.Base
         public WpfItemsControlBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
+        }
+
+        public TWpfItem FindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
+            where TWpfItem : class, ISearchSourceElement
+        {
+            var bys = byBuilders.Select(builder => builder(new ByBuilder<TWpfItem>())).ToArray();
+            return FindFirstItem<TWpfItem>(bys);
         }
 
         public TWpfItem FindFirstItem<TWpfItem>(params By[] bys)
