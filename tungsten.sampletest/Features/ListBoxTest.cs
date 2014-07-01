@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using tungsten.core.Search;
 using tungsten.core.Wpf.Base;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
@@ -35,6 +36,18 @@ namespace tungsten.sampletest.Features
             tab5.Click();
             var muppets = tab5.MuppetsListBox;
             muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Null);
+        }
+
+        [Test]
+        public void SelectedItemThroughItem()
+        {
+            var tab5 = MainWindow.MainTabControl.Tab5;
+            tab5.Click();
+            var muppets = tab5.MuppetsListBox;
+            var yolanda = muppets.FindFirstItem<MuppetListBoxItem>(By.Custom<MuppetListBoxItem>(x => x.MuppetTextBlock.Text(), "Yolanda the Rat"));
+            yolanda.AssertThat(x => x.IsSelected(), Is.False);
+            yolanda.Click();
+            yolanda.AssertThat(x => x.IsSelected(), Is.True);
         }
     }
 }
