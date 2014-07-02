@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using NUnit.Framework;
 using tungsten.core;
-using tungsten.core.Search;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
 using tungsten.core.Wpf.Search;

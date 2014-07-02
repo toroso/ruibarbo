@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
-using tungsten.core.Search;
 using tungsten.core.Wpf.Base;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;

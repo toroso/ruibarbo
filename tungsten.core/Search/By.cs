@@ -35,7 +35,7 @@ namespace tungsten.core.Search
         public static By FirstChild<TElement>(Func<TElement, bool> predicate)
             where TElement : class, ISearchSourceElement
         {
-            return new By(element => predicate(element.FindFirstChild<TElement>()));
+            return new By(element => predicate(element.FindFirstChild<TElement>(new By[] { })));
         }
 
         public override string ToString()
@@ -48,10 +48,12 @@ namespace tungsten.core.Search
                 : asString;
         }
 
-        internal static By Custom<TElement>(Func<TElement, object> extractFunc, object searchFor)
+        internal static By Custom<TElement>(Expression<Func<TElement, object>> extractExp, object searchFor)
             where TElement : class, ISearchSourceElement
         {
-            return new By(element => extractFunc((TElement)element).Equals(searchFor));
+            Expression<Func<object, bool>> equalsExp = x => x == searchFor;
+            Expression<Func<ISearchSourceElement, TElement>> castExp = x => (TElement)x;
+            return new By(castExp.MergeWith(extractExp.MergeWith(equalsExp)));
         }
     }
 

@@ -38,7 +38,7 @@ namespace tungsten.core.Wpf.Base
     {
         public static void OpenAndClick(this IComboBoxItem me)
         {
-            var itemsContainer = me.FindFirstAncestor<WpfComboBox>();
+            var itemsContainer = me.FindFirstAncestor<WpfComboBox>(new By[] { });
             itemsContainer.Open();
 
             bool isVisible = Wait.Until(() => me.IsVisible, TimeSpan.FromSeconds(5));
@@ -58,7 +58,7 @@ namespace tungsten.core.Wpf.Base
 
         public static string TextBlockText(this IComboBoxItem me)
         {
-            return me.FindFirstChild<WpfTextBlock>().Text();
+            return me.FindFirstChild<WpfTextBlock>(new By[] { }).Text();
         }
     }
 }

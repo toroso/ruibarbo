@@ -1,10 +1,11 @@
 using System;
+using System.Linq.Expressions;
 
 namespace tungsten.core.Search
 {
-    public interface IByBuilder<out TElement>
+    public interface IByBuilder<TElement>
         where TElement : class, ISearchSourceElement
     {
-        By ByExpression(Func<TElement, object> extractFunc, object lookFor);
+        By ByExpression(Expression<Func<TElement, object>> extractExp, object lookFor);
     }
 }

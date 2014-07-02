@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using tungsten.core.Search;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
@@ -22,7 +21,7 @@ namespace tungsten.sampletest.Features
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(ByWpf.TextBlockText("Has error"));
             item.OpenAndClick();
             var errorTextBlock = stuffControl.ErrorTextBlock;
-            var tooltip = errorTextBlock.TryFindTooltip<WpfTooltip>();
+            var tooltip = errorTextBlock.TryFindTooltip<WpfTooltip>(new By[] { });
             tooltip.AssertThat(x => x.IsVisible, Is.False);
             // TODO: Some content stuff
         }

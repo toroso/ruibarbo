@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace tungsten.core.Search
 {
     internal class ByBuilder<TElement> : IByBuilder<TElement>
         where TElement : class, ISearchSourceElement
     {
-        public By ByExpression(Func<TElement, object> extractFunc, object lookFor)
+        public By ByExpression(Expression<Func<TElement, object>> extractExp, object lookFor)
         {
-            return By.Custom(extractFunc, lookFor);
+            return By.Custom(extractExp, lookFor);
         }
     }
 

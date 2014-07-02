@@ -18,7 +18,7 @@ namespace tungsten.core.Wpf.Base
         public TWpfItem FindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
             where TWpfItem : class, ISearchSourceElement
         {
-            return FindFirstItem<TWpfItem>((By[]) byBuilders.Build());
+            return FindFirstItem<TWpfItem>(byBuilders.Build());
         }
 
         public TWpfItem FindFirstItem<TWpfItem>(params By[] bys)
