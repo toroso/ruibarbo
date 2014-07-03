@@ -30,7 +30,7 @@ namespace tungsten.core.Wpf.Base
         public TWpfItem FindFirstItem<TWpfItem>(params By[] bys)
             where TWpfItem : class, ISearchSourceElement
         {
-            var found = TryFindFirstItem<TWpfItem>(bys);
+            var found = TryRepeatedlyToFindFirstItem<TWpfItem>(TimeSpan.FromSeconds(5), bys);
             if (found == null)
             {
                 var controlToStringCreator = new ByControlToStringCreator<TWpfItem>(bys.RemoveByName().ToArray());
@@ -46,19 +46,46 @@ namespace tungsten.core.Wpf.Base
             return found;
         }
 
-        public TWpfItem TryFindFirstItem<TWpfItem>()
+        public TWpfItem TryRepeatedlyToFindFirstItem<TWpfItem>(TimeSpan maxRetryTime)
             where TWpfItem : class, ISearchSourceElement
         {
-            return TryFindFirstItem<TWpfItem>(By.Empty);
+            return TryRepeatedlyToFindFirstItem<TWpfItem>(maxRetryTime, By.Empty);
         }
 
-        public TWpfItem TryFindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
+        public TWpfItem TryRepeatedlyToFindFirstItem<TWpfItem>(TimeSpan maxRetryTime, params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
             where TWpfItem : class, ISearchSourceElement
         {
-            return TryFindFirstItem<TWpfItem>(byBuilders.Build());
+            return TryRepeatedlyToFindFirstItem<TWpfItem>(maxRetryTime, byBuilders.Build());
         }
 
-        public TWpfItem TryFindFirstItem<TWpfItem>(params By[] bys)
+        public TWpfItem TryRepeatedlyToFindFirstItem<TWpfItem>(TimeSpan maxRetryTime, params By[] bys)
+            where TWpfItem : class, ISearchSourceElement
+        {
+            TWpfItem found = null;
+            Wait.Until(
+                () =>
+                    {
+                        found = TryOnceToFindFirstItem<TWpfItem>(bys);
+                        return found != null;
+                    },
+                maxRetryTime);
+
+            return found;
+        }
+
+        public TWpfItem TryOnceToFindFirstItem<TWpfItem>()
+            where TWpfItem : class, ISearchSourceElement
+        {
+            return TryOnceToFindFirstItem<TWpfItem>(By.Empty);
+        }
+
+        public TWpfItem TryOnceToFindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
+            where TWpfItem : class, ISearchSourceElement
+        {
+            return TryOnceToFindFirstItem<TWpfItem>(byBuilders.Build());
+        }
+
+        public TWpfItem TryOnceToFindFirstItem<TWpfItem>(params By[] bys)
             where TWpfItem : class, ISearchSourceElement
         {
             return AllItems<TWpfItem>().FirstOrDefault(item => bys.All(by => by.Matches(item)));
