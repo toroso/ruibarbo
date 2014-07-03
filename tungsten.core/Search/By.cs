@@ -8,52 +8,50 @@ namespace tungsten.core.Search
 {
     public class By
     {
-        private readonly Expression<Func<ISearchSourceElement, bool>> _predicateExp;
-        private readonly Func<ISearchSourceElement, bool> _predicate;
+        private readonly Expression<Func<ISearchSourceElement, object>> _extractExp;
+        private readonly Func<ISearchSourceElement, object> _extractFunc;
+        private readonly object _searchFor;
 
-        private By(Expression<Func<ISearchSourceElement, bool>> predicateExp)
+        private By(Expression<Func<ISearchSourceElement, object>> extractExp, object searchFor)
         {
-            _predicateExp = predicateExp;
-            _predicate = predicateExp.Compile();
+            _extractExp = extractExp;
+            _extractFunc = extractExp.Compile();
+            _searchFor = searchFor;
         }
 
         public bool Matches(ISearchSourceElement element)
         {
-            return _predicate(element);
+            object found = _extractFunc(element);
+            return found.Equals(_searchFor);
         }
 
         public static By Name(string name)
         {
-            return new By(element => element.Name == name);
+            return new By(element => element.Name, name);
         }
 
         public static By Class(string type)
         {
-            return new By(element => element.Class == type);
-        }
-
-        public static By FirstChild<TElement>(Func<TElement, bool> predicate)
-            where TElement : class, ISearchSourceElement
-        {
-            return new By(element => predicate(element.FindFirstChild<TElement>(new By[] { })));
+            return new By(element => element.Class, type);
         }
 
         public override string ToString()
         {
             var literalizer = new ExpressionLiteralizer();
-            var sanitized = (Expression<Func<ISearchSourceElement, bool>>)literalizer.Visit(_predicateExp);
+            var sanitized = (Expression<Func<ISearchSourceElement, object>>)literalizer.Visit(_extractExp);
             string asString = sanitized.Body.ToString();
-            return asString.StartsWith("(") && asString.EndsWith(")")
+            var extractAsString = asString.StartsWith("(") && asString.EndsWith(")")
                 ? asString.Substring(1, asString.Length - 2)
                 : asString;
+            // TODO: Put quotes around _searchFor if string
+            return string.Format("{0} == {1}", extractAsString, _searchFor);
         }
 
         internal static By Custom<TElement>(Expression<Func<TElement, object>> extractExp, object searchFor)
             where TElement : class, ISearchSourceElement
         {
-            Expression<Func<object, bool>> equalsExp = x => x == searchFor;
             Expression<Func<ISearchSourceElement, TElement>> castExp = x => (TElement)x;
-            return new By(castExp.MergeWith(extractExp.MergeWith(equalsExp)));
+            return new By(castExp.MergeWith(extractExp), searchFor);
         }
     }
 
