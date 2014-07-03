@@ -43,10 +43,10 @@ namespace tungsten.sampletest.Features
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
             var muppets = tab5.MuppetsListBox;
-            var yolanda = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
-            yolanda.AssertThat(x => x.IsSelected(), Is.False);
-            yolanda.Click();
-            yolanda.AssertThat(x => x.IsSelected(), Is.True);
+            var swedishChef = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
+            swedishChef.AssertThat(x => x.IsSelected(), Is.False);
+            swedishChef.Click();
+            swedishChef.AssertThat(x => x.IsSelected(), Is.True);
         }
 
         [Test]
@@ -56,11 +56,11 @@ namespace tungsten.sampletest.Features
             tab5.Click();
             var muppets = tab5.MuppetsListBox;
             muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Null);
-            var yolanda = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
-            yolanda.Click();
+            var swedishChef = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
+            swedishChef.Click();
             muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Not.Null);
             var selectedItem = muppets.SelectedItem<MuppetListBoxItem>();
-            selectedItem.MuppetTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Yolanda the Rat"));
+            selectedItem.MuppetTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Swedish Chef"));
             selectedItem.AssertThat(x => x.IsSelected(), Is.True);
         }
 
@@ -70,9 +70,28 @@ namespace tungsten.sampletest.Features
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
             var muppets = tab5.MuppetsListBox;
-            muppets.ClickFirst<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
-            var item = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
-            item.AssertThat(x => x.IsSelected(), Is.True);
+            muppets.ClickFirst<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
+            var swedishChef = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
+            swedishChef.AssertThat(x => x.IsSelected(), Is.True);
+        }
+
+        [Test]
+        public void ChangeSelectedItemRequiresScrolling()
+        {
+            var tab5 = MainWindow.MainTabControl.Tab5;
+            tab5.Click();
+            var muppets = tab5.MuppetsListBox;
+
+            var lastItem = muppets.AllItems<MuppetListBoxItem>().Last();
+            lastItem.AssertThat(x => x.MuppetTextBlock.Text(), Is.EqualTo("Scooter"));
+            lastItem.Click();
+            lastItem.AssertThat(x => x.IsSelected(), Is.True);
+
+            var firstItem = muppets.AllItems<MuppetListBoxItem>().First();
+            firstItem.AssertThat(x => x.MuppetTextBlock.Text(), Is.EqualTo("Animal"));
+            firstItem.Click();
+            firstItem.AssertThat(x => x.IsSelected(), Is.True);
+            lastItem.AssertThat(x => x.IsSelected(), Is.False);
         }
     }
 }
