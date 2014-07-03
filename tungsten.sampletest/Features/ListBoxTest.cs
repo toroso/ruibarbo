@@ -48,5 +48,20 @@ namespace tungsten.sampletest.Features
             yolanda.Click();
             yolanda.AssertThat(x => x.IsSelected(), Is.True);
         }
+
+        [Test]
+        public void SelectedItemThroughListBox()
+        {
+            var tab5 = MainWindow.MainTabControl.Tab5;
+            tab5.Click();
+            var muppets = tab5.MuppetsListBox;
+            muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Null);
+            var yolanda = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
+            yolanda.Click();
+            muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Not.Null);
+            var selectedItem = muppets.SelectedItem<MuppetListBoxItem>();
+            selectedItem.MuppetTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Yolanda the Rat"));
+            selectedItem.AssertThat(x => x.IsSelected(), Is.True);
+        }
     }
 }
