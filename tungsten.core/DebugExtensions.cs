@@ -71,10 +71,15 @@ namespace tungsten.core
 
         public static string ControlTreeAsString(this ISearchSourceElement me, int maxDepth)
         {
-            return ControlTreeAsString(me, 0, maxDepth);
+            return ControlTreeAsString(me, new DefaultControlToStringCreator(), maxDepth);
         }
 
-        private static string ControlTreeAsString(this ISearchSourceElement parent, int currentDepth, int maxDepth)
+        public static string ControlTreeAsString(this ISearchSourceElement me, IControlToStringCreator controlToStringCreator, int maxDepth)
+        {
+            return ControlTreeAsString(me, controlToStringCreator, 0, maxDepth);
+        }
+
+        private static string ControlTreeAsString(this ISearchSourceElement parent, IControlToStringCreator controlToStringCreator, int currentDepth, int maxDepth)
         {
             if (currentDepth > maxDepth)
             {
@@ -84,30 +89,28 @@ namespace tungsten.core
             var sb = new StringBuilder();
             foreach (var child in parent.NativeChildren)
             {
-                IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateElements(parent, child).ToArray();
-                var matchingTypes = elements.Select(t => t.GetType().Name).Join(", ");
-                var element = elements.FirstOrDefault(); // Any will do
-                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0} <{1}>", element.ControlIdentifier(), matchingTypes);
+                sb.AppendIndentedLine((3 * currentDepth) + 3, "{0}", controlToStringCreator.ControlToString(child));
+                var element = ElementFactory.ElementFactory.CreateElements(parent, child).FirstOrDefault();
                 if (element != null)
                 {
-                    sb.Append(element.ControlTreeAsString(currentDepth + 1, maxDepth));
+                    sb.Append(element.ControlTreeAsString(controlToStringCreator, currentDepth + 1, maxDepth));
                 }
             }
 
             return sb.ToString();
         }
 
-        public static string ControlAncestorsAsString(this ISearchSourceElement child)
+        public static string ControlAncestorsAsString(this ISearchSourceElement child, IControlToStringCreator controlToStringCreator)
         {
-            var ancestors = child.ControlAncestorsAsStrings().ToArray();
-            if (ancestors.Length == 0)
+            var ancestorsAsString = child.ControlAncestorsAsStrings(controlToStringCreator).ToArray();
+            if (ancestorsAsString.Length == 0)
             {
                 return string.Format("   No parents of element {0}", child.ControlIdentifier());
             }
 
             var sb = new StringBuilder();
             int currentDepth = 0;
-            foreach (var ancestor in ancestors)
+            foreach (var ancestor in ancestorsAsString)
             {
                 sb.AppendIndentedLine((3 * currentDepth) + 3, "{0}", ancestor);
                 currentDepth++;
@@ -117,7 +120,7 @@ namespace tungsten.core
             return sb.ToString();
         }
 
-        private static IEnumerable<string> ControlAncestorsAsStrings(this ISearchSourceElement child)
+        private static IEnumerable<string> ControlAncestorsAsStrings(this ISearchSourceElement child, IControlToStringCreator controlToStringCreator)
         {
             var parent = child.NativeParent;
             if (parent == null)
@@ -125,16 +128,14 @@ namespace tungsten.core
                 yield break;
             }
 
-            IEnumerable<ISearchSourceElement> elements = ElementFactory.ElementFactory.CreateElements(null, parent).ToArray();
-            var element = elements.First(); // Any will do
+            var element = ElementFactory.ElementFactory.CreateElements(null, parent).First();
 
-            foreach (var each in element.ControlAncestorsAsStrings())
+            foreach (var each in element.ControlAncestorsAsStrings(controlToStringCreator))
             {
                 yield return each;
             }
 
-            var matchingTypes = elements.Select(t => t.GetType().Name).Join(", ");
-            yield return string.Format("{0} <{1}>", element.ControlIdentifier(), matchingTypes);
+            yield return controlToStringCreator.ControlToString(parent);
         }
 
         public static string ControlIdentifier(this ISearchSourceElement me)

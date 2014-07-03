@@ -19,7 +19,7 @@ namespace tungsten.core.Search
             _searchFor = searchFor;
         }
 
-        public bool Matches(ISearchSourceElement element)
+        internal bool Matches(ISearchSourceElement element)
         {
             object found = _extractFunc(element);
             return found.Equals(_searchFor);
@@ -37,14 +37,35 @@ namespace tungsten.core.Search
 
         public override string ToString()
         {
-            var literalizer = new ExpressionLiteralizer();
-            var sanitized = (Expression<Func<ISearchSourceElement, object>>)literalizer.Visit(_extractExp);
-            string asString = sanitized.Body.ToString();
-            var extractAsString = asString.StartsWith("(") && asString.EndsWith(")")
-                ? asString.Substring(1, asString.Length - 2)
-                : asString;
-            // TODO: Put quotes around _searchFor if string
-            return string.Format("{0} == {1}", extractAsString, _searchFor);
+            var extractAsString = ExtractAsString;
+            return string.Format("{0} == {1}", extractAsString, Quote(_searchFor));
+        }
+
+        internal string ExtractedToString(ISearchSourceElement element)
+        {
+            var extractAsString = ExtractAsString;
+            object found = _extractFunc(element);
+            return string.Format("{0}: {1}", extractAsString, Quote(found));
+        }
+
+        private static string Quote(object asObject)
+        {
+            var asString = asObject as string;
+            return asString != null
+                ? string.Format("'{0}'", asString)
+                : asObject.ToString();
+        }
+
+        internal string ExtractAsString
+        {
+            get
+            {
+                string bodyAsString = _extractExp.Body.ToString();
+                const string convertX = "Convert(x)";
+                return bodyAsString.StartsWith(convertX)
+                    ? string.Format("element{0}", bodyAsString.Substring(convertX.Length))
+                    : bodyAsString;
+            }
         }
 
         internal static By Custom<TElement>(Expression<Func<TElement, object>> extractExp, object searchFor)
@@ -65,6 +86,11 @@ namespace tungsten.core.Search
         public static IEnumerable<By> AppendByClass(this IEnumerable<By> bys, string type)
         {
             return bys.Concat(new[] { By.Class(type) });
+        }
+
+        public static IEnumerable<By> RemoveByName(this IEnumerable<By> bys)
+        {
+            return bys.Where(by => by.ExtractAsString != "element.Name");
         }
     }
 }

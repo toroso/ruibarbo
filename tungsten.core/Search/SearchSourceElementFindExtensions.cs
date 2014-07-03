@@ -22,7 +22,8 @@ namespace tungsten.core.Search
             var found = parent.TryRepeatedlyToFindFirstChild<TElement>(TimeSpan.FromSeconds(5), bys);
             if (found == null)
             {
-                throw ManglaException.FindFailed("child", parent, bysWithClass, parent.ControlTreeAsString(6));
+                var controlToStringCreator = new ByControlToStringCreator<TElement>(bys.RemoveByName().ToArray());
+                throw ManglaException.FindFailed("child", parent, bysWithClass, parent.ControlTreeAsString(controlToStringCreator, 6));
             }
 
             return found;
@@ -117,7 +118,8 @@ namespace tungsten.core.Search
             var found = child.TryOnceToFindFirstAncestor<TElement>(bys);
             if (found == null)
             {
-                throw ManglaException.FindFailed("ancestor", child, bysWithClass, child.ControlAncestorsAsString());
+                var controlToStringCreator = new ByControlToStringCreator<TElement>(bys.RemoveByName().ToArray());
+                throw ManglaException.FindFailed("ancestor", child, bysWithClass, child.ControlAncestorsAsString(controlToStringCreator));
             }
 
             return found;

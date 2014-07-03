@@ -27,13 +27,11 @@ namespace tungsten.core.Wpf.Base
             var found = TryFindFirstItem<TWpfItem>(bys);
             if (found == null)
             {
+                var controlToStringCreator = new ByControlToStringCreator<TWpfItem>(bys.RemoveByName().ToArray());
                 var sb = new StringBuilder();
                 foreach (var item in NativeItems)
                 {
-                    IEnumerable<ISearchSourceElement> wpfElements = ElementFactory.ElementFactory.CreateElements(this, item).ToArray();
-                    var matchingTypes = wpfElements.Select(t => t.GetType().Name).Join(", ");
-                    var wpfElement = wpfElements.FirstOrDefault(); // Any will do
-                    sb.AppendLine(string.Format("   {0} <{1}>", wpfElement.ControlIdentifier(), matchingTypes));
+                    sb.AppendLine(string.Format("   {0}", controlToStringCreator.ControlToString(item)));
                 }
 
                 throw ManglaException.FindFailed("Item", this, bys, sb.ToString());
