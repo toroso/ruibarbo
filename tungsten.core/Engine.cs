@@ -58,7 +58,7 @@ namespace tungsten.core
                     x.MouseDelayAfterMove = TimeSpan.Zero;
                     x.MouseDelayAfterClick = TimeSpan.FromMilliseconds(20);
                     x.MouseDurationOfMove = TimeSpan.Zero;
-                    x.ScreenshotOnFailedAssertion = true; // TODO: Implement
+                    x.ScreenshotOnFailedAssertion = true;
                 });
         }
 

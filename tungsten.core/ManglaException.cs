@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
+using tungsten.core.Input;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 using tungsten.core.Wpf.Base;
@@ -103,6 +104,11 @@ namespace tungsten.core
 
         private static Uri CaptureScreen(string description)
         {
+            if (!HardwareConfiguration.ScreenshotOnFailedAssertion)
+            {
+                return null;
+            }
+
             try
             {
                 return TryCaptureScreen(description);
