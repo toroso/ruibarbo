@@ -35,6 +35,12 @@ namespace tungsten.core.Wpf.Base
                 : null;
         }
 
+        public void ClickFirst<TItem>()
+            where TItem : class, ISearchSourceElement
+        {
+            ClickFirst<TItem>(By.Empty);
+        }
+
         public void ClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
             where TItem : class, ISearchSourceElement
         {

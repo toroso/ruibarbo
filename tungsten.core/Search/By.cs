@@ -8,6 +8,8 @@ namespace tungsten.core.Search
 {
     public class By
     {
+        public static By[] Empty = { };
+
         private readonly Expression<Func<ISearchSourceElement, object>> _extractExp;
         private readonly Func<ISearchSourceElement, object> _extractFunc;
         private readonly object _searchFor;

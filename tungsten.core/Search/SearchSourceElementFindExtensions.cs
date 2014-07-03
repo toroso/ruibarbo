@@ -7,6 +7,12 @@ namespace tungsten.core.Search
 {
     public static class SearchSourceElementFindExtensions
     {
+        public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.FindFirstChild<TElement>(By.Empty);
+        }
+
         public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
             where TElement : class, ISearchSourceElement
         {
@@ -29,6 +35,12 @@ namespace tungsten.core.Search
             return found;
         }
 
+        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.TryRepeatedlyToFindFirstChild<TElement>(maxRetryTime, By.Empty);
+        }
+
         public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime, params Func<IByBuilder<TElement>, By>[] byBuilders)
             where TElement : class, ISearchSourceElement
         {
@@ -48,6 +60,12 @@ namespace tungsten.core.Search
                 maxRetryTime);
 
             return found;
+        }
+
+        public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.TryOnceToFindFirstChild<TElement>(By.Empty);
         }
 
         public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
@@ -78,6 +96,12 @@ namespace tungsten.core.Search
             return null;
         }
 
+        public static IEnumerable<TElement> FindAllChildren<TElement>(this ISearchSourceElement parent)
+            where TElement : class, ISearchSourceElement
+        {
+            return parent.FindAllChildren<TElement>(By.Empty);
+        }
+
         public static IEnumerable<TElement> FindAllChildren<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
             where TElement : class, ISearchSourceElement
         {
@@ -104,6 +128,12 @@ namespace tungsten.core.Search
             }
         }
 
+        public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child)
+            where TElement : class, ISearchSourceElement
+        {
+            return child.FindFirstAncestor<TElement>(By.Empty);
+        }
+
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params Func<IByBuilder<TElement>, By>[] byBuilders)
             where TElement : class, ISearchSourceElement
         {
@@ -123,6 +153,12 @@ namespace tungsten.core.Search
             }
 
             return found;
+        }
+
+        public static TElement TryOnceToFindFirstAncestor<TElement>(this ISearchSourceElement child)
+            where TElement : class, ISearchSourceElement
+        {
+            return child.TryOnceToFindFirstAncestor<TElement>(By.Empty);
         }
 
         public static TElement TryOnceToFindFirstAncestor<TElement>(this ISearchSourceElement child, params Func<IByBuilder<TElement>, By>[] byBuilders)

@@ -20,7 +20,7 @@ namespace tungsten.core.Wpf.Base
                 // But the TabControl's content host only contains the elements of the selected tab item.
                 if (this.IsSelected())
                 {
-                    var owner = this.FindFirstAncestor<WpfTabControl>(new By[] { });
+                    var owner = this.FindFirstAncestor<WpfTabControl>();
                     var contentPanel = owner.FindFirstChild<WpfFrameworkElement>(By.Name("PART_SelectedContentHost"));
                     yield return Invoker.Get(contentPanel, frameworkElement => frameworkElement);
                 }

@@ -15,6 +15,12 @@ namespace tungsten.core.Wpf.Base
         {
         }
 
+        public TWpfItem FindFirstItem<TWpfItem>()
+            where TWpfItem : class, ISearchSourceElement
+        {
+            return FindFirstItem<TWpfItem>(By.Empty);
+        }
+
         public TWpfItem FindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
             where TWpfItem : class, ISearchSourceElement
         {
@@ -38,6 +44,12 @@ namespace tungsten.core.Wpf.Base
             }
 
             return found;
+        }
+
+        public TWpfItem TryFindFirstItem<TWpfItem>()
+            where TWpfItem : class, ISearchSourceElement
+        {
+            return TryFindFirstItem<TWpfItem>(By.Empty);
         }
 
         public TWpfItem TryFindFirstItem<TWpfItem>(params Func<IByBuilder<TWpfItem>, By>[] byBuilders)
