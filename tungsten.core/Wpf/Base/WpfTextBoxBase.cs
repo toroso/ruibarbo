@@ -1,5 +1,7 @@
 using System;
+using System.Windows;
 using System.Windows.Input;
+using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -26,11 +28,8 @@ namespace tungsten.core.Wpf.Base
         {
             if (!this.IsKeyboardFocused())
             {
-                // TODO: Inject IAssertionExceptionFactory that can create NUnit, MSTest or whatever assertion exceptions
-                // TODO: Better error message. Include a lot of information about the control, including parents.
-                // TODO: Better identification of FocusedElement (IInputElement)
-                var focusedElementAsString = Invoker.Get(() => Keyboard.FocusedElement.ToString());
-                throw new Exception("Can't type into TextBox since it does not have keyboard focus. Focus is in " + focusedElementAsString);
+                var focusedElement = Invoker.Get(() => Keyboard.FocusedElement);
+                throw ManglaException.NotFocused(this, focusedElement);
             }
 
             Input.Keyboard.Type(value);

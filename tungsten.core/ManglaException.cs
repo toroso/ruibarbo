@@ -102,6 +102,17 @@ namespace tungsten.core
             return new ManglaException(message, screenCapture);
         }
 
+        public static Exception NotFocused(ISearchSourceElement me, IInputElement focusedElement)
+        {
+            Uri screenCapture = CaptureScreen("NotFocused");
+            var meAsString = me.ControlIdentifier();
+            var focusedElementAsString = new DefaultControlToStringCreator().ControlToString(focusedElement);
+            var message = string.Format("Can't type into control since it does not have keyboard focus. Control: {0}; Focused Element: {1}",
+                meAsString,
+                focusedElementAsString);
+            return new ManglaException(message, screenCapture);
+        }
+
         private static Uri CaptureScreen(string description)
         {
             if (!HardwareConfiguration.ScreenshotOnFailedAssertion)
