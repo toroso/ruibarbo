@@ -11,7 +11,6 @@
 
     public static class WpfListBoxItemBaseExtensions
     {
-        // TODO: Copy/paste of WpfComboBoxItemBaseExtensions.
         public static bool IsSelected<TNativeElement>(this WpfListBoxItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ListBoxItem
         {
