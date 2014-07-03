@@ -1,7 +1,4 @@
-using System;
-using System.Windows;
 using System.Windows.Input;
-using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
 {
