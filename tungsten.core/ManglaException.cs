@@ -106,7 +106,9 @@ namespace tungsten.core
         {
             Uri screenCapture = CaptureScreen("NotFocused");
             var meAsString = me.ControlIdentifier();
-            var focusedElementAsString = new DefaultControlToStringCreator().ControlToString(focusedElement);
+            var focusedElementAsString = focusedElement != null
+                ? new DefaultControlToStringCreator().ControlToString(focusedElement)
+                : "<null>";
             var message = string.Format("Can't type into control since it does not have keyboard focus. Control: {0}; Focused Element: {1}",
                 meAsString,
                 focusedElementAsString);
