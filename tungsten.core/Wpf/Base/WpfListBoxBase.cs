@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using tungsten.core.Search;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -32,5 +34,22 @@ namespace tungsten.core.Wpf.Base
                 ? ElementFactory.ElementFactory.CreateElements(this, nativeElement).OfType<TWpfItem>().First()
                 : null;
         }
+
+        public void ClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
+            where TItem : class, ISearchSourceElement
+        {
+            ClickFirst<TItem>(byBuilders.Build());
+        }
+
+        public void ClickFirst<TItem>(params By[] bys)
+            where TItem : class, ISearchSourceElement
+        {
+            var item = FindFirstItem<TItem>(bys);
+            item.Click();
+        }
+    }
+
+    public static class WpfListBoxBaseExtensions
+    {
     }
 }

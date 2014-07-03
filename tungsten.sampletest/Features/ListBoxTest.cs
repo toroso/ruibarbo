@@ -63,5 +63,16 @@ namespace tungsten.sampletest.Features
             selectedItem.MuppetTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Yolanda the Rat"));
             selectedItem.AssertThat(x => x.IsSelected(), Is.True);
         }
+
+        [Test]
+        public void ChangeSelectedItemUsingString()
+        {
+            var tab5 = MainWindow.MainTabControl.Tab5;
+            tab5.Click();
+            var muppets = tab5.MuppetsListBox;
+            muppets.ClickFirst<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
+            var item = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Yolanda the Rat"));
+            item.AssertThat(x => x.IsSelected(), Is.True);
+        }
     }
 }
