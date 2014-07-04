@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using tungsten.core;
+using tungsten.core.Hardware;
 
 namespace tungsten.nunit
 {
@@ -37,6 +38,11 @@ namespace tungsten.nunit
                 writer.WriteMessageLine("Expr:     {0}", actualExp);
                 writer.WriteMessageLine("Control:  {0}", me.ControlIdentifier());
                 writer.WriteMessageLine("Path:\n{0}", me.ControlIdentifierPath());
+                var screenCapture = Screen.CaptureToFile("NUnitAssertion");
+                if (screenCapture != null)
+                {
+                    writer.WriteMessageLine("Screen:   {0}", screenCapture.AbsoluteUri);
+                }
                 throw new AssertionException(writer.ToString());
             }
         }
