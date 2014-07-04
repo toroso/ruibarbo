@@ -13,7 +13,7 @@ namespace tungsten.core.Wpf.Base
         public void ClickAndSelectAll()
         {
             Click();
-            Input.Keyboard.TypeShortcut(Key.LeftCtrl, Key.A);
+            Hardware.Keyboard.TypeShortcut(Key.LeftCtrl, Key.A);
         }
 
         public string Text
@@ -29,7 +29,7 @@ namespace tungsten.core.Wpf.Base
                 throw ManglaException.NotFocused(this, focusedElement);
             }
 
-            Input.Keyboard.Type(value);
+            Hardware.Keyboard.Type(value);
         }
     }
 }

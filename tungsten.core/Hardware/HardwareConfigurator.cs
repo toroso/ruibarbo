@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tungsten.core.Input
+namespace tungsten.core.Hardware
 {
     public class HardwareConfigurator
     {

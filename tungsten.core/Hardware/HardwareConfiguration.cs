@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace tungsten.core.Input
+namespace tungsten.core.Hardware
 {
     public class HardwareConfiguration
     {

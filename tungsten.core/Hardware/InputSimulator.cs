@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace tungsten.core.Input
+namespace tungsten.core.Hardware
 {
     internal static class InputSimulator
     {

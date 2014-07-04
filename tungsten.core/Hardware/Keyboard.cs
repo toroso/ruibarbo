@@ -3,7 +3,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 
-namespace tungsten.core.Input
+namespace tungsten.core.Hardware
 {
     public static class Keyboard
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using tungsten.core.Input;
+using tungsten.core.Hardware;
 using tungsten.core.Search;
 using tungsten.core.Utils;
 

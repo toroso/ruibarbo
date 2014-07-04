@@ -1,5 +1,5 @@
 using System;
-using tungsten.core.Input;
+using tungsten.core.Hardware;
 using tungsten.core.Search;
 
 namespace tungsten.core.Wpf.Base
