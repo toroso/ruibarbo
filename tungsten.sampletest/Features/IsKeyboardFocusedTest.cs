@@ -19,5 +19,23 @@ namespace tungsten.sampletest.Features
             inputTextBox.Click();
             inputTextBox.AssertThat(x => x.IsKeyboardFocused(), Is.True);
         }
+
+        [Test]
+        public void RadioButtonsKeyboardFocus()
+        {
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var stuffControl = tab1.StuffControl;
+            var disableSubmit = stuffControl.DisabledSubmitRadioButton;
+            var enableSubmit = stuffControl.EnabledSubmitRadioButton;
+            disableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.False);
+            enableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.False);
+            disableSubmit.Click();
+            disableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.True);
+            enableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.False);
+            enableSubmit.Click();
+            disableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.False);
+            enableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.True);
+        }
     }
 }
