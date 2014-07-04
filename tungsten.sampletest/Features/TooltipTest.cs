@@ -20,7 +20,7 @@ namespace tungsten.sampletest.Features
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(by => by.FirstTextBlockText("No error"));
             item.OpenAndClick();
             var errorTextBlock = stuffControl.ErrorTextBlock;
-            var tooltip = errorTextBlock.TryFindTooltip<WpfTooltip>();
+            var tooltip = errorTextBlock.Tooltip<WpfTooltip>();
             tooltip.AssertThat(x => x.IsVisible, Is.False);
             // TODO: Some content stuff
         }
