@@ -37,5 +37,23 @@ namespace tungsten.sampletest.Features
             disableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.False);
             enableSubmit.AssertThat(x => x.IsKeyboardFocused(), Is.True);
         }
+
+        [Test]
+        public void ChangeTab()
+        {
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var stuffControl = tab1.StuffControl;
+            var inputTextBox = stuffControl.InputTextBox;
+            inputTextBox.Click();
+            inputTextBox.AssertThat(x => x.IsKeyboardFocused(), Is.True);
+
+            var tab2 = MainWindow.MainTabControl.Tab2;
+            tab2.Click();
+            inputTextBox.AssertThat(x => x.IsKeyboardFocused(), Is.False);
+
+            tab1.Click();
+            tab1.ShowStuffCheckBox.AssertThat(x => x.IsKeyboardFocused(), Is.True); // Because it has TabIndex=1 within Tab1
+        }
     }
 }
