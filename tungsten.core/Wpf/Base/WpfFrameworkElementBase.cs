@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using tungsten.core.Hardware;
 using tungsten.core.Search;
 using tungsten.core.Utils;
@@ -9,7 +8,7 @@ using tungsten.core.Utils;
 namespace tungsten.core.Wpf.Base
 {
     public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable
-        where TNativeElement : FrameworkElement
+        where TNativeElement : System.Windows.FrameworkElement
     {
         private readonly ISearchSourceElement _searchParent;
         private readonly WeakReference<TNativeElement> _frameworkElement;
@@ -91,7 +90,18 @@ namespace tungsten.core.Wpf.Base
         private IEnumerable<TTooltipElement> AllTooltips<TTooltipElement>()
             where TTooltipElement : class, ISearchSourceElement
         {
-            var tooltip = Invoker.Get(this, frameworkElement => frameworkElement.ToolTip);
+            var tooltip = Invoker.Get(this, frameworkElement =>
+                {
+                    var toolTip = frameworkElement.ToolTip;
+                    var asToolTip = toolTip as System.Windows.Controls.ToolTip;
+                    if (asToolTip != null)
+                    {
+                        return asToolTip;
+                    }
+
+                    // TODO: This can happen. When? What to do?
+                    return null;
+                });
             if (tooltip == null)
             {
                 return new TTooltipElement[] { };
@@ -116,32 +126,32 @@ namespace tungsten.core.Wpf.Base
 
     public static class WpfElementExtensions
     {
-        public static Rect BoundsOnScreen<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
-            where TFrameworkElement : FrameworkElement
+        public static System.Windows.Rect BoundsOnScreen<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
+            where TFrameworkElement : System.Windows.FrameworkElement
         {
             return Invoker.Get(me, frameworkElement =>
                 {
-                    var locationFromScreen = frameworkElement.PointToScreen(new Point(0.0, 0.0));
+                    var locationFromScreen = frameworkElement.PointToScreen(new System.Windows.Point(0.0, 0.0));
                     var width = frameworkElement.ActualWidth;
                     var height = frameworkElement.ActualHeight;
-                    return new Rect(locationFromScreen.X, locationFromScreen.Y, width, height);
+                    return new System.Windows.Rect(locationFromScreen.X, locationFromScreen.Y, width, height);
                 });
         }
 
         public static bool IsHitTestVisible<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
-            where TFrameworkElement : FrameworkElement
+            where TFrameworkElement : System.Windows.FrameworkElement
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsHitTestVisible);
         }
 
         public static bool IsKeyboardFocused<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
-            where TFrameworkElement : FrameworkElement
+            where TFrameworkElement : System.Windows.FrameworkElement
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsKeyboardFocused);
         }
 
         public static void BringIntoView<TNativeElement>(this WpfFrameworkElementBase<TNativeElement> me)
-            where TNativeElement : FrameworkElement
+            where TNativeElement : System.Windows.FrameworkElement
         {
             Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
         }

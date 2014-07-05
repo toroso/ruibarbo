@@ -23,7 +23,11 @@
         <ComboBox x:Name="CmbShowError" MaxDropDownHeight="82" ItemsSource="{Binding ComboBoxItems}" SelectedItem="{Binding SelectedComboBoxItem}" />
         <TextBlock x:Name="TxbError" Text="Naughty frog!" Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock.ToolTip>
-                <ToolTip Content="It's sad that something bad went very wrong."/>
+                <ToolTip>
+                    <Border Background="MistyRose" BorderBrush="DarkRed" BorderThickness="2">
+                        <TextBlock x:Name="TxbToolTip" Text="It's sad that something bad went very wrong."/>
+                    </Border>
+                </ToolTip>
             </TextBlock.ToolTip>
         </TextBlock>
         <Button x:Name="BtnSubmit" Content="Clicking click" IsEnabled="{Binding IsChecked, ElementName=Option2}" Click="BtnSubmit_OnClick" />
