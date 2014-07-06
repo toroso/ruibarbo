@@ -7,7 +7,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
 {
-    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable
+    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable, IClickable
         where TNativeElement : System.Windows.FrameworkElement
     {
         private readonly ISearchSourceElement _searchParent;
@@ -69,11 +69,18 @@ namespace tungsten.core.Wpf.Base
         public virtual void Click()
         {
             this.BringIntoView();
+            Mouse.Click(this);
+        }
 
-            var bounds = this.BoundsOnScreen();
-            var centerX = (int)(bounds.X + bounds.Width / 2);
-            var centerY = (int)(bounds.Y + bounds.Height / 2);
-            Mouse.Click(centerX, centerY);
+        public MousePoint ClickablePoint
+        {
+            get
+            {
+                var bounds = this.BoundsOnScreen();
+                var centerX = (int)(bounds.X + bounds.Width / 2);
+                var centerY = (int)(bounds.Y + bounds.Height / 2);
+                return new MousePoint(centerX, centerY);
+            }
         }
 
         public void FoundBy(IEnumerable<By> bys)
@@ -90,9 +97,9 @@ namespace tungsten.core.Wpf.Base
         private IEnumerable<TTooltipElement> AllTooltips<TTooltipElement>()
             where TTooltipElement : class, ISearchSourceElement
         {
-            var tooltip = Invoker.Get(this, frameworkElement =>
+            System.Windows.Controls.ToolTip tooltip = Invoker.Get(this, frameworkElement =>
                 {
-                    var toolTip = frameworkElement.ToolTip;
+                    object toolTip = frameworkElement.ToolTip;
                     var asToolTip = toolTip as System.Windows.Controls.ToolTip;
                     if (asToolTip != null)
                     {
@@ -109,6 +116,25 @@ namespace tungsten.core.Wpf.Base
 
             return ElementFactory.ElementFactory.CreateElements(this, tooltip)
                 .OfType<TTooltipElement>();
+        }
+
+        // I would have liked a method that always returns the visual tree of the ToolTip. However, there seems to be no way of
+        // getting hold on it when the ToolTip is specified as a string. The visual is created on the fly (after the ToolTipOpening
+        // event has fired) and is opened in a Popup window that has no relation to the FrameworkElement. This seems to be the only
+        // way, to have two separate methods for the two scenarios...
+        public string TooltipAsString()
+        {
+            return Invoker.Get(this, frameworkElement =>
+                {
+                    var toolTip = frameworkElement.ToolTip;
+                    var asString = toolTip as string;
+                    if (asString != null)
+                    {
+                        return asString;
+                    }
+
+                    return null;
+                });
         }
 
 

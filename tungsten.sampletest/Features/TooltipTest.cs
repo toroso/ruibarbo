@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Diagnostics;
+using NUnit.Framework;
+using tungsten.core;
+using tungsten.core.Hardware;
 using tungsten.core.Search;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
@@ -12,7 +16,7 @@ namespace tungsten.sampletest.Features
     public class TooltipTest : TestBase
     {
         [Test]
-        public void CheckNonVisibleTooltip()
+        public void CheckTooltipSpecifiedInXaml()
         {
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
@@ -25,6 +29,18 @@ namespace tungsten.sampletest.Features
             tooltip.AssertThat(x => x.IsVisible, Is.False);
             var text = tooltip.FindFirstChild<WpfTextBlock>(By.Name("TxbToolTip"));
             text.AssertThat(x => x.Text(), Is.EqualTo("It's sad that something bad went very wrong."));
+            errorTextBlock.AssertThat(x => x.TooltipAsString(), Is.Null);
+        }
+
+        [Test]
+        public void CheckTooltipSpecifiedAsString()
+        {
+            var tab1 = MainWindow.MainTabControl.Tab1;
+            tab1.Click();
+            var stuffControl = tab1.StuffControl;
+            var submitButton = stuffControl.SubmitButton;
+            submitButton.AssertThat(x => x.Tooltip<WpfTooltip>(), Is.Null);
+            submitButton.AssertThat(x => x.TooltipAsString(), Is.EqualTo("Opens MessageBox"));
         }
     }
 }

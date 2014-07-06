@@ -5,6 +5,12 @@ namespace tungsten.core.Hardware
 {
     public static class Mouse
     {
+        public static void Click(IClickable clickable)
+        {
+            var point = clickable.ClickablePoint;
+            Click(point.X, point.Y);
+        }
+
         public static void Click(int x, int y)
         {
             // TODO: Use HardwareConfiguration.MouseDurationOfMove
@@ -23,7 +29,13 @@ namespace tungsten.core.Hardware
             }
         }
 
-        private static void MoveCursor(int x, int y)
+        public static void MoveCursor(IClickable clickable)
+        {
+            var point = clickable.ClickablePoint;
+            MoveCursor(point.X, point.Y);
+        }
+
+        public static void MoveCursor(int x, int y)
         {
             InputSimulator.SetCursorPos(x, y);
         }
@@ -41,6 +53,23 @@ namespace tungsten.core.Hardware
             {
                 throw ManglaException.HardwareFailure(Marshal.GetLastWin32Error());
             }
+        }
+    }
+
+    public interface IClickable
+    {
+        MousePoint ClickablePoint { get; }
+    }
+
+    public class MousePoint
+    {
+        public int X { get; private set; }
+        public int Y { get; private set; }
+
+        public MousePoint(int x, int y)
+        {
+            Y = y;
+            X = x;
         }
     }
 }

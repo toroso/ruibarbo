@@ -30,6 +30,23 @@
                 </ToolTip>
             </TextBlock.ToolTip>
         </TextBlock>
-        <Button x:Name="BtnSubmit" Content="Clicking click" IsEnabled="{Binding IsChecked, ElementName=Option2}" Click="BtnSubmit_OnClick" />
+        <Button x:Name="BtnSubmit" Content="Clicking click" IsEnabled="{Binding IsChecked, ElementName=Option2}" Click="BtnSubmit_OnClick" ToolTip="Opens MessageBox">
+            <Button.Resources>
+                <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="HasDropShadow" Value="True" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ToolTip}">
+                                <StackPanel Background="Wheat" Height="200" Width="200">
+                                    <TextBlock x:Name="TxbTitle" FontSize="24" Text="ToolTip" Background="BurlyWood" />
+                                    <ContentPresenter />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
     </StackPanel>
 </UserControl>

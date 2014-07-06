@@ -22,11 +22,7 @@ namespace tungsten.core.Wpf.Base
             this.BringIntoView();
             System.Threading.Thread.Sleep(20); // Takes a while for ComboBoxes to open and scroll... TODO: Configurable timespan.
             // Better TODO: Wait until it is in view. How?
-
-            var bounds = this.BoundsOnScreen();
-            var centerX = (int)(bounds.X + bounds.Width / 2);
-            var centerY = (int)(bounds.Y + bounds.Height / 2);
-            Mouse.Click(centerX, centerY);
+            Mouse.Click(this);
         }
     }
 
