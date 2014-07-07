@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using NUnit.Framework;
-using tungsten.core;
-using tungsten.core.Hardware;
+﻿using NUnit.Framework;
 using tungsten.core.Search;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
