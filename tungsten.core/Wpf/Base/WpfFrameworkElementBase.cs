@@ -122,6 +122,10 @@ namespace tungsten.core.Wpf.Base
         // getting hold on it when the ToolTip is specified as a string. The visual is created on the fly (after the ToolTipOpening
         // event has fired) and is opened in a Popup window that has no relation to the FrameworkElement. This seems to be the only
         // way, to have two separate methods for the two scenarios...
+        //
+        // One possibility, based on http://stackoverflow.com/a/24596864/617658:
+        // Create a ShowTooltip_T() method that places the mouse over the FrameworkElement. Then set an attach property on the ToolTip
+        // style (a uniqe value such as timestamp) and extract the visuals from the attached property callback.
         public string TooltipAsString()
         {
             return Invoker.Get(this, frameworkElement =>
