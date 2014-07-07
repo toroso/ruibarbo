@@ -1,4 +1,4 @@
-using System.Windows.Input;
+using System;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
@@ -14,7 +14,7 @@ namespace tungsten.core.Wpf.Base
         public void ClickAndSelectAll()
         {
             Click();
-            Hardware.Keyboard.TypeShortcut(Key.LeftCtrl, Key.A);
+            TypeShortcut(System.Windows.Input.Key.LeftCtrl, System.Windows.Input.Key.A);
         }
 
         public string Text
@@ -24,17 +24,28 @@ namespace tungsten.core.Wpf.Base
 
         public void Type(string value)
         {
-            if (!this.IsKeyboardFocused())
+            VerifyIsKeyboardFocused();
+            Hardware.Keyboard.Type(value);
+        }
+
+        private void TypeShortcut(params System.Windows.Input.Key[] keys)
+        {
+            VerifyIsKeyboardFocused();
+            Hardware.Keyboard.TypeShortcut(keys);
+        }
+
+        private void VerifyIsKeyboardFocused()
+        {
+            var isKeyboardFocused = Wait.Until(this.IsKeyboardFocused, TimeSpan.FromSeconds(5));
+            if (!isKeyboardFocused)
             {
-                var focusedElement = Invoker.Get(() => Keyboard.FocusedElement);
+                var focusedElement = Invoker.Get(() => System.Windows.Input.Keyboard.FocusedElement);
                 var focusedElementAsString = focusedElement != null
                     ? new DefaultControlToStringCreator().ControlToString(focusedElement)
                     : "<null>";
                 string info = string.Format("Focused element is {0}", focusedElementAsString);
                 throw ManglaException.StateFailed(this, x => x.IsKeyboardFocused(), info);
             }
-
-            Hardware.Keyboard.Type(value);
         }
     }
 }
