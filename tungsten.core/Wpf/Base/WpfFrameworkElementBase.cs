@@ -185,6 +185,31 @@ namespace tungsten.core.Wpf.Base
             where TNativeElement : System.Windows.FrameworkElement
         {
             Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
+            bool isInView = Wait.Until(me.IsInView, TimeSpan.FromSeconds(5));
+            if (!isInView)
+            {
+                throw ManglaException.StateFailed(me, x => x.IsInView());
+            }
+        }
+
+        public static bool IsInView<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
+            where TFrameworkElement : System.Windows.FrameworkElement
+        {
+            return Invoker.Get(me, element =>
+                {
+                    var container = System.Windows.Media.VisualTreeHelper.GetParent(element) as System.Windows.FrameworkElement;
+                    if (container == null)
+                    {
+                        // Not really sure about this...
+                        return true;
+                    }
+
+                    var bounds = element
+                        .TransformToAncestor(container)
+                        .TransformBounds(new System.Windows.Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
+                    var rect = new System.Windows.Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
+                    return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
+                });
         }
     }
 }
