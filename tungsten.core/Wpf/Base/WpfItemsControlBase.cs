@@ -97,7 +97,8 @@ namespace tungsten.core.Wpf.Base
             IEnumerable<object> nativeItems = NativeItems;
             return nativeItems
                 .SelectMany(item => ElementFactory.ElementFactory.CreateElements(this, item))
-                .OfType<TWpfItem>();
+                .OfType<TWpfItem>()
+                .Where(item => item.GetType() == typeof(TWpfItem));
         }
 
         private IEnumerable<object> NativeItems

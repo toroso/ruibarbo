@@ -31,7 +31,9 @@ namespace tungsten.core.Wpf.Base
                         : frameworkElement.ItemContainerGenerator.ContainerFromItem(selectedItem);
                 });
             return nativeElement != null
-                ? ElementFactory.ElementFactory.CreateElements(this, nativeElement).OfType<TWpfItem>().First()
+                ? ElementFactory.ElementFactory.CreateElements(this, nativeElement)
+                    .OfType<TWpfItem>()
+                    .First(item => item.GetType() == typeof(TWpfItem))
                 : null;
         }
 

@@ -115,7 +115,8 @@ namespace tungsten.core.Wpf.Base
             }
 
             return ElementFactory.ElementFactory.CreateElements(this, tooltip)
-                .OfType<TTooltipElement>();
+                .OfType<TTooltipElement>()
+                .Where(e => e.GetType() == typeof(TTooltipElement));
         }
 
         // I would have liked a method that always returns the visual tree of the ToolTip. However, there seems to be no way of
