@@ -185,7 +185,7 @@ namespace tungsten.core.Wpf.Base
             where TNativeElement : System.Windows.FrameworkElement
         {
             Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
-            bool isInView = Wait.Until(me.IsInView, TimeSpan.FromSeconds(5));
+            bool isInView = Wait.Until(me.IsInView);
             if (!isInView)
             {
                 throw ManglaException.StateFailed(me, x => x.IsInView());

@@ -66,5 +66,13 @@ namespace tungsten.core.Hardware
             get { return Instance._screenshotOnFailedAssertion; }
             set { Instance._screenshotOnFailedAssertion = value; }
         }
+
+        private TimeSpan _maxRetryTime;
+
+        public static TimeSpan MaxRetryTime
+        {
+            get { return Instance._maxRetryTime; }
+            set { Instance._maxRetryTime = value; }
+        }
     }
 }

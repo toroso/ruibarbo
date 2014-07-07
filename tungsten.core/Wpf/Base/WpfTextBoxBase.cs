@@ -36,7 +36,7 @@ namespace tungsten.core.Wpf.Base
 
         private void VerifyIsKeyboardFocused()
         {
-            var isKeyboardFocused = Wait.Until(this.IsKeyboardFocused, TimeSpan.FromSeconds(5));
+            var isKeyboardFocused = Wait.Until(this.IsKeyboardFocused);
             if (!isKeyboardFocused)
             {
                 var focusedElement = Invoker.Get(() => System.Windows.Input.Keyboard.FocusedElement);

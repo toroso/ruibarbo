@@ -15,21 +15,10 @@ namespace tungsten.nunit
                 IResolveConstraint resolveConstraint)
             where TWpfElement : ISearchSourceElement
         {
-            // TODO: Take default retryTime from config. Share with Core or its own?
-            me.AssertThat(actualExp, resolveConstraint, TimeSpan.FromSeconds(5));
-        }
-
-        public static void AssertThat<TWpfElement>(
-                this TWpfElement me,
-                Expression<Func<TWpfElement, object>> actualExp,
-                IResolveConstraint resolveConstraint,
-                TimeSpan maxRetryTime)
-            where TWpfElement : ISearchSourceElement
-        {
             Constraint constraint = resolveConstraint.Resolve();
             var extractFunc = actualExp.Compile();
 
-            var found = Wait.Until(() => constraint.Matches(extractFunc(me)), maxRetryTime);
+            var found = Wait.Until(() => constraint.Matches(extractFunc(me)));
             if (!found)
             {
                 MessageWriter writer = new TextMessageWriter(null, null);

@@ -35,9 +35,11 @@ namespace tungsten.core.Wpf.Base
         public override void Click()
         {
             base.Click();
-
-            // It takes a while for a TabItem to be selected
-            Wait.Until(this.IsSelected, TimeSpan.FromSeconds(5));
+            bool isSelected = Wait.Until(this.IsSelected);
+            if (!isSelected)
+            {
+                throw ManglaException.StateFailed(this, x => x.IsSelected());
+            }
         }
     }
 

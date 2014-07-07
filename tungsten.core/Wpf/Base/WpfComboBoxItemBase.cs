@@ -28,7 +28,7 @@ namespace tungsten.core.Wpf.Base
             var itemsContainer = me.FindFirstAncestor<WpfComboBox>();
             itemsContainer.Open();
 
-            bool isVisible = Wait.Until(() => me.IsVisible, TimeSpan.FromSeconds(5));
+            bool isVisible = Wait.Until(() => me.IsVisible);
             if (!isVisible)
             {
                 throw ManglaException.StateFailed(me, x => x.IsVisible);

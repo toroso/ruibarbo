@@ -25,7 +25,7 @@ namespace tungsten.core.Search
             // TODO: Control output verbosity in configuration
             var bysWithClass = bys.AppendByClass<TElement>().ToArray();
             //Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
-            var found = parent.TryRepeatedlyToFindFirstChild<TElement>(TimeSpan.FromSeconds(5), bys);
+            var found = parent.TryRepeatedlyToFindFirstChild<TElement>(bys);
             if (found == null)
             {
                 var controlToStringCreator = new ByControlToStringCreator<TElement>(bys.RemoveByName().ToArray());
@@ -35,43 +35,10 @@ namespace tungsten.core.Search
             return found;
         }
 
-        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime)
+        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
-            return parent.TryRepeatedlyToFindFirstChild<TElement>(maxRetryTime, By.Empty);
-        }
-
-        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime, params Func<IByBuilder<TElement>, By>[] byBuilders)
-            where TElement : class, ISearchSourceElement
-        {
-            return parent.TryRepeatedlyToFindFirstChild<TElement>(maxRetryTime, byBuilders.Build());
-        }
-
-        public static TElement TryRepeatedlyToFindFirstChild<TElement>(this ISearchSourceElement parent, TimeSpan maxRetryTime, params By[] bys)
-            where TElement : class, ISearchSourceElement
-        {
-            TElement found = null;
-            Wait.Until(
-                () =>
-                    {
-                        found = parent.TryOnceToFindFirstChild<TElement>(bys);
-                        return found != null;
-                    },
-                maxRetryTime);
-
-            return found;
-        }
-
-        public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent)
-            where TElement : class, ISearchSourceElement
-        {
-            return parent.TryOnceToFindFirstChild<TElement>(By.Empty);
-        }
-
-        public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent, params Func<IByBuilder<TElement>, By>[] byBuilders)
-            where TElement : class, ISearchSourceElement
-        {
-            return parent.TryOnceToFindFirstChild<TElement>(byBuilders.Build());
+            return Wait.UntilNotNull(() => parent.TryOnceToFindFirstChild<TElement>(bys));
         }
 
         public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)

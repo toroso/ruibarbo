@@ -5,6 +5,15 @@ namespace tungsten.core.Hardware
     public class HardwareConfigurator
     {
         /// <summary>
+        /// How long should we wait for a condition to become true? This duration is used when finding elements and when waiting
+        /// for a state to become true, both internally and in explicitly stated assertions.
+        /// </summary>
+        public TimeSpan MaxRetryTime
+        {
+            set { HardwareConfiguration.MaxRetryTime = value; }
+        }
+
+        /// <summary>
         /// When typing on the keyboard, how long should the delay be between each key press?
         /// The only reason for setting this to non-zero value is for demonstration: you will see what
         /// is typed on the keyboard.
