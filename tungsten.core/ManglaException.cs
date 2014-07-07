@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
-using System.Windows;
 using tungsten.core.Hardware;
 using tungsten.core.Search;
 using tungsten.core.Utils;
-using tungsten.core.Wpf.Base;
 
 namespace tungsten.core
 {
@@ -62,17 +61,28 @@ namespace tungsten.core
             return new ManglaException(message, screenCapture);
         }
 
-        internal static ManglaException NotVisible(ISearchSourceElement element)
+        internal static ManglaException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp)
+            where TElement : ISearchSourceElement
         {
-            // TODO: What if element does not have a name? What to show?
-            Uri screenCapture = Screen.CaptureToFile("NotVisible");
-            var message = string.Format("Element is not visible: {0}; path {1}",
+            return StateFailed(element, predicateExp, null);
+        }
+
+        internal static ManglaException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp, string info)
+            where TElement : ISearchSourceElement
+        {
+            Uri screenCapture = Screen.CaptureToFile("StateFailed");
+            var infoRow = !string.IsNullOrEmpty(info)
+                ? "\n  Info:     " + info
+                : string.Empty;
+            var message = string.Format("State is other than expected\n  Expr:     {0}\n  Control:  {1}\n  Path:     {2}{3}",
+                predicateExp,
                 element.ControlIdentifier(),
-                element.ElementSearchPath());
+                element.ElementSearchPath(),
+                infoRow);
             return new ManglaException(message, screenCapture);
         }
 
-        public static ManglaException NoLongerAvailable(ISearchSourceElement element)
+        internal static ManglaException NoLongerAvailable(ISearchSourceElement element)
         {
             Uri screenCapture = Screen.CaptureToFile("NoLongerAvailable");
             var message = string.Format("Element is no longer available: {0}", element.ElementSearchPath());
@@ -80,34 +90,13 @@ namespace tungsten.core
             return new ManglaException(message, screenCapture);
         }
 
-        public static ManglaException HardwareFailure(int win32Error)
+        internal static ManglaException HardwareFailure(int win32Error)
         {
             Uri screenCapture = Screen.CaptureToFile("HardwareFailure");
             return new ManglaException(
                 "Some simulated input commands were not sent successfully.",
                 new Win32Exception(win32Error),
                 screenCapture);
-        }
-
-        public static ManglaException NotOpen<TNativeElement>(WpfComboBoxBase<TNativeElement> comboBox)
-            where TNativeElement : System.Windows.Controls.ComboBox
-        {
-            Uri screenCapture = Screen.CaptureToFile("NotOpen");
-            var message = string.Format("ComboBox is not open: {0}", comboBox.ControlIdentifier());
-            return new ManglaException(message, screenCapture);
-        }
-
-        public static Exception NotFocused(ISearchSourceElement me, IInputElement focusedElement)
-        {
-            Uri screenCapture = Screen.CaptureToFile("NotFocused");
-            var meAsString = me.ControlIdentifier();
-            var focusedElementAsString = focusedElement != null
-                ? new DefaultControlToStringCreator().ControlToString(focusedElement)
-                : "<null>";
-            var message = string.Format("Can't type into control since it does not have keyboard focus. Control: {0}; Focused Element: {1}",
-                meAsString,
-                focusedElementAsString);
-            return new ManglaException(message, screenCapture);
         }
     }
 }

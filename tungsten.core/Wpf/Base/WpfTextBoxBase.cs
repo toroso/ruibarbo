@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -26,7 +27,11 @@ namespace tungsten.core.Wpf.Base
             if (!this.IsKeyboardFocused())
             {
                 var focusedElement = Invoker.Get(() => Keyboard.FocusedElement);
-                throw ManglaException.NotFocused(this, focusedElement);
+                var focusedElementAsString = focusedElement != null
+                    ? new DefaultControlToStringCreator().ControlToString(focusedElement)
+                    : "<null>";
+                string info = string.Format("Focused element is {0}", focusedElementAsString);
+                throw ManglaException.StateFailed(this, x => x.IsKeyboardFocused(), info);
             }
 
             Hardware.Keyboard.Type(value);

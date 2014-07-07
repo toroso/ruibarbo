@@ -97,7 +97,7 @@ namespace tungsten.core.Wpf.Base
                 bool isOpen = Wait.Until(() => IsDropDownOpen, TimeSpan.FromSeconds(5));
                 if (!isOpen)
                 {
-                    throw ManglaException.NotOpen(this);
+                    throw ManglaException.StateFailed(this, x => x.IsDropDownOpen);
                 }
             }
         }
@@ -110,8 +110,7 @@ namespace tungsten.core.Wpf.Base
                 bool isClosed = Wait.Until(() => !IsDropDownOpen, TimeSpan.FromSeconds(5));
                 if (!isClosed)
                 {
-                    // TODO: Make some kind of state failed exception instead.
-                    throw ManglaException.NotOpen(this);
+                    throw ManglaException.StateFailed(this, x => !x.IsDropDownOpen);
                 }
             }
         }

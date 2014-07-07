@@ -40,7 +40,7 @@ namespace tungsten.core.Wpf.Base
             bool isVisible = Wait.Until(() => me.IsVisible, TimeSpan.FromSeconds(5));
             if (!isVisible)
             {
-                throw ManglaException.NotVisible(me);
+                throw ManglaException.StateFailed(me, x => x.IsVisible);
             }
 
             me.Click();
