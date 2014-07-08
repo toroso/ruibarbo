@@ -1,6 +1,5 @@
 ﻿using tungsten.core;
 using tungsten.core.Search;
-using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
 
 namespace tungsten.sampletest.AutomationLayer
@@ -12,13 +11,9 @@ namespace tungsten.sampletest.AutomationLayer
         {
         }
 
-        public WpfListBox MuppetsListBox
+        public MuppetsExpander MuppetsExpander
         {
-            get
-            {
-                var expander = this.FindFirstChild<WpfExpander>(By.Name("ExpMuppets"));
-                return expander.FindFirstChild<WpfListBox>(By.Name("LstMuppets"));
-            }
+            get { return this.FindFirstChild<MuppetsExpander>(By.Name("ExpMuppets")); }
         }
     }
 }
