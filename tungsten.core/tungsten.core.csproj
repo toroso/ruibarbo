@@ -67,11 +67,13 @@
     <Compile Include="Wpf\Base\WpfComboBoxItemBase.cs" />
     <Compile Include="Wpf\Base\WpfContentControlBase.cs" />
     <Compile Include="Wpf\Base\WpfContentPresenterBase.cs" />
+    <Compile Include="Wpf\Base\WpfExpanderBase.cs" />
     <Compile Include="Wpf\Base\WpfListBoxItemBase.cs" />
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
     <Compile Include="Wpf\Base\WpfListBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
     <Compile Include="Wpf\Search\ComboBoxByExtensions.cs" />
+    <Compile Include="Wpf\WpfExpander.cs" />
     <Compile Include="Wpf\WpfItemsControl.cs" />
     <Compile Include="Wpf\WpfListBox.cs" />
     <Compile Include="Wpf\WpfRadioButton.cs" />

@@ -73,21 +73,23 @@
                 </ItemsControl>
             </TabItem>
             <TabItem x:Name="Tab5" Header="Tab 5">
-                <ListBox x:Name="LstMuppets" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="sampleapp:ItemViewModel">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                <Expander x:Name="ExpMuppets" IsExpanded="True" Header="Muppets">
+                    <ListBox x:Name="LstMuppets" ItemsSource="{Binding Items}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="sampleapp:ItemViewModel">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock x:Name="TxbStart" Grid.Column="0" Text="{Binding Start}"/>
-                                <TextBlock x:Name="TxbMuppet" Grid.Column="1" Text="{Binding Muppet}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                    <TextBlock x:Name="TxbStart" Grid.Column="0" Text="{Binding Start}"/>
+                                    <TextBlock x:Name="TxbMuppet" Grid.Column="1" Text="{Binding Muppet}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Expander>
             </TabItem>
         </TabControl>
     </DockPanel>

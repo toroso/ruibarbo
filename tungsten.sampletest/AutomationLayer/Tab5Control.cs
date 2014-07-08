@@ -14,7 +14,11 @@ namespace tungsten.sampletest.AutomationLayer
 
         public WpfListBox MuppetsListBox
         {
-            get { return this.FindFirstChild<WpfListBox>(By.Name("LstMuppets")); }
+            get
+            {
+                var expander = this.FindFirstChild<WpfExpander>(By.Name("ExpMuppets"));
+                return expander.FindFirstChild<WpfListBox>(By.Name("LstMuppets"));
+            }
         }
     }
 }
