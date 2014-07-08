@@ -61,6 +61,7 @@
     <Compile Include="Features\CheckBoxTest.cs" />
     <Compile Include="Features\ComboBoxTest.cs" />
     <Compile Include="BasicTest.cs" />
+    <Compile Include="Features\ExpanderTest.cs" />
     <Compile Include="Features\IsKeyboardFocusedTest.cs" />
     <Compile Include="Features\IsEnabledTest.cs" />
     <Compile Include="Features\ItemsControlTest.cs" />
