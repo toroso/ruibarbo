@@ -1,4 +1,3 @@
-using System;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
