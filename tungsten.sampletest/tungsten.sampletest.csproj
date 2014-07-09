@@ -52,7 +52,8 @@
     <Compile Include="AutomationLayer\MessageBox.cs" />
     <Compile Include="AutomationLayer\MuppetItemsControlItem.cs" />
     <Compile Include="AutomationLayer\MuppetListBoxItem.cs" />
-    <Compile Include="AutomationLayer\MuppetsExpander.cs" />
+    <Compile Include="AutomationLayer\Muppets4Expander.cs" />
+    <Compile Include="AutomationLayer\Muppets5Expander.cs" />
     <Compile Include="AutomationLayer\StuffControl.cs" />
     <Compile Include="AutomationLayer\Tab1Control.cs" />
     <Compile Include="AutomationLayer\Tab23Control.cs" />

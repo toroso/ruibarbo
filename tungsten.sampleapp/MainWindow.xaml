@@ -65,6 +65,7 @@
                                         <ColumnDefinition Width="*" x:Name="TitleColumn" />
                                     </Grid.ColumnDefinitions>
                                     <ToggleButton
+                                            x:Name="ExpanderToggle"
                                             OverridesDefaultStyle="True"
                                             Template="{StaticResource ExpanderToggleButton}"
                                             IsChecked="{Binding IsExpanded, Mode=TwoWay, 

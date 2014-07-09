@@ -11,9 +11,9 @@ namespace tungsten.sampletest.AutomationLayer
         {
         }
 
-        public MuppetsExpander MuppetsExpander
+        public Muppets5Expander Muppets5Expander
         {
-            get { return this.FindFirstChild<MuppetsExpander>(By.Name("ExpMuppets5")); }
+            get { return this.FindFirstChild<Muppets5Expander>(By.Name("ExpMuppets5")); }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
             muppets.AssertThat(x => x.AllItems<MuppetListBoxItem>().Count(), Is.EqualTo(18));
         }
 
@@ -23,7 +23,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
             var muppetItem = muppets.AllItems<MuppetListBoxItem>().ToArray()[14];
             muppetItem.MuppetTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Statler"));
         }
@@ -33,7 +33,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
             muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Null);
         }
 
@@ -42,7 +42,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
             var swedishChef = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
             swedishChef.AssertThat(x => x.IsSelected(), Is.False);
             swedishChef.Click();
@@ -54,7 +54,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
             muppets.AssertThat(x => x.SelectedItem<MuppetListBoxItem>(), Is.Null);
             var swedishChef = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
             swedishChef.Click();
@@ -69,7 +69,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
             muppets.ClickFirst<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
             var swedishChef = muppets.FindFirstItem<MuppetListBoxItem>(by => by.Muppet("Swedish Chef"));
             swedishChef.AssertThat(x => x.IsSelected(), Is.True);
@@ -80,7 +80,7 @@ namespace tungsten.sampletest.Features
         {
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
-            var muppets = tab5.MuppetsExpander.MuppetsListBox;
+            var muppets = tab5.Muppets5Expander.MuppetsListBox;
 
             var lastItem = muppets.AllItems<MuppetListBoxItem>().Last();
             lastItem.AssertThat(x => x.MuppetTextBlock.Text(), Is.EqualTo("Scooter"));

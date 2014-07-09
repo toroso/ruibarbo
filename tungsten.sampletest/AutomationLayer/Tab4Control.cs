@@ -12,9 +12,9 @@ namespace tungsten.sampletest.AutomationLayer
         {
         }
 
-        public WpfItemsControl MuppetsItemsControl
+        public Muppets4Expander Muppets4Expander
         {
-            get { return this.FindFirstChild<WpfItemsControl>(By.Name("Muppets")); }
+            get { return this.FindFirstChild<Muppets4Expander>(By.Name("ExpMuppets4")); }
         }
     }
 }
