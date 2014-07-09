@@ -3,7 +3,7 @@ using tungsten.core.Search;
 
 namespace tungsten.core.Wpf.Base
 {
-    public class WpfTabItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>
+    public class WpfTabItemBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>
         where TNativeElement : System.Windows.Controls.TabItem
     {
         public WpfTabItemBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)

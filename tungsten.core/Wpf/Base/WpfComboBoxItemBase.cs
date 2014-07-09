@@ -2,7 +2,7 @@ using tungsten.core.Search;
 
 namespace tungsten.core.Wpf.Base
 {
-    public class WpfComboBoxItemBase<TNativeElement> : WpfContentControlBase<TNativeElement>, IComboBoxItem
+    public class WpfComboBoxItemBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>, IComboBoxItem
         where TNativeElement : System.Windows.Controls.ComboBoxItem
     {
         public WpfComboBoxItemBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)

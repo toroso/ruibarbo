@@ -65,7 +65,6 @@
     <Compile Include="Wpf\Base\WpfCheckBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfComboBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfComboBoxItemBase.cs" />
-    <Compile Include="Wpf\Base\WpfContentControlBase.cs" />
     <Compile Include="Wpf\Base\WpfContentPresenterBase.cs" />
     <Compile Include="Wpf\Base\WpfExpanderBase.cs" />
     <Compile Include="Wpf\Base\WpfListBoxItemBase.cs" />
