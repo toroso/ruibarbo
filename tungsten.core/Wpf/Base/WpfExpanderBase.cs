@@ -1,5 +1,4 @@
-﻿using tungsten.core.Hardware;
-using tungsten.core.Search;
+﻿using tungsten.core.Search;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -11,17 +10,10 @@ namespace tungsten.core.Wpf.Base
         {
         }
 
-        public override void Click()
+        public virtual TElement ExpandButton<TElement>()
+            where TElement : class, ISearchSourceElement
         {
-            var header = Header;
-            header.BringIntoView();
-            Mouse.Click(header);
-        }
-
-        // TODO: Circular dependency
-        public WpfFrameworkElement Header
-        {
-            get { return this.FindFirstChild<WpfFrameworkElement>(By.Name("HeaderSite")); }
+            return this.FindFirstChild<TElement>(By.Name("HeaderSite"));
         }
 
         public bool IsExpanded

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using tungsten.core.Wpf;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 
@@ -31,7 +32,7 @@ namespace tungsten.sampletest.Features
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
             var expander = tab5.MuppetsExpander;
-            expander.Click();
+            expander.ExpandButton<WpfFrameworkElement>().Click();
             expander.AssertThat(x => x.IsExpanded, Is.False);
         }
 
@@ -41,7 +42,7 @@ namespace tungsten.sampletest.Features
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
             var expander = tab5.MuppetsExpander;
-            expander.Click();
+            expander.ExpandButton<WpfFrameworkElement>().Click();
             expander.MuppetsListBox.AssertThat(x => x.IsVisible, Is.False);
         }
     }
