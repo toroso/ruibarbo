@@ -14,6 +14,89 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Rectangle Margin="0,0,0,0" x:Name="Rectangle" Fill="Transparent" />
+                <Path HorizontalAlignment="Center" x:Name="Up_Arrow" VerticalAlignment="Center" Fill="Black" Data="M 0 0 L 4 4 L 8 0 Z" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                            <SkewTransform AngleX="0" AngleY="0" />
+                            <RotateTransform Angle="-90" />
+                            <TranslateTransform X="0" Y="0" />
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path Visibility="Collapsed" HorizontalAlignment="Center" x:Name="Down_Arrow" VerticalAlignment="Center" Fill="Black" Data="M 0 4 L 4 0 L 8 4 Z" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                            <SkewTransform AngleX="0" AngleY="0" />
+                            <RotateTransform Angle="180" />
+                            <TranslateTransform X="0" Y="0" />
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Visibility" Value="Visible" TargetName="Down_Arrow" />
+                    <Setter Property="Visibility" Value="Collapsed" TargetName="Up_Arrow" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" x:Name="TitleRow" />
+                                <RowDefinition Height="*" x:Name="ContentRow" />
+                            </Grid.RowDefinitions>
+                            <Border x:Name="TopOfExpander" Grid.Row="0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" x:Name="ToggleColumn" />
+                                        <ColumnDefinition Width="*" x:Name="TitleColumn" />
+                                    </Grid.ColumnDefinitions>
+                                    <ToggleButton
+                                            OverridesDefaultStyle="True"
+                                            Template="{StaticResource ExpanderToggleButton}"
+                                            IsChecked="{Binding IsExpanded, Mode=TwoWay, 
+                                            RelativeSource={RelativeSource TemplatedParent}}">
+                                        <ToggleButton.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0" />
+                                                <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </ToggleButton.Background>
+                                    </ToggleButton>
+                                    <ContentPresenter
+                                            Grid.Column="1"
+                                            Margin="4"
+                                            ContentSource="Header"
+                                            RecognizesAccessKey="True" />
+                                </Grid>
+                            </Border>
+                            <Border x:Name="ContentOfExpander" Grid.Row="1" Visibility="Collapsed">
+                                <ContentPresenter />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter Property="Visibility" Value="Visible" TargetName="ContentOfExpander" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="DarkGreen" />
+        </Style>
     </Window.Resources>
 
     <DockPanel>
@@ -38,42 +121,49 @@
                 <sampleapp:VirtualTabControl />
             </TabItem>
             <TabItem x:Name="Tab4" Header="Tab 4">
-                <ItemsControl x:Name="Muppets" ItemsSource="{Binding Items}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="sampleapp:ItemViewModel">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                <Expander x:Name="ExpMuppets4" IsExpanded="True" Style="{StaticResource ExpanderStyle}" Header="My Muppets">
+                    <ItemsControl x:Name="Muppets" ItemsSource="{Binding Items}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="sampleapp:ItemViewModel">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBox x:Name="TxtStart" Grid.Column="0" Text="{Binding Start}"/>
-                                <TextBox x:Name="TxtMuppet" Grid.Column="1" Text="{Binding Muppet}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.Template>
-                        <ControlTemplate>
-                            <ScrollViewer>
-                                <DockPanel>
-                                    <Grid DockPanel.Dock="Top">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="TxtStart" Grid.Column="0" Text="{Binding Start}"/>
+                                    <TextBox x:Name="TxtMuppet" Grid.Column="1" Text="{Binding Muppet}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer>
+                                    <DockPanel>
+                                        <Grid DockPanel.Dock="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                                        <TextBlock x:Name="TxbStart" Grid.Column="0" Text="Start"/>
-                                        <TextBlock x:Name="TxbMuppet" Grid.Column="1" Text="Muppet"/>
-                                    </Grid>
-                                    <ItemsPresenter />
-                                </DockPanel>
-                            </ScrollViewer>
-                        </ControlTemplate>
-                    </ItemsControl.Template>
-                </ItemsControl>
+                                            <TextBlock x:Name="TxbStart" Grid.Column="0" Text="Start"/>
+                                            <TextBlock x:Name="TxbMuppet" Grid.Column="1" Text="Muppet"/>
+                                        </Grid>
+                                        <ItemsPresenter />
+                                    </DockPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                </Expander>
             </TabItem>
             <TabItem x:Name="Tab5" Header="Tab 5">
-                <Expander x:Name="ExpMuppets" IsExpanded="True" Header="Muppets">
+                <Expander x:Name="ExpMuppets5" IsExpanded="True">
+                    <Expander.Header>
+                        <Border BorderThickness="2" CornerRadius="2" BorderBrush="Sienna">
+                            <TextBlock Margin="20,0,20,0">Muppets</TextBlock>
+                        </Border>
+                    </Expander.Header>
                     <ListBox x:Name="LstMuppets" ItemsSource="{Binding Items}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="sampleapp:ItemViewModel">
