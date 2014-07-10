@@ -40,7 +40,11 @@ namespace tungsten.core.Wpf.Base
                     sb.AppendLine(string.Format("   {0}", controlToStringCreator.ControlToString(item)));
                 }
 
-                throw ManglaException.FindFailed("Item", this, bys, sb.ToString());
+                string byAsString = bys
+                    .AppendByClass<TWpfItem>()
+                    .Select(by => by.ToString())
+                    .Join("; ");
+                throw ManglaException.FindFailed("Item", this, byAsString, sb.ToString());
             }
 
             return found;

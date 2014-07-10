@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using tungsten.core.Hardware;
-using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core
@@ -48,7 +46,7 @@ namespace tungsten.core
         {
         }
 
-        internal static ManglaException FindFailed(string soughtRelation, ISearchSourceElement sourceElement, IEnumerable<By> bys, string foundAsString)
+        internal static ManglaException FindFailed(string soughtRelation, ISearchSourceElement sourceElement, string byAsString, string foundAsString)
         {
             // TODO: What if sourceElement does not have a name? What to show?
             Uri screenCapture = Screen.CaptureToFile("FindFailed");
@@ -56,7 +54,7 @@ namespace tungsten.core
                 soughtRelation,
                 sourceElement.ControlIdentifier(),
                 sourceElement.GetType().Name,
-                bys.Select(by => by.ToString()).Join("; "),
+                byAsString,
                 foundAsString);
             return new ManglaException(message, screenCapture);
         }

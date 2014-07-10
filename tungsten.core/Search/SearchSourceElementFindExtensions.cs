@@ -23,13 +23,16 @@ namespace tungsten.core.Search
             where TElement : class, ISearchSourceElement
         {
             // TODO: Control output verbosity in configuration
-            var bysWithClass = bys.AppendByClass<TElement>().ToArray();
             //Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
             var found = parent.TryRepeatedlyToFindFirstChild<TElement>(bys);
             if (found == null)
             {
                 var controlToStringCreator = new ByControlToStringCreator<TElement>(bys.RemoveByName().ToArray());
-                throw ManglaException.FindFailed("child", parent, bysWithClass, parent.ControlTreeAsString(controlToStringCreator, 6));
+                string byAsString = bys
+                    .AppendByClass<TElement>()
+                    .Select(by => by.ToString())
+                    .Join("; ");
+                throw ManglaException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, 6));
             }
 
             return found;
@@ -118,13 +121,16 @@ namespace tungsten.core.Search
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
-            var bysWithClass = bys.AppendByClass<TElement>().ToArray();
             //Console.WriteLine("Find ancestor from {0} by <{1}>", child.GetType().FullName, bysWithClass.Select(by => by.ToString()).Join("; "));
             var found = child.TryOnceToFindFirstAncestor<TElement>(bys);
             if (found == null)
             {
                 var controlToStringCreator = new ByControlToStringCreator<TElement>(bys.RemoveByName().ToArray());
-                throw ManglaException.FindFailed("ancestor", child, bysWithClass, child.ControlAncestorsAsString(controlToStringCreator));
+                string byAsString = bys
+                    .AppendByClass<TElement>()
+                    .Select(by => by.ToString())
+                    .Join("; ");
+                throw ManglaException.FindFailed("ancestor", child, byAsString, child.ControlAncestorsAsString(controlToStringCreator));
             }
 
             return found;
