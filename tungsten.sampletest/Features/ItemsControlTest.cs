@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using tungsten.core.Wpf;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
 

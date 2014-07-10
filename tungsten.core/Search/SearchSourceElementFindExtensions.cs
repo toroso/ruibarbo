@@ -162,13 +162,15 @@ namespace tungsten.core.Search
             }
         }
 
-        private static void UpdateFoundBy<TElement>(this TElement element, By[] bys)
+        private static void UpdateFoundBy<TElement>(this TElement element, IEnumerable<By> bys)
             where TElement : class, ISearchSourceElement
         {
             var asUpdateable = element as IAmFoundByUpdatable;
             if (asUpdateable != null)
             {
-                asUpdateable.FoundBy(bys);
+
+                var bysAsString = bys.AppendByClass(element.Class).Select(by => by.ToString()).Join(", ");
+                asUpdateable.UpdateFoundBy(bysAsString);
             }
         }
     }

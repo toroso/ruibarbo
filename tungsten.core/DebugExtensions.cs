@@ -48,11 +48,8 @@ namespace tungsten.core
         public static string ElementSearchPath(this ISearchSourceElement me)
         {
             return me.ElementPath()
-                .Where(e => e.FoundBys.Any())
-                .Select(e => string.Format("<{0}>",
-                    e.FoundBys
-                        .Select(by => by.ToString())
-                        .Join(", ")))
+                .Where(e => e.FoundBy.Any())
+                .Select(e => string.Format("<{0}>", e.FoundBy))
                 .Join("; ");
         }
 

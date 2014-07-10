@@ -11,13 +11,13 @@ namespace tungsten.core.Win32
     public class Win32Control : ISearchSourceElement, IAmFoundByUpdatable
     {
         private readonly ISearchSourceElement _searchParent;
-        private By[] _bys;
+        private string _foundByAsString;
 
         public Win32Control(ISearchSourceElement searchParent, IntPtr hwnd)
         {
             _searchParent = searchParent;
             Hwnd = hwnd;
-            _bys = new By[] { };
+            _foundByAsString = string.Empty;
         }
 
         internal IntPtr Hwnd { get; private set; }
@@ -45,9 +45,9 @@ namespace tungsten.core.Win32
             get { throw new NotImplementedException(); }
         }
 
-        public IEnumerable<By> FoundBys
+        public string FoundBy
         {
-            get { return _bys; }
+            get { return _foundByAsString; }
         }
 
         public ISearchSourceElement SearchParent
@@ -78,9 +78,9 @@ namespace tungsten.core.Win32
             Mouse.Click(centerX, centerY);
         }
 
-        public void FoundBy(IEnumerable<By> bys)
+        public void UpdateFoundBy(string foundByAsString)
         {
-            _bys = bys.AppendByClass(Class).ToArray();
+            _foundByAsString = foundByAsString;
         }
     }
 

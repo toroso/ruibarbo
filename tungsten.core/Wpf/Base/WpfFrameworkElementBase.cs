@@ -12,13 +12,13 @@ namespace tungsten.core.Wpf.Base
     {
         private readonly ISearchSourceElement _searchParent;
         private readonly WeakReference<TNativeElement> _frameworkElement;
-        private By[] _bys;
+        private string _foundByAsString;
 
         protected WpfFrameworkElementBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
         {
             _searchParent = searchParent;
             _frameworkElement = new WeakReference<TNativeElement>(frameworkElement);
-            _bys = new By[] { };
+            _foundByAsString = string.Empty;
         }
 
         public virtual string Name
@@ -41,9 +41,9 @@ namespace tungsten.core.Wpf.Base
             get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementParent()); }
         }
 
-        public virtual IEnumerable<By> FoundBys
+        public virtual string FoundBy
         {
-            get { return _bys; }
+            get { return _foundByAsString; }
         }
 
         public virtual ISearchSourceElement SearchParent
@@ -83,9 +83,9 @@ namespace tungsten.core.Wpf.Base
             }
         }
 
-        public void FoundBy(IEnumerable<By> bys)
+        public void UpdateFoundBy(string foundByAsString)
         {
-            _bys = bys.AppendByClass(Class).ToArray();
+            _foundByAsString = foundByAsString;
         }
 
         public TTooltipElement Tooltip<TTooltipElement>()

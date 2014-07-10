@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using tungsten.core.Search;
 
 namespace tungsten.core
 {
@@ -29,9 +28,9 @@ namespace tungsten.core
             get { return null; }
         }
 
-        public virtual IEnumerable<By> FoundBys
+        public virtual string FoundBy
         {
-            get { yield break; }
+            get { return string.Empty; }
         }
 
         public virtual ISearchSourceElement SearchParent

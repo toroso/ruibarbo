@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using tungsten.core.Search;
 
 namespace tungsten.core
 {
@@ -30,7 +29,7 @@ namespace tungsten.core
         /// <summary>
         /// Returns the condition that this element was found by.
         /// </summary>
-        IEnumerable<By> FoundBys { get; }
+        string FoundBy { get; }
 
         /// <summary>
         /// Return the element that was used as source when finding this element.
