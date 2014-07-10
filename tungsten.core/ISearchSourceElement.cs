@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace tungsten.core
 {
@@ -45,20 +44,5 @@ namespace tungsten.core
         bool IsVisible { get; }
         bool IsEnabled { get; }
         void Click();
-    }
-
-    public static class SearchSourceElementExtensions
-    {
-        public static IEnumerable<ISearchSourceElement> ElementPath(this ISearchSourceElement me)
-        {
-            if (me.SearchParent != null)
-            {
-                foreach (var ancestor in me.SearchParent.ElementPath())
-                {
-                    yield return ancestor;
-                }
-            }
-            yield return me;
-        }
     }
 }
