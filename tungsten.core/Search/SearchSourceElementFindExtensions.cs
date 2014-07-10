@@ -95,6 +95,14 @@ namespace tungsten.core.Search
             }
         }
 
+        /// <summary>
+        /// Return a list of possible children. The same FrameworkElement might appear several time but wrapped in different WpfElements.
+        /// </summary>
+        private static IEnumerable<ISearchSourceElement> Children(this ISearchSourceElement me)
+        {
+            return me.NativeChildren.SelectMany(nativeObject => ElementFactory.ElementFactory.CreateElements(me, nativeObject));
+        }
+
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child)
             where TElement : class, ISearchSourceElement
         {
@@ -160,6 +168,18 @@ namespace tungsten.core.Search
 
                 current = parents.First(); // All have the same underlying FrameworkElement
             }
+        }
+
+        /// <summary>
+        /// Return a list of possible parents. They all represent the same FrameworkElement, but are wrapped in different
+        /// WpfElements.
+        /// </summary>
+        private static IEnumerable<ISearchSourceElement> Parents(this ISearchSourceElement me)
+        {
+            var nativeParent = me.NativeParent;
+            return nativeParent != null
+                ? ElementFactory.ElementFactory.CreateElements(null, nativeParent)
+                : new ISearchSourceElement[] { };
         }
 
         private static void UpdateFoundBy<TElement>(this TElement element, IEnumerable<By> bys)
