@@ -14,16 +14,16 @@ namespace tungsten.core.Hardware
 
         public static void Click(int x, int y)
         {
-            // TODO: Use HardwareConfiguration.MouseDurationOfMove
+            // TODO: Use Configuration.MouseDurationOfMove
             MoveCursor(x, y);
-            var mouseDelayAfterMove = HardwareConfiguration.MouseDelayAfterMove;
+            var mouseDelayAfterMove = Configuration.MouseDelayAfterMove;
             if (mouseDelayAfterMove > TimeSpan.Zero)
             {
                 System.Threading.Thread.Sleep(mouseDelayAfterMove);
             }
 
             ClickLeftButton();
-            var mouseDelayAfterClick = HardwareConfiguration.MouseDelayAfterClick;
+            var mouseDelayAfterClick = Configuration.MouseDelayAfterClick;
             if (mouseDelayAfterClick > TimeSpan.Zero)
             {
                 System.Threading.Thread.Sleep(mouseDelayAfterClick);

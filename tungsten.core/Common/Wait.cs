@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using tungsten.core.Hardware;
 
 namespace tungsten.core.Common
 {
@@ -8,7 +7,7 @@ namespace tungsten.core.Common
     {
         public static bool Until(Func<bool> predicate)
         {
-            return Until(predicate, HardwareConfiguration.MaxRetryTime);
+            return Until(predicate, Configuration.MaxRetryTime);
         }
 
         public static bool Until(Func<bool> predicate, TimeSpan maxRetryTime)
@@ -31,7 +30,7 @@ namespace tungsten.core.Common
         public static TRet UntilNotNull<TRet>(Func<TRet> func)
             where TRet : class
         {
-            return UntilNotNull(func, HardwareConfiguration.MaxRetryTime);
+            return UntilNotNull(func, Configuration.MaxRetryTime);
         }
 
         public static TRet UntilNotNull<TRet>(Func<TRet> func, TimeSpan maxRetryTime)

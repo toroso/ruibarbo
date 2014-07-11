@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Threading;
 
-namespace tungsten.core.Hardware
+namespace tungsten.core.Common
 {
-    public class HardwareConfiguration
+    public class Configuration
     {
-        private static readonly ThreadLocal<HardwareConfiguration> Instances = new ThreadLocal<HardwareConfiguration>();
+        private static readonly ThreadLocal<Configuration> Instances = new ThreadLocal<Configuration>();
 
-        private static HardwareConfiguration Instance
+        private static Configuration Instance
         {
             get
             {
                 if (!Instances.IsValueCreated)
                 {
-                    Instances.Value = new HardwareConfiguration();
+                    Instances.Value = new Configuration();
                 }
                 return Instances.Value;
             }

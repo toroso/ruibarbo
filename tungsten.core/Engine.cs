@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using tungsten.core.Common;
 using tungsten.core.ElementFactory;
-using tungsten.core.Hardware;
 using tungsten.core.Win32;
 using tungsten.core.Win32.Factory;
 using tungsten.core.Wpf.Base;
@@ -69,9 +69,9 @@ namespace tungsten.core
             cfgAction(new ElementFactoryConfigurator());
         }
 
-        public void ConfigureHardware(Action<HardwareConfigurator> cfgAction)
+        public void ConfigureHardware(Action<Configurator> cfgAction)
         {
-            cfgAction(new HardwareConfigurator());
+            cfgAction(new Configurator());
         }
 
         public void Start(IApplication application)

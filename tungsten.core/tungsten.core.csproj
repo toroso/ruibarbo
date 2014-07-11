@@ -100,8 +100,8 @@
     <Compile Include="Wpf\WpfComboBoxItem.cs" />
     <Compile Include="Wpf\WpfFrameworkElement.cs" />
     <Compile Include="Wpf\WpfTextBox.cs" />
-    <Compile Include="Hardware\HardwareConfiguration.cs" />
-    <Compile Include="Hardware\HardwareConfigurator.cs" />
+    <Compile Include="Common\Configuration.cs" />
+    <Compile Include="Common\Configurator.cs" />
     <Compile Include="Hardware\InputSimulator.cs" />
     <Compile Include="Hardware\Keyboard.cs" />
     <Compile Include="Wpf\Invoker\OnUiThread.cs" />

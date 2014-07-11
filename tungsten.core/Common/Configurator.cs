@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace tungsten.core.Hardware
+namespace tungsten.core.Common
 {
-    public class HardwareConfigurator
+    public class Configurator
     {
         /// <summary>
         /// How long should we wait for a condition to become true? This duration is used when finding elements and when waiting
@@ -10,7 +10,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public TimeSpan MaxRetryTime
         {
-            set { HardwareConfiguration.MaxRetryTime = value; }
+            set { Configuration.MaxRetryTime = value; }
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public TimeSpan KeyboardDelayBetweenKeys
         {
-            set { HardwareConfiguration.KeyboardDelayBetweenKeys = value; }
+            set { Configuration.KeyboardDelayBetweenKeys = value; }
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public TimeSpan KeyboardDelayAfterTyping
         {
-            set { HardwareConfiguration.KeyboardDelayAfterTyping = value; }
+            set { Configuration.KeyboardDelayAfterTyping = value; }
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public TimeSpan MouseDelayAfterMove
         {
-            set { HardwareConfiguration.MouseDelayAfterMove = value; }
+            set { Configuration.MouseDelayAfterMove = value; }
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public TimeSpan MouseDelayAfterClick
         {
-            set { HardwareConfiguration.MouseDelayAfterClick = value; }
+            set { Configuration.MouseDelayAfterClick = value; }
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public TimeSpan MouseDurationOfMove
         {
-            set { HardwareConfiguration.MouseDurationOfMove = value; }
+            set { Configuration.MouseDurationOfMove = value; }
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         public bool ScreenshotOnFailedAssertion
         {
-            set { HardwareConfiguration.ScreenshotOnFailedAssertion = value; }
+            set { Configuration.ScreenshotOnFailedAssertion = value; }
         }
     }
 }

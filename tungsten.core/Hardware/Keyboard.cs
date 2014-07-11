@@ -20,7 +20,7 @@ namespace tungsten.core.Hardware
                 .ToArray();
             SendInput(inputs);
 
-            var keyboardDelayAfterTyping = HardwareConfiguration.KeyboardDelayAfterTyping;
+            var keyboardDelayAfterTyping = Configuration.KeyboardDelayAfterTyping;
             if (keyboardDelayAfterTyping > TimeSpan.Zero)
             {
                 System.Threading.Thread.Sleep(keyboardDelayAfterTyping);

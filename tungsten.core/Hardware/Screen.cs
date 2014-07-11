@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
+using tungsten.core.Common;
 
 namespace tungsten.core.Hardware
 {
@@ -12,7 +13,7 @@ namespace tungsten.core.Hardware
 
         public static Uri CaptureToFile(string description)
         {
-            if (!HardwareConfiguration.ScreenshotOnFailedAssertion)
+            if (!Configuration.ScreenshotOnFailedAssertion)
             {
                 return null;
             }
