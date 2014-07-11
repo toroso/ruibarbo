@@ -1,4 +1,4 @@
-using tungsten.core.Search;
+using tungsten.core.ElementFactory;
 using tungsten.core.Wpf.Base;
 using tungsten.core.Wpf.Factory;
 using tungsten.core.Wpf.Invoker;

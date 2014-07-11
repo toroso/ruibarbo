@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using tungsten.core.Search;
+using tungsten.core.ElementFactory;
 
 namespace tungsten.core
 {

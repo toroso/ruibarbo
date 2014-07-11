@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using tungsten.core;
+using tungsten.core.ElementFactory;
 using tungsten.core.Search;
 using tungsten.core.Win32;
 using tungsten.core.Wpf;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using tungsten.core.ElementFactory;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Search

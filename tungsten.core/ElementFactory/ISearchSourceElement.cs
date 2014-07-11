@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace tungsten.core.Search
+namespace tungsten.core.ElementFactory
 {
     public interface ISearchSourceElement
     {

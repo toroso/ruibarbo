@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using tungsten.core.ElementFactory;
 using tungsten.core.Search;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;

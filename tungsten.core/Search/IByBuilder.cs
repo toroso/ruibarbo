@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using tungsten.core.ElementFactory;
 
 namespace tungsten.core.Search
 {

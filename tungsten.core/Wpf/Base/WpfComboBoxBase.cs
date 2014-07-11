@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls.Primitives;
+using tungsten.core.ElementFactory;
 using tungsten.core.Search;
 using tungsten.core.Wpf.Invoker;
 

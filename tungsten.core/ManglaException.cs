@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
+using tungsten.core.ElementFactory;
 using tungsten.core.Hardware;
-using tungsten.core.Search;
 
 namespace tungsten.core
 {

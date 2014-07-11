@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElementFactory\IElementFactory.cs" />
+    <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
     <Compile Include="Hardware\Screen.cs" />
     <Compile Include="Wpf\Invoker\IHasStrongReference.cs" />
     <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
@@ -114,7 +115,7 @@
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />
-    <Compile Include="Search\ISearchSourceElement.cs" />
+    <Compile Include="ElementFactory\ISearchSourceElement.cs" />
     <Compile Include="Hardware\Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\QueueExtensions.cs" />
@@ -124,7 +125,6 @@
     <Compile Include="Wpf\Base\WpfFrameworkElementBase.cs" />
     <Compile Include="Wait.cs" />
     <Compile Include="DebugExtensions.cs" />
-    <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
     <Compile Include="Wpf\WpfTooltip.cs" />
     <Compile Include="Wpf\WpfWindow.cs" />
   </ItemGroup>

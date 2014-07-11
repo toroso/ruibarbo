@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using tungsten.core.ElementFactory;
 using tungsten.core.Hardware;
 using tungsten.core.Search;
 using tungsten.core.Utils;
