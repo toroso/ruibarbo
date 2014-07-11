@@ -4,6 +4,7 @@ using System.Linq;
 using tungsten.core.Hardware;
 using tungsten.core.Search;
 using tungsten.core.Utils;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -23,22 +24,22 @@ namespace tungsten.core.Wpf.Base
 
         public virtual string Name
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.Name); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Name); }
         }
 
         public virtual string Class
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetType().FullName); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.GetType().FullName); }
         }
 
         public virtual IEnumerable<object> NativeChildren
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.GetFrameworkElementChildren()); }
         }
 
         public virtual object NativeParent
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetFrameworkElementParent()); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.GetFrameworkElementParent()); }
         }
 
         public virtual string FoundBy
@@ -53,17 +54,17 @@ namespace tungsten.core.Wpf.Base
 
         public virtual int InstanceId
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.GetHashCode()); }
         }
 
         public bool IsVisible
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsVisible); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsVisible); }
         }
 
         public bool IsEnabled
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsEnabled); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsEnabled); }
         }
 
         public virtual void Click()
@@ -97,7 +98,7 @@ namespace tungsten.core.Wpf.Base
         private IEnumerable<TTooltipElement> AllTooltips<TTooltipElement>()
             where TTooltipElement : class, ISearchSourceElement
         {
-            System.Windows.Controls.ToolTip tooltip = Invoker.Get(this, frameworkElement =>
+            System.Windows.Controls.ToolTip tooltip = OnUiThread.Get(this, frameworkElement =>
                 {
                     object toolTip = frameworkElement.ToolTip;
                     var asToolTip = toolTip as System.Windows.Controls.ToolTip;
@@ -129,7 +130,7 @@ namespace tungsten.core.Wpf.Base
         // style (a uniqe value such as timestamp) and extract the visuals from the attached property callback.
         public string TooltipAsString()
         {
-            return Invoker.Get(this, frameworkElement =>
+            return OnUiThread.Get(this, frameworkElement =>
                 {
                     var toolTip = frameworkElement.ToolTip;
                     var asString = toolTip as string;
@@ -159,7 +160,7 @@ namespace tungsten.core.Wpf.Base
         public static System.Windows.Rect BoundsOnScreen<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : System.Windows.FrameworkElement
         {
-            return Invoker.Get(me, frameworkElement =>
+            return OnUiThread.Get(me, frameworkElement =>
                 {
                     var locationFromScreen = frameworkElement.PointToScreen(new System.Windows.Point(0.0, 0.0));
                     var width = frameworkElement.ActualWidth;
@@ -171,19 +172,19 @@ namespace tungsten.core.Wpf.Base
         public static bool IsHitTestVisible<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : System.Windows.FrameworkElement
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsHitTestVisible);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsHitTestVisible);
         }
 
         public static bool IsKeyboardFocused<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : System.Windows.FrameworkElement
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsKeyboardFocused);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsKeyboardFocused);
         }
 
         public static void BringIntoView<TNativeElement>(this WpfFrameworkElementBase<TNativeElement> me)
             where TNativeElement : System.Windows.FrameworkElement
         {
-            Invoker.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
+            OnUiThread.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
             bool isInView = Wait.Until(me.IsInView);
             if (!isInView)
             {
@@ -194,7 +195,7 @@ namespace tungsten.core.Wpf.Base
         public static bool IsInView<TFrameworkElement>(this WpfFrameworkElementBase<TFrameworkElement> me)
             where TFrameworkElement : System.Windows.FrameworkElement
         {
-            return Invoker.Get(me, element =>
+            return OnUiThread.Get(me, element =>
                 {
                     var container = System.Windows.Media.VisualTreeHelper.GetParent(element) as System.Windows.FrameworkElement;
                     if (container == null)

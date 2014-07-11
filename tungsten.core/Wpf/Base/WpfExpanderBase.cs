@@ -1,4 +1,5 @@
 ﻿using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -18,7 +19,7 @@ namespace tungsten.core.Wpf.Base
 
         public bool IsExpanded
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsExpanded); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsExpanded); }
         }
     }
 }

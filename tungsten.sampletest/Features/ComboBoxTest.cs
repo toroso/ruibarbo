@@ -4,6 +4,7 @@ using tungsten.core;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
 using tungsten.core.Wpf.Helpers;
+using tungsten.core.Wpf.Invoker;
 using tungsten.core.Wpf.Search;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;
@@ -100,7 +101,7 @@ namespace tungsten.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            var doesNotExist = new WpfComboBoxItem(comboBox, Invoker.Get(() => new System.Windows.Controls.ComboBoxItem()));
+            var doesNotExist = new WpfComboBoxItem(comboBox, OnUiThread.Get(() => new System.Windows.Controls.ComboBoxItem()));
             doesNotExist.AssertThrows(typeof (ManglaException), x => x.OpenAndClick()); // Throws because it has no ComboBox ancestor
         }
 

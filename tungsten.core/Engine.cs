@@ -9,6 +9,7 @@ using tungsten.core.Hardware;
 using tungsten.core.Win32;
 using tungsten.core.Win32.Factory;
 using tungsten.core.Wpf.Base;
+using tungsten.core.Wpf.Invoker;
 using FrameworkElementFactory = tungsten.core.Wpf.Factory.FrameworkElementFactory;
 
 namespace tungsten.core
@@ -107,14 +108,14 @@ namespace tungsten.core
 
             waitHandle.WaitOne();
 
-            Invoker.Create(dispatcher);
+            OnUiThread.Create(dispatcher);
             Desktop = new DesktopElement();
 
             // Ensure resources are working
-            Application.ResourceAssembly = Invoker.Get(() => application.MainAssembly);
-            MergeResources(Invoker.Get(application.Resources.ToArray));
+            Application.ResourceAssembly = OnUiThread.Get(() => application.MainAssembly);
+            MergeResources(OnUiThread.Get(application.Resources.ToArray));
 
-            Invoker.Invoke(application.Start);
+            OnUiThread.Invoke(application.Start);
         }
 
         private static void MergeResources(IEnumerable<Uri> resources)
@@ -127,7 +128,7 @@ namespace tungsten.core
 
         public void ShutDown()
         {
-            Invoker.BeginInvokeShutdown();
+            OnUiThread.BeginInvokeShutdown();
             _uiThread.Join();
         }
 

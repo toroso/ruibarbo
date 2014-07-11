@@ -1,4 +1,5 @@
 ﻿using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -16,7 +17,7 @@ namespace tungsten.core.Wpf.Base
         public static object Content<TNativeElement>(this WpfLabelBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.Label
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.Content);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.Content);
         }
     }
 }

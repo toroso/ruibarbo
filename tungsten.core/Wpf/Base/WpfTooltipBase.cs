@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -15,7 +16,7 @@ namespace tungsten.core.Wpf.Base
         {
             get
             {
-                var root = Invoker.Get(this, frameworkElement => frameworkElement.Content);
+                var root = OnUiThread.Get(this, frameworkElement => frameworkElement.Content);
 
                 if (root != null)
                 {

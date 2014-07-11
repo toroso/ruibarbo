@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="Hardware\Screen.cs" />
-    <Compile Include="IHasStrongReference.cs" />
+    <Compile Include="Wpf\Invoker\IHasStrongReference.cs" />
     <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Hardware\HardwareConfigurator.cs" />
     <Compile Include="Hardware\InputSimulator.cs" />
     <Compile Include="Hardware\Keyboard.cs" />
-    <Compile Include="Invoker.cs" />
+    <Compile Include="Wpf\Invoker\OnUiThread.cs" />
     <Compile Include="Search\By.cs" />
     <Compile Include="DesktopElement.cs" />
     <Compile Include="ElementFactory\ElementFactory.cs" />

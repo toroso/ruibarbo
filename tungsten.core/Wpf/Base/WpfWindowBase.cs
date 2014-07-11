@@ -1,4 +1,5 @@
 using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -13,7 +14,7 @@ namespace tungsten.core.Wpf.Base
 
         private void MakeSureWindowIsTopmost()
         {
-            Invoker.Invoke(this, fe => fe.Activate());
+            OnUiThread.Invoke(this, fe => fe.Activate());
         }
     }
 }

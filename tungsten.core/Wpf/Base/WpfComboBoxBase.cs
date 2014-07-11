@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls.Primitives;
 using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -17,7 +18,7 @@ namespace tungsten.core.Wpf.Base
 
         private void DisableTimeConsumingAnimations()
         {
-            Invoker.Invoke(this, fe =>
+            OnUiThread.Invoke(this, fe =>
                 {
                     var popup = (Popup) fe.Template.FindName("PART_Popup", fe);
                     popup.PopupAnimation = PopupAnimation.None;
@@ -26,7 +27,7 @@ namespace tungsten.core.Wpf.Base
 
         public bool IsDropDownOpen
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.IsDropDownOpen); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsDropDownOpen); }
         }
 
         public override IEnumerable<TWpfItem> AllItems<TWpfItem>()
@@ -39,7 +40,7 @@ namespace tungsten.core.Wpf.Base
         {
             return WithOpenComboBoxDo(() =>
                 {
-                    var nativeElement = Invoker.Get(this, frameworkElement =>
+                    var nativeElement = OnUiThread.Get(this, frameworkElement =>
                         {
                             var selectedItem = frameworkElement.SelectedItem;
                             return selectedItem is System.Windows.FrameworkElement
@@ -123,7 +124,7 @@ namespace tungsten.core.Wpf.Base
         public static bool IsDropDownOpen<TNativeElement>(this WpfComboBoxBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ComboBox
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
         }
     }
 }

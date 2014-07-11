@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using tungsten.core.Search;
 using tungsten.core.Utils;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -76,7 +77,7 @@ namespace tungsten.core.Wpf.Base
         {
             get
             {
-                return Invoker.Get(this, frameworkElement =>
+                return OnUiThread.Get(this, frameworkElement =>
                     frameworkElement.Items
                         .Cast<object>()
                         .Select(item => item is System.Windows.FrameworkElement

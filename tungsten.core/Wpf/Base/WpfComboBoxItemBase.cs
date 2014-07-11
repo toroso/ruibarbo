@@ -1,4 +1,5 @@
 using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -12,7 +13,7 @@ namespace tungsten.core.Wpf.Base
 
         public override object NativeParent
         {
-            get { return Invoker.Get(this, System.Windows.Controls.ItemsControl.ItemsControlFromItemContainer); }
+            get { return OnUiThread.Get(this, System.Windows.Controls.ItemsControl.ItemsControlFromItemContainer); }
         }
     }
 
@@ -41,7 +42,7 @@ namespace tungsten.core.Wpf.Base
         public static bool IsSelected<TNativeElement>(this WpfComboBoxItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ComboBoxItem
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsSelected);
         }
     }
 }

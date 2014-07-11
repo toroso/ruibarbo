@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -17,13 +18,13 @@ namespace tungsten.core.Wpf.Base
         {
             // With virtualization turned on, ListBoxItems are not created until the are visible (scrolled into view). This
             // causes many problems when testing, so here it is swtiched off.
-            Invoker.Invoke(this, fe => fe.SetValue(System.Windows.Controls.VirtualizingPanel.IsVirtualizingProperty, false));
+            OnUiThread.Invoke(this, fe => fe.SetValue(System.Windows.Controls.VirtualizingPanel.IsVirtualizingProperty, false));
         }
 
         public TWpfItem SelectedItem<TWpfItem>()
             where TWpfItem : class, ISearchSourceElement
         {
-            var nativeElement = Invoker.Get(this, frameworkElement =>
+            var nativeElement = OnUiThread.Get(this, frameworkElement =>
                 {
                     var selectedItem = frameworkElement.SelectedItem;
                     return selectedItem is System.Windows.FrameworkElement

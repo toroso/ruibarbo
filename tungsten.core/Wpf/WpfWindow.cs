@@ -1,6 +1,7 @@
 using tungsten.core.Search;
 using tungsten.core.Wpf.Base;
 using tungsten.core.Wpf.Factory;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf
 {
@@ -9,7 +10,7 @@ namespace tungsten.core.Wpf
         public WpfWindow(ISearchSourceElement searchParent, System.Windows.Window frameworkElement)
             : base(searchParent, frameworkElement)
         {
-            Invoker.Invoke(this, fe => fe.Activate());
+            OnUiThread.Invoke(this, fe => fe.Activate());
         }
     }
 }

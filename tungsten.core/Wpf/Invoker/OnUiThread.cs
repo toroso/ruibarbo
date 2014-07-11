@@ -3,27 +3,27 @@ using System.Threading;
 using System.Windows.Threading;
 using tungsten.core.Win32;
 
-namespace tungsten.core
+namespace tungsten.core.Wpf.Invoker
 {
-    public class Invoker
+    public class OnUiThread
     {
-        private static readonly ThreadLocal<Invoker> Instances = new ThreadLocal<Invoker>();
+        private static readonly ThreadLocal<OnUiThread> Instances = new ThreadLocal<OnUiThread>();
 
-        private static Invoker Instance
+        private static OnUiThread Instance
         {
             get { return Instances.Value; }
         }
 
         private readonly Dispatcher _dispatcher;
 
-        private Invoker(Dispatcher dispatcher)
+        private OnUiThread(Dispatcher dispatcher)
         {
             _dispatcher = dispatcher;
         }
 
         internal static void Create(Dispatcher dispatcher)
         {
-            Instances.Value = new Invoker(dispatcher);
+            Instances.Value = new OnUiThread(dispatcher);
         }
 
         public static TRet Get<TRet, TE1>(IHasStrongReference<TE1> e1, Func<TE1, TRet> func)

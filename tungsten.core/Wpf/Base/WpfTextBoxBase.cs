@@ -1,5 +1,6 @@
 using tungsten.core.Search;
 using tungsten.core.Utils;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -19,7 +20,7 @@ namespace tungsten.core.Wpf.Base
 
         public string Text
         {
-            get { return Invoker.Get(this, frameworkElement => frameworkElement.Text); }
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Text); }
         }
 
         public void Type(string value)
@@ -39,7 +40,7 @@ namespace tungsten.core.Wpf.Base
             var isKeyboardFocused = Wait.Until(this.IsKeyboardFocused);
             if (!isKeyboardFocused)
             {
-                var focusedElement = Invoker.Get(() => System.Windows.Input.Keyboard.FocusedElement);
+                var focusedElement = OnUiThread.Get(() => System.Windows.Input.Keyboard.FocusedElement);
                 var focusedElementAsString = focusedElement != null
                     ? new DefaultControlToStringCreator().ControlToString(focusedElement)
                     : "<null>";

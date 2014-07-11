@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -24,7 +25,7 @@ namespace tungsten.core.Wpf.Base
                     //  * Work directly with VisualTreeHelper and FrameworkELements?
                     var owner = this.FindFirstAncestor<WpfTabControl>();
                     var contentPanel = owner.FindFirstChild<WpfFrameworkElement>(By.Name("PART_SelectedContentHost"));
-                    yield return Invoker.Get(contentPanel, frameworkElement => frameworkElement);
+                    yield return OnUiThread.Get(contentPanel, frameworkElement => frameworkElement);
                 }
 
                 foreach (var headerChild in base.NativeChildren)
@@ -51,13 +52,13 @@ namespace tungsten.core.Wpf.Base
         public static object Header<TNativeElement>(this WpfTabItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.TabItem
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.Header);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.Header);
         }
 
         public static bool IsSelected<TNativeElement>(this WpfTabItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.TabItem
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsSelected);
         }
     }
 }

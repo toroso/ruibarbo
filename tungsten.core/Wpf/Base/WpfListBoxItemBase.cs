@@ -1,4 +1,5 @@
 ﻿using tungsten.core.Search;
+using tungsten.core.Wpf.Invoker;
 
 namespace tungsten.core.Wpf.Base
 {
@@ -16,7 +17,7 @@ namespace tungsten.core.Wpf.Base
         public static bool IsSelected<TNativeElement>(this WpfListBoxItemBase<TNativeElement> me)
             where TNativeElement : System.Windows.Controls.ListBoxItem
         {
-            return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
+            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsSelected);
         }
     }
 }

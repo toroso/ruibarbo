@@ -1,4 +1,4 @@
-namespace tungsten.core
+namespace tungsten.core.Wpf.Invoker
 {
     public interface IHasStrongReference<out T>
     {
