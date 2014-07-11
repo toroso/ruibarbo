@@ -49,7 +49,7 @@ namespace tungsten.core.Common
         internal static ManglaException FindFailed(string soughtRelation, ISearchSourceElement sourceElement, string byAsString, string foundAsString)
         {
             // TODO: What if sourceElement does not have a name? What to show?
-            Uri screenCapture = Screen.CaptureToFile("FindFailed");
+            Uri screenCapture = CaptureScreenToFile("FindFailed");
             var message = string.Format("Find {0} failed, from {1} ({2}) by <{3}>. Found:\n{4}",
                 soughtRelation,
                 sourceElement.ControlIdentifier(),
@@ -68,7 +68,7 @@ namespace tungsten.core.Common
         internal static ManglaException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp, string info)
             where TElement : ISearchSourceElement
         {
-            Uri screenCapture = Screen.CaptureToFile("StateFailed");
+            Uri screenCapture = CaptureScreenToFile("StateFailed");
             var infoRow = !string.IsNullOrEmpty(info)
                 ? "\n  Info:     " + info
                 : string.Empty;
@@ -82,7 +82,7 @@ namespace tungsten.core.Common
 
         internal static ManglaException NoLongerAvailable(ISearchSourceElement element)
         {
-            Uri screenCapture = Screen.CaptureToFile("NoLongerAvailable");
+            Uri screenCapture = CaptureScreenToFile("NoLongerAvailable");
             var message = string.Format("Element is no longer available: {0}", element.ElementSearchPath());
 
             return new ManglaException(message, screenCapture);
@@ -90,11 +90,20 @@ namespace tungsten.core.Common
 
         internal static ManglaException HardwareFailure(int win32Error)
         {
-            Uri screenCapture = Screen.CaptureToFile("HardwareFailure");
+            var screenCapture = CaptureScreenToFile("HardwareFailure");
             return new ManglaException(
                 "Some simulated input commands were not sent successfully.",
                 new Win32Exception(win32Error),
                 screenCapture);
+        }
+
+        private static Uri CaptureScreenToFile(string description)
+        {
+            // TODO: Circular dependency since things in Hardward can throw.
+            //  * Inject screen shot - a lot of code
+            //  * Catch/throw and add screen shot outside - a lot of boiler plate and not always possible
+            //  * Use a service locator with abstractions that is populated with concrete instances by Engine
+            return Screen.CaptureToFile(description);
         }
     }
 }
