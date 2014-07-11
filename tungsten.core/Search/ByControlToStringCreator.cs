@@ -1,8 +1,8 @@
 using System.Linq;
 using tungsten.core.ElementFactory;
-using tungsten.core.Search;
+using tungsten.core.Utils;
 
-namespace tungsten.core.Utils
+namespace tungsten.core.Search
 {
     internal class ByControlToStringCreator<TElement> : IControlToStringCreator
         where TElement : class, ISearchSourceElement

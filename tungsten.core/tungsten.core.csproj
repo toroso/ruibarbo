@@ -53,7 +53,7 @@
     <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />
-    <Compile Include="Utils\ByControlToStringCreator.cs" />
+    <Compile Include="Search\ByControlToStringCreator.cs" />
     <Compile Include="Utils\DefaultControlToStringCreator.cs" />
     <Compile Include="Utils\ExpressionMerger.cs" />
     <Compile Include="Utils\IControlToStringCreator.cs" />
