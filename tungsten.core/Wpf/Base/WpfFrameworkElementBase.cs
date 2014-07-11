@@ -7,7 +7,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base
 {
-    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable, IClickable
+    public abstract class WpfFrameworkElementBase<TNativeElement> : ISearchSourceElement, IAmFoundByUpdatable, IHasStrongReference<TNativeElement>, IClickable
         where TNativeElement : System.Windows.FrameworkElement
     {
         private readonly ISearchSourceElement _searchParent;
@@ -142,8 +142,7 @@ namespace tungsten.core.Wpf.Base
                 });
         }
 
-
-        internal TNativeElement GetStrongReference()
+        public TNativeElement GetStrongReference()
         {
             TNativeElement strongReference;
             if (_frameworkElement.TryGetTarget(out strongReference))

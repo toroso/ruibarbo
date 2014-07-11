@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="Hardware\Screen.cs" />
+    <Compile Include="IHasStrongReference.cs" />
     <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />

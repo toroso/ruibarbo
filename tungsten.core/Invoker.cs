@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading;
-using System.Windows;
 using System.Windows.Threading;
 using tungsten.core.Win32;
-using tungsten.core.Wpf.Base;
 
 namespace tungsten.core
 {
@@ -28,16 +26,13 @@ namespace tungsten.core
             Instances.Value = new Invoker(dispatcher);
         }
 
-        public static TRet Get<TRet, TE1>(WpfFrameworkElementBase<TE1> e1, Func<TE1, TRet> func)
-            where TE1 : FrameworkElement
+        public static TRet Get<TRet, TE1>(IHasStrongReference<TE1> e1, Func<TE1, TRet> func)
         {
             var frameworkElement1 = e1.GetStrongReference();
             return Instance.GetImpl(() => func(frameworkElement1));
         }
 
-        public static TRet Get<TRet, TE1, TE2>(WpfFrameworkElementBase<TE1> e1, WpfFrameworkElementBase<TE2> e2, Func<TE1, TE2, TRet> func)
-            where TE1 : FrameworkElement
-            where TE2 : FrameworkElement
+        public static TRet Get<TRet, TE1, TE2>(IHasStrongReference<TE1> e1, IHasStrongReference<TE2> e2, Func<TE1, TE2, TRet> func)
         {
             var frameworkElement1 = e1.GetStrongReference();
             var frameworkElement2 = e2.GetStrongReference();
@@ -59,16 +54,13 @@ namespace tungsten.core
             return ret;
         }
 
-        public static void Invoke<TE1>(WpfFrameworkElementBase<TE1> e1, Action<TE1> action)
-            where TE1 : FrameworkElement
+        public static void Invoke<TE1>(IHasStrongReference<TE1> e1, Action<TE1> action)
         {
             var frameworkElement1 = e1.GetStrongReference();
             Instance.InvokeImpl(() => action(frameworkElement1));
         }
 
-        public static void Invoke<TE1, TE2>(WpfFrameworkElementBase<TE1> e1, WpfFrameworkElementBase<TE2> e2, Action<TE1, TE2> action)
-            where TE1 : FrameworkElement
-            where TE2 : FrameworkElement
+        public static void Invoke<TE1, TE2>(IHasStrongReference<TE1> e1, IHasStrongReference<TE2> e2, Action<TE1, TE2> action)
         {
             var frameworkElement1 = e1.GetStrongReference();
             var frameworkElement2 = e2.GetStrongReference();
