@@ -57,7 +57,7 @@
     <Compile Include="Utils\DefaultControlToStringCreator.cs" />
     <Compile Include="Utils\ExpressionMerger.cs" />
     <Compile Include="Utils\IControlToStringCreator.cs" />
-    <Compile Include="Win32\Factory\HwndWrapper.cs" />
+    <Compile Include="Win32\HwndWrapper.cs" />
     <Compile Include="Win32\Factory\IWin32FactoryConfigurator.cs" />
     <Compile Include="Win32\Factory\Win32ControlFactory.cs" />
     <Compile Include="Win32\Factory\Win32FactoryConfigurator.cs" />
