@@ -3,6 +3,7 @@ using NUnit.Framework;
 using tungsten.core;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
+using tungsten.core.Wpf.Helpers;
 using tungsten.core.Wpf.Search;
 using tungsten.nunit;
 using tungsten.sampletest.AutomationLayer;

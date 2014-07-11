@@ -71,6 +71,7 @@
     <Compile Include="Wpf\Base\WpfItemsControlBase.cs" />
     <Compile Include="Wpf\Base\WpfListBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
+    <Compile Include="Wpf\Helpers\ComboBoxItemExtensions.cs" />
     <Compile Include="Wpf\Search\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\WpfExpander.cs" />
     <Compile Include="Wpf\WpfItemsControl.cs" />

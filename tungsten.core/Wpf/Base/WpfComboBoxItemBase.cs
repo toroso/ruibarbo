@@ -24,6 +24,8 @@ namespace tungsten.core.Wpf.Base
     {
         public static void OpenAndClick(this IComboBoxItem me)
         {
+            // TODO: This creates a circular dependency.
+            //  * Inject parent?
             var itemsContainer = me.FindFirstAncestor<WpfComboBox>();
             itemsContainer.Open();
 
@@ -40,11 +42,6 @@ namespace tungsten.core.Wpf.Base
             where TNativeElement : System.Windows.Controls.ComboBoxItem
         {
             return Invoker.Get(me, frameworkElement => frameworkElement.IsSelected);
-        }
-
-        public static string TextBlockText(this IComboBoxItem me)
-        {
-            return me.FindFirstChild<WpfTextBlock>().Text();
         }
     }
 }

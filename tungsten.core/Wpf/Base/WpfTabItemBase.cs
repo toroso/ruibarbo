@@ -19,6 +19,9 @@ namespace tungsten.core.Wpf.Base
                 // But the TabControl's content host only contains the elements of the selected tab item.
                 if (this.IsSelected())
                 {
+                    // TODO: This creates a circular dependency.
+                    //  * Inject parent TabControl?
+                    //  * Work directly with VisualTreeHelper and FrameworkELements?
                     var owner = this.FindFirstAncestor<WpfTabControl>();
                     var contentPanel = owner.FindFirstChild<WpfFrameworkElement>(By.Name("PART_SelectedContentHost"));
                     yield return Invoker.Get(contentPanel, frameworkElement => frameworkElement);
