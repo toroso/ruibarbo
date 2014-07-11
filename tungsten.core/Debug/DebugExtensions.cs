@@ -5,7 +5,7 @@ using System.Text;
 using tungsten.core.ElementFactory;
 using tungsten.core.Utils;
 
-namespace tungsten.core
+namespace tungsten.core.Debug
 {
     public static class DebugExtensions
     {

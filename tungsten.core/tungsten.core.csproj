@@ -54,9 +54,9 @@
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />
     <Compile Include="Search\ByControlToStringCreator.cs" />
-    <Compile Include="Utils\DefaultControlToStringCreator.cs" />
+    <Compile Include="Debug\DefaultControlToStringCreator.cs" />
     <Compile Include="Utils\ExpressionMerger.cs" />
-    <Compile Include="Utils\IControlToStringCreator.cs" />
+    <Compile Include="Debug\IControlToStringCreator.cs" />
     <Compile Include="Win32\HwndWrapper.cs" />
     <Compile Include="Win32\Factory\IWin32FactoryConfigurator.cs" />
     <Compile Include="Win32\Factory\Win32ControlFactory.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Wpf\Base\WpfTextBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfUserControlBase.cs" />
     <Compile Include="Wpf\Base\WpfWindowBase.cs" />
-    <Compile Include="ManglaException.cs" />
+    <Compile Include="Common\ManglaException.cs" />
     <Compile Include="Wpf\WpfCheckBox.cs" />
     <Compile Include="Wpf\WpfComboBox.cs" />
     <Compile Include="Wpf\WpfComboBoxItem.cs" />
@@ -123,8 +123,8 @@
     <Compile Include="Utils\TypeExtensions.cs" />
     <Compile Include="Wpf\WpfButton.cs" />
     <Compile Include="Wpf\Base\WpfFrameworkElementBase.cs" />
-    <Compile Include="Wait.cs" />
-    <Compile Include="DebugExtensions.cs" />
+    <Compile Include="Common\Wait.cs" />
+    <Compile Include="Debug\DebugExtensions.cs" />
     <Compile Include="Wpf\WpfTooltip.cs" />
     <Compile Include="Wpf\WpfWindow.cs" />
   </ItemGroup>

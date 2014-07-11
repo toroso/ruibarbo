@@ -2,10 +2,11 @@
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
+using tungsten.core.Debug;
 using tungsten.core.ElementFactory;
 using tungsten.core.Hardware;
 
-namespace tungsten.core
+namespace tungsten.core.Common
 {
     [Serializable]
     public class ManglaException : Exception

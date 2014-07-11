@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using tungsten.core.Common;
 
 namespace tungsten.core.Hardware
 {

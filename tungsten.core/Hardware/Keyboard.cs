@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
+using tungsten.core.Common;
 
 namespace tungsten.core.Hardware
 {

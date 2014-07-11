@@ -2,7 +2,8 @@
 using System.Linq.Expressions;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
-using tungsten.core;
+using tungsten.core.Common;
+using tungsten.core.Debug;
 using tungsten.core.ElementFactory;
 using tungsten.core.Hardware;
 

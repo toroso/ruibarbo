@@ -1,6 +1,7 @@
 using System.Linq;
+using tungsten.core.Utils;
 
-namespace tungsten.core.Utils
+namespace tungsten.core.Debug
 {
     internal class DefaultControlToStringCreator : IControlToStringCreator
     {

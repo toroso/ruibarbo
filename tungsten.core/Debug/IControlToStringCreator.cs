@@ -1,4 +1,4 @@
-namespace tungsten.core.Utils
+namespace tungsten.core.Debug
 {
     public interface IControlToStringCreator
     {

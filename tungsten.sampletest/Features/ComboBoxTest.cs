@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using tungsten.core;
+using tungsten.core.Common;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
 using tungsten.core.Wpf.Helpers;

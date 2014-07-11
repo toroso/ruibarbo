@@ -2,7 +2,7 @@
 using System.Threading;
 using tungsten.core.Hardware;
 
-namespace tungsten.core
+namespace tungsten.core.Common
 {
     public static class Wait
     {
