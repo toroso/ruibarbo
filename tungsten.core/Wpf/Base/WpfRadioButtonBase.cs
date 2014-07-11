@@ -1,4 +1,6 @@
-﻿namespace tungsten.core.Wpf.Base
+﻿using tungsten.core.Search;
+
+namespace tungsten.core.Wpf.Base
 {
     public class WpfRadioButtonBase<TNativeElement> : WpfButtonBase<TNativeElement> // Actually WpfToggleButtonBase
         where TNativeElement : System.Windows.Controls.RadioButton

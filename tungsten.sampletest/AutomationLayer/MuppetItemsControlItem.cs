@@ -2,6 +2,7 @@
 using tungsten.core.Search;
 using tungsten.core.Wpf;
 using tungsten.core.Wpf.Base;
+using tungsten.core.Wpf.Factory;
 
 namespace tungsten.sampletest.AutomationLayer
 {

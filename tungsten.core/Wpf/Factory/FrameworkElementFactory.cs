@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using tungsten.core.ElementFactory;
+using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Factory

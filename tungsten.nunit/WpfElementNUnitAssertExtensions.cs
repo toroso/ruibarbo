@@ -4,6 +4,7 @@ using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using tungsten.core;
 using tungsten.core.Hardware;
+using tungsten.core.Search;
 
 namespace tungsten.nunit
 {

@@ -1,3 +1,4 @@
+using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Base

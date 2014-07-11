@@ -1,3 +1,5 @@
+using tungsten.core.Search;
+
 namespace tungsten.core.Wpf.Base
 {
     public class WpfWindowBase<TNativeElement> : WpfFrameworkElementBase<TNativeElement>

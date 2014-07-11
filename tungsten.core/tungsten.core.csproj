@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="Hardware\Screen.cs" />
-    <Compile Include="IRegisteredElement.cs" />
+    <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />
     <Compile Include="Utils\ByControlToStringCreator.cs" />
@@ -113,7 +113,7 @@
     <Compile Include="Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Utils\ExpressionLiteralizer.cs" />
     <Compile Include="IApplication.cs" />
-    <Compile Include="ISearchSourceElement.cs" />
+    <Compile Include="Search\ISearchSourceElement.cs" />
     <Compile Include="Hardware\Mouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\QueueExtensions.cs" />
