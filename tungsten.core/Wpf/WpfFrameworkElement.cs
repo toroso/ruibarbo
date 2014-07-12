@@ -4,7 +4,7 @@ using tungsten.core.Wpf.Factory;
 
 namespace tungsten.core.Wpf
 {
-    public class WpfFrameworkElement
+    public sealed class WpfFrameworkElement
         : WpfFrameworkElementBase<System.Windows.FrameworkElement>, IRegisteredElement
     {
         public WpfFrameworkElement(ISearchSourceElement searchParent, System.Windows.FrameworkElement frameworkElement)

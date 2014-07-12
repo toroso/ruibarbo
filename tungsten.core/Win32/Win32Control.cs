@@ -5,7 +5,6 @@ using System.Windows;
 using tungsten.core.ElementFactory;
 using tungsten.core.Hardware;
 using tungsten.core.Search;
-using tungsten.core.Win32.Factory;
 
 namespace tungsten.core.Win32
 {
