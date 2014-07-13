@@ -14,7 +14,7 @@ using FrameworkElementFactory = tungsten.core.Wpf.Factory.FrameworkElementFactor
 
 namespace tungsten.core
 {
-    public class Engine
+    public sealed class Engine
     {
         private readonly object _unhandledExceptionsLock = new object();
         private readonly List<Exception> _unhandledExceptions = new List<Exception>();

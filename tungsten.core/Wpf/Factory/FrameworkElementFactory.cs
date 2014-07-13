@@ -4,12 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using tungsten.core.ElementFactory;
-using tungsten.core.Search;
 using tungsten.core.Utils;
 
 namespace tungsten.core.Wpf.Factory
 {
-    public class FrameworkElementFactory : IElementFactory
+    public sealed class FrameworkElementFactory : IElementFactory
     {
         private readonly IDictionary<string, List<Type>> _types = new Dictionary<string, List<Type>>();
 

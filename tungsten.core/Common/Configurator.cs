@@ -2,7 +2,7 @@
 
 namespace tungsten.core.Common
 {
-    public class Configurator
+    public sealed class Configurator
     {
         /// <summary>
         /// How long should we wait for a condition to become true? This duration is used when finding elements and when waiting

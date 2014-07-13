@@ -3,23 +3,23 @@ using tungsten.core.ElementFactory;
 
 namespace tungsten.core
 {
-    public class DesktopElement : ISearchSourceElement
+    public sealed class DesktopElement : ISearchSourceElement
     {
         internal DesktopElement()
         {
         }
 
-        public virtual string Name
+        public string Name
         {
             get { return "Desktop"; }
         }
 
-        public virtual string Class
+        public string Class
         {
             get { return "Desktop"; }
         }
 
-        public virtual IEnumerable<object> NativeChildren
+        public IEnumerable<object> NativeChildren
         {
             get { return ElementFactory.ElementFactory.GetRootElements(); }
         }
@@ -29,17 +29,17 @@ namespace tungsten.core
             get { return null; }
         }
 
-        public virtual string FoundBy
+        public string FoundBy
         {
             get { return string.Empty; }
         }
 
-        public virtual ISearchSourceElement SearchParent
+        public ISearchSourceElement SearchParent
         {
             get { return null; }
         }
 
-        public virtual int InstanceId
+        public int InstanceId
         {
             get { return GetHashCode(); }
         }

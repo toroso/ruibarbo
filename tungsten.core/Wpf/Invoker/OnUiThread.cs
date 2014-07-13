@@ -5,7 +5,7 @@ using tungsten.core.Win32;
 
 namespace tungsten.core.Wpf.Invoker
 {
-    public class OnUiThread
+    public sealed class OnUiThread
     {
         private static readonly ThreadLocal<OnUiThread> Instances = new ThreadLocal<OnUiThread>();
 

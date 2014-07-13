@@ -7,7 +7,7 @@ using tungsten.core.Utils;
 
 namespace tungsten.core.Search
 {
-    public class By
+    public sealed class By
     {
         public static By[] Empty = { };
 
