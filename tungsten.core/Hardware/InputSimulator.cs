@@ -12,7 +12,7 @@ namespace tungsten.core.Hardware
         public static extern bool SetCursorPos(int X, int Y);
 
         [Flags]
-        public enum MouseEventFlags
+        internal enum MouseEventFlags
         {
             LEFTDOWN = 0x00000002,
             LEFTUP = 0x00000004,
@@ -27,7 +27,7 @@ namespace tungsten.core.Hardware
         /// <summary>
         /// The event type contained in the union field
         /// </summary>
-        public enum SendInputEventType : int
+        internal enum SendInputEventType : int
         {
             /// <summary>
             /// Contains Mouse event data
@@ -47,7 +47,7 @@ namespace tungsten.core.Hardware
         /// The mouse data structure
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct MouseInputData
+        internal struct MouseInputData
         {
             /// <summary>
             /// The x value, if ABSOLUTE is passed in the flag then this is an actual X and Y value
@@ -78,7 +78,7 @@ namespace tungsten.core.Hardware
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct KEYBDINPUT
+        internal struct KEYBDINPUT
         {
             public ushort wVk;
             public ushort wScan;
@@ -88,7 +88,7 @@ namespace tungsten.core.Hardware
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct HARDWAREINPUT
+        internal struct HARDWAREINPUT
         {
             public int uMsg;
             public short wParamL;
@@ -99,7 +99,7 @@ namespace tungsten.core.Hardware
         /// Captures the union of the three three structures.
         /// </summary>
         [StructLayout(LayoutKind.Explicit)]
-        public struct MouseKeybdhardwareInputUnion
+        internal struct MouseKeybdhardwareInputUnion
         {
             /// <summary>
             /// The Mouse Input Data
@@ -125,7 +125,7 @@ namespace tungsten.core.Hardware
         /// </summary>
         /// <remarks>Contains a union field type specifies what it contains </remarks>
         [StructLayout(LayoutKind.Sequential)]
-        public struct INPUT
+        internal struct INPUT
         {
             /// <summary>
             /// The actual data type contained in the union Field
