@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 
-namespace ruibarbo.core.Win32
+namespace ruibarbo.core.Win32.Native
 {
     internal static class Win32Api
     {

@@ -58,11 +58,11 @@
     <Compile Include="Debug\DefaultControlToStringCreator.cs" />
     <Compile Include="Utils\ExpressionMerger.cs" />
     <Compile Include="Debug\IControlToStringCreator.cs" />
-    <Compile Include="Win32\HwndWrapper.cs" />
+    <Compile Include="Win32\Factory\HwndWrapper.cs" />
     <Compile Include="Win32\Factory\IWin32FactoryConfigurator.cs" />
     <Compile Include="Win32\Factory\Win32ControlFactory.cs" />
     <Compile Include="Win32\Factory\Win32FactoryConfigurator.cs" />
-    <Compile Include="Win32\Win32Api.cs" />
+    <Compile Include="Win32\Native\Win32Api.cs" />
     <Compile Include="Win32\Win32Control.cs" />
     <Compile Include="Wpf\Base\WpfButtonBase.cs" />
     <Compile Include="Wpf\Base\WpfCheckBoxBase.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ruibarbo.core.ElementFactory;
+using ruibarbo.core.Win32.Native;
 
 namespace ruibarbo.core.Win32.Factory
 {

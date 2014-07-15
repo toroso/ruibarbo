@@ -6,8 +6,8 @@ using System.Windows;
 using System.Windows.Threading;
 using ruibarbo.core.Common;
 using ruibarbo.core.ElementFactory;
-using ruibarbo.core.Win32;
 using ruibarbo.core.Win32.Factory;
+using ruibarbo.core.Win32.Native;
 using ruibarbo.core.Wpf.Invoker;
 using FrameworkElementFactory = ruibarbo.core.Wpf.Factory.FrameworkElementFactory;
 

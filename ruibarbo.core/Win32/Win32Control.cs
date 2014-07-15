@@ -6,6 +6,7 @@ using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
 using ruibarbo.core.Search;
 using ruibarbo.core.Win32.Factory;
+using ruibarbo.core.Win32.Native;
 
 namespace ruibarbo.core.Win32
 {
