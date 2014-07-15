@@ -46,7 +46,7 @@ namespace ruibarbo.core.Wpf.Base
                     ? new DefaultControlToStringCreator().ControlToString(focusedElement)
                     : "<null>";
                 string info = string.Format("Focused element is {0}", focusedElementAsString);
-                throw ManglaException.StateFailed(this, x => x.IsKeyboardFocused(), info);
+                throw RuibarboException.StateFailed(this, x => x.IsKeyboardFocused(), info);
             }
         }
     }

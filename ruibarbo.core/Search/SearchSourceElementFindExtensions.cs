@@ -35,7 +35,7 @@ namespace ruibarbo.core.Search
                     .AppendByClass<TElement>()
                     .Select(by => by.ToString())
                     .Join("; ");
-                throw ManglaException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, 6));
+                throw RuibarboException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, 6));
             }
 
             return found;
@@ -133,7 +133,7 @@ namespace ruibarbo.core.Search
                     .AppendByClass<TElement>()
                     .Select(by => by.ToString())
                     .Join("; ");
-                throw ManglaException.FindFailed("ancestor", child, byAsString, child.ControlAncestorsAsString(controlToStringCreator));
+                throw RuibarboException.FindFailed("ancestor", child, byAsString, child.ControlAncestorsAsString(controlToStringCreator));
             }
 
             return found;

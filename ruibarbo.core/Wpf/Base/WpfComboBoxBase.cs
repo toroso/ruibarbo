@@ -102,7 +102,7 @@ namespace ruibarbo.core.Wpf.Base
                 bool isOpen = Wait.Until(() => IsDropDownOpen);
                 if (!isOpen)
                 {
-                    throw ManglaException.StateFailed(this, x => x.IsDropDownOpen);
+                    throw RuibarboException.StateFailed(this, x => x.IsDropDownOpen);
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace ruibarbo.core.Wpf.Base
                 bool isClosed = Wait.Until(() => !IsDropDownOpen);
                 if (!isClosed)
                 {
-                    throw ManglaException.StateFailed(this, x => !x.IsDropDownOpen);
+                    throw RuibarboException.StateFailed(this, x => !x.IsDropDownOpen);
                 }
             }
         }

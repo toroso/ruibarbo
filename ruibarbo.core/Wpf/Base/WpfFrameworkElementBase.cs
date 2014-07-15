@@ -153,7 +153,7 @@ namespace ruibarbo.core.Wpf.Base
                 return strongReference;
             }
 
-            throw ManglaException.NoLongerAvailable(this);
+            throw RuibarboException.NoLongerAvailable(this);
         }
     }
 
@@ -190,7 +190,7 @@ namespace ruibarbo.core.Wpf.Base
             bool isInView = Wait.Until(me.IsInView);
             if (!isInView)
             {
-                throw ManglaException.StateFailed(me, x => x.IsInView());
+                throw RuibarboException.StateFailed(me, x => x.IsInView());
             }
         }
 

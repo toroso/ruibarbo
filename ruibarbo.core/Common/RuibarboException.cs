@@ -9,28 +9,28 @@ using ruibarbo.core.Hardware;
 namespace ruibarbo.core.Common
 {
     [Serializable]
-    public class ManglaException : Exception
+    public class RuibarboException : Exception
     {
-        public ManglaException()
+        public RuibarboException()
         {
         }
 
-        public ManglaException(string message)
+        public RuibarboException(string message)
             : base(message)
         {
         }
 
-        public ManglaException(string message, Uri screenCapture)
+        public RuibarboException(string message, Uri screenCapture)
             : base(AppendScreenCaptureTo(message, screenCapture))
         {
         }
 
-        public ManglaException(string message, Exception innerException)
+        public RuibarboException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
-        public ManglaException(string message, Exception innerException, Uri screenCapture)
+        public RuibarboException(string message, Exception innerException, Uri screenCapture)
             : base(AppendScreenCaptureTo(message, screenCapture), innerException)
         {
         }
@@ -42,11 +42,11 @@ namespace ruibarbo.core.Common
                 : message;
         }
 
-        protected ManglaException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected RuibarboException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
-        internal static ManglaException FindFailed(string soughtRelation, ISearchSourceElement sourceElement, string byAsString, string foundAsString)
+        internal static RuibarboException FindFailed(string soughtRelation, ISearchSourceElement sourceElement, string byAsString, string foundAsString)
         {
             // TODO: What if sourceElement does not have a name? What to show?
             Uri screenCapture = CaptureScreenToFile("FindFailed");
@@ -56,16 +56,16 @@ namespace ruibarbo.core.Common
                 sourceElement.GetType().Name,
                 byAsString,
                 foundAsString);
-            return new ManglaException(message, screenCapture);
+            return new RuibarboException(message, screenCapture);
         }
 
-        internal static ManglaException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp)
+        internal static RuibarboException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp)
             where TElement : ISearchSourceElement
         {
             return StateFailed(element, predicateExp, null);
         }
 
-        internal static ManglaException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp, string info)
+        internal static RuibarboException StateFailed<TElement>(TElement element, Expression<Func<TElement, bool>> predicateExp, string info)
             where TElement : ISearchSourceElement
         {
             Uri screenCapture = CaptureScreenToFile("StateFailed");
@@ -77,21 +77,21 @@ namespace ruibarbo.core.Common
                 element.ControlIdentifier(),
                 element.ElementSearchPath(),
                 infoRow);
-            return new ManglaException(message, screenCapture);
+            return new RuibarboException(message, screenCapture);
         }
 
-        internal static ManglaException NoLongerAvailable(ISearchSourceElement element)
+        internal static RuibarboException NoLongerAvailable(ISearchSourceElement element)
         {
             Uri screenCapture = CaptureScreenToFile("NoLongerAvailable");
             var message = string.Format("Element is no longer available: {0}", element.ElementSearchPath());
 
-            return new ManglaException(message, screenCapture);
+            return new RuibarboException(message, screenCapture);
         }
 
-        internal static ManglaException HardwareFailure(int win32Error)
+        internal static RuibarboException HardwareFailure(int win32Error)
         {
             var screenCapture = CaptureScreenToFile("HardwareFailure");
-            return new ManglaException(
+            return new RuibarboException(
                 "Some simulated input commands were not sent successfully.",
                 new Win32Exception(win32Error),
                 screenCapture);

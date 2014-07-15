@@ -47,7 +47,7 @@ namespace ruibarbo.core.Wpf.Base
                     .AppendByClass<TWpfItem>()
                     .Select(by => by.ToString())
                     .Join("; ");
-                throw ManglaException.FindFailed("Item", this, byAsString, sb.ToString());
+                throw RuibarboException.FindFailed("Item", this, byAsString, sb.ToString());
             }
 
             return found;

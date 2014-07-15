@@ -35,7 +35,7 @@ namespace ruibarbo.core.Wpf.Base
             bool isVisible = Wait.Until(() => me.IsVisible);
             if (!isVisible)
             {
-                throw ManglaException.StateFailed(me, x => x.IsVisible);
+                throw RuibarboException.StateFailed(me, x => x.IsVisible);
             }
 
             me.Click();

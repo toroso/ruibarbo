@@ -94,7 +94,7 @@
     <Compile Include="Wpf\Base\WpfTextBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfUserControlBase.cs" />
     <Compile Include="Wpf\Base\WpfWindowBase.cs" />
-    <Compile Include="Common\ManglaException.cs" />
+    <Compile Include="Common\RuibarboException.cs" />
     <Compile Include="Wpf\WpfCheckBox.cs" />
     <Compile Include="Wpf\WpfComboBox.cs" />
     <Compile Include="Wpf\WpfComboBoxItem.cs" />

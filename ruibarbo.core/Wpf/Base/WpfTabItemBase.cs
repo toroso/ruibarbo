@@ -43,7 +43,7 @@ namespace ruibarbo.core.Wpf.Base
             bool isSelected = Wait.Until(this.IsSelected);
             if (!isSelected)
             {
-                throw ManglaException.StateFailed(this, x => x.IsSelected());
+                throw RuibarboException.StateFailed(this, x => x.IsSelected());
             }
         }
     }

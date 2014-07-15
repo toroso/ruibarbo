@@ -40,7 +40,7 @@ namespace ruibarbo.core.Hardware
             var successful = InputSimulator.SendInput((UInt32) inputs.Length, inputs, Marshal.SizeOf(typeof (InputSimulator.INPUT)));
             if (successful != inputs.Length)
             {
-                throw ManglaException.HardwareFailure(Marshal.GetLastWin32Error());
+                throw RuibarboException.HardwareFailure(Marshal.GetLastWin32Error());
             }
         }
     }

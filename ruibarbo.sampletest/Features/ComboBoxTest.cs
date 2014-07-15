@@ -102,7 +102,7 @@ namespace ruibarbo.sampletest.Features
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var doesNotExist = new WpfComboBoxItem(comboBox, OnUiThread.Get(() => new System.Windows.Controls.ComboBoxItem()));
-            doesNotExist.AssertThrows(typeof (ManglaException), x => x.OpenAndClick()); // Throws because it has no ComboBox ancestor
+            doesNotExist.AssertThrows(typeof (RuibarboException), x => x.OpenAndClick()); // Throws because it has no ComboBox ancestor
         }
 
         [Test]
