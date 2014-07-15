@@ -8,7 +8,6 @@ using ruibarbo.core.Common;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Win32;
 using ruibarbo.core.Win32.Factory;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.core.Wpf.Invoker;
 using FrameworkElementFactory = ruibarbo.core.Wpf.Factory.FrameworkElementFactory;
 
@@ -45,7 +44,7 @@ namespace ruibarbo.core
                     x.RemoveAllFactories();
                     x.AddFactory(new FrameworkElementFactory(q =>
                         {
-                            q.AddRegisteredElementsInAssembly(typeof (WpfFrameworkElementBase<FrameworkElement>).Assembly);
+                            q.AddRegisteredElementsInAssembly(this.GetType().Assembly);
                         }));
                     x.AddFactory(new Win32ControlFactory(q =>
                         {
