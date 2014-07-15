@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Threading;
-using ruibarbo.core.Win32;
 
 namespace ruibarbo.core.Wpf.Invoker
 {
@@ -84,7 +83,6 @@ namespace ruibarbo.core.Wpf.Invoker
 
         private void BeginInvokeShutdownImpl()
         {
-            Win32Api.CloseAllWindows();
             _dispatcher.BeginInvokeShutdown(DispatcherPriority.Send);
         }
     }

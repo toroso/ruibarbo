@@ -128,6 +128,7 @@ namespace ruibarbo.core
 
         public void ShutDown()
         {
+            Win32Api.CloseAllWindows();
             OnUiThread.BeginInvokeShutdown();
             _uiThread.Join();
         }
