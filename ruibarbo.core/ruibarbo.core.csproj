@@ -50,6 +50,7 @@
     <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
     <Compile Include="Hardware\Screen.cs" />
     <Compile Include="Win32\Factory\RegisteredControlAttribute.cs" />
+    <Compile Include="Wpf\Helpers\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\Invoker\IHasStrongReference.cs" />
     <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />
@@ -75,7 +76,6 @@
     <Compile Include="Wpf\Base\WpfListBoxBase.cs" />
     <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxItemExtensions.cs" />
-    <Compile Include="Wpf\Search\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\WpfExpander.cs" />
     <Compile Include="Wpf\WpfItemsControl.cs" />
     <Compile Include="Wpf\WpfListBox.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Wpf\WpfTooltip.cs" />
     <Compile Include="Wpf\WpfWindow.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

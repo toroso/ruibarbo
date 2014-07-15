@@ -1,11 +1,9 @@
-﻿using ruibarbo.core.Search;
-using ruibarbo.core.Wpf.Helpers;
+using ruibarbo.core.Search;
 
-namespace ruibarbo.core.Wpf.Search
+namespace ruibarbo.core.Wpf.Helpers
 {
     public static class ComboBoxByExtensions
     {
-        // TODO: Merge with Helpers?
         public static By FirstTextBlockText(this IByBuilder<WpfComboBoxItem> me, string text)
         {
             return me.ByExpression(x => x.TextBlockText(), text);

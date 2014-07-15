@@ -5,7 +5,6 @@ using ruibarbo.core.Wpf;
 using ruibarbo.core.Wpf.Base;
 using ruibarbo.core.Wpf.Helpers;
 using ruibarbo.core.Wpf.Invoker;
-using ruibarbo.core.Wpf.Search;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
 
