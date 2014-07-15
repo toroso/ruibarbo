@@ -4,9 +4,11 @@ using System.Linq;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Search;
 using ruibarbo.core.Win32;
+using ruibarbo.core.Win32.Factory;
 
 namespace ruibarbo.sampletest.AutomationLayer
 {
+    [RegisteredControl]
     public class MessageBox : Win32Control
     {
         public MessageBox(ISearchSourceElement searchParent, IntPtr hwnd)

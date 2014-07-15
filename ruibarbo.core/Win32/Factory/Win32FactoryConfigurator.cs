@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace ruibarbo.core.Win32.Factory
 {
     internal class Win32FactoryConfigurator : IWin32FactoryConfigurator
@@ -9,10 +11,9 @@ namespace ruibarbo.core.Win32.Factory
             _win32ControlFactory = win32ControlFactory;
         }
 
-        public void AddControl<TWin32Control>()
-            where TWin32Control : Win32Control
+        public void AddRegisteredElementsInAssembly(Assembly assembly)
         {
-            _win32ControlFactory.AddControl<TWin32Control>();
+            _win32ControlFactory.AddRegisteredElementsInAssembly(assembly);
         }
     }
 }

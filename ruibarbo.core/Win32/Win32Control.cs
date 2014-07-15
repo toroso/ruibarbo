@@ -5,9 +5,11 @@ using System.Windows;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
 using ruibarbo.core.Search;
+using ruibarbo.core.Win32.Factory;
 
 namespace ruibarbo.core.Win32
 {
+    [RegisteredControl]
     public class Win32Control : ISearchSourceElement, IAmFoundByUpdatable
     {
         private readonly ISearchSourceElement _searchParent;

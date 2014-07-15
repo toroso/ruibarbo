@@ -44,11 +44,11 @@ namespace ruibarbo.core
                     x.RemoveAllFactories();
                     x.AddFactory(new FrameworkElementFactory(q =>
                         {
-                            q.AddRegisteredElementsInAssembly(this.GetType().Assembly);
+                            q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                     x.AddFactory(new Win32ControlFactory(q =>
                         {
-                            q.AddControl<Win32Control>();
+                            q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                 });
             ConfigureHardware(x =>

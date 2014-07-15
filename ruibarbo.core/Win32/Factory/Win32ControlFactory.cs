@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using ruibarbo.core.ElementFactory;
 
 namespace ruibarbo.core.Win32.Factory
@@ -32,10 +33,14 @@ namespace ruibarbo.core.Win32.Factory
                 .Select(hwnd => new HwndWrapper(hwnd));
         }
 
-        public void AddControl<TWin32Control>()
-            where TWin32Control : Win32Control
+        public void AddRegisteredElementsInAssembly(Assembly assembly)
         {
-            _types.Add(typeof(TWin32Control));
+            var registeredElementTypes = assembly.GetTypes()
+                .Where(t => t.GetCustomAttributes(typeof(RegisteredControlAttribute), true).Any());
+            foreach (var elementType in registeredElementTypes)
+            {
+                _types.Add(elementType);
+            }
         }
     }
 }

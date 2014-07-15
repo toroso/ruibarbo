@@ -49,6 +49,7 @@
     <Compile Include="ElementFactory\IElementFactory.cs" />
     <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
     <Compile Include="Hardware\Screen.cs" />
+    <Compile Include="Win32\Factory\RegisteredControlAttribute.cs" />
     <Compile Include="Wpf\Invoker\IHasStrongReference.cs" />
     <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />

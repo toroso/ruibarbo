@@ -18,11 +18,11 @@ namespace ruibarbo.sampletest.AutomationLayer
                 {
                     x.AddFactory(new FrameworkElementFactory(q =>
                         {
-                            q.AddRegisteredElementsInAssembly(typeof(TestBase).Assembly);
+                            q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                     x.AddFactory(new Win32ControlFactory(q =>
                         {
-                            q.AddControl<MessageBox>();
+                            q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                 });
             Engine.Start(new SampleApplication());
