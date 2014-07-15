@@ -6,7 +6,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.sampletest.AutomationLayer
 {
-    public class MuppetItemsControlItem : WpfContentPresenterBase<System.Windows.Controls.ContentPresenter>, IRegisteredElement
+    [RegisteredElement]
+    public class MuppetItemsControlItem : WpfContentPresenterBase<System.Windows.Controls.ContentPresenter>
     {
         public MuppetItemsControlItem(ISearchSourceElement searchParent, System.Windows.Controls.ContentPresenter frameworkElement)
             : base(searchParent, frameworkElement)

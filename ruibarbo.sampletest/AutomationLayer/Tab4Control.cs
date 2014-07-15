@@ -5,7 +5,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.sampletest.AutomationLayer
 {
-    public class Tab4Control : WpfTabItemBase<System.Windows.Controls.TabItem>, IRegisteredElement
+    [RegisteredElement]
+    public class Tab4Control : WpfTabItemBase<System.Windows.Controls.TabItem>
     {
         public Tab4Control(ISearchSourceElement searchParent, System.Windows.Controls.TabItem frameworkElement)
             : base(searchParent, frameworkElement)

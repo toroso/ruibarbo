@@ -6,7 +6,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.sampletest.AutomationLayer
 {
-    public class StuffControl : WpfUserControlBase<System.Windows.Controls.UserControl>, IRegisteredElement
+    [RegisteredElement]
+    public class StuffControl : WpfUserControlBase<System.Windows.Controls.UserControl>
     {
         public StuffControl(ISearchSourceElement searchParent, System.Windows.Controls.UserControl frameworkElement)
             : base(searchParent, frameworkElement)

@@ -4,7 +4,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.core.Wpf
 {
-    public sealed class WpfTabControl : WpfTabControlBase<System.Windows.Controls.TabControl>, IRegisteredElement
+    [RegisteredElement]
+    public sealed class WpfTabControl : WpfTabControlBase<System.Windows.Controls.TabControl>
     {
         public WpfTabControl(ISearchSourceElement searchParent, System.Windows.Controls.TabControl frameworkElement)
             : base(searchParent, frameworkElement)

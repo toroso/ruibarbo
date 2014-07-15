@@ -6,7 +6,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.sampletest.AutomationLayer
 {
-    public class Muppets5Expander : WpfExpanderBase<System.Windows.Controls.Expander>, IRegisteredElement
+    [RegisteredElement]
+    public class Muppets5Expander : WpfExpanderBase<System.Windows.Controls.Expander>
     {
         public Muppets5Expander(ISearchSourceElement searchParent, System.Windows.Controls.Expander frameworkElement)
             : base(searchParent, frameworkElement)

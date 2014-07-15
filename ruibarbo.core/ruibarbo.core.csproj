@@ -50,9 +50,9 @@
     <Compile Include="Search\SearchSourceElementFindExtensions.cs" />
     <Compile Include="Hardware\Screen.cs" />
     <Compile Include="Win32\Factory\RegisteredControlAttribute.cs" />
+    <Compile Include="Wpf\Factory\RegisteredElementAttribute.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\Invoker\IHasStrongReference.cs" />
-    <Compile Include="Wpf\Factory\IRegisteredElement.cs" />
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />
     <Compile Include="Search\ByControlToStringCreator.cs" />

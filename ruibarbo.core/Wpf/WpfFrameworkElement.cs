@@ -4,8 +4,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.core.Wpf
 {
-    public sealed class WpfFrameworkElement
-        : WpfFrameworkElementBase<System.Windows.FrameworkElement>, IRegisteredElement
+    [RegisteredElement]
+    public sealed class WpfFrameworkElement : WpfFrameworkElementBase<System.Windows.FrameworkElement>
     {
         public WpfFrameworkElement(ISearchSourceElement searchParent, System.Windows.FrameworkElement frameworkElement)
             : base(searchParent, frameworkElement)

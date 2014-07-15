@@ -4,7 +4,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.core.Wpf
 {
-    public sealed class WpfComboBox : WpfComboBoxBase<System.Windows.Controls.ComboBox>, IRegisteredElement
+    [RegisteredElement]
+    public sealed class WpfComboBox : WpfComboBoxBase<System.Windows.Controls.ComboBox>
     {
         public WpfComboBox(ISearchSourceElement searchParent, System.Windows.Controls.ComboBox frameworkElement)
             : base(searchParent, frameworkElement)

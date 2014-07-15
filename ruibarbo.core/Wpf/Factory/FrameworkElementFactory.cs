@@ -20,7 +20,7 @@ namespace ruibarbo.core.Wpf.Factory
         internal void AddRegisteredElementsInAssembly(Assembly assembly)
         {
             var registeredElementTypes = assembly.GetTypes()
-                .Where(t => t.GetInterfaces().Contains(typeof(IRegisteredElement)));
+                .Where(t => t.GetCustomAttributes(typeof(RegisteredElementAttribute), true).Any());
             foreach (var elementType in registeredElementTypes)
             {
                 var baseType = elementType.BaseType;

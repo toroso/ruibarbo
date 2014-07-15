@@ -5,7 +5,8 @@ using ruibarbo.core.Wpf.Invoker;
 
 namespace ruibarbo.core.Wpf
 {
-    public sealed class WpfWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement
+    [RegisteredElement]
+    public sealed class WpfWindow : WpfWindowBase<System.Windows.Window>
     {
         public WpfWindow(ISearchSourceElement searchParent, System.Windows.Window frameworkElement)
             : base(searchParent, frameworkElement)

@@ -5,7 +5,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.sampletest.AutomationLayer
 {
-    public class MainWindow : WpfWindowBase<System.Windows.Window>, IRegisteredElement
+    [RegisteredElement]
+    public class MainWindow : WpfWindowBase<System.Windows.Window>
     {
         public MainWindow(ISearchSourceElement searchParent, System.Windows.Window frameworkElement)
             : base(searchParent, frameworkElement)

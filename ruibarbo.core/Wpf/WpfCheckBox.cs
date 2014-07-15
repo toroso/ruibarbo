@@ -4,7 +4,8 @@ using ruibarbo.core.Wpf.Factory;
 
 namespace ruibarbo.core.Wpf
 {
-    public sealed class WpfCheckBox : WpfCheckBoxBase<System.Windows.Controls.CheckBox>, IRegisteredElement
+    [RegisteredElement]
+    public sealed class WpfCheckBox : WpfCheckBoxBase<System.Windows.Controls.CheckBox>
     {
         public WpfCheckBox(ISearchSourceElement searchParent, System.Windows.Controls.CheckBox checkBox)
             : base(searchParent, checkBox)
