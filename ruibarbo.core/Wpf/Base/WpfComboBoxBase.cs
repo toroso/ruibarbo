@@ -4,12 +4,11 @@ using System.Linq;
 using System.Windows.Controls.Primitives;
 using ruibarbo.core.Common;
 using ruibarbo.core.ElementFactory;
-using ruibarbo.core.Search;
 using ruibarbo.core.Wpf.Invoker;
 
 namespace ruibarbo.core.Wpf.Base
 {
-    public class WpfComboBoxBase<TNativeElement> : WpfItemsControlBase<TNativeElement>
+    public class WpfComboBoxBase<TNativeElement> : WpfItemsControlBase<TNativeElement>, IComboBox
         where TNativeElement : System.Windows.Controls.ComboBox
     {
         public WpfComboBoxBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
@@ -73,25 +72,6 @@ namespace ruibarbo.core.Wpf.Base
                     Close();
                 }
             }
-        }
-
-        public void OpenAndClickFirst<TItem>()
-            where TItem : class, IComboBoxItem
-        {
-            OpenAndClickFirst<TItem>(By.Empty);
-        }
-
-        public void OpenAndClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
-            where TItem : class, IComboBoxItem
-        {
-            OpenAndClickFirst<TItem>(byBuilders.Build());
-        }
-
-        public void OpenAndClickFirst<TItem>(params By[] bys)
-            where TItem : class, IComboBoxItem
-        {
-            var item = FindFirstItem<TItem>(bys);
-            item.OpenAndClick();
         }
 
         public void Open()
