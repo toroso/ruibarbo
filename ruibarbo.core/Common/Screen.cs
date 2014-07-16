@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
-using ruibarbo.core.Common;
 
-namespace ruibarbo.core.Hardware
+namespace ruibarbo.core.Common
 {
     public static class Screen
     {

@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using ruibarbo.core.Debug;
 using ruibarbo.core.ElementFactory;
-using ruibarbo.core.Hardware;
 
 namespace ruibarbo.core.Common
 {
@@ -99,10 +98,6 @@ namespace ruibarbo.core.Common
 
         private static Uri CaptureScreenToFile(string description)
         {
-            // TODO: Circular dependency since things in Hardward can throw.
-            //  * Inject screen shot - a lot of code
-            //  * Catch/throw and add screen shot outside - a lot of boiler plate and not always possible
-            //  * Use a service locator with abstractions that is populated with concrete instances by Engine
             return Screen.CaptureToFile(description);
         }
     }

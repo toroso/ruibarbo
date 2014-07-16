@@ -5,7 +5,6 @@ using NUnit.Framework.Constraints;
 using ruibarbo.core.Common;
 using ruibarbo.core.Debug;
 using ruibarbo.core.ElementFactory;
-using ruibarbo.core.Hardware;
 
 namespace ruibarbo.nunit
 {
