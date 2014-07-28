@@ -22,6 +22,8 @@ namespace ruibarbo.core.Wpf.Helpers
                 throw RuibarboException.StateFailed(me, x => x.IsVisible);
             }
 
+            // TODO: Don't know why I need this. It is IsInView in BringIntoView that is not working?
+            System.Threading.Thread.Sleep(40);
             me.Click();
         }
     }

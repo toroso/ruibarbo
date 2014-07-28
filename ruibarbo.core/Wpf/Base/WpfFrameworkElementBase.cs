@@ -210,7 +210,12 @@ namespace ruibarbo.core.Wpf.Base
                         .TransformToAncestor(container)
                         .TransformBounds(new System.Windows.Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
                     var rect = new System.Windows.Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
-                    return rect.Contains(bounds.TopLeft) || rect.Contains(bounds.BottomRight);
+                    var isInView = rect.IntersectsWith(bounds);
+                    //Console.WriteLine("IsInView '{0}' of {5}:{7} in '{1}' of {6}:{8}: {2} ({3} X {4})",
+                    //    element.Name, container.Name, isInView, rect.ToString(), bounds.ToString(), element.GetType().Name, container.GetType().Name,
+                    //    element.GetHashCode(),
+                    //    container.GetHashCode());
+                    return isInView;
                 });
         }
     }
