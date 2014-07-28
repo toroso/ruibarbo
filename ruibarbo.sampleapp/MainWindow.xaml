@@ -108,6 +108,7 @@
                 <MenuItem Header="Tab _3"/>
             </MenuItem>
         </Menu>
+        <Image x:Name="SpaceImage" DockPanel.Dock="Top" Width="16" Height="16" />
         <TabControl x:Name="MainTabs">
             <TabItem x:Name="Tab1" Header="Tab 1">
                 <StackPanel>

@@ -53,6 +53,7 @@
     <Compile Include="Win32\Factory\RegisteredControlAttribute.cs" />
     <Compile Include="Wpf\Base\IComboBox.cs" />
     <Compile Include="Wpf\Base\IComboBoxItem.cs" />
+    <Compile Include="Wpf\Base\WpfImageBase.cs" />
     <Compile Include="Wpf\Factory\RegisteredElementAttribute.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxExtensions.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Wpf\Base\WpfTooltipBase.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxItemExtensions.cs" />
     <Compile Include="Wpf\WpfExpander.cs" />
+    <Compile Include="Wpf\WpfImage.cs" />
     <Compile Include="Wpf\WpfItemsControl.cs" />
     <Compile Include="Wpf\WpfListBox.cs" />
     <Compile Include="Wpf\WpfRadioButton.cs" />

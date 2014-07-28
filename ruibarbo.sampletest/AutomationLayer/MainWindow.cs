@@ -1,5 +1,6 @@
 ﻿using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Search;
+using ruibarbo.core.Wpf;
 using ruibarbo.core.Wpf.Base;
 using ruibarbo.core.Wpf.Factory;
 
@@ -16,6 +17,11 @@ namespace ruibarbo.sampletest.AutomationLayer
         public MainTabControl MainTabControl
         {
             get { return this.FindFirstChild<MainTabControl>(By.Name("MainTabs")); }
+        }
+
+        public WpfImage SpaceImage
+        {
+            get { return this.FindFirstChild<WpfImage>(By.Name("SpaceImage")); }
         }
     }
 }
