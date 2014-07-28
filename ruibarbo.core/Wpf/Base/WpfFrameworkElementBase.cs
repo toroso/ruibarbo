@@ -14,13 +14,13 @@ namespace ruibarbo.core.Wpf.Base
         where TNativeElement : System.Windows.FrameworkElement
     {
         private readonly ISearchSourceElement _searchParent;
-        private readonly WeakReference<TNativeElement> _frameworkElement;
+        private readonly WeakReference _frameworkElement;
         private string _foundByAsString;
 
         protected WpfFrameworkElementBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
         {
             _searchParent = searchParent;
-            _frameworkElement = new WeakReference<TNativeElement>(frameworkElement);
+            _frameworkElement = new WeakReference(frameworkElement);
             _foundByAsString = string.Empty;
         }
 
@@ -147,8 +147,8 @@ namespace ruibarbo.core.Wpf.Base
 
         public TNativeElement GetStrongReference()
         {
-            TNativeElement strongReference;
-            if (_frameworkElement.TryGetTarget(out strongReference))
+            var strongReference = (TNativeElement)_frameworkElement.Target;
+            if (strongReference != null)
             {
                 return strongReference;
             }

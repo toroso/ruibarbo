@@ -17,9 +17,9 @@ namespace ruibarbo.core.Wpf.Base
 
         private void DisableItemCreationVirtualization()
         {
-            // With virtualization turned on, ListBoxItems are not created until the are visible (scrolled into view). This
+            // With virtualization turned on, ListBoxItems are not created until they are visible (scrolled into view). This
             // causes many problems when testing, so here it is swtiched off.
-            OnUiThread.Invoke(this, fe => fe.SetValue(System.Windows.Controls.VirtualizingPanel.IsVirtualizingProperty, false));
+            OnUiThread.Invoke(this, fe => fe.SetValue(System.Windows.Controls.VirtualizingStackPanel.IsVirtualizingProperty, false));
         }
 
         public TWpfItem SelectedItem<TWpfItem>()

@@ -46,10 +46,10 @@ namespace ruibarbo.core.Wpf.Invoker
         private TRet GetImpl<TRet>(Func<TRet> func)
         {
             TRet ret = default(TRet);
-            _dispatcher.Invoke(() =>
+            _dispatcher.Invoke(new Action(() =>
                 {
                     ret = func();
-                });
+                }));
             return ret;
         }
 

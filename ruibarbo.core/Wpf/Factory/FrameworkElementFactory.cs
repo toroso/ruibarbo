@@ -24,7 +24,7 @@ namespace ruibarbo.core.Wpf.Factory
             foreach (var elementType in registeredElementTypes)
             {
                 var baseType = elementType.BaseType;
-                var nativeElement = baseType.GenericTypeArguments[0];
+                var nativeElement = baseType.GetGenericArguments()[0];
                 AddType(nativeElement.FullName, elementType);
             }
         }
@@ -59,7 +59,7 @@ namespace ruibarbo.core.Wpf.Factory
             var windowsOnOtherThreads = (WindowCollection)application
                 .GetType()
                 .GetProperty("NonAppWindowsInternal", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                .GetValue(application);
+                .GetValue(application, null);
             return windowsOnOtherThreads.Cast<Window>();
         }
     }
