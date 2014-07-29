@@ -10,6 +10,9 @@ namespace ruibarbo.core.Search
 {
     public static class SearchSourceElementFindExtensions
     {
+        // TODO: Make configurable. And perhaps overridable in method API.
+        private const int MaxSearchDepth = 16;
+
         public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent)
             where TElement : class, ISearchSourceElement
         {
@@ -26,7 +29,8 @@ namespace ruibarbo.core.Search
             where TElement : class, ISearchSourceElement
         {
             // TODO: Control output verbosity in configuration
-            //Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass .Select(by => by.ToString()).Join("; "));
+            //var bysWithClass = bys.AppendByClass<TElement>();
+            //Console.WriteLine("Find child from {0} by <{1}>", parent.GetType().FullName, bysWithClass.Select(by => by.ToString()).Join("; "));
             var found = parent.TryRepeatedlyToFindFirstChild<TElement>(bys);
             if (found == null)
             {
@@ -35,7 +39,7 @@ namespace ruibarbo.core.Search
                     .AppendByClass<TElement>()
                     .Select(by => by.ToString())
                     .Join("; ");
-                throw RuibarboException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, 6));
+                throw RuibarboException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, MaxSearchDepth));
             }
 
             return found;
@@ -50,20 +54,24 @@ namespace ruibarbo.core.Search
         public static TElement TryOnceToFindFirstChild<TElement>(this ISearchSourceElement parent, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
-            var breadthFirstQueue = new Queue<ISearchSourceElement>();
-            breadthFirstQueue.EnqueueAll(parent.Children());
+            var breadthFirstQueue = new Queue<ElementAndDepth>();
+            breadthFirstQueue.EnqueueAll(parent.Children().Select(c => new ElementAndDepth(c, 0)));
 
             while (breadthFirstQueue.Count > 0)
             {
                 var current = breadthFirstQueue.Dequeue();
-                var asTElement = current as TElement;
+                var currentElement = current.Element;
+                var asTElement = currentElement as TElement;
                 if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
                 {
                     asTElement.UpdateFoundBy(bys);
                     return asTElement;
                 }
 
-                breadthFirstQueue.EnqueueAll(current.Children());
+                if (current.Depth < MaxSearchDepth)
+                {
+                    breadthFirstQueue.EnqueueAll(currentElement.Children().Select(c => new ElementAndDepth(c, current.Depth + 1)));
+                }
             }
 
             return null;
@@ -84,20 +92,24 @@ namespace ruibarbo.core.Search
         public static IEnumerable<TElement> FindAllChildren<TElement>(this ISearchSourceElement parent, params By[] bys)
             where TElement : class, ISearchSourceElement
         {
-            var breadthFirstQueue = new Queue<ISearchSourceElement>();
-            breadthFirstQueue.EnqueueAll(parent.Children());
+            var breadthFirstQueue = new Queue<ElementAndDepth>();
+            breadthFirstQueue.EnqueueAll(parent.Children().Select(c => new ElementAndDepth(c, 0)));
 
             while (breadthFirstQueue.Count > 0)
             {
                 var current = breadthFirstQueue.Dequeue();
-                var asTElement = current as TElement;
+                var currentElement = current.Element;
+                var asTElement = currentElement as TElement;
                 if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
                 {
                     asTElement.UpdateFoundBy(bys);
                     yield return asTElement;
                 }
 
-                breadthFirstQueue.EnqueueAll(current.Children());
+                if (current.Depth < MaxSearchDepth)
+                {
+                    breadthFirstQueue.EnqueueAll(currentElement.Children().Select(c => new ElementAndDepth(c, current.Depth + 1)));
+                }
             }
         }
 
@@ -200,6 +212,18 @@ namespace ruibarbo.core.Search
 
                 var bysAsString = bys.AppendByClass(element.Class).Select(by => by.ToString()).Join(", ");
                 asUpdateable.UpdateFoundBy(bysAsString);
+            }
+        }
+
+        private class ElementAndDepth
+        {
+            public ISearchSourceElement Element { get; private set; }
+            public int Depth { get; private set; }
+
+            public ElementAndDepth(ISearchSourceElement element, int depth)
+            {
+                Element = element;
+                Depth = depth;
             }
         }
     }

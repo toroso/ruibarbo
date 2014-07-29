@@ -40,7 +40,7 @@ namespace ruibarbo.core.Wpf.Base
         public override void Click()
         {
             base.Click();
-            bool isSelected = Wait.Until(this.IsSelected);
+            bool isSelected = Wait.Until(() => this.IsSelected());
             if (!isSelected)
             {
                 throw RuibarboException.StateFailed(this, x => x.IsSelected());

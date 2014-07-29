@@ -187,7 +187,7 @@ namespace ruibarbo.core.Wpf.Base
             where TNativeElement : System.Windows.FrameworkElement
         {
             OnUiThread.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
-            bool isInView = Wait.Until(me.IsInView);
+            bool isInView = Wait.Until(() => me.IsInView());
             if (!isInView)
             {
                 throw RuibarboException.StateFailed(me, x => x.IsInView());

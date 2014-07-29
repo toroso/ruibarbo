@@ -38,7 +38,7 @@ namespace ruibarbo.core.Wpf.Base
 
         private void VerifyIsKeyboardFocused()
         {
-            var isKeyboardFocused = Wait.Until(this.IsKeyboardFocused);
+            var isKeyboardFocused = Wait.Until(() => this.IsKeyboardFocused());
             if (!isKeyboardFocused)
             {
                 var focusedElement = OnUiThread.Get(() => System.Windows.Input.Keyboard.FocusedElement);
