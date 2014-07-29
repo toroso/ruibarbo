@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+
+using ruibarbo.core.Wpf.Base;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
 
@@ -35,8 +37,7 @@ namespace ruibarbo.sampletest.Features
             var muppets = tab4.Muppets4Expander.MuppetsItemsControl;
             var muppetItem = muppets.AllItems<MuppetItemsControlItem>().ToArray()[16];
             var muppetTextBox = muppetItem.MuppetTextBox;
-            muppetTextBox.ClickAndSelectAll();
-            muppetTextBox.Type("Crazy Harry");
+            muppetTextBox.ChangeTo("Crazy Harry");
             muppetTextBox.AssertThat(x => x.Text, Is.EqualTo("Crazy Harry"));
         }
     }

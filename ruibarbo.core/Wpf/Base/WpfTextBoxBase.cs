@@ -50,4 +50,14 @@ namespace ruibarbo.core.Wpf.Base
             }
         }
     }
+
+    public static class WpfTextBoxBaseExtensions
+    {
+        public static void ChangeTo<TNativeElement>(this WpfTextBoxBase<TNativeElement> me, string value)
+            where TNativeElement : System.Windows.Controls.TextBox
+        {
+            me.ClickAndSelectAll();
+            me.Type(value);
+        }
+    }
 }
