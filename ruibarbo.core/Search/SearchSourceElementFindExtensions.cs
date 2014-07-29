@@ -11,7 +11,7 @@ namespace ruibarbo.core.Search
     public static class SearchSourceElementFindExtensions
     {
         // TODO: Make configurable. And perhaps overridable in method API.
-        private const int MaxSearchDepth = 16;
+        private const int MaxSearchDepth = 20;
 
         public static TElement FindFirstChild<TElement>(this ISearchSourceElement parent)
             where TElement : class, ISearchSourceElement
@@ -55,22 +55,26 @@ namespace ruibarbo.core.Search
             where TElement : class, ISearchSourceElement
         {
             var breadthFirstQueue = new Queue<ElementAndDepth>();
-            breadthFirstQueue.EnqueueAll(parent.Children().Select(c => new ElementAndDepth(c, 0)));
+            breadthFirstQueue.EnqueueAll(parent.NativeChildren.Select(c => new ElementAndDepth(c, parent, 0)));
 
             while (breadthFirstQueue.Count > 0)
             {
                 var current = breadthFirstQueue.Dequeue();
-                var currentElement = current.Element;
-                var asTElement = currentElement as TElement;
-                if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
+                ISearchSourceElement nextParent = null;
+                foreach (var element in ElementFactory.ElementFactory.CreateElements(current.Parent, current.NativeElement))
                 {
-                    asTElement.UpdateFoundBy(bys);
-                    return asTElement;
+                    nextParent = element;
+                    var asTElement = element as TElement;
+                    if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
+                    {
+                        asTElement.UpdateFoundBy(bys);
+                        return asTElement;
+                    }
                 }
 
-                if (current.Depth < MaxSearchDepth)
+                if (current.Depth < MaxSearchDepth && nextParent != null)
                 {
-                    breadthFirstQueue.EnqueueAll(currentElement.Children().Select(c => new ElementAndDepth(c, current.Depth + 1)));
+                    breadthFirstQueue.EnqueueAll(nextParent.NativeChildren.Select(c => new ElementAndDepth(c, nextParent, current.Depth + 1)));
                 }
             }
 
@@ -93,32 +97,30 @@ namespace ruibarbo.core.Search
             where TElement : class, ISearchSourceElement
         {
             var breadthFirstQueue = new Queue<ElementAndDepth>();
-            breadthFirstQueue.EnqueueAll(parent.Children().Select(c => new ElementAndDepth(c, 0)));
+            breadthFirstQueue.EnqueueAll(parent.NativeChildren.Select(c => new ElementAndDepth(c, parent, 0)));
 
             while (breadthFirstQueue.Count > 0)
             {
                 var current = breadthFirstQueue.Dequeue();
-                var currentElement = current.Element;
-                var asTElement = currentElement as TElement;
-                if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
+                ISearchSourceElement nextParent = null;
+                foreach (var element in ElementFactory.ElementFactory.CreateElements(current.Parent, current.NativeElement))
                 {
-                    asTElement.UpdateFoundBy(bys);
-                    yield return asTElement;
+                    nextParent = element;
+
+                    var asTElement = element as TElement;
+                    if (asTElement != null && asTElement.GetType() == typeof(TElement) && bys.All(by => by.Matches(asTElement)))
+                    {
+                        asTElement.UpdateFoundBy(bys);
+                        yield return asTElement;
+                    }
                 }
 
-                if (current.Depth < MaxSearchDepth)
+
+                if (current.Depth < MaxSearchDepth && nextParent != null)
                 {
-                    breadthFirstQueue.EnqueueAll(currentElement.Children().Select(c => new ElementAndDepth(c, current.Depth + 1)));
+                    breadthFirstQueue.EnqueueAll(nextParent.NativeChildren.Select(c => new ElementAndDepth(c, nextParent, current.Depth + 1)));
                 }
             }
-        }
-
-        /// <summary>
-        /// Return a list of possible children. The same FrameworkElement might appear several time but wrapped in different WpfElements.
-        /// </summary>
-        private static IEnumerable<ISearchSourceElement> Children(this ISearchSourceElement me)
-        {
-            return me.NativeChildren.SelectMany(nativeObject => ElementFactory.ElementFactory.CreateElements(me, nativeObject));
         }
 
         public static TElement FindFirstAncestor<TElement>(this ISearchSourceElement child)
@@ -217,12 +219,14 @@ namespace ruibarbo.core.Search
 
         private class ElementAndDepth
         {
-            public ISearchSourceElement Element { get; private set; }
+            public object NativeElement { get; private set; }
+            public ISearchSourceElement Parent { get; private set; }
             public int Depth { get; private set; }
 
-            public ElementAndDepth(ISearchSourceElement element, int depth)
+            public ElementAndDepth(object nativeElement, ISearchSourceElement parent, int depth)
             {
-                Element = element;
+                NativeElement = nativeElement;
+                Parent = parent;
                 Depth = depth;
             }
         }
