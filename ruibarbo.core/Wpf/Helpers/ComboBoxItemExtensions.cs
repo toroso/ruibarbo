@@ -23,6 +23,7 @@ namespace ruibarbo.core.Wpf.Helpers
             }
 
             // TODO: Don't know why I need this. It is IsInView in BringIntoView that is not working?
+            // Probably that GetParent() does not return the container I want.
             System.Threading.Thread.Sleep(40);
             me.Click();
         }

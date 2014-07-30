@@ -192,6 +192,12 @@ namespace ruibarbo.core.Wpf.Base
         public static void BringIntoView<TNativeElement>(this WpfFrameworkElementBase<TNativeElement> me)
             where TNativeElement : System.Windows.FrameworkElement
         {
+            bool isVisible = Wait.Until(() => me.IsVisible);
+            if (!isVisible)
+            {
+                throw RuibarboException.StateFailed(me, x => x.IsVisible);
+            }
+
             OnUiThread.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
             bool isInView = Wait.Until(() => me.IsInView());
             if (!isInView)
