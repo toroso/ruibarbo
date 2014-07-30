@@ -18,13 +18,16 @@ namespace ruibarbo.core.Search
         public string ControlToString(object nativeElement)
         {
             var elements = ElementFactory.ElementFactory.CreateElements(null, nativeElement).ToArray();
-            var element = elements.FirstOrDefault(); // Any will do
+            var elementsWithMatchingType = elements.OfType<TElement>().ToArray();
+            var element = elementsWithMatchingType.Any()
+                ? elementsWithMatchingType.First()
+                : elements.FirstOrDefault(); // Any will do
 
             var bysAsString = BysAsStringFor(element);
 
             string matchingTypesAsString = elements.Select(t => t.GetType().Name).Join("; ");
 
-            return string.Format("{0}{1} <{2}>",
+            return string.Format("{0}{1} <{2}>\n",
                 element.ControlIdentifier(),
                 bysAsString,
                 matchingTypesAsString);
@@ -38,7 +41,7 @@ namespace ruibarbo.core.Search
             }
 
             var asTElement = element as TElement;
-            return asTElement != null && asTElement.GetType() == typeof (TElement)
+            return asTElement != null
                 ? string.Format(" <{0}>", _bys.Select(by => by.ExtractedToString(asTElement)).Join("; "))
                 : string.Empty;
         }
