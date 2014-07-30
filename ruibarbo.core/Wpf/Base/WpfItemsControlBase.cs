@@ -85,6 +85,7 @@ namespace ruibarbo.core.Wpf.Base
                         .Select(item => item is System.Windows.FrameworkElement
                             ? item
                             : frameworkElement.ItemContainerGenerator.ContainerFromItem(item))
+                        .Where(item => item != null)
                         .ToArray());
             }
         }

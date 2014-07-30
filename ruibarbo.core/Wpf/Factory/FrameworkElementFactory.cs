@@ -42,6 +42,15 @@ namespace ruibarbo.core.Wpf.Factory
 
         public IEnumerable<ISearchSourceElement> CreateElements(ISearchSourceElement parent, object nativeObject)
         {
+            if (nativeObject == null)
+            {
+                var parentTypeName = parent != null
+                    ? parent.GetType().Name
+                    : "<null>";
+                var msg = string.Format("CreateElements called with null as nativeObject, parent type: {0}", parentTypeName);
+                throw new ArgumentNullException("nativeObject", msg);
+            }
+
             return
                 nativeObject
                     .GetType()
