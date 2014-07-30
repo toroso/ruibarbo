@@ -72,13 +72,46 @@ namespace ruibarbo.core.Wpf.Base
         public virtual void Click()
         {
             this.BringIntoView();
+            VerifyIsClickable();
             Mouse.Click(this);
         }
 
         public void DoubleClick()
         {
             this.BringIntoView();
+            VerifyIsClickable();
             Mouse.DoubleClick(this);
+        }
+
+        private void VerifyIsClickable()
+        {
+            bool isClickable = Wait.Until(() => IsClickable);
+            if (!isClickable)
+            {
+                throw RuibarboException.StateFailed(this, x => x.IsClickable);
+            }
+        }
+
+        public bool IsClickable
+        {
+            get
+            {
+                var clickablePoint = ClickablePoint;
+                var screenPoint = new System.Windows.Point(clickablePoint.X, clickablePoint.Y);
+                return OnUiThread.Get(this, frameworkElement =>
+                    {
+                        var container = System.Windows.Media.VisualTreeHelper.GetParent(frameworkElement) as System.Windows.FrameworkElement;
+                        if (container == null)
+                        {
+                            // Not really sure about this...
+                            return false;
+                        }
+
+                        var localPoint = frameworkElement.PointFromScreen(screenPoint);
+                        var result = System.Windows.Media.VisualTreeHelper.HitTest(frameworkElement, localPoint);
+                        return result != null;
+                    });
+            }
         }
 
         public MousePoint ClickablePoint
@@ -192,12 +225,6 @@ namespace ruibarbo.core.Wpf.Base
         public static void BringIntoView<TNativeElement>(this WpfFrameworkElementBase<TNativeElement> me)
             where TNativeElement : System.Windows.FrameworkElement
         {
-            bool isVisible = Wait.Until(() => me.IsVisible);
-            if (!isVisible)
-            {
-                throw RuibarboException.StateFailed(me, x => x.IsVisible);
-            }
-
             OnUiThread.Invoke(me, frameworkElement => frameworkElement.BringIntoView());
             bool isInView = Wait.Until(() => me.IsInView());
             if (!isInView)
