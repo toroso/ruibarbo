@@ -30,6 +30,31 @@ namespace ruibarbo.core.Hardware
             }
         }
 
+        public static void DoubleClick(IClickable clickable)
+        {
+            var point = clickable.ClickablePoint;
+            DoubleClick(point.X, point.Y);
+        }
+
+        public static void DoubleClick(int x, int y)
+        {
+            // TODO: Use Configuration.MouseDurationOfMove
+            MoveCursor(x, y);
+            var mouseDelayAfterMove = Configuration.MouseDelayAfterMove;
+            if (mouseDelayAfterMove > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(mouseDelayAfterMove);
+            }
+
+            ClickLeftButton();
+            ClickLeftButton();
+            var mouseDelayAfterClick = Configuration.MouseDelayAfterClick;
+            if (mouseDelayAfterClick > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(mouseDelayAfterClick);
+            }
+        }
+
         public static void MoveCursor(IClickable clickable)
         {
             var point = clickable.ClickablePoint;
@@ -46,7 +71,7 @@ namespace ruibarbo.core.Hardware
             var inputs = new[]
                 {
                     InputSimulator.LeftMouseButtonDown(),
-                    InputSimulator.LeftMouseButtonUp()
+                    InputSimulator.LeftMouseButtonUp(),
                 };
 
             var successful = InputSimulator.SendInput((UInt32)inputs.Length, inputs, Marshal.SizeOf(typeof(InputSimulator.INPUT)));

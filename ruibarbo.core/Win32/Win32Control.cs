@@ -81,6 +81,14 @@ namespace ruibarbo.core.Win32
             Mouse.Click(centerX, centerY);
         }
 
+        public void DoubleClick()
+        {
+            var bounds = this.GetBoundsOnScreen();
+            var centerX = (int)(bounds.X + bounds.Width / 2);
+            var centerY = (int)(bounds.Y + bounds.Height / 2);
+            Mouse.DoubleClick(centerX, centerY);
+        }
+
         public void UpdateFoundBy(string foundByAsString)
         {
             _foundByAsString = foundByAsString;

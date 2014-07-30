@@ -57,5 +57,9 @@ namespace ruibarbo.core
         public void Click()
         {
         }
+
+        public void DoubleClick()
+        {
+        }
     }
 }

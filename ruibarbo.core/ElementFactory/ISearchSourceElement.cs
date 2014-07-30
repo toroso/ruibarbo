@@ -44,5 +44,6 @@ namespace ruibarbo.core.ElementFactory
         bool IsVisible { get; }
         bool IsEnabled { get; }
         void Click();
+        void DoubleClick();
     }
 }

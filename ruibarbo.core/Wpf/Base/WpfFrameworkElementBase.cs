@@ -75,6 +75,12 @@ namespace ruibarbo.core.Wpf.Base
             Mouse.Click(this);
         }
 
+        public void DoubleClick()
+        {
+            this.BringIntoView();
+            Mouse.DoubleClick(this);
+        }
+
         public MousePoint ClickablePoint
         {
             get

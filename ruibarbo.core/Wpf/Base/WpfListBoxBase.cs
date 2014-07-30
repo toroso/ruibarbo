@@ -57,6 +57,25 @@ namespace ruibarbo.core.Wpf.Base
             var item = FindFirstItem<TItem>(bys);
             item.Click();
         }
+
+        public void DoubleClickFirst<TItem>()
+            where TItem : class, ISearchSourceElement
+        {
+            DoubleClickFirst<TItem>(By.Empty);
+        }
+
+        public void DoubleClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
+            where TItem : class, ISearchSourceElement
+        {
+            DoubleClickFirst<TItem>(byBuilders.Build());
+        }
+
+        public void DoubleClickFirst<TItem>(params By[] bys)
+            where TItem : class, ISearchSourceElement
+        {
+            var item = FindFirstItem<TItem>(bys);
+            item.DoubleClick();
+        }
     }
 
     public static class WpfListBoxBaseExtensions
