@@ -100,13 +100,6 @@ namespace ruibarbo.core.Wpf.Base
                 var screenPoint = new System.Windows.Point(clickablePoint.X, clickablePoint.Y);
                 return OnUiThread.Get(this, frameworkElement =>
                     {
-                        var container = System.Windows.Media.VisualTreeHelper.GetParent(frameworkElement) as System.Windows.FrameworkElement;
-                        if (container == null)
-                        {
-                            // Not really sure about this...
-                            return false;
-                        }
-
                         var localPoint = frameworkElement.PointFromScreen(screenPoint);
                         var result = System.Windows.Media.VisualTreeHelper.HitTest(frameworkElement, localPoint);
                         return result != null;
@@ -114,7 +107,7 @@ namespace ruibarbo.core.Wpf.Base
             }
         }
 
-        public MousePoint ClickablePoint
+        public virtual MousePoint ClickablePoint
         {
             get
             {
