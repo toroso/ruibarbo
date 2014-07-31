@@ -19,7 +19,7 @@ namespace ruibarbo.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
-            comboBox.AssertThat(x => x.AllItems<WpfComboBoxItem>().Count(), Is.EqualTo(29));
+            comboBox.AssertThat(x => x.Count(), Is.EqualTo(29));
         }
 
         [Test]

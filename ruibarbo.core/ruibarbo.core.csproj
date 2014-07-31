@@ -57,6 +57,7 @@
     <Compile Include="Wpf\Factory\RegisteredElementAttribute.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxExtensions.cs" />
+    <Compile Include="Wpf\Helpers\WpfItemsControlBaseExtensions.cs" />
     <Compile Include="Wpf\Invoker\IHasStrongReference.cs" />
     <Compile Include="Search\ByBuilder.cs" />
     <Compile Include="Search\IByBuilder.cs" />

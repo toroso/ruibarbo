@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using ruibarbo.core.Wpf.Base;
+using ruibarbo.core.Wpf.Helpers;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
 
@@ -15,7 +16,7 @@ namespace ruibarbo.sampletest.Features
             var tab5 = MainWindow.MainTabControl.Tab5;
             tab5.Click();
             var muppets = tab5.Muppets5Expander.MuppetsListBox;
-            muppets.AssertThat(x => x.AllItems<MuppetListBoxItem>().Count(), Is.EqualTo(18));
+            muppets.AssertThat(x => x.Count(), Is.EqualTo(18));
         }
 
         [Test]
