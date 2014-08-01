@@ -54,6 +54,7 @@
     <Compile Include="Wpf\Base\IComboBox.cs" />
     <Compile Include="Wpf\Base\IComboBoxItem.cs" />
     <Compile Include="Wpf\Base\WpfImageBase.cs" />
+    <Compile Include="Wpf\Base\WpfToggleButtonBase.cs" />
     <Compile Include="Wpf\Factory\RegisteredElementAttribute.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxByExtensions.cs" />
     <Compile Include="Wpf\Helpers\ComboBoxExtensions.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Wpf\Base\WpfFrameworkElementBase.cs" />
     <Compile Include="Common\Wait.cs" />
     <Compile Include="Debug\DebugExtensions.cs" />
+    <Compile Include="Wpf\WpfToggleButton.cs" />
     <Compile Include="Wpf\WpfTooltip.cs" />
     <Compile Include="Wpf\WpfWindow.cs" />
   </ItemGroup>
