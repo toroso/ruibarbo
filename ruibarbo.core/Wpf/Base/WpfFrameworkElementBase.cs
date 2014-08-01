@@ -88,7 +88,10 @@ namespace ruibarbo.core.Wpf.Base
             bool isClickable = Wait.Until(() => IsClickable);
             if (!isClickable)
             {
-                throw RuibarboException.StateFailed(this, x => x.IsClickable);
+                var clickablePoint = ClickablePoint;
+                var screenPoint = new System.Windows.Point(clickablePoint.X, clickablePoint.Y);
+                var localPoint = OnUiThread.Get(this, frameworkElement => frameworkElement.PointFromScreen(screenPoint));
+                throw RuibarboException.StateFailed(this, x => x.IsClickable, string.Format("Clickable Point: {0}", localPoint));
             }
         }
 
