@@ -29,23 +29,20 @@ namespace ruibarbo.core.Common
 
         private static Uri TryCaptureToFile(string description)
         {
-            var width = (int)SystemParameters.PrimaryScreenWidth;
-            var height = (int)SystemParameters.PrimaryScreenHeight;
-            using (var bmpScreenCapture = new Bitmap(width, height))
+            var left = Convert.ToInt32(SystemParameters.VirtualScreenLeft);
+            var top = Convert.ToInt32(SystemParameters.VirtualScreenTop);
+            var width = Convert.ToInt32(SystemParameters.VirtualScreenWidth);
+            var height = Convert.ToInt32(SystemParameters.VirtualScreenHeight);
+            using (var bitmap = new Bitmap(width, height))
             {
-                using (var gfx = Graphics.FromImage(bmpScreenCapture))
+                using (var gfx = Graphics.FromImage(bitmap))
                 {
-                    gfx.CopyFromScreen(
-                        0,
-                        0,
-                        0, 0,
-                        bmpScreenCapture.Size,
-                        CopyPixelOperation.SourceCopy);
+                    gfx.CopyFromScreen(left, top, 0, 0, bitmap.Size);
                 }
 
                 _uniqueId++;
                 string filename = String.Format("rhubaQ{0}_{1}-{2}.png", DateTime.Now.ToString("yyyyMMddHHmmssffff"), _uniqueId, description);
-                bmpScreenCapture.Save(filename, ImageFormat.Png);
+                bitmap.Save(filename, ImageFormat.Png);
                 return new Uri(Path.Combine(Directory.GetCurrentDirectory(), filename));
             }
         }
