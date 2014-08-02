@@ -9,10 +9,12 @@ namespace ruibarbo.sampletest.AutomationLayer
     public class TestBase
     {
         protected Engine Engine;
+        private bool _isStarted;
 
         [SetUp]
         public void SetUp()
         {
+            _isStarted = false;
             Engine = new Engine();
             Engine.ConfigureElementFactory(x =>
                 {
@@ -25,19 +27,32 @@ namespace ruibarbo.sampletest.AutomationLayer
                             q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                 });
-            Engine.Start(new SampleApplication());
         }
 
         [TearDown]
         public void TearDown()
         {
-            Engine.ShutDown();
+            if (_isStarted)
+            {
+                Engine.ShutDown();
+            }
+
             CollectionAssert.IsEmpty(Engine.UnhandledExceptions);
         }
 
         protected MainWindow MainWindow
         {
-            get { return Engine.Desktop.FindFirstChild<MainWindow>(By.Name("WndMain")); }
+            get
+            {
+                if (!_isStarted)
+                {
+                    // Lazy start so that tests can perform setup before application is started.
+                    _isStarted = true;
+                    Engine.Start(new SampleApplication());
+                }
+
+                return Engine.Desktop.FindFirstChild<MainWindow>(By.Name("WndMain"));
+            }
         }
 
         protected MessageBox MessageBox
