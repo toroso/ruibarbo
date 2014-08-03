@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ruibarbo</id>
+    <version>0.1</version>
+    <authors>Torbjörn Kalin</authors>
+    <owners>Torbjörn Kalin</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>http://github.com/toroso/ruibarbo</projectUrl>
+    <iconUrl>http://github.com/toroso/ruibarbo/blob/master/logo32x32.png?raw=true</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A library for automating Windows applications that are based on WPF. Use for creating an automated test suite that drives your application through its user interface.</description>
+    <copyright>Copyright 2014 Torbjörn Kalin</copyright>
+    <tags>ruibarbo test uitest testing uiautomation automation uia wpf mock fake</tags>
+  </metadata>
+  <files>
+    <file src="ruibarbo.core\bin\Release\ruibarbo.core.dll" target="lib/4.0" />
+    <file src="ruibarbo.nunit\bin\Release\ruibarbo.nunit.dll" target="lib/4.0" />
+  </files>
+</package>
