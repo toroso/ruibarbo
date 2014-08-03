@@ -10,14 +10,10 @@ namespace ruibarbo.core.Wpf.Base
             : base(searchParent, checkBox)
         {
         }
-    }
 
-    public static class WpfCheckBoxBaseExtensions
-    {
-        public static bool? IsChecked<TNativeElement>(this WpfCheckBoxBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.CheckBox
+        public bool? IsChecked
         {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsChecked);
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsChecked); }
         }
     }
 }

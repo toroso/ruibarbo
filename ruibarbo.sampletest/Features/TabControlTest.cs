@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using ruibarbo.core.Wpf;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
 
@@ -22,24 +21,24 @@ namespace ruibarbo.sampletest.Features
         {
             var mainTabControl = MainWindow.MainTabControl;
             var tab1 = mainTabControl.AllItems<WpfTabItem>().First();
-            tab1.AssertThat(x => x.IsSelected(), Is.True);
+            tab1.AssertThat(x => x.IsSelected, Is.True);
         }
 
         [Test]
         public void TabControlHasFirstTabItemAsSelected()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            var tab1 = mainTabControl.AllItems<WpfTabItem>().First(x => x.Header().Equals("Tab 1"));
-            tab1.AssertThat(x => x.IsSelected(), Is.True);
+            var tab1 = mainTabControl.AllItems<WpfTabItem>().First(x => x.Header.Equals("Tab 1"));
+            tab1.AssertThat(x => x.IsSelected, Is.True);
         }
 
         [Test]
         public void ChangeToSecondTabItem()
         {
             var mainTabControl = MainWindow.MainTabControl;
-            var tab2 = mainTabControl.AllItems<WpfTabItem>().First(x => x.Header().Equals("Tab 2"));
+            var tab2 = mainTabControl.AllItems<WpfTabItem>().First(x => x.Header.Equals("Tab 2"));
             tab2.Click();
-            tab2.AssertThat(x => x.IsSelected(), Is.True);
+            tab2.AssertThat(x => x.IsSelected, Is.True);
         }
 
         [Test]

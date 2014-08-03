@@ -77,8 +77,4 @@ namespace ruibarbo.core.Wpf.Base
             item.DoubleClick();
         }
     }
-
-    public static class WpfListBoxBaseExtensions
-    {
-    }
 }

@@ -100,13 +100,4 @@ namespace ruibarbo.core.Wpf.Base
             }
         }
     }
-
-    public static class WpfComboBoxBaseExtensions
-    {
-        public static bool IsDropDownOpen<TNativeElement>(this WpfComboBoxBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.ComboBox
-        {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsDropDownOpen);
-        }
-    }
 }

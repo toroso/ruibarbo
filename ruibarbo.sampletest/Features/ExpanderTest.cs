@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using ruibarbo.core.Search;
 using ruibarbo.core.Wpf;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
 
@@ -55,7 +54,7 @@ namespace ruibarbo.sampletest.Features
             tab5.Click();
             var expander = tab5.Muppets5Expander;
             var title = expander.FindFirstChild<WpfTextBlock>();
-            title.AssertThat(x => x.Text(), Is.EqualTo("Muppets"));
+            title.AssertThat(x => x.Text, Is.EqualTo("Muppets"));
         }
 
         [Test]

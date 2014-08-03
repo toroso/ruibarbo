@@ -14,13 +14,24 @@ namespace ruibarbo.core.Wpf.Base
         {
         }
 
+        // TODO: Move to WpfHeaderedContentControl?
+        public object Header
+        {
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Header); }
+        }
+
+        public bool IsSelected
+        {
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsSelected); }
+        }
+
         public override IEnumerable<object> NativeChildren
         {
             get
             {
                 // A WpfTabItem's frameworkElement (TabItem) is the header only. The content part belongs to TabControl.
                 // But the TabControl's content host only contains the elements of the selected tab item.
-                if (this.IsSelected())
+                if (IsSelected)
                 {
                     // TODO: This creates a circular dependency.
                     //  * Inject parent TabControl?
@@ -40,27 +51,11 @@ namespace ruibarbo.core.Wpf.Base
         public override void Click()
         {
             base.Click();
-            bool isSelected = Wait.Until(() => this.IsSelected());
+            bool isSelected = Wait.Until(() => IsSelected);
             if (!isSelected)
             {
-                throw RuibarboException.StateFailed(this, x => x.IsSelected());
+                throw RuibarboException.StateFailed(this, x => x.IsSelected);
             }
-        }
-    }
-
-    public static class WpfTabItemBaseExtensions
-    {
-        // TODO: Move to WpfHeaderedContentControl?
-        public static object Header<TNativeElement>(this WpfTabItemBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.TabItem
-        {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.Header);
-        }
-
-        public static bool IsSelected<TNativeElement>(this WpfTabItemBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.TabItem
-        {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsSelected);
         }
     }
 }

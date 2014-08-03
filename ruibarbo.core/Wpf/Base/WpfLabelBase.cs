@@ -10,14 +10,10 @@ namespace ruibarbo.core.Wpf.Base
             : base(searchParent, frameworkElement)
         {
         }
-    }
 
-    public static class WpfLabelBaseExtensions
-    {
-        public static object Content<TNativeElement>(this WpfLabelBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.Label
+        public object Content
         {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.Content);
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Content); }
         }
     }
 }

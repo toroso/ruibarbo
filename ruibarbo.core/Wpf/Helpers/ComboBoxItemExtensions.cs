@@ -8,7 +8,7 @@ namespace ruibarbo.core.Wpf.Helpers
     {
         public static string TextBlockText(this IComboBoxItem me)
         {
-            return me.FindFirstChild<WpfTextBlock>().Text();
+            return me.FindFirstChild<WpfTextBlock>().Text;
         }
 
         public static void OpenAndClick(this IComboBoxItem me)

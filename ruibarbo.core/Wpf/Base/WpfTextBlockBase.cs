@@ -10,14 +10,10 @@ namespace ruibarbo.core.Wpf.Base
             : base(searchParent, textBlock)
         {
         }
-    }
 
-    public static class WpfTextBlockBaseExtensions
-    {
-        public static string Text<TNativeElement>(this WpfTextBlockBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.TextBlock
+        public string Text
         {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.Text);
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Text); }
         }
     }
 }

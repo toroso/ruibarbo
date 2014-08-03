@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using ruibarbo.core.Search;
 using ruibarbo.core.Wpf;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.core.Wpf.Helpers;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
@@ -24,7 +23,7 @@ namespace ruibarbo.sampletest.Features
             var tooltip = errorTextBlock.Tooltip<WpfTooltip>();
             tooltip.AssertThat(x => x.IsVisible, Is.False);
             var text = tooltip.FindFirstChild<WpfTextBlock>(By.Name("TxbToolTip"));
-            text.AssertThat(x => x.Text(), Is.EqualTo("It's sad that something bad went very wrong."));
+            text.AssertThat(x => x.Text, Is.EqualTo("It's sad that something bad went very wrong."));
             errorTextBlock.AssertThat(x => x.TooltipAsString(), Is.Null);
         }
 

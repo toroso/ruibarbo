@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using ruibarbo.core.Common;
 using ruibarbo.core.Wpf;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.core.Wpf.Helpers;
 using ruibarbo.core.Wpf.Invoker;
 using ruibarbo.nunit;
@@ -69,7 +68,7 @@ namespace ruibarbo.sampletest.Features
             tab1.Click();
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var noErrorItem = comboBox.FindFirstItem<WpfComboBoxItem>(by => by.FirstTextBlockText("No error"));
-            noErrorItem.AssertThat(x => x.IsSelected(), Is.True);
+            noErrorItem.AssertThat(x => x.IsSelected, Is.True);
         }
 
         [Test]
@@ -80,7 +79,7 @@ namespace ruibarbo.sampletest.Features
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             var selectedItem = comboBox.SelectedItem<WpfComboBoxItem>();
             selectedItem.AssertThat(x => x.TextBlockText(), Is.EqualTo("No error"));
-            selectedItem.AssertThat(x => x.IsSelected(), Is.True);
+            selectedItem.AssertThat(x => x.IsSelected, Is.True);
         }
 
         [Test]
@@ -91,7 +90,7 @@ namespace ruibarbo.sampletest.Features
             var comboBox = tab1.StuffControl.ShowErrorComboBox;
             comboBox.OpenAndClickFirst<WpfComboBoxItem>(by => by.FirstTextBlockText("Has error"));
             var item = comboBox.FindFirstItem<WpfComboBoxItem>(by => by.FirstTextBlockText("Has error"));
-            item.AssertThat(x => x.IsSelected(), Is.True);
+            item.AssertThat(x => x.IsSelected, Is.True);
         }
 
         [Test]
@@ -114,13 +113,13 @@ namespace ruibarbo.sampletest.Features
             var lastItem = comboBox.AllItems<WpfComboBoxItem>().Last();
             lastItem.AssertThat(x => x.TextBlockText(), Is.EqualTo("Item 29"));
             lastItem.OpenAndClick();
-            lastItem.AssertThat(x => x.IsSelected(), Is.True);
+            lastItem.AssertThat(x => x.IsSelected, Is.True);
 
             var firstItem = comboBox.AllItems<WpfComboBoxItem>().First();
             firstItem.AssertThat(x => x.TextBlockText(), Is.EqualTo("No error"));
             firstItem.OpenAndClick();
-            firstItem.AssertThat(x => x.IsSelected(), Is.True);
-            lastItem.AssertThat(x => x.IsSelected(), Is.False);
+            firstItem.AssertThat(x => x.IsSelected, Is.True);
+            lastItem.AssertThat(x => x.IsSelected, Is.False);
         }
     }
 }

@@ -10,14 +10,10 @@ namespace ruibarbo.core.Wpf.Base
             : base(searchParent, frameworkElement)
         {
         }
-    }
 
-    public static class WpfListBoxItemBaseExtensions
-    {
-        public static bool IsSelected<TNativeElement>(this WpfListBoxItemBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.ListBoxItem
+        public bool IsSelected
         {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsSelected);
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsSelected); }
         }
     }
 }

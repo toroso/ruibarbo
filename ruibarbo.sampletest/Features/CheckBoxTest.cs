@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
 
@@ -14,7 +13,7 @@ namespace ruibarbo.sampletest.Features
             var tab1 = MainWindow.MainTabControl.Tab1;
             tab1.Click();
             var checkBox = tab1.ShowStuffCheckBox;
-            checkBox.AssertThat(x => x.IsChecked(), Is.True);
+            checkBox.AssertThat(x => x.IsChecked, Is.True);
         }
 
         [Test]
@@ -24,7 +23,7 @@ namespace ruibarbo.sampletest.Features
             tab1.Click();
             var checkBox = tab1.ShowStuffCheckBox;
             checkBox.Click();
-            checkBox.AssertThat(x => x.IsChecked(), Is.False);
+            checkBox.AssertThat(x => x.IsChecked, Is.False);
         }
     }
 }

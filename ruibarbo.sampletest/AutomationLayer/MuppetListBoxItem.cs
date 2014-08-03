@@ -24,7 +24,7 @@ namespace ruibarbo.sampletest.AutomationLayer
     {
         public static By Muppet(this IByBuilder<MuppetListBoxItem> me, string text)
         {
-            return me.ByExpression(x => x.MuppetTextBlock.Text(), text);
+            return me.ByExpression(x => x.MuppetTextBlock.Text, text);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using ruibarbo.core.Wpf;
-using ruibarbo.core.Wpf.Base;
 using ruibarbo.core.Wpf.Helpers;
 using ruibarbo.nunit;
 using ruibarbo.sampletest.AutomationLayer;
@@ -18,7 +17,7 @@ namespace ruibarbo.sampletest.Features
             var stuffControl = tab1.StuffControl;
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
             errorTextBlock.AssertThat(x => x.IsVisible, Is.False);
-            errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
+            errorTextBlock.AssertThat(x => x.Text, Is.EqualTo("Naughty frog!"));
         }
 
         [Test]
@@ -32,7 +31,7 @@ namespace ruibarbo.sampletest.Features
             item.OpenAndClick();
             WpfTextBlock errorTextBlock = stuffControl.ErrorTextBlock;
             errorTextBlock.AssertThat(x => x.IsVisible, Is.True);
-            errorTextBlock.AssertThat(x => x.Text(), Is.EqualTo("Naughty frog!"));
+            errorTextBlock.AssertThat(x => x.Text, Is.EqualTo("Naughty frog!"));
         }
     }
 }

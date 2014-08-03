@@ -10,14 +10,10 @@ namespace ruibarbo.core.Wpf.Base
             : base(searchParent, checkBox)
         {
         }
-    }
 
-    public static class WpfToggleButtonBaseExtensions
-    {
-        public static bool? IsChecked<TNativeElement>(this WpfToggleButtonBase<TNativeElement> me)
-            where TNativeElement : System.Windows.Controls.Primitives.ToggleButton
+        public bool? IsChecked
         {
-            return OnUiThread.Get(me, frameworkElement => frameworkElement.IsChecked);
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsChecked); }
         }
     }
 }
