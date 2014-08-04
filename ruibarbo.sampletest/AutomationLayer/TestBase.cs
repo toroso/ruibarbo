@@ -1,3 +1,5 @@
+using System;
+
 using NUnit.Framework;
 using ruibarbo.core;
 using ruibarbo.core.Search;
@@ -26,6 +28,10 @@ namespace ruibarbo.sampletest.AutomationLayer
                         {
                             q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
+                });
+            Engine.ConfigureHardware(x =>
+                {
+                    x.DelayWhenOpeningComboBox = TimeSpan.FromMilliseconds(40);
                 });
         }
 

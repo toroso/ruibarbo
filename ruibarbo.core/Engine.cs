@@ -54,6 +54,7 @@ namespace ruibarbo.core
             ConfigureHardware(x =>
                 {
                     x.MaxRetryTime = TimeSpan.FromSeconds(5);
+                    x.DelayWhenOpeningComboBox = TimeSpan.Zero;
                     x.KeyboardDelayBetweenKeys = TimeSpan.Zero;
                     x.KeyboardDelayAfterTyping = TimeSpan.Zero;
                     x.MouseDelayAfterMove = TimeSpan.Zero;

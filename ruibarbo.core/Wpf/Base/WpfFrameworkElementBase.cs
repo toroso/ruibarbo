@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ruibarbo.core.Common;
+using ruibarbo.core.Debug;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
 using ruibarbo.core.Search;
@@ -241,15 +242,21 @@ namespace ruibarbo.core.Wpf.Base
                         return true;
                     }
 
-                    var bounds = element
+                    var elementBounds = element
                         .TransformToAncestor(container)
                         .TransformBounds(new System.Windows.Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
-                    var rect = new System.Windows.Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
-                    var isInView = rect.IntersectsWith(bounds);
-                    //Console.WriteLine("IsInView '{0}' of {5}:{7} in '{1}' of {6}:{8}: {2} ({3} X {4})",
-                    //    element.Name, container.Name, isInView, rect.ToString(), bounds.ToString(), element.GetType().Name, container.GetType().Name,
+                    var containerBounds = new System.Windows.Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
+                    var isInView = containerBounds.IntersectsWith(elementBounds);
+                    //Console.WriteLine("IsInView '{0}' of {1}:{2} in '{3}' of {4}:{5}: {6} ({7} in {8})",
+                    //    element.Name,
+                    //    element.GetType().Name,
                     //    element.GetHashCode(),
-                    //    container.GetHashCode());
+                    //    container.Name,
+                    //    container.GetType().Name,
+                    //    container.GetHashCode(),
+                    //    isInView,
+                    //    elementBounds.ToString(),
+                    //    containerBounds.ToString());
                     return isInView;
                 });
         }

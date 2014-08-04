@@ -14,6 +14,15 @@ namespace ruibarbo.core.Common
         }
 
         /// <summary>
+        /// How long should we wait for the ComboBox popup to open after clicking it.
+        /// On fast computers, this can be set to zero. On slow computers you might need up to 100 ms.
+        /// </summary>
+        public TimeSpan DelayWhenOpeningComboBox
+        {
+            set { Configuration.DelayWhenOpeningComboBox = value; }
+        }
+
+        /// <summary>
         /// When typing on the keyboard, how long should the delay be between each key press?
         /// The only reason for setting this to non-zero value is for demonstration: you will see what
         /// is typed on the keyboard.

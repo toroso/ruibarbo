@@ -74,5 +74,13 @@ namespace ruibarbo.core.Common
             get { return Instance._maxRetryTime; }
             set { Instance._maxRetryTime = value; }
         }
+
+        private TimeSpan _delayWhenOpeningComboBox;
+
+        public static TimeSpan DelayWhenOpeningComboBox
+        {
+            get { return Instance._delayWhenOpeningComboBox; }
+            set { Instance._delayWhenOpeningComboBox = value; }
+        }
     }
 }
