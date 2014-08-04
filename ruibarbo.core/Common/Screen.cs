@@ -41,7 +41,7 @@ namespace ruibarbo.core.Common
                 }
 
                 _uniqueId++;
-                string filename = String.Format("rhubaQ{0}_{1}-{2}.png", DateTime.Now.ToString("yyyyMMddHHmmssffff"), _uniqueId, description);
+                string filename = String.Format("ruibarbo_{0}_{1}-{2}.png", DateTime.Now.ToString("yyyyMMddHHmmssffff"), _uniqueId, description);
                 bitmap.Save(filename, ImageFormat.Png);
                 return new Uri(Path.Combine(Directory.GetCurrentDirectory(), filename));
             }
