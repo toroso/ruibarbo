@@ -50,8 +50,7 @@ namespace ruibarbo.core.Common
         }
 
         /// <summary>
-        /// How long should the delay be after clicking the mouse. This delay is the only one that is
-        /// non-zero by default. Sometimes the tests are too fast for Windows, and, for instance, clicking
+        /// How long should the delay be after clicking the mouse. Sometimes the tests are too fast for Windows, and, for instance, clicking
         /// a TextBox for focus requires a delay.
         /// </summary>
         public TimeSpan MouseDelayAfterClick
