@@ -14,8 +14,13 @@ namespace ruibarbo.nunit
                 this TWpfElement me,
                 Expression<Func<TWpfElement, object>> actualExp,
                 IResolveConstraint resolveConstraint)
-            where TWpfElement : ISearchSourceElement
+            where TWpfElement : class, ISearchSourceElement
         {
+            if (me == null)
+            {
+                throw new ArgumentNullException("me", string.Format("In me.AssertThat({0}, {1})", actualExp, resolveConstraint));
+            }
+
             Constraint constraint = resolveConstraint.Resolve();
             var extractFunc = actualExp.Compile();
 
