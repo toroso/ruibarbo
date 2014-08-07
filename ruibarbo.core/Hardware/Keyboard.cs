@@ -10,15 +10,17 @@ namespace ruibarbo.core.Hardware
     {
         public static void Type(string value)
         {
-            // TODO: Using some kind of configuration, insert delays so that it's possible to see the keys. Send one by one?
-            var inputs = value
-                .SelectMany(ch => new[]
-                    {
-                        InputSimulator.CharDown(ch),
-                        InputSimulator.CharUp(ch),
-                    })
-                .ToArray();
-            SendInput(inputs);
+            foreach (var ch in value)
+            {
+                var inputs = new[] { InputSimulator.CharDown(ch), InputSimulator.CharUp(ch), };
+                SendInput(inputs);
+
+                var keyboardDelayBetweenKeys = Configuration.KeyboardDelayBetweenKeys;
+                if (keyboardDelayBetweenKeys > TimeSpan.Zero)
+                {
+                    System.Threading.Thread.Sleep(keyboardDelayBetweenKeys);
+                }
+            }
 
             var keyboardDelayAfterTyping = Configuration.KeyboardDelayAfterTyping;
             if (keyboardDelayAfterTyping > TimeSpan.Zero)
