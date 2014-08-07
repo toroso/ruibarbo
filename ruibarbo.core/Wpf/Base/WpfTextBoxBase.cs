@@ -30,7 +30,7 @@ namespace ruibarbo.core.Wpf.Base
             Hardware.Keyboard.Type(value);
         }
 
-        private void TypeShortcut(params System.Windows.Input.Key[] keys)
+        public void TypeShortcut(params System.Windows.Input.Key[] keys)
         {
             VerifyIsKeyboardFocused();
             Hardware.Keyboard.TypeShortcut(keys);
@@ -57,6 +57,7 @@ namespace ruibarbo.core.Wpf.Base
             where TNativeElement : System.Windows.Controls.TextBox
         {
             me.ClickAndSelectAll();
+            me.TypeShortcut(System.Windows.Input.Key.Delete);
             me.Type(value);
         }
     }
