@@ -29,7 +29,7 @@ namespace ruibarbo.sampletest.AutomationLayer
                             q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                 });
-            Engine.ConfigureHardware(x =>
+            Engine.Configure(x =>
                 {
                     x.DelayWhenOpeningComboBox = TimeSpan.FromMilliseconds(40);
                 });

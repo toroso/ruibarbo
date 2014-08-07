@@ -51,7 +51,7 @@ namespace ruibarbo.core
                             q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                 });
-            ConfigureHardware(x =>
+            Configure(x =>
                 {
                     x.MaxRetryTime = TimeSpan.FromSeconds(5);
                     x.DelayWhenOpeningComboBox = TimeSpan.Zero;
@@ -69,7 +69,7 @@ namespace ruibarbo.core
             cfgAction(new ElementFactoryConfigurator());
         }
 
-        public void ConfigureHardware(Action<Configurator> cfgAction)
+        public void Configure(Action<Configurator> cfgAction)
         {
             cfgAction(new Configurator());
         }
