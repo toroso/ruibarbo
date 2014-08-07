@@ -130,7 +130,14 @@ namespace ruibarbo.core
         {
             Win32Api.CloseAllWindows();
             OnUiThread.BeginInvokeShutdown();
-            _uiThread.Join();
+            var wasJoined = _uiThread.Join(TimeSpan.FromMilliseconds(5000));
+            if (!wasJoined)
+            {
+                // If the last thing that happens in a test is that a Win32 window is opened it will open after the CloseAllWindows()
+                // call above is made. If a window is open we can't join the threads. Here we make another attempt.
+                Win32Api.CloseAllWindows();
+                _uiThread.Join(TimeSpan.FromMilliseconds(5000));
+            }
         }
 
         private void OnCurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
