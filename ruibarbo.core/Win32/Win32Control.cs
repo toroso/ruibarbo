@@ -65,7 +65,19 @@ namespace ruibarbo.core.Win32
 
         public bool IsVisible
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var current = Hwnd;
+                while (current != IntPtr.Zero)
+                {
+                    if (Win32Api.IsWindowVisible(current) == false)
+                    {
+                        return false;
+                    }
+                    current = Win32Api.GetParent(current);
+                }
+                return true;
+            }
         }
 
         public bool IsEnabled

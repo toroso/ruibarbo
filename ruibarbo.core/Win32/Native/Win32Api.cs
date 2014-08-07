@@ -23,6 +23,9 @@ namespace ruibarbo.core.Win32.Native
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
@@ -39,8 +42,12 @@ namespace ruibarbo.core.Win32.Native
             public int Bottom;
         }
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool IsWindowVisible(IntPtr hWnd);
+
         [DllImport("user32", EntryPoint = "SendMessage")]
-        public static extern int SendMessage(int hWnd, int wMsg, int wParam, int lParam);
+        private static extern int SendMessage(int hWnd, int wMsg, int wParam, int lParam);
 
         public const int WM_CLOSE = 0x0010;
 
@@ -59,7 +66,11 @@ namespace ruibarbo.core.Win32.Native
                 hwnd,
                 (h, lParam) =>
                     {
-                        handles.Add(h);
+                        if (GetParent(h) == hwnd)
+                        {
+                            // EnumChildWindows enumerates all children recursively. We only want direct children.
+                            handles.Add(h);
+                        }
                         return true;
                     },
                 IntPtr.Zero);

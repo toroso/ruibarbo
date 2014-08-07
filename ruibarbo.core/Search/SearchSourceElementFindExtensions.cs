@@ -115,7 +115,6 @@ namespace ruibarbo.core.Search
                     }
                 }
 
-
                 if (current.Depth < MaxSearchDepth && nextParent != null)
                 {
                     breadthFirstQueue.EnqueueAll(nextParent.NativeChildren.Select(c => new ElementAndDepth(c, nextParent, current.Depth + 1)));
