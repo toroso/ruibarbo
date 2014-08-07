@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ruibarbo.core.Common;
-using ruibarbo.core.Debug;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
 using ruibarbo.core.Search;

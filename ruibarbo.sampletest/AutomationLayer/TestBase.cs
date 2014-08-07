@@ -57,7 +57,9 @@ namespace ruibarbo.sampletest.AutomationLayer
                     Engine.Start(new SampleApplication());
                 }
 
-                return Engine.Desktop.FindFirstChild<MainWindow>(By.Name("WndMain"));
+                var mainWindow = Engine.Desktop.FindFirstChild<MainWindow>(By.Name("WndMain"));
+                mainWindow.MakeSureWindowIsTopmost();
+                return mainWindow;
             }
         }
 
