@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+
 using ruibarbo.core.Common;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
@@ -71,6 +73,7 @@ namespace ruibarbo.core.Wpf.Base
 
         public virtual void Click()
         {
+            VerifyIsLoadedAndVisibleAndEnabled();
             this.BringIntoView();
             VerifyIsClickable();
             Mouse.Click(this);
@@ -78,9 +81,36 @@ namespace ruibarbo.core.Wpf.Base
 
         public void DoubleClick()
         {
+            VerifyIsLoadedAndVisibleAndEnabled();
             this.BringIntoView();
             VerifyIsClickable();
             Mouse.DoubleClick(this);
+        }
+
+        private void VerifyIsLoadedAndVisibleAndEnabled()
+        {
+            bool isLoaded = Wait.Until(() => IsLoaded);
+            if (!isLoaded)
+            {
+                throw RuibarboException.StateFailed(this, x => x.IsLoaded);
+            }
+
+            bool isVisible = Wait.Until(() => IsVisible);
+            if (!isVisible)
+            {
+                throw RuibarboException.StateFailed(this, x => x.IsVisible);
+            }
+
+            bool isEnabled = Wait.Until(() => IsEnabled);
+            if (!isEnabled)
+            {
+                throw RuibarboException.StateFailed(this, x => x.IsEnabled);
+            }
+        }
+
+        private bool IsLoaded
+        {
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsLoaded); }
         }
 
         private void VerifyIsClickable()
