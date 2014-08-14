@@ -29,10 +29,6 @@ namespace ruibarbo.sampletest.AutomationLayer
                             q.AddRegisteredElementsInAssembly(GetType().Assembly);
                         }));
                 });
-            Engine.Configure(x =>
-                {
-                    x.DelayWhenOpeningComboBox = TimeSpan.FromMilliseconds(40);
-                });
         }
 
         [TearDown]

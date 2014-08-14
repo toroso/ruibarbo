@@ -22,9 +22,6 @@ namespace ruibarbo.core.Wpf.Helpers
                 throw RuibarboException.StateFailed(me, x => x.IsVisible);
             }
 
-            // TODO: Don't know why I need this. It is IsInView in BringIntoView that is not working?
-            // Probably that GetParent() does not return the container I want.
-            System.Threading.Thread.Sleep(Configuration.DelayWhenOpeningComboBox);
             me.Click();
         }
     }
