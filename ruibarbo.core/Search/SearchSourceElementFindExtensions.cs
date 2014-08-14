@@ -39,7 +39,7 @@ namespace ruibarbo.core.Search
                     .AppendByClass<TElement>()
                     .Select(by => by.ToString())
                     .Join("; ");
-                throw RuibarboException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, MaxSearchDepth));
+                throw RuibarboException.FindFailed("child", parent, byAsString, parent.ControlTreeAsString(controlToStringCreator, 8));
             }
 
             return found;
