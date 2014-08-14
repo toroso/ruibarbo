@@ -2,12 +2,38 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace ruibarbo.core.Common
 {
     public static class Screen
     {
+        // TODO? Move these to Win32Api class, and move that away from the Win32 namespace?
+        [StructLayout(LayoutKind.Sequential)]
+        struct CURSORINFO
+        {
+            public Int32 cbSize;
+            public Int32 flags;
+            public IntPtr hCursor;
+            public POINTAPI ptScreenPos;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct POINTAPI
+        {
+            public int x;
+            public int y;
+        }
+
+        [DllImport("user32.dll")]
+        static extern bool GetCursorInfo(out CURSORINFO pci);
+
+        [DllImport("user32.dll")]
+        static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
+
+        const Int32 CURSOR_SHOWING = 0x00000001;
+
         private static int _uniqueId;
 
         public static Uri CaptureToFile(string description)
@@ -38,6 +64,18 @@ namespace ruibarbo.core.Common
                 using (var gfx = Graphics.FromImage(bitmap))
                 {
                     gfx.CopyFromScreen(left, top, 0, 0, bitmap.Size);
+
+                    CURSORINFO pci;
+                    pci.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
+
+                    if (GetCursorInfo(out pci))
+                    {
+                        if (pci.flags == CURSOR_SHOWING)
+                        {
+                            DrawIcon(gfx.GetHdc(), pci.ptScreenPos.x, pci.ptScreenPos.y, pci.hCursor);
+                            gfx.ReleaseHdc();
+                        }
+                    }
                 }
 
                 _uniqueId++;
