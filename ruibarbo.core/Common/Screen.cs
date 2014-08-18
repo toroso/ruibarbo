@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -55,33 +56,43 @@ namespace ruibarbo.core.Common
 
         private static Uri TryCaptureToFile(string description)
         {
-            var left = Convert.ToInt32(SystemParameters.VirtualScreenLeft);
-            var top = Convert.ToInt32(SystemParameters.VirtualScreenTop);
-            var width = Convert.ToInt32(SystemParameters.VirtualScreenWidth);
-            var height = Convert.ToInt32(SystemParameters.VirtualScreenHeight);
-            using (var bitmap = new Bitmap(width, height))
+            using (var bitmap = CaptureScreenAndMouseCursor())
             {
-                using (var gfx = Graphics.FromImage(bitmap))
-                {
-                    gfx.CopyFromScreen(left, top, 0, 0, bitmap.Size);
-
-                    CURSORINFO pci;
-                    pci.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
-
-                    if (GetCursorInfo(out pci))
-                    {
-                        if (pci.flags == CURSOR_SHOWING)
-                        {
-                            DrawIcon(gfx.GetHdc(), pci.ptScreenPos.x, pci.ptScreenPos.y, pci.hCursor);
-                            gfx.ReleaseHdc();
-                        }
-                    }
-                }
-
                 _uniqueId++;
                 string filename = String.Format("ruibarbo_{0}_{1}-{2}.png", DateTime.Now.ToString("yyyyMMddHHmmssffff"), _uniqueId, description);
                 bitmap.Save(filename, ImageFormat.Png);
                 return new Uri(Path.Combine(Directory.GetCurrentDirectory(), filename));
+            }
+        }
+
+        private static Bitmap CaptureScreenAndMouseCursor()
+        {
+            var left = Convert.ToInt32(SystemParameters.VirtualScreenLeft);
+            var top = Convert.ToInt32(SystemParameters.VirtualScreenTop);
+            var width = Convert.ToInt32(SystemParameters.VirtualScreenWidth);
+            var height = Convert.ToInt32(SystemParameters.VirtualScreenHeight);
+
+            var bitmap = new Bitmap(width, height);
+            using (var gfx = Graphics.FromImage(bitmap))
+            {
+                gfx.CopyFromScreen(left, top, 0, 0, bitmap.Size);
+                DrawMouseCursor(gfx);
+            }
+            return bitmap;
+        }
+
+        private static void DrawMouseCursor(Graphics gfx)
+        {
+            CURSORINFO pci;
+            pci.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
+
+            if (GetCursorInfo(out pci))
+            {
+                if (pci.flags == CURSOR_SHOWING)
+                {
+                    DrawIcon(gfx.GetHdc(), pci.ptScreenPos.x, pci.ptScreenPos.y, pci.hCursor);
+                    gfx.ReleaseHdc();
+                }
             }
         }
     }
