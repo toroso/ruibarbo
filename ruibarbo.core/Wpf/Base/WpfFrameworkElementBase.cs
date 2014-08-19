@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-
 using ruibarbo.core.Common;
+using ruibarbo.core.Debug;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
 using ruibarbo.core.Search;
@@ -133,10 +132,78 @@ namespace ruibarbo.core.Wpf.Base
                 var screenPoint = new System.Windows.Point(clickablePoint.X, clickablePoint.Y);
                 return OnUiThread.Get(this, frameworkElement =>
                     {
-                        var localPoint = frameworkElement.PointFromScreen(screenPoint);
-                        var result = System.Windows.Media.VisualTreeHelper.HitTest(frameworkElement, localPoint);
-                        return result != null;
+                        System.Windows.FrameworkElement rootElement = GetRootElement(frameworkElement);
+                        var localPoint = rootElement.PointFromScreen(screenPoint);
+                        System.Windows.Media.HitTestResult result = null;
+                        System.Windows.Media.VisualTreeHelper.HitTest(
+                            rootElement,
+                            filterElement =>
+                                {
+                                    var uiElement = filterElement as System.Windows.UIElement;
+                                    if (uiElement != null)
+                                    {
+                                        if (uiElement.IsVisible)
+                                        {
+                                            return uiElement.IsHitTestVisible
+                                                ? System.Windows.Media.HitTestFilterBehavior.Continue
+                                                : System.Windows.Media.HitTestFilterBehavior.ContinueSkipSelf;
+                                        }
+                                    }
+                                    return System.Windows.Media.HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+                                },
+                            resultElement =>
+                                {
+                                    result = resultElement;
+                                    return System.Windows.Media.HitTestResultBehavior.Stop;
+                                },
+                            new System.Windows.Media.PointHitTestParameters(localPoint));
+                        if (result != null)
+                        {
+                            var hitDependencyObject = result.VisualHit;
+                            return IsChildOf(frameworkElement, hitDependencyObject);
+                        }
+
+                        return false;
                     });
+            }
+        }
+
+        private static System.Windows.FrameworkElement GetRootElement(System.Windows.FrameworkElement child)
+        {
+            System.Windows.FrameworkElement currentFrameworkElement = child;
+            System.Windows.DependencyObject current = child;
+            while (true)
+            {
+                var parent = System.Windows.Media.VisualTreeHelper.GetParent(current);
+                if (parent == null)
+                {
+                    return currentFrameworkElement;
+                }
+
+                current = parent;
+                var asFrameworkElement = current as System.Windows.FrameworkElement;
+                if (asFrameworkElement != null)
+                {
+                    currentFrameworkElement = asFrameworkElement;
+                }
+            }
+        }
+
+        private static bool IsChildOf(System.Windows.DependencyObject parent, System.Windows.DependencyObject child)
+        {
+            System.Windows.DependencyObject current = child;
+            while (true)
+            {
+                if (Equals(parent, current))
+                {
+                    return true;
+                }
+
+                current = System.Windows.Media.VisualTreeHelper.GetParent(current);
+                if (current == null)
+                {
+                    return false;
+                }
             }
         }
 
