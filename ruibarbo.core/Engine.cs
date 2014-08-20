@@ -59,6 +59,7 @@ namespace ruibarbo.core
                     x.MouseDelayAfterMove = TimeSpan.FromMilliseconds(40);
                     x.MouseDelayAfterClick = TimeSpan.FromMilliseconds(20);
                     x.MouseDurationOfMove = TimeSpan.Zero;
+                    x.DelayWhenOpeningComboBox = TimeSpan.Zero;
                     x.ScreenshotOnFailedAssertion = true;
                 });
         }

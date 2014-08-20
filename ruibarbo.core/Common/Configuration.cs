@@ -19,6 +19,14 @@ namespace ruibarbo.core.Common
             }
         }
 
+        private TimeSpan _maxRetryTime;
+
+        public static TimeSpan MaxRetryTime
+        {
+            get { return Instance._maxRetryTime; }
+            set { Instance._maxRetryTime = value; }
+        }
+
         private TimeSpan _keyboardDelayBetweenKeys;
 
         public static TimeSpan KeyboardDelayBetweenKeys
@@ -59,20 +67,20 @@ namespace ruibarbo.core.Common
             set { Instance._mouseDurationOfMove = value; }
         }
 
+        private TimeSpan _delayWhenOpeningComboBox;
+
+        public static TimeSpan DelayWhenOpeningComboBox
+        {
+            get { return Instance._delayWhenOpeningComboBox; }
+            set { Instance._delayWhenOpeningComboBox = value; }
+        }
+
         private bool _screenshotOnFailedAssertion;
 
         public static bool ScreenshotOnFailedAssertion
         {
             get { return Instance._screenshotOnFailedAssertion; }
             set { Instance._screenshotOnFailedAssertion = value; }
-        }
-
-        private TimeSpan _maxRetryTime;
-
-        public static TimeSpan MaxRetryTime
-        {
-            get { return Instance._maxRetryTime; }
-            set { Instance._maxRetryTime = value; }
         }
     }
 }

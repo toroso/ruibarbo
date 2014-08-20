@@ -59,6 +59,15 @@ namespace ruibarbo.core.Common
         }
 
         /// <summary>
+        /// How long should we wait for the ComboBox popup to open after clicking it.
+        /// On fast computers, this can be set to zero. On slow computers you might need up to 100 ms.
+        /// </summary>
+        public TimeSpan DelayWhenOpeningComboBox
+        {
+            set { Configuration.DelayWhenOpeningComboBox = value; }
+        }
+
+        /// <summary>
         /// Should a screenshot be taken and saved to disk when an assertion fails?
         /// </summary>
         public bool ScreenshotOnFailedAssertion
