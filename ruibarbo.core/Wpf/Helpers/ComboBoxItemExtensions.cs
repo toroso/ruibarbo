@@ -18,16 +18,16 @@ namespace ruibarbo.core.Wpf.Helpers
             var itemsContainer = me.FindFirstAncestor<WpfComboBox>();
             itemsContainer.Open();
 
-            // Don't know why I sometimes need this. IsClickable reports true, but still an item in the ComboBox is not clickable.
-            if (Configuration.DelayWhenOpeningComboBox > TimeSpan.Zero)
-            {
-                System.Threading.Thread.Sleep(Configuration.DelayWhenOpeningComboBox);
-            }
-
             bool isVisible = Wait.Until(() => me.IsVisible);
             if (!isVisible)
             {
                 throw RuibarboException.StateFailed(me, x => x.IsVisible);
+            }
+
+            // Don't know why I sometimes need this. IsClickable reports true, but still an item in the ComboBox is not clickable.
+            if (Configuration.DelayWhenOpeningComboBox > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(Configuration.DelayWhenOpeningComboBox);
             }
 
             me.Click();
