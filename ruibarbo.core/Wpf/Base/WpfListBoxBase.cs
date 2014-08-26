@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using ruibarbo.core.ElementFactory;
-using ruibarbo.core.Search;
 using ruibarbo.core.Wpf.Invoker;
 
 namespace ruibarbo.core.Wpf.Base
@@ -37,44 +35,6 @@ namespace ruibarbo.core.Wpf.Base
                     .OfType<TWpfItem>()
                     .First(item => item.GetType() == typeof(TWpfItem))
                 : null;
-        }
-
-        public void ClickFirst<TItem>()
-            where TItem : class, ISearchSourceElement
-        {
-            ClickFirst<TItem>(By.Empty);
-        }
-
-        public void ClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
-            where TItem : class, ISearchSourceElement
-        {
-            ClickFirst<TItem>(byBuilders.Build());
-        }
-
-        public void ClickFirst<TItem>(params By[] bys)
-            where TItem : class, ISearchSourceElement
-        {
-            var item = FindFirstItem<TItem>(bys);
-            item.Click();
-        }
-
-        public void DoubleClickFirst<TItem>()
-            where TItem : class, ISearchSourceElement
-        {
-            DoubleClickFirst<TItem>(By.Empty);
-        }
-
-        public void DoubleClickFirst<TItem>(params Func<IByBuilder<TItem>, By>[] byBuilders)
-            where TItem : class, ISearchSourceElement
-        {
-            DoubleClickFirst<TItem>(byBuilders.Build());
-        }
-
-        public void DoubleClickFirst<TItem>(params By[] bys)
-            where TItem : class, ISearchSourceElement
-        {
-            var item = FindFirstItem<TItem>(bys);
-            item.DoubleClick();
         }
     }
 }

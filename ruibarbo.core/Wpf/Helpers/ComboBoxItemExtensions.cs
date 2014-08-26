@@ -1,5 +1,4 @@
 ﻿using System;
-
 using ruibarbo.core.Common;
 using ruibarbo.core.Search;
 using ruibarbo.core.Wpf.Base;
