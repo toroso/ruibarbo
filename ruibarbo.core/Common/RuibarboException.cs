@@ -45,6 +45,13 @@ namespace ruibarbo.core.Common
         {
         }
 
+        public static RuibarboException WithMessage(string format, params object[] args)
+        {
+            var screenCapture = CaptureScreenToFile("WithMessage");
+            var message = string.Format(format, args);
+            return new RuibarboException(message, screenCapture);
+        }
+
         internal static RuibarboException FindFailed(string soughtRelation, ISearchSourceElement sourceElement, string byAsString, string foundAsString)
         {
             // TODO: What if sourceElement does not have a name? What to show?
