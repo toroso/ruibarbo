@@ -1,4 +1,5 @@
 ﻿using ruibarbo.core.ElementFactory;
+using ruibarbo.core.Wpf.Invoker;
 
 namespace ruibarbo.core.Wpf.Base
 {
@@ -8,6 +9,11 @@ namespace ruibarbo.core.Wpf.Base
         public WpfRadioButtonBase(ISearchSourceElement searchParent, TNativeElement frameworkElement)
             : base(searchParent, frameworkElement)
         {
+        }
+
+        public bool? IsChecked
+        {
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.IsChecked); }
         }
     }
 }
