@@ -63,7 +63,8 @@ namespace ruibarbo.core.ElementFactory
 
         private IEnumerable<object> GetRootElementsImpl()
         {
-            return _factories.SelectMany(f => f.GetRootElements());
+            var distinctFactories = _factories.GroupBy(f => f.GetType()).Select(g => g.First()).ToArray();
+            return distinctFactories.SelectMany(f => f.GetRootElements());
         }
     }
 }
