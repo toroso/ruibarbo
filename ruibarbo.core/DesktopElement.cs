@@ -3,7 +3,7 @@ using ruibarbo.core.ElementFactory;
 
 namespace ruibarbo.core
 {
-    public sealed class DesktopElement : ISearchSourceElement
+    public class DesktopElement : ISearchSourceElement
     {
         internal DesktopElement()
         {
