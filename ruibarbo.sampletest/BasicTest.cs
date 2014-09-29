@@ -34,6 +34,9 @@ namespace ruibarbo.sampletest
         public void DoDaThing()
         {
             var window = _engine.Desktop.FindFirstChild<WpfWindow>(By.Name("WndMain"));
+
+            window.MoveTo(400, 400);
+
             Console.WriteLine("Found window, Element name path: '{0}'; class path: {1}", window.ElementNamePath(), window.ElementClassPath());
             var button = window.FindFirstChild<WpfButton>(By.Name("BtnSubmit"));
             Console.WriteLine("Found button, Element name path: '{0}'; class path: {1}", button.ElementNamePath(), button.ElementClassPath());

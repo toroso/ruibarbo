@@ -20,5 +20,14 @@ namespace ruibarbo.core.Wpf.Base
         {
             get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Title); }
         }
+
+        public void MoveTo(int x, int y)
+        {
+            OnUiThread.Invoke(this, frameworkElement =>
+                {
+                    frameworkElement.Left = x;
+                    frameworkElement.Top = y;
+                });
+        }
     }
 }
