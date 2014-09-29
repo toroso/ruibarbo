@@ -13,7 +13,12 @@ namespace ruibarbo.core.Wpf.Base
 
         public void MakeSureWindowIsTopmost()
         {
-            OnUiThread.Invoke(this, fe => fe.Activate());
+            OnUiThread.Invoke(this, frameworkElement => frameworkElement.Activate());
+        }
+
+        public string Title
+        {
+            get { return OnUiThread.Get(this, frameworkElement => frameworkElement.Title); }
         }
     }
 }
