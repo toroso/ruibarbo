@@ -5,10 +5,6 @@ namespace ruibarbo.core
 {
     public class DesktopElement : ISearchSourceElement
     {
-        internal DesktopElement()
-        {
-        }
-
         public string Name
         {
             get { return "Desktop"; }
