@@ -72,7 +72,7 @@ namespace ruibarbo.core
 
         public void Configure(Action<Configurator> cfgAction)
         {
-            cfgAction(new Configurator());
+            cfgAction(new Configurator(Configuration.Instance));
         }
 
         public void Start(IApplication application)

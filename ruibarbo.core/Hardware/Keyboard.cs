@@ -13,10 +13,10 @@ namespace ruibarbo.core.Hardware
             foreach (var ch in value)
             {
                 SendInput(new[] { InputSimulator.CharDown(ch), InputSimulator.CharUp(ch), });
-                Delay(Configuration.KeyboardDelayBetweenKeys);
+                Delay(Configuration.Instance.KeyboardDelayBetweenKeys);
             }
 
-            Delay(Configuration.KeyboardDelayAfterTyping);
+            Delay(Configuration.Instance.KeyboardDelayAfterTyping);
         }
 
         public static void TypeShortcut(params Key[] keys)

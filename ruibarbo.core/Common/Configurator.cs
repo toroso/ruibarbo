@@ -4,13 +4,20 @@ namespace ruibarbo.core.Common
 {
     public sealed class Configurator
     {
+        private readonly Configuration _configuration;
+
+        public Configurator(Configuration configuration)
+        {
+            _configuration = configuration;
+        }
+
         /// <summary>
         /// How long should we wait for a condition to become true? This duration is used when finding elements and when waiting
         /// for a state to become true, both internally and in explicitly stated assertions.
         /// </summary>
         public TimeSpan MaxRetryTime
         {
-            set { Configuration.MaxRetryTime = value; }
+            set { _configuration.MaxRetryTime = value; }
         }
 
         /// <summary>
@@ -20,7 +27,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan KeyboardDelayBetweenKeys
         {
-            set { Configuration.KeyboardDelayBetweenKeys = value; }
+            set { _configuration.KeyboardDelayBetweenKeys = value; }
         }
 
         /// <summary>
@@ -28,7 +35,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan KeyboardDelayAfterTyping
         {
-            set { Configuration.KeyboardDelayAfterTyping = value; }
+            set { _configuration.KeyboardDelayAfterTyping = value; }
         }
 
         /// <summary>
@@ -37,7 +44,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan MouseDelayAfterMove
         {
-            set { Configuration.MouseDelayAfterMove = value; }
+            set { _configuration.MouseDelayAfterMove = value; }
         }
 
         /// <summary>
@@ -46,7 +53,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan MouseDelayAfterClick
         {
-            set { Configuration.MouseDelayAfterClick = value; }
+            set { _configuration.MouseDelayAfterClick = value; }
         }
 
         /// <summary>
@@ -54,7 +61,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan MouseDelayBetweenDownAndUp
         {
-            set { Configuration.MouseDelayBetweenDownAndUp = value; }
+            set { _configuration.MouseDelayBetweenDownAndUp = value; }
         }
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan MouseDurationOfMove
         {
-            set { Configuration.MouseDurationOfMove = value; }
+            set { _configuration.MouseDurationOfMove = value; }
         }
 
         /// <summary>
@@ -72,7 +79,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public TimeSpan DelayWhenOpeningComboBox
         {
-            set { Configuration.DelayWhenOpeningComboBox = value; }
+            set { _configuration.DelayWhenOpeningComboBox = value; }
         }
 
         /// <summary>
@@ -80,7 +87,7 @@ namespace ruibarbo.core.Common
         /// </summary>
         public bool ScreenshotOnFailedAssertion
         {
-            set { Configuration.ScreenshotOnFailedAssertion = value; }
+            set { _configuration.ScreenshotOnFailedAssertion = value; }
         }
     }
 }

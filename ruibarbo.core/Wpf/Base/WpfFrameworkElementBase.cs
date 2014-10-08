@@ -71,10 +71,15 @@ namespace ruibarbo.core.Wpf.Base
 
         public virtual void Click()
         {
+            Click(x => { });
+        }
+
+        public virtual void Click(Action<Configurator> cfgAction)
+        {
             VerifyIsLoadedAndVisibleAndEnabled();
             this.BringIntoView();
             VerifyIsClickable();
-            Mouse.Click(this);
+            Mouse.Click(this, cfgAction);
         }
 
         public void DoubleClick()

@@ -8,7 +8,7 @@ namespace ruibarbo.core.Common
     {
         public static bool Until(Expression<Func<bool>> predicateExp)
         {
-            return Until(predicateExp, Configuration.MaxRetryTime);
+            return Until(predicateExp, Configuration.Instance.MaxRetryTime);
         }
 
         public static bool Until(Expression<Func<bool>> predicateExp, TimeSpan maxRetryTime)
@@ -34,7 +34,7 @@ namespace ruibarbo.core.Common
         public static TRet UntilNotNull<TRet>(Expression<Func<TRet>> funcExp)
             where TRet : class
         {
-            return UntilNotNull(funcExp, Configuration.MaxRetryTime);
+            return UntilNotNull(funcExp, Configuration.Instance.MaxRetryTime);
         }
 
         public static TRet UntilNotNull<TRet>(Expression<Func<TRet>> funcExp, TimeSpan maxRetryTime)

@@ -24,9 +24,9 @@ namespace ruibarbo.core.Wpf.Helpers
             }
 
             // Don't know why I sometimes need this. IsClickable reports true, but still an item in the ComboBox is not clickable.
-            if (Configuration.DelayWhenOpeningComboBox > TimeSpan.Zero)
+            if (Configuration.Instance.DelayWhenOpeningComboBox > TimeSpan.Zero)
             {
-                System.Threading.Thread.Sleep(Configuration.DelayWhenOpeningComboBox);
+                System.Threading.Thread.Sleep(Configuration.Instance.DelayWhenOpeningComboBox);
             }
 
             me.Click();

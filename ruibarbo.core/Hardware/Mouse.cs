@@ -8,18 +8,30 @@ namespace ruibarbo.core.Hardware
     {
         public static void Click(IClickable clickable)
         {
+            Click(clickable, cfg => { });
+        }
+
+        public static void Click(IClickable clickable, Action<Configurator> cfgAction)
+        {
             var point = clickable.ClickablePoint;
-            Click(point.X, point.Y);
+            Click(point.X, point.Y, cfgAction);
         }
 
         public static void Click(int x, int y)
         {
+            Click(x, y, cfg => { });
+        }
+
+        public static void Click(int x, int y, Action<Configurator> cfgAction)
+        {
+            var configuration = Configuration.Instance.Clone();
+            cfgAction(new Configurator(configuration));
             // TODO: Use Configuration.MouseDurationOfMove
             MoveCursor(x, y);
-            Delay(Configuration.MouseDelayAfterMove);
+            Delay(configuration.MouseDelayAfterMove);
 
             ClickLeftButton();
-            Delay(Configuration.MouseDelayAfterClick);
+            Delay(configuration.MouseDelayAfterClick);
         }
 
         public static void DoubleClick(IClickable clickable)
@@ -32,12 +44,12 @@ namespace ruibarbo.core.Hardware
         {
             // TODO: Use Configuration.MouseDurationOfMove
             MoveCursor(x, y);
-            Delay(Configuration.MouseDelayAfterMove);
+            Delay(Configuration.Instance.MouseDelayAfterMove);
 
             ClickLeftButton();
-            Delay(Configuration.MouseDelayBetweenDownAndUp);
+            Delay(Configuration.Instance.MouseDelayBetweenDownAndUp);
             ClickLeftButton();
-            Delay(Configuration.MouseDelayAfterClick);
+            Delay(Configuration.Instance.MouseDelayAfterClick);
         }
 
         public static void MoveCursor(IClickable clickable)
@@ -54,7 +66,7 @@ namespace ruibarbo.core.Hardware
         private static void ClickLeftButton()
         {
             LeftButtonDown();
-            Delay(Configuration.MouseDelayBetweenDownAndUp);
+            Delay(Configuration.Instance.MouseDelayBetweenDownAndUp);
             LeftButtonUp();
         }
 

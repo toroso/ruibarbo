@@ -39,7 +39,7 @@ namespace ruibarbo.core.Common
 
         public static Uri CaptureToFile(string description)
         {
-            if (!Configuration.ScreenshotOnFailedAssertion)
+            if (!Configuration.Instance.ScreenshotOnFailedAssertion)
             {
                 return null;
             }
