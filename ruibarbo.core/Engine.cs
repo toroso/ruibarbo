@@ -58,6 +58,7 @@ namespace ruibarbo.core
                     x.KeyboardDelayAfterTyping = TimeSpan.Zero;
                     x.MouseDelayAfterMove = TimeSpan.FromMilliseconds(40);
                     x.MouseDelayAfterClick = TimeSpan.FromMilliseconds(20);
+                    x.MouseDelayBetweenDownAndUp = TimeSpan.Zero;
                     x.MouseDurationOfMove = TimeSpan.Zero;
                     x.DelayWhenOpeningComboBox = TimeSpan.Zero;
                     x.ScreenshotOnFailedAssertion = true;

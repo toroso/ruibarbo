@@ -12,21 +12,11 @@ namespace ruibarbo.core.Hardware
         {
             foreach (var ch in value)
             {
-                var inputs = new[] { InputSimulator.CharDown(ch), InputSimulator.CharUp(ch), };
-                SendInput(inputs);
-
-                var keyboardDelayBetweenKeys = Configuration.KeyboardDelayBetweenKeys;
-                if (keyboardDelayBetweenKeys > TimeSpan.Zero)
-                {
-                    System.Threading.Thread.Sleep(keyboardDelayBetweenKeys);
-                }
+                SendInput(new[] { InputSimulator.CharDown(ch), InputSimulator.CharUp(ch), });
+                Delay(Configuration.KeyboardDelayBetweenKeys);
             }
 
-            var keyboardDelayAfterTyping = Configuration.KeyboardDelayAfterTyping;
-            if (keyboardDelayAfterTyping > TimeSpan.Zero)
-            {
-                System.Threading.Thread.Sleep(keyboardDelayAfterTyping);
-            }
+            Delay(Configuration.KeyboardDelayAfterTyping);
         }
 
         public static void TypeShortcut(params Key[] keys)
@@ -43,6 +33,14 @@ namespace ruibarbo.core.Hardware
             if (successful != inputs.Length)
             {
                 throw RuibarboException.HardwareFailure(Marshal.GetLastWin32Error());
+            }
+        }
+
+        private static void Delay(TimeSpan keyboardDelayAfterTyping)
+        {
+            if (keyboardDelayAfterTyping > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(keyboardDelayAfterTyping);
             }
         }
     }

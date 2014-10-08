@@ -50,6 +50,14 @@ namespace ruibarbo.core.Common
         }
 
         /// <summary>
+        /// Duration between clicking the mouse button and releasing it.
+        /// </summary>
+        public TimeSpan MouseDelayBetweenDownAndUp
+        {
+            set { Configuration.MouseDelayBetweenDownAndUp = value; }
+        }
+
+        /// <summary>
         /// A duration of zero means all mouse movements are immediate. Setting this duration to non-zero,
         /// you will see the mouse slowely move from start to end point.
         /// </summary>

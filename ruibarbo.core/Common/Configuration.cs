@@ -59,6 +59,14 @@ namespace ruibarbo.core.Common
             set { Instance._mouseDelayAfterClick = value; }
         }
 
+        private TimeSpan mouseDelayBetweenDownAndUp;
+
+        public static TimeSpan MouseDelayBetweenDownAndUp
+        {
+            get { return Instance.mouseDelayBetweenDownAndUp; }
+            set { Instance.mouseDelayBetweenDownAndUp = value; }
+        }
+
         private TimeSpan _mouseDurationOfMove;
 
         public static TimeSpan MouseDurationOfMove

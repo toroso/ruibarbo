@@ -16,18 +16,10 @@ namespace ruibarbo.core.Hardware
         {
             // TODO: Use Configuration.MouseDurationOfMove
             MoveCursor(x, y);
-            var mouseDelayAfterMove = Configuration.MouseDelayAfterMove;
-            if (mouseDelayAfterMove > TimeSpan.Zero)
-            {
-                System.Threading.Thread.Sleep(mouseDelayAfterMove);
-            }
+            Delay(Configuration.MouseDelayAfterMove);
 
             ClickLeftButton();
-            var mouseDelayAfterClick = Configuration.MouseDelayAfterClick;
-            if (mouseDelayAfterClick > TimeSpan.Zero)
-            {
-                System.Threading.Thread.Sleep(mouseDelayAfterClick);
-            }
+            Delay(Configuration.MouseDelayAfterClick);
         }
 
         public static void DoubleClick(IClickable clickable)
@@ -40,19 +32,12 @@ namespace ruibarbo.core.Hardware
         {
             // TODO: Use Configuration.MouseDurationOfMove
             MoveCursor(x, y);
-            var mouseDelayAfterMove = Configuration.MouseDelayAfterMove;
-            if (mouseDelayAfterMove > TimeSpan.Zero)
-            {
-                System.Threading.Thread.Sleep(mouseDelayAfterMove);
-            }
+            Delay(Configuration.MouseDelayAfterMove);
 
             ClickLeftButton();
+            Delay(Configuration.MouseDelayBetweenDownAndUp);
             ClickLeftButton();
-            var mouseDelayAfterClick = Configuration.MouseDelayAfterClick;
-            if (mouseDelayAfterClick > TimeSpan.Zero)
-            {
-                System.Threading.Thread.Sleep(mouseDelayAfterClick);
-            }
+            Delay(Configuration.MouseDelayAfterClick);
         }
 
         public static void MoveCursor(IClickable clickable)
@@ -68,16 +53,35 @@ namespace ruibarbo.core.Hardware
 
         private static void ClickLeftButton()
         {
-            var inputs = new[]
-                {
-                    InputSimulator.LeftMouseButtonDown(),
-                    InputSimulator.LeftMouseButtonUp(),
-                };
+            LeftButtonDown();
+            Delay(Configuration.MouseDelayBetweenDownAndUp);
+            LeftButtonUp();
+        }
 
+        private static void LeftButtonDown()
+        {
+            SendInput(new[] { InputSimulator.LeftMouseButtonDown() });
+        }
+
+        private static void LeftButtonUp()
+        {
+            SendInput(new[] { InputSimulator.LeftMouseButtonUp(), });
+        }
+
+        private static void SendInput(InputSimulator.INPUT[] inputs)
+        {
             var successful = InputSimulator.SendInput((UInt32)inputs.Length, inputs, Marshal.SizeOf(typeof(InputSimulator.INPUT)));
             if (successful != inputs.Length)
             {
                 throw RuibarboException.HardwareFailure(Marshal.GetLastWin32Error());
+            }
+        }
+
+        private static void Delay(TimeSpan mouseDelayAfterMove)
+        {
+            if (mouseDelayAfterMove > TimeSpan.Zero)
+            {
+                System.Threading.Thread.Sleep(mouseDelayAfterMove);
             }
         }
     }
