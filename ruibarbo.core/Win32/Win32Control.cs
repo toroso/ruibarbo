@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+
+using ruibarbo.core.Common;
 using ruibarbo.core.ElementFactory;
 using ruibarbo.core.Hardware;
 using ruibarbo.core.Search;
@@ -87,10 +89,15 @@ namespace ruibarbo.core.Win32
 
         public void Click()
         {
+            Click(x => { });
+        }
+
+        public void Click(Action<Configurator> cfgAction)
+        {
             var bounds = this.GetBoundsOnScreen();
             var centerX = (int)(bounds.X + bounds.Width / 2);
             var centerY = (int)(bounds.Y + bounds.Height / 2);
-            Mouse.Click(centerX, centerY);
+            Mouse.Click(centerX, centerY, cfgAction);
         }
 
         public void DoubleClick()
