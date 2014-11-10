@@ -139,6 +139,7 @@ namespace ruibarbo.core
                 Win32Api.CloseAllWindows();
                 _uiThread.Join(TimeSpan.FromMilliseconds(5000));
             }
+            Application.Current.Resources.MergedDictionaries.Clear();
         }
 
         private void OnCurrentDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
